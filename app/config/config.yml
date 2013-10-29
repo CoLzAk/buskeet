@@ -75,6 +75,6 @@ swiftmailer:
     spool:     { type: memory }
 
 fos_user:
-    db_driver: mongodb # other valid values are 'mongodb', 'couchdb' and 'propel'
+    db_driver: mongodb
     firewall_name: main
     user_class: Colzak\UserBundle\Document\User
