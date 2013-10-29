@@ -11,6 +11,8 @@
         "symfony/symfony":                      "2.3.*",
         "doctrine/orm":                         ">=2.2.3,<2.4-dev",
         "doctrine/doctrine-bundle":             "1.2.*",
+        "doctrine/mongodb-odm":                 "1.0.*@dev",
+        "doctrine/mongodb-odm-bundle":          "3.0.*@dev",
         "twig/extensions":                      "1.0.*",
         "symfony/assetic-bundle":               "2.3.*",
         "symfony/swiftmailer-bundle":           "2.3.*",
@@ -25,7 +27,8 @@
         "stof/doctrine-extensions-bundle":      "dev-master",
         "friendsofsymfony/rest-bundle":         "0.12.0",
         "friendsofsymfony/user-bundle":         "dev-master",
-        "friendsofsymfony/facebook-bundle":     "dev-master"
+        "friendsofsymfony/facebook-bundle":     "dev-master",
+        "friendsofsymfony/jsrouting-bundle":    "~1.1"
     },
     "scripts": {
         "post-install-cmd": [
