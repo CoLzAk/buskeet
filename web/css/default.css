@@ -2,6 +2,10 @@ body {
     padding-top: 60px;
 }
 
+.clzk-navbar {
+    padding-top: 7px;
+}
+
 .clzk-pre-body, .clzk-body {
     min-height: 400px;
     border-bottom: 3px #ccc solid;
