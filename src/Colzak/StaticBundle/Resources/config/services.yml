@@ -1,0 +1,7 @@
+parameters:
+#    colzak_static.example.class: Colzak\StaticBundle\Example
+
+services:
+#    colzak_static.example:
+#        class: %colzak_static.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

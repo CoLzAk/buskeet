@@ -1,0 +1,66 @@
+{% extends 'ColzakStaticBundle::layout.html.twig' %}
+
+{% block pre_body %}
+    <div class="clzk-pre-body">
+        <div class="container">
+            <div class="clzk-home-container">
+                <div class="col-md-8 col-md-offset-2">
+                    <blockquote class="pull-right">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                        <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
+                    </blockquote>
+                </div>
+
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <!-- <label class="col-lg-3 control-label" for="clzk-city">Trouver un musicien à</label> -->
+                            <div class="col-lg-9 input-group">
+                                <input type="text" class="form-control" id="clzk-city" placeholder="Où cherchez-vous ?">
+                            </div>
+                            <div class="col-lg-3">
+                                <button class="btn btn-primary btn-block" type="button">Rechercher</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <h1>Les derniers musiciens qui ont choisit #logo</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="clzk-home-last-member">
+                test
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="clzk-home-last-member">
+                test
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="clzk-home-last-member">
+                test
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="clzk-home-last-member">
+                test
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="clzk-home-last-member">
+                test
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="clzk-home-last-member">
+                test
+            </div>
+        </div>
+    </div>
+{% endblock %}

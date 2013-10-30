@@ -2,12 +2,61 @@
 <html>
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            {% stylesheets
+                "bootstrap/css/bootstrap.min.css"
+                "css/default.css"
+            %}
+                <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+            {% endstylesheets %}
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <header class="clzk-header">
+            {% block header %}
+                <div class="navbar navbar-default navbar-fixed-top">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">logo</div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <a href="#" class="btn btn-default btn-block">Inscription</a>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <a href="#" class="btn btn-default btn-block">Connexion</a>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="#" class="btn btn-primary btn-block">Je me fais connaître</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+        </header>
+        <div class="clzk-body">
+            {% block pre_body %}{% endblock %}
+            <div class="container">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+        <footer class="clzk-footer">
+            {% block footer %}
+                youhou
+            {% endblock %}
+        </footer>
+        {% block javascripts %}
+            {% javascripts
+                "js/jquery/jquery-2.0.2.min.js"
+                "bootstrap/js/bootstrap.min.js"
+            %}
+                <script src="{{ asset_url }}" type="text/javascript"></script>
+            {% endjavascripts %}
+        {% endblock %}
     </body>
 </html>
