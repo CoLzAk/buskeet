@@ -1,3 +1,7 @@
+colzak_geo:
+    resource: "@ColzakGeoBundle/Resources/config/routing.yml"
+    prefix:   /
+
 colzak_user:
     resource: "@ColzakUserBundle/Resources/config/routing.yml"
     prefix:   /

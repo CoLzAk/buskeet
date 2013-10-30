@@ -1,0 +1,7 @@
+parameters:
+#    colzak_geo.example.class: Colzak\GeoBundle\Example
+
+services:
+#    colzak_geo.example:
+#        class: %colzak_geo.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
