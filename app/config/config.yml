@@ -78,3 +78,7 @@ fos_user:
     db_driver: mongodb
     firewall_name: main
     user_class: Colzak\UserBundle\Document\User
+    registration:
+        form:
+            type: colzak_user_registration
+            validation_groups:  [Registration]

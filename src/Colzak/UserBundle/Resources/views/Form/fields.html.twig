@@ -1,0 +1,14 @@
+{% block form_label %}
+{% spaceless %}
+    {{ label|trans({}, translation_domain) }}
+{% endspaceless %}
+{% endblock form_label %}
+
+{% block form_widget_simple %}
+{% spaceless %}
+    {% set type = type|default('text') %}
+    <div class="form-group">
+    	<input type="{{ type }}" {{ block('widget_attributes') }} placeholder="{{ block('form_label') }}" class="form-control">
+    </div>
+{% endspaceless %}
+{% endblock form_widget_simple %}

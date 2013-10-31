@@ -8,6 +8,7 @@
             {% stylesheets
                 "bootstrap/css/bootstrap.min.css"
                 "css/default.css"
+                "css/theme.css"
                 filter="cssrewrite"
             %}
                 <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
@@ -21,31 +22,42 @@
                 <div class="navbar navbar-default navbar-fixed-top clzk-navbar">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-6">logo</div>
+                            <div class="col-md-9">
+                                <div class="navbar-header">
+                                    <a class="navbar-brand" href="#">Brand</a>
+                                </div>
+                                <ul class="nav navbar-nav navbar-right clzk-nav">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Inscription<b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li> {{ render(controller('FOSUserBundle:Registration:register')) }} </li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Connexion<b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li> {{ render(controller('FOSUserBundle:Security:login')) }} </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="#" class="btn btn-block btn-primary">Je me fais connaître</a>
+                            </div>
+                        </div>
+                        {#}<div class="row">
+                            <div class="col-md-6"><a class="navbar-brand" href="#">Logo</a></div>
                             <div class="col-md-6">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <ul class="nav navbar-nav navbar-right clzk-nav">
-                                            <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Inscription<b class="caret"></b></a>
-                                                <ul class="dropdown-menu">
-                                                    <li> {{ render(controller('FOSUserBundle:Registration:register')) }} </li>
-                                                </ul>
-                                            </li>
-                                            <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Connexion<b class="caret"></b></a>
-                                                <ul class="dropdown-menu">
-                                                    <li> {{ render(controller('FOSUserBundle:Security:login')) }} </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                        
                                     </div>
                                     <div class="col-md-6">
-                                        <a href="#" class="btn btn-primary btn-block">Je me fais connaître</a>
+                                        
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>{#}
                     </div>
                 </div>
             {% endblock %}

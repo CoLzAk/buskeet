@@ -5,3 +5,9 @@ services:
 #    colzak_user.example:
 #        class: %colzak_user.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+
+    colzak_user.registration.form.type:
+        class: Colzak\UserBundle\Form\Type\RegistrationFormType
+        arguments: [%fos_user.model.user.class%, "@service_container"]
+        tags:
+            - { name: form.type, alias: colzak_user_registration }

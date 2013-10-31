@@ -1,14 +1,6 @@
 body {
     padding-top: 60px;
-}
-
-.clzk-navbar {
-    padding-top: 10px;
-}
-
-.clzk-nav > li > a {
-    padding-top: 12px;
-    padding-bottom: 12px;
+    background: #f7f7f7;
 }
 
 .clzk-pre-body, .clzk-body {
@@ -26,7 +18,12 @@ body {
     margin: 15px auto;
     border: 1px #ccc solid;
     padding-top: 15px;
+    background: #fff;
 }
 .glyphicon {
     top: 0;
+}
+
+.clzk-footer {
+    background: #484E55;
 }
