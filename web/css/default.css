@@ -3,7 +3,12 @@ body {
 }
 
 .clzk-navbar {
-    padding-top: 7px;
+    padding-top: 10px;
+}
+
+.clzk-nav > li > a {
+    padding-top: 12px;
+    padding-bottom: 12px;
 }
 
 .clzk-pre-body, .clzk-body {
@@ -18,8 +23,10 @@ body {
 
 .clzk-home-last-member {
     height: 200px;
-    width:100%;
-    margin: 20px auto;
+    margin: 15px auto;
     border: 1px #ccc solid;
-    border-radius: 3px;
+    padding-top: 15px;
+}
+.glyphicon {
+    top: 0;
 }
