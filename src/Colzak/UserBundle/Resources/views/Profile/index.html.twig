@@ -1,0 +1,95 @@
+{% extends 'ColzakUserBundle::layout.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-4">
+            <div class="clzk-profile-picture-container">
+                <img src="/img/user_256.png" alt="..." class="img-thumbnail clzk-profile-picture">
+            </div>
+            <div class="clzk-profile-msg-btn-container">
+                <a href="#" class="btn btn-block btn-primary btn-lg">Message</a>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <h1 class="text-left">{{ [targetUser.profile.firstname, targetUser.profile.lastname]|join(' ') }}</h1>
+            <hr>
+            <div class="row">
+                <div class="col-md-3">
+                    <span>Ville: Bordeaux</span>
+                </div>
+                <div class="col-md-3">
+                    <span>Age: 25 ans</span>
+                </div>
+                <div class="col-md-3">
+                    <span>Expérience: Héro
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <hr>
+            <p class="text-center">
+                Bacon ipsum dolor sit amet turkey pig kevin sausage t-bone andouille ribeye, tail tongue bacon brisket fatback drumstick flank hamburger. Salami ball tip chicken t-bone, doner shank leberkas pork chop sausage turducken brisket boudin bresaola. Chuck prosciutto frankfurter pork loin ham hock strip steak. Short ribs capicola frankfurter venison pork, ground round meatloaf ribeye beef pork belly brisket.
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="text-left">Styles musicaux</span>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-unstyled">
+                        <li>Reggae</li>
+                        <li>Séga</li>
+                        <li>Maloya</li>
+                        <li>Pop/Folk</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="text-left">Instruments</span>
+                    {% if targetUser == app.user %}
+                        <a href="#" class="pull-right glyphicon glyphicon-edit"></a>
+                    {% endif %}
+                </div>
+                <div class="panel-body">
+                    {% if targetUser.profile.portfolio is not null %}
+                        <ul class="list-unstyled">
+                            {% for instrument in targetUser.profile.portfolio.instruments if targetUser.profile.portfolio.instruments|length > 0 %}
+                                <li>{{ instrument }}</li>
+                            {% else %}
+                                <li>vide</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        vide
+                    {% endif %}
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="text-left">Influences</span>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-unstyled">
+                        <li>Moriarty</li>
+                        <li>John Butler Trio</li>
+                        <li>Patrice</li>
+                        <li>Aldebert</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            test
+        </div>
+    </div>
+{% endblock %}
+{% block extra_javascripts %}
+    {% javascripts
+        "js/profile.js"
+    %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
+{% endblock %}

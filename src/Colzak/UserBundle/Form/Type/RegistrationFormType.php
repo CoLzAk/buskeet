@@ -30,20 +30,24 @@ class RegistrationFormType extends BaseType
 
         $builder
             ->add('email', 'email', array('label' => 'Email'))
-            ->add('username', null, array('label' => 'Nom d\'utilisateur'))
+            ->add('username', 'hidden')
             ->add('plainPassword', 'repeated', array(
                 'type' => 'password',
                 'first_options' => array('label' => 'Mot de passe'),
                 'second_options' => array('label' => 'Confirmez votre mot de passe'),
                 'invalid_message' => 'fos_user.password.mismatch',
             ))
+            ->add('profile', new ProfileFormType());
         ;
+
+        $builder->addEventSubscriber($this->container->get('colzak_user.registration.form.eventlistener'));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'Colzak\UserBundle\Document\User',
+            'intention'  => 'registration',
         ));
     }
 

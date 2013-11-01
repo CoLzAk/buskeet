@@ -1,0 +1,3 @@
+colzak_music_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: ColzakMusicBundle:Default:index }

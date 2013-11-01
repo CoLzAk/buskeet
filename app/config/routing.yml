@@ -1,3 +1,7 @@
+colzak_music:
+    resource: "@ColzakMusicBundle/Resources/config/routing.yml"
+    prefix:   /
+
 colzak_static:
     resource: "@ColzakStaticBundle/Resources/config/routing.yml"
     prefix:   /

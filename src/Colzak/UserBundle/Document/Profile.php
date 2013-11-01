@@ -6,10 +6,13 @@ namespace Colzak\UserBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * @MongoDB\Document
+ * @MongoDB\Document()
  */
 class Profile
 {
+    const GENDER_MALE           = 'MALE';
+    const GENDER_FEMALE         = 'FEMALE';
+
     /**
      * @MongoDB\Id(strategy="auto")
      */
@@ -39,6 +42,11 @@ class Profile
      * @MongoDB\String
      */
     protected $description;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Portfolio", cascade="all")
+     */
+    protected $portfolio;
 
     /**
      * Get id
@@ -158,5 +166,27 @@ class Profile
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set portfolio
+     *
+     * @param Colzak\UserBundle\Document\Portfolio $portfolio
+     * @return self
+     */
+    public function setPortfolio(\Colzak\UserBundle\Document\Portfolio $portfolio)
+    {
+        $this->portfolio = $portfolio;
+        return $this;
+    }
+
+    /**
+     * Get portfolio
+     *
+     * @return Colzak\UserBundle\Document\Portfolio $portfolio
+     */
+    public function getPortfolio()
+    {
+        return $this->portfolio;
     }
 }

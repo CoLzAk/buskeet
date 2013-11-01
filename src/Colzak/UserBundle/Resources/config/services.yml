@@ -11,3 +11,7 @@ services:
         arguments: [%fos_user.model.user.class%, "@service_container"]
         tags:
             - { name: form.type, alias: colzak_user_registration }
+
+    colzak_user.registration.form.eventlistener:
+        class: Colzak\UserBundle\Form\EventListener\RegistrationSubscriber
+        arguments: ["@doctrine.odm.mongodb.document_manager"]

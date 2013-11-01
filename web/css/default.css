@@ -27,3 +27,23 @@ body {
 .clzk-footer {
     background: #484E55;
 }
+
+.clzk-dropdown-title {
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 10px auto;
+}
+
+.clzk-profile-picture-container {
+    min-height: 256px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.clzk-profile-picture-container img{
+    width: 100%;
+}
+
+.clzk-profile-msg-btn-container {
+    margin-bottom: 30px;
+}

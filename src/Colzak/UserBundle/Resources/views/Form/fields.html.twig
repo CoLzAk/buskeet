@@ -8,7 +8,37 @@
 {% spaceless %}
     {% set type = type|default('text') %}
     <div class="form-group">
-    	<input type="{{ type }}" {{ block('widget_attributes') }} placeholder="{{ block('form_label') }}" class="form-control">
+    	<input type="{{ type }}" {{ block('widget_attributes') }} placeholder="{{ block('form_label') }}" class="form-control" {% if value is not empty %}value="{{ value }}" {% endif %}>
     </div>
 {% endspaceless %}
 {% endblock form_widget_simple %}
+
+{% block date_widget %}
+{% spaceless %}
+    {% if widget == 'single_text' %}
+        {{ block('form_widget_simple') }}
+    {% else %}
+        <div {{ block('widget_container_attributes') }} class="row">
+            {{ date_pattern|replace({
+                '{{ year }}': ['<div class="col-md-4">', form_widget(form.year, {'attr' : {'class': 'form-control'}}), '</div>']|join,
+                '{{ month }}': ['<div class="col-md-4">', form_widget(form.month, {'attr' : {'class': 'form-control'}}), '</div>']|join,
+                '{{ day }}': ['<div class="col-md-4">', form_widget(form.day, {'attr' : {'class': 'form-control'}}), '</div>']|join,
+            })|raw }}
+        </div>
+    {% endif %}
+{% endspaceless %}
+{% endblock date_widget %}
+
+{% block choice_widget_expanded %}
+{% spaceless %}
+    <div {{ block('widget_container_attributes') }}>
+        {% for child in form %}
+	        <div class="radio-inline col-md-5 col-md-offset-1">
+	            <label for="{{ id }}_{{ loop.index-1 }}">
+	                {{ form_widget(child) }}{{ form_label(child) }}
+	            </label>
+	        </div>
+        {% endfor %}
+    </div>
+{% endspaceless %}
+{% endblock choice_widget_expanded %}

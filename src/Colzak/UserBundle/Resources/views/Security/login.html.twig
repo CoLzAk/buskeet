@@ -1,9 +1,11 @@
 <div class="col-md-12">
+    <p class="text-left clzk-dropdown-title">Mes identifiants</p>
+    <hr>
     <form action="{{ path("fos_user_security_check") }}" method="post" role="form">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
         <div class="form-group">
-            <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control" placeholder="Nom d'utilisateur" />
+            <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control" placeholder="Nom d'utilisateur ou Email" />
         </div>
         <div class="form-group">
             <input type="password" id="password" name="_password" required="required" class="form-control" placeholder="Mot de passe" />
@@ -13,6 +15,6 @@
               <input type="checkbox" id="remember_me" name="_remember_me" value="on">Se souvenir de moi
             </label>
         </div>
-        <button type="submit" id="_submit" name="_submit" class="btn btn-default btn-block">Connexion</button>
+        <button type="submit" id="_submit" name="_submit" class="btn btn-default btn-block">Je me connecte</button>
     </form>
 </div>
