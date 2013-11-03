@@ -1,0 +1,4 @@
+cariboo_cn_users:
+    type:     rest
+    resource: Colzak\UserBundle\Controller\UsersController
+    name_prefix:  users_

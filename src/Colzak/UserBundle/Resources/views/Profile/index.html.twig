@@ -1,95 +1,139 @@
 {% extends 'ColzakUserBundle::layout.html.twig' %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-md-4">
-            <div class="clzk-profile-picture-container">
-                <img src="/img/user_256.png" alt="..." class="img-thumbnail clzk-profile-picture">
+    <div id="clzk-profile-region"></div>
+
+    <script type="text/template" id="clzk-profile-layout">
+        <div class="row">
+            <div class="col-md-4">
+                <div id="clzk-profile-picture-region"></div>
+                <div id="clzk-profile-message-region"></div>
             </div>
-            <div class="clzk-profile-msg-btn-container">
-                <a href="#" class="btn btn-block btn-primary btn-lg">Message</a>
+            <div class="col-md-8">
+                <div id="clzk-profile-information-region"></div>
             </div>
         </div>
-        <div class="col-md-8">
-            <h1 class="text-left">{{ [targetUser.profile.firstname, targetUser.profile.lastname]|join(' ') }}</h1>
-            <hr>
-            <div class="row">
-                <div class="col-md-3">
-                    <span>Ville: Bordeaux</span>
-                </div>
-                <div class="col-md-3">
-                    <span>Age: 25 ans</span>
-                </div>
-                <div class="col-md-3">
-                    <span>Expérience: Héro
-                </div>
-                <div class="col-md-3"></div>
+        <div class="row">
+            <div class="col-md-4">
+                <div id="clzk-profile-portfolio-region"></div>
             </div>
-            <hr>
-            <p class="text-center">
-                Bacon ipsum dolor sit amet turkey pig kevin sausage t-bone andouille ribeye, tail tongue bacon brisket fatback drumstick flank hamburger. Salami ball tip chicken t-bone, doner shank leberkas pork chop sausage turducken brisket boudin bresaola. Chuck prosciutto frankfurter pork loin ham hock strip steak. Short ribs capicola frankfurter venison pork, ground round meatloaf ribeye beef pork belly brisket.
-            </p>
+            <div class="col-md-8">
+                test
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <span class="text-left">Styles musicaux</span>
-                </div>
-                <div class="panel-body">
+    </script>
+
+    <script type="text/template" id="clzk-profile-picture-template">
+        <div class="clzk-profile-picture-container">
+            <img src="/img/user_256.png" alt="..." class="img-thumbnail clzk-profile-picture">
+        </div>
+    </script>
+
+    <script type="text/template" id="clzk-profile-message-template">
+        <div class="clzk-profile-msg-btn-container">
+            <a href="#" class="btn btn-block btn-primary btn-lg">Message</a>
+        </div>
+    </script>
+
+    <script type="text/template" id="clzk-profile-information-template">
+        <a href="#" class="edit-btn">edit</a>
+        <h1 class="text-left"><span id="profile-firstname"></span>&nbsp;<span id="profile-lastname"></span></h1>
+        <hr>
+        <div class="row">
+            <div class="col-md-3">
+                <span>Ville: Bordeaux</span>
+            </div>
+            <div class="col-md-3">
+                <span>Age: 25 ans</span>
+            </div>
+            <div class="col-md-3">
+                <span>Expérience: Héro
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <hr>
+        <p class="text-center">
+            Bacon ipsum dolor sit amet turkey pig kevin sausage t-bone andouille ribeye, tail tongue bacon brisket fatback drumstick flank hamburger. Salami ball tip chicken t-bone, doner shank leberkas pork chop sausage turducken brisket boudin bresaola. Chuck prosciutto frankfurter pork loin ham hock strip steak. Short ribs capicola frankfurter venison pork, ground round meatloaf ribeye beef pork belly brisket.
+        </p>
+    </script>
+
+    <script type="text/template" id="clzk-profile-portfolio-template">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="text-left">Styles musicaux</span>
+            </div>
+            <div class="panel-body">
+                <ul class="list-unstyled">
+                    <li>Reggae</li>
+                    <li>Séga</li>
+                    <li>Maloya</li>
+                    <li>Pop/Folk</li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="text-left">Instruments</span>
+                {#% if targetUser == app.user %}
+                    <a href="#" class="pull-right glyphicon glyphicon-edit"></a>
+                {% endif %#}
+            </div>
+            <div class="panel-body">
+                {#% if targetUser.portfolio is not null %}
                     <ul class="list-unstyled">
-                        <li>Reggae</li>
-                        <li>Séga</li>
-                        <li>Maloya</li>
-                        <li>Pop/Folk</li>
+                        {% for instrument in targetUser.portfolio.instruments if targetUser.portfolio.instruments|length > 0 %}
+                            <li>{{ instrument }}</li>
+                        {% else %}
+                            <li>vide</li>
+                        {% endfor %}
                     </ul>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <span class="text-left">Instruments</span>
-                    {% if targetUser == app.user %}
-                        <a href="#" class="pull-right glyphicon glyphicon-edit"></a>
-                    {% endif %}
-                </div>
-                <div class="panel-body">
-                    {% if targetUser.profile.portfolio is not null %}
-                        <ul class="list-unstyled">
-                            {% for instrument in targetUser.profile.portfolio.instruments if targetUser.profile.portfolio.instruments|length > 0 %}
-                                <li>{{ instrument }}</li>
-                            {% else %}
-                                <li>vide</li>
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        vide
-                    {% endif %}
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <span class="text-left">Influences</span>
-                </div>
-                <div class="panel-body">
-                    <ul class="list-unstyled">
-                        <li>Moriarty</li>
-                        <li>John Butler Trio</li>
-                        <li>Patrice</li>
-                        <li>Aldebert</li>
-                    </ul>
-                </div>
+                {% else %}
+                    vide
+                {% endif %#}
             </div>
         </div>
-        <div class="col-md-8">
-            test
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="text-left">Influences</span>
+            </div>
+            <div class="panel-body">
+                <ul class="list-unstyled">
+                    <li>Moriarty</li>
+                    <li>John Butler Trio</li>
+                    <li>Patrice</li>
+                    <li>Aldebert</li>
+                </ul>
+            </div>
         </div>
-    </div>
+    </script>
+
+
+    
 {% endblock %}
 {% block extra_javascripts %}
     {% javascripts
-        "js/profile.js"
+        "js/vendor/underscore-1.4.4.min.js"
+        "js/vendor/backbone-1.0.0.min.js"
+        "js/vendor/backbone.marionette-1.0.1.min.js"
+        "js/vendor/backbone.stickit.min.js"
+        "js/app/App.js"
+        "js/app/Profile.js"
+        "js/app/views/ProfilePictureView.js"
+        "js/app/views/ProfileMessageView.js"
+        "js/app/views/ProfileInformationView.js"
+        "js/app/views/ProfilePortfolioView.js"
+        "js/app/models/User.js"
     %}
         <script src="{{ asset_url }}" type="text/javascript"></script>
     {% endjavascripts %}
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var options = {
+            username: "{{ username }}",
+            path: "{{ path(app.request.attributes.get('_route')) }}"
+        };
+        App.start(options);
+    })
+    </script>
 {% endblock %}

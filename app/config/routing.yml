@@ -14,6 +14,13 @@ colzak_user:
     resource: "@ColzakUserBundle/Resources/config/routing.yml"
     prefix:   /
 
+cariboo_cn_user_api:
+    resource: "@ColzakUserBundle/Resources/config/routing_api.yml"
+    prefix:   /api
+    type:     rest
+    options:
+        expose: true
+
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
@@ -32,4 +39,7 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 

@@ -1,3 +1,8 @@
 $(document).ready(function() {
-    console.log('start');
+	var options = {
+
+	};
+
+	
+    App.start(options);
 });

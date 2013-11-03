@@ -44,11 +44,6 @@ class Profile
     protected $description;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Portfolio", cascade="all")
-     */
-    protected $portfolio;
-
-    /**
      * Get id
      *
      * @return id $id
@@ -166,27 +161,5 @@ class Profile
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Set portfolio
-     *
-     * @param Colzak\UserBundle\Document\Portfolio $portfolio
-     * @return self
-     */
-    public function setPortfolio(\Colzak\UserBundle\Document\Portfolio $portfolio)
-    {
-        $this->portfolio = $portfolio;
-        return $this;
-    }
-
-    /**
-     * Get portfolio
-     *
-     * @return Colzak\UserBundle\Document\Portfolio $portfolio
-     */
-    public function getPortfolio()
-    {
-        return $this->portfolio;
     }
 }
