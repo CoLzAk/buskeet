@@ -11,6 +11,13 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
         }
     });
 
+    ModalLayout = Backbone.Marionette.Layout.extend({
+        template: "#clzk-modal-layout",
+        regions: {
+            modalContentRegion: "#clzk-modal-content-region"
+        }
+    });
+
 	UserModule.show = function(username) {
         UserModule.targetUser.fetch({
             success: function(result) {
@@ -22,8 +29,14 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
         });
 	}
 
-    UserModule.edit = function(username) {
-        console.log(username);
+    UserModule.edit = function(username, formName) {
+        UserModule.modalLayout = new ModalLayout();
+        App.modalRegion.show(UserModule.modalLayout);
+        if (formName == 'informations') {
+            UserModule.modalLayout.modalContentRegion.show(new ProfileInformationFormView({ model: UserModule.targetUser }));
+        }
+        $('#clzk-modal').modal('show');
+        console.log(UserModule.targetUser);
     }
 
 	UserModule.addInitializer(function(options){

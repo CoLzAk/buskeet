@@ -3,7 +3,7 @@ App = new Backbone.Marionette.Application();
 App.Router = Backbone.Marionette.AppRouter.extend({
     appRoutes: {
         ':username': 'show',
-        ':username/edit': 'edit'
+        ':username/edit/:formName': 'edit'
     }
 });
 

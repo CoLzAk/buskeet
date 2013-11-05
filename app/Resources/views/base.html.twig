@@ -72,6 +72,14 @@
                 youhou
             {% endblock %}
         </footer>
+        {% block modal %}
+            <div class="modal fade" id="clzk-modal" role="dialog">
+                <div class="modal-dialog container">
+                    <div class="modal-content" id="clzk-modal-region">
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
         {% block javascripts %}
             {% javascripts
                 "js/jquery/jquery-2.0.2.min.js"

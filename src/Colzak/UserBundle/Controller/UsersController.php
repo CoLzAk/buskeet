@@ -14,7 +14,7 @@ class UsersController extends BaseController
 {
     /**
      * GET Route annotation.
-     * @Get("/users/{username}")
+     * @Get("/users/{username}/")
      */
     public function getUserAction($username) {
     	$dm = $this->container->get('doctrine_mongodb')->getManager();
@@ -25,5 +25,5 @@ class UsersController extends BaseController
     		$data = $user->getProfile();
     	}
         return $this->handleView($this->view($data, 200));
-    } // "get_user"     [GET] /users/{username}
+    } // "get_user"     [GET] /users/{username}/
 }

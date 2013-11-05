@@ -89,7 +89,7 @@ fos_user:
 
 fos_rest:
     routing_loader:
-        default_format: null
+        default_format: json
     view:
         default_engine: twig
         force_redirects:
