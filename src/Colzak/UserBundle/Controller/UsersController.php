@@ -22,7 +22,7 @@ class UsersController extends BaseController
     		$data = $this->container->get('security.context')->getToken()->getUser()->getProfile();
     	} else {
     		$user = $dm->getRepository('ColzakUserBundle:User')->findOneByUsername($username);
-    		$data = $user->getProfile();
+    		$data = $user;
     	}
         return $this->handleView($this->view($data, 200));
     } // "get_user"     [GET] /users/{username}/

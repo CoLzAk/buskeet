@@ -1,0 +1,49 @@
+<script type="text/template" id="clzk-profile-portfolio-template">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span class="text-left">Styles musicaux</span>
+        </div>
+        <div class="panel-body">
+            <ul class="list-unstyled">
+                <li>Reggae</li>
+                <li>Séga</li>
+                <li>Maloya</li>
+                <li>Pop/Folk</li>
+            </ul>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span class="text-left">Instruments</span>
+            {#% if targetUser == app.user %}
+                <a href="#" class="pull-right glyphicon glyphicon-edit"></a>
+            {% endif %#}
+        </div>
+        <div class="panel-body">
+            {#% if targetUser.portfolio is not null %}
+                <ul class="list-unstyled">
+                    {% for instrument in targetUser.portfolio.instruments if targetUser.portfolio.instruments|length > 0 %}
+                        <li>{{ instrument }}</li>
+                    {% else %}
+                        <li>vide</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                vide
+            {% endif %#}
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span class="text-left">Influences</span>
+        </div>
+        <div class="panel-body">
+            <ul class="list-unstyled">
+                <li>Moriarty</li>
+                <li>John Butler Trio</li>
+                <li>Patrice</li>
+                <li>Aldebert</li>
+            </ul>
+        </div>
+    </div>
+</script>

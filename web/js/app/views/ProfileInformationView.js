@@ -8,11 +8,11 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
 			'#profile-description': 'description'
 		},
 		events: {
-			'click .edit-btn': 'editInformation'
+			'click .edit-btn': 'edit'
 		},
-		editInformation: function(e) {
+		edit: function(e) {
 			e.preventDefault();
-			Backbone.history.navigate(this.model.username + '/edit/informations', { trigger: true });
+			Backbone.history.navigate(this.model.username + '/edit/information', { trigger: true });
 		},
 		serializeData: function() {
 			return {
@@ -31,7 +31,6 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
 		template: '#clzk-profile-information-form-template',
 		bindings: {
 			'#profile-birthdate': 'birthdate',
-			'#profile-description': 'description'
 		},
 		events: {
 			'click .close-modal-btn': 'closeModal'
