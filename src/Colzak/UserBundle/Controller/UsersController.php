@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\RestBundle\Controller\FOSRestController as BaseController;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\UserBundle\Model\UserInterface;
 
 class UsersController extends BaseController
@@ -15,6 +16,7 @@ class UsersController extends BaseController
     /**
      * GET Route annotation.
      * @Get("/users/{username}/")
+     * @Route(options={"segment_separators"={0="/"}})
      */
     public function getUserAction($username) {
     	$dm = $this->container->get('doctrine_mongodb')->getManager();
@@ -25,5 +27,5 @@ class UsersController extends BaseController
     		$data = $user;
     	}
         return $this->handleView($this->view($data, 200));
-    } // "get_user"     [GET] /users/{username}/
+    } // "get_user"     [GET] /users/{username}
 }

@@ -31,11 +31,21 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             '#profile-description': 'description'
         },
         events: {
-            'click .close-modal-btn': 'closeModal'
+            'click .close-modal-btn': 'closeModal',
+            'click .save-modal-btn': 'save'
+        },
+        save: function(e) {
+            e.preventDefault();
+            this.model.save({}, {
+                success: function(model, response) {
+                    $('#clzk-modal').modal('hide');
+                    Backbone.history.navigate(model.get('username'), { trigger: true });
+                }
+            });
         },
         closeModal: function(e) {
             e.preventDefault();
-            Backbone.history.navigate(this.model.username, { trigger: true });
+            Backbone.history.navigate(this.model.username, { trigger: false });
             $('#clzk-modal').modal('hide');
         },
         onRender: function() {
