@@ -15,3 +15,11 @@ services:
     colzak_user.registration.form.eventlistener:
         class: Colzak\UserBundle\Form\EventListener\RegistrationSubscriber
         arguments: ["@doctrine.odm.mongodb.document_manager"]
+
+
+# FOS\UserBundle\Model\User:
+#     exclusion_policy: ALL
+#     properties :
+#       username :
+#         type:     string
+#         expose : true
