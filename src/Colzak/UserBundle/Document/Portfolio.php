@@ -21,6 +21,16 @@ class Portfolio
     protected $instruments;
 
     /**
+     * @MongoDB\EmbedMany(targetDocument="Target")
+     */
+    protected $targets;
+
+    /**
+     * @MongoDB\EmbedMany(targetDocument="Objective")
+     */
+    protected $objectives;
+
+    /**
      * Get id
      *
      * @return id $id
@@ -62,5 +72,65 @@ class Portfolio
     public function getInstruments()
     {
         return $this->instruments;
+    }
+
+    /**
+     * Add target
+     *
+     * @param Colzak\UserBundle\Document\Target $target
+     */
+    public function addTarget(\Colzak\UserBundle\Document\Target $target)
+    {
+        $this->targets[] = $target;
+    }
+
+    /**
+     * Remove target
+     *
+     * @param Colzak\UserBundle\Document\Target $target
+     */
+    public function removeTarget(\Colzak\UserBundle\Document\Target $target)
+    {
+        $this->targets->removeElement($target);
+    }
+
+    /**
+     * Get targets
+     *
+     * @return Doctrine\Common\Collections\Collection $targets
+     */
+    public function getTargets()
+    {
+        return $this->targets;
+    }
+
+    /**
+     * Add objective
+     *
+     * @param Colzak\UserBundle\Document\Objective $objective
+     */
+    public function addObjective(\Colzak\UserBundle\Document\Objective $objective)
+    {
+        $this->objectives[] = $objective;
+    }
+
+    /**
+     * Remove objective
+     *
+     * @param Colzak\UserBundle\Document\Objective $objective
+     */
+    public function removeObjective(\Colzak\UserBundle\Document\Objective $objective)
+    {
+        $this->objectives->removeElement($objective);
+    }
+
+    /**
+     * Get objectives
+     *
+     * @return Doctrine\Common\Collections\Collection $objectives
+     */
+    public function getObjectives()
+    {
+        return $this->objectives;
     }
 }

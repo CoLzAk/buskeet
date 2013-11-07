@@ -1,49 +1,60 @@
 <script type="text/template" id="clzk-profile-portfolio-template">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <span class="text-left">Styles musicaux</span>
-        </div>
-        <div class="panel-body">
-            <ul class="list-unstyled">
-                <li>Reggae</li>
-                <li>Séga</li>
-                <li>Maloya</li>
-                <li>Pop/Folk</li>
-            </ul>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <span class="text-left">Instruments</span>
-            {#% if targetUser == app.user %}
-                <a href="#" class="pull-right glyphicon glyphicon-edit"></a>
-            {% endif %#}
-        </div>
-        <div class="panel-body">
-            {#% if targetUser.portfolio is not null %}
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="text-left">Styles musicaux</span>
+            </div>
+            <div class="panel-body">
                 <ul class="list-unstyled">
-                    {% for instrument in targetUser.portfolio.instruments if targetUser.portfolio.instruments|length > 0 %}
-                        <li>{{ instrument }}</li>
-                    {% else %}
-                        <li>vide</li>
-                    {% endfor %}
+                    <li>Reggae</li>
+                    <li>Séga</li>
+                    <li>Maloya</li>
+                    <li>Pop/Folk</li>
                 </ul>
-            {% else %}
-                vide
-            {% endif %#}
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="text-left">Instruments</span>
+                {#% if targetUser == app.user %}
+                    <a href="#" class="pull-right glyphicon glyphicon-edit"></a>
+                {% endif %#}
+            </div>
+            <div class="panel-body">
+                {#% if targetUser.portfolio is not null %}
+                    <ul class="list-unstyled">
+                        {% for instrument in targetUser.portfolio.instruments if targetUser.portfolio.instruments|length > 0 %}
+                            <li>{{ instrument }}</li>
+                        {% else %}
+                            <li>vide</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    vide
+                {% endif %#}
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="text-left">Influences</span>
+            </div>
+            <div class="panel-body">
+                <ul class="list-unstyled">
+                    <li>Moriarty</li>
+                    <li>John Butler Trio</li>
+                    <li>Patrice</li>
+                    <li>Aldebert</li>
+                </ul>
+            </div>
         </div>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <span class="text-left">Influences</span>
-        </div>
-        <div class="panel-body">
-            <ul class="list-unstyled">
-                <li>Moriarty</li>
-                <li>John Butler Trio</li>
-                <li>Patrice</li>
-                <li>Aldebert</li>
-            </ul>
-        </div>
+    <div class="col-md-8">
+        {#} Un premier "panel" avec le type de profil recherché + description(avec des icones a l'interieur)
+            ex. Recherche guitariste/chanteur de blues confirmé
+        {#}
+        {#} Un deuxième panel avec les objectifs
+            ex. Sortir un album tribute to oasis
+            ex. Monter sur scène pour la fête de la musique
+        {#}
     </div>
 </script>
