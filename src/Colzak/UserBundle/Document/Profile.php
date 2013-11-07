@@ -34,7 +34,7 @@ class Profile
 
     /**
      * @MongoDB\Date
-     * @SERIAL\Type("datetime")
+     * @SERIAL\Type("DateTime")
      */
     protected $birthdate;
 

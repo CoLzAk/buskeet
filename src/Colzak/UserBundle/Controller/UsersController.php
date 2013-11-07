@@ -54,6 +54,7 @@ class UsersController extends BaseController
         }
 
         $user = $dm->merge($updatedUser);
+        var_dump($user);
         // $user->getProfile()->setUser($user);
         $dm->flush();
 
