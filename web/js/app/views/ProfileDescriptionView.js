@@ -3,7 +3,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
     ProfileDescriptionView = Backbone.Marionette.ItemView.extend({
         template: '#clzk-profile-description-template',
         bindings: {
-            '#profile-description': 'description'
+            '#profile-description': 'profile.description'
         },
         events: {
             'click .edit-btn': 'edit'
@@ -28,7 +28,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
     ProfileDescriptionFormView = Backbone.Marionette.ItemView.extend({
         template: '#clzk-profile-description-form-template',
         bindings: {
-            '#profile-description': 'description'
+            '#profile-description': 'profile.description'
         },
         events: {
             'click .close-modal-btn': 'closeModal',

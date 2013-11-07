@@ -10,42 +10,14 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  */
 class Target
 {
-
-    /**
-     * @MongoDB\String
-     */
-    protected $description;
-
     /**
      * @MongoDB\ReferenceMany(targetDocument="Colzak\MusicBundle\Document\Instrument")
      */
     protected $instruments;
-    
+
     public function __construct()
     {
         $this->instruments = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return self
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string $description
-     */
-    public function getDescription()
-    {
-        return $this->description;
     }
 
     /**

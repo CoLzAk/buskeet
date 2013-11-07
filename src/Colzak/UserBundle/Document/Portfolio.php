@@ -21,6 +21,11 @@ class Portfolio
     protected $instruments;
 
     /**
+     * @MongoDB\String
+     */
+    protected $targetsDescription;
+
+    /**
      * @MongoDB\EmbedMany(targetDocument="Target")
      */
     protected $targets;
@@ -132,5 +137,27 @@ class Portfolio
     public function getObjectives()
     {
         return $this->objectives;
+    }
+
+    /**
+     * Set targetsDescription
+     *
+     * @param string $targetsDescription
+     * @return self
+     */
+    public function setTargetsDescription($targetsDescription)
+    {
+        $this->targetsDescription = $targetsDescription;
+        return $this;
+    }
+
+    /**
+     * Get targetsDescription
+     *
+     * @return string $targetsDescription
+     */
+    public function getTargetsDescription()
+    {
+        return $this->targetsDescription;
     }
 }
