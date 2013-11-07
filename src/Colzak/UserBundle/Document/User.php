@@ -5,6 +5,7 @@ namespace Colzak\UserBundle\Document;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use JMS\Serializer\Annotation as SERIAL;
 
 /**
  * @MongoDB\Document(repositoryClass="Colzak\UserBundle\Repository\UserRepository")
@@ -13,18 +14,15 @@ class User extends BaseUser
 {
     /**
      * @MongoDB\Id(strategy="auto")
+     * @SERIAL\Type("integer")
      */
     protected $id;
 
     /**
      * @MongoDB\ReferenceOne(targetDocument="Profile", cascade="all")
+     * @SERIAL\Type("Colzak\UserBundle\Document\Profile")
      */
     protected $profile;
-
-    /**
-     * @MongoDB\ReferenceOne(targetDocument="Portfolio", cascade="all")
-     */
-    protected $portfolio;
 
     public function __construct()
     {
@@ -62,27 +60,5 @@ class User extends BaseUser
     public function getProfile()
     {
         return $this->profile;
-    }
-
-    /**
-     * Set portfolio
-     *
-     * @param Colzak\UserBundle\Document\Portfolio $portfolio
-     * @return self
-     */
-    public function setPortfolio(\Colzak\UserBundle\Document\Portfolio $portfolio)
-    {
-        $this->portfolio = $portfolio;
-        return $this;
-    }
-
-    /**
-     * Get portfolio
-     *
-     * @return Colzak\UserBundle\Document\Portfolio $portfolio
-     */
-    public function getPortfolio()
-    {
-        return $this->portfolio;
     }
 }

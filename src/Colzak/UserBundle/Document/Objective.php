@@ -4,30 +4,40 @@
 namespace Colzak\UserBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use JMS\Serializer\Annotation as SERIAL;
 
 /**
- * @MongoDB\EmbeddedDocument
+ * @MongoDB\Document()
  */
 class Objective
 {
+    /**
+     * @MongoDB\Id(strategy="auto")
+     * @SERIAL\Type("integer")
+     */
+    protected $id;
 
     /**
      * @MongoDB\String
+     * @SERIAL\Type("string")
      */
     protected $title;
 
     /**
      * @MongoDB\String
+     * @SERIAL\Type("string")
      */
     protected $content;
 
     /**
      * @MongoDB\Date
+     * @SERIAL\Type("DateTime")
      */
     protected $startDate;
 
     /**
      * @MongoDB\Date
+     * @SERIAL\Type("DateTime")
      */
     protected $endDate;
 
@@ -117,5 +127,15 @@ class Objective
     public function getEndDate()
     {
         return $this->endDate;
+    }
+
+    /**
+     * Get id
+     *
+     * @return id $id
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

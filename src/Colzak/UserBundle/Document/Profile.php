@@ -4,6 +4,7 @@
 namespace Colzak\UserBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use JMS\Serializer\Annotation as SERIAL;
 
 /**
  * @MongoDB\Document()
@@ -15,33 +16,45 @@ class Profile
 
     /**
      * @MongoDB\Id(strategy="auto")
+     * @SERIAL\Type("integer")
      */
     protected $id;
 
     /**
      * @MongoDB\String
+     * @SERIAL\Type("string")
      */
     protected $firstname;
 
     /**
      * @MongoDB\String
+     * @SERIAL\Type("string")
      */
     protected $lastname;
 
     /**
      * @MongoDB\Date
+     * @SERIAL\Type("datetime")
      */
     protected $birthdate;
 
     /**
      * @MongoDB\String
+     * @SERIAL\Type("string")
      */
     protected $gender;
 
     /**
      * @MongoDB\String
+     * @SERIAL\Type("string")
      */
     protected $description;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Portfolio", cascade="all")
+     * @SERIAL\Type("Colzak\UserBundle\Document\Portfolio")
+     */
+    protected $portfolio;
 
     /**
      * Get id
@@ -161,5 +174,27 @@ class Profile
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set portfolio
+     *
+     * @param Colzak\UserBundle\Document\Portfolio $portfolio
+     * @return self
+     */
+    public function setPortfolio(\Colzak\UserBundle\Document\Portfolio $portfolio)
+    {
+        $this->portfolio = $portfolio;
+        return $this;
+    }
+
+    /**
+     * Get portfolio
+     *
+     * @return Colzak\UserBundle\Document\Portfolio $portfolio
+     */
+    public function getPortfolio()
+    {
+        return $this->portfolio;
     }
 }

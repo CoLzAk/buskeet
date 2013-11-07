@@ -1,0 +1,21 @@
+<serializer>  
+    <class name="FOS\UserBundle\Model\User" exclusion-policy="all">  
+        <property name="id" type="integer" expose="true"></property>  
+        <property name="username" type="string" expose="true" access-type="public_method"></property>  
+        <property name="usernameCanonical" type="string" expose="true" access-type="public_method"></property>  
+        <property name="email" type="string" expose="true" access-type="public_method"></property>  
+        <property name="emailCanonical" type="string" expose="true" access-type="public_method"></property>  
+        <property name="enabled" type="boolean" expose="true" access-type="public_method"></property>  
+        <property name="salt" type="string" expose="true" access-type="reflection"></property>  
+        <property name="password" type="string" expose="true" access-type="public_method"></property>  
+        <property name="lastLogin" type="DateTime" expose="true" access-type="public_method"></property>  
+        <property name="confirmationToken" type="string" expose="true" access-type="public_method"></property>  
+        <property name="passwordRequestedAt" type="DateTime" expose="true" access-type="public_method"></property>
+        <property name="locked" type="boolean" expose="true" access-type="public_method"></property>  
+        <property name="expired" type="boolean" expose="true" access-type="public_method"></property>  
+        <property name="expiresAt" type="DateTime" expose="true" access-type="reflection"></property>  
+        <property name="roles" type="array" expose="true" access-type="public_method"></property>  
+        <property name="credentialsExpired" type="boolean" expose="true" access-type="public_method"></property>  
+        <property name="credentialsExpiresAt" type="DateTime" expose="true" access-type="reflection"></property>
+    </class>  
+</serializer>

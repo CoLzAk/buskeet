@@ -4,6 +4,7 @@
 namespace Colzak\UserBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use JMS\Serializer\Annotation as SERIAL;
 
 /**
  * @MongoDB\Document()
@@ -12,29 +13,41 @@ class Portfolio
 {
     /**
      * @MongoDB\Id(strategy="auto")
+     * @SERIAL\Type("integer")
      */
     protected $id;
 
     /**
      * @MongoDB\ReferenceMany(targetDocument="Colzak\MusicBundle\Document\Instrument")
+     * @SERIAL\Type("Colzak\MusicBundle\Document\Instrument")
      */
     protected $instruments;
 
     /**
      * @MongoDB\String
+     * @SERIAL\Type("string")
      */
     protected $targetsDescription;
 
     /**
-     * @MongoDB\EmbedMany(targetDocument="Target")
+     * @MongoDB\ReferenceMany(targetDocument="Colzak\MusicBundle\Document\Instrument")
+     * @SERIAL\Type("Colzak\MusicBundle\Document\Instrument")
      */
     protected $targets;
 
     /**
-     * @MongoDB\EmbedMany(targetDocument="Objective")
+     * @MongoDB\ReferenceMany(targetDocument="Colzak\UserBundle\Document\Objective")
+     * @SERIAL\Type("Colzak\UserBundle\Document\Objective")
      */
     protected $objectives;
-
+    
+    public function __construct()
+    {
+        $this->instruments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->targets = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->objectives = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Get id
      *
@@ -44,11 +57,7 @@ class Portfolio
     {
         return $this->id;
     }
-    public function __construct()
-    {
-        $this->instruments = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
+
     /**
      * Add instrument
      *
@@ -80,11 +89,33 @@ class Portfolio
     }
 
     /**
+     * Set targetsDescription
+     *
+     * @param string $targetsDescription
+     * @return self
+     */
+    public function setTargetsDescription($targetsDescription)
+    {
+        $this->targetsDescription = $targetsDescription;
+        return $this;
+    }
+
+    /**
+     * Get targetsDescription
+     *
+     * @return string $targetsDescription
+     */
+    public function getTargetsDescription()
+    {
+        return $this->targetsDescription;
+    }
+
+    /**
      * Add target
      *
-     * @param Colzak\UserBundle\Document\Target $target
+     * @param Colzak\MusicBundle\Document\Instrument $target
      */
-    public function addTarget(\Colzak\UserBundle\Document\Target $target)
+    public function addTarget(\Colzak\MusicBundle\Document\Instrument $target)
     {
         $this->targets[] = $target;
     }
@@ -92,9 +123,9 @@ class Portfolio
     /**
      * Remove target
      *
-     * @param Colzak\UserBundle\Document\Target $target
+     * @param Colzak\MusicBundle\Document\Instrument $target
      */
-    public function removeTarget(\Colzak\UserBundle\Document\Target $target)
+    public function removeTarget(\Colzak\MusicBundle\Document\Instrument $target)
     {
         $this->targets->removeElement($target);
     }
@@ -137,27 +168,5 @@ class Portfolio
     public function getObjectives()
     {
         return $this->objectives;
-    }
-
-    /**
-     * Set targetsDescription
-     *
-     * @param string $targetsDescription
-     * @return self
-     */
-    public function setTargetsDescription($targetsDescription)
-    {
-        $this->targetsDescription = $targetsDescription;
-        return $this;
-    }
-
-    /**
-     * Get targetsDescription
-     *
-     * @return string $targetsDescription
-     */
-    public function getTargetsDescription()
-    {
-        return $this->targetsDescription;
     }
 }

@@ -22,7 +22,7 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
     UserModule.show = function(username) {
         UserModule.targetUser.fetch({
             success: function(result) {
-                UserModule.profileLayout.profilePictureRegion.show(new ProfilePictureView());
+                //UserModule.profileLayout.profilePictureRegion.show(new ProfilePictureView());
                 UserModule.profileLayout.profileMessageRegion.show(new ProfileMessageView());
                 UserModule.profileLayout.profileInformationRegion.show(new ProfileInformationView({ model: result }));
                 UserModule.profileLayout.profileDescriptionRegion.show(new ProfileDescriptionView({ model: result }));

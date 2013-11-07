@@ -77,6 +77,10 @@ swiftmailer:
 jms_serializer:
     metadata:
         auto_detection: true
+        directories:
+            FOSUserBundle:
+                namespace_prefix: FOS\UserBundle
+                path: "@ColzakUserBundle/Resources/config/serializer/fos"
 
 fos_user:
     db_driver: mongodb
