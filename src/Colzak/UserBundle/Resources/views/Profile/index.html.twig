@@ -58,17 +58,19 @@
         "js/app/views/ProfileMessageView.js"
         "js/app/views/ProfileInformationView.js"
         "js/app/views/ProfileDescriptionView.js"
-        "js/app/views/ProfilePortfolioView.js"
+        "js/app/views/PortfolioView.js"
         "js/app/models/User.js"
+        "js/app/models/Portfolio.js"
     %}
         <script src="{{ asset_url }}" type="text/javascript"></script>
     {% endjavascripts %}
 
     <script type="text/javascript">
     $(document).ready(function() {
-        var options = {
-            username: "{{ username }}",
-            path: "{{ path(app.request.attributes.get('_route')) }}"
+        var targetUser = "{{ targetUser|serialize('json') }}",
+            options = {
+                targetUser: $.parseJSON(targetUser.replace(/&quot;/g,'"').replace(/\n/g,"\\n").replace(/&#039;/g, '\'').replace(/&amp;/g, '&')),
+                path: "{{ path(app.request.attributes.get('_route')) }}"
         };
         App.start(options);
     })

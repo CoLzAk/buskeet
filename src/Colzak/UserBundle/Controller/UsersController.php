@@ -16,7 +16,7 @@ class UsersController extends BaseController
 {
     /**
      * GET Route annotation.
-     * @Get("/users/{username}/")
+     * @Get("/users/{id}")
      * @Route(options={"segment_separators"={0="/"}})
      */
     public function getUserAction($username) {
@@ -28,13 +28,13 @@ class UsersController extends BaseController
     		$data = $user;
     	}
         return $this->handleView($this->view($data, 200));
-    } // "get_user"     [GET] /users/{username}
+    } // "get_user"     [GET] /users/{id}
 
     /**
      * GET Route annotation.
-     * @Put("/users/{username}/")
+     * @Put("/users/{id}")
      */
-    public function putUserAction($username)
+    public function putUserAction($id)
     {
         // the actual user
         $owner = $this->get('security.context')->getToken()->getUser();
@@ -42,26 +42,24 @@ class UsersController extends BaseController
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        // the target user
         $dm = $this->container->get('doctrine_mongodb')->getManager();
 
         $request = $this->getRequest(); 
+
+        // $user = $dm->getRepository('ColzakUserBundle:User')->findOneByUsername($username);
+        $user = $dm->getRepository('ColzakUserBundle:User')->find($id);
 
         if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
             $request = $this->getRequest();
             $serializer = $this->get('jms_serializer');
             $updatedUser = $serializer->deserialize($request->getContent(), 'Colzak\UserBundle\Document\User', 'json');
-            var_dump($updatedUser);
         }
 
-        // $user = $dm->merge($updatedUser);
-        var_dump($user);
-        // $user->getProfile()->setUser($user);
+        $user->setProfile($updatedUser->getProfile());
         $dm->flush();
-
-        $data = $user;
+        $data = $updatedUser;
 
         return $this->handleView($this->view($data, 200));
 
-    } // "put_user"      [PUT] /users/{username}
+    } // "put_user"      [PUT] /users/{id}
 }

@@ -14,7 +14,7 @@ class User extends BaseUser
 {
     /**
      * @MongoDB\Id(strategy="auto")
-     * @SERIAL\Type("integer")
+     * @SERIAL\Type("string")
      */
     protected $id;
 

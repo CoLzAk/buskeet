@@ -51,7 +51,7 @@ class Profile
     protected $description;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Portfolio", cascade="all")
+     * @MongoDB\ReferenceOne(targetDocument="Colzak\PortfolioBundle\Document\Portfolio", cascade="all")
      * @SERIAL\Type("Colzak\PortfolioBundle\Document\Portfolio")
      */
     protected $portfolio;

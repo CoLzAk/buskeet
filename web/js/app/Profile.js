@@ -20,15 +20,12 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
     });
 
     UserModule.show = function(username) {
-        UserModule.targetUser.fetch({
-            success: function(result) {
-                //UserModule.profileLayout.profilePictureRegion.show(new ProfilePictureView());
-                UserModule.profileLayout.profileMessageRegion.show(new ProfileMessageView());
-                UserModule.profileLayout.profileInformationRegion.show(new ProfileInformationView({ model: result }));
-                UserModule.profileLayout.profileDescriptionRegion.show(new ProfileDescriptionView({ model: result }));
-                UserModule.profileLayout.profilePortfolioRegion.show(new ProfilePortfolioView());
-            }
-        });
+        console.log('az > ', UserModule.targetUserPortfolio);
+        UserModule.profileLayout.profilePictureRegion.show(new ProfilePictureView());
+        UserModule.profileLayout.profileMessageRegion.show(new ProfileMessageView());
+        UserModule.profileLayout.profileInformationRegion.show(new ProfileInformationView({ model: UserModule.targetUser }));
+        UserModule.profileLayout.profileDescriptionRegion.show(new ProfileDescriptionView({ model: UserModule.targetUser }));
+        UserModule.profileLayout.profilePortfolioRegion.show(new PortfolioView({ model: UserModule.targetUserPortfolio }, { username: UserModule.targetUser.get('username') }));
     };
 
     UserModule.edit = function(username, formName) {
@@ -40,11 +37,15 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
         if (formName == 'aboutme') {
             UserModule.modalLayout.modalContentRegion.show(new ProfileDescriptionFormView({ model: UserModule.targetUser }));
         }
+        if (formName == 'portfolio') {
+            UserModule.modalLayout.modalContentRegion.show(new PortfolioFormView({ model: UserModule.targetUserPortfolio }, { username: username }));
+        }
         $('#clzk-modal').modal('show');
     };
 
     UserModule.addInitializer(function(options){
-        UserModule.targetUser = new User({}, { username: options.username });
+        UserModule.targetUser = new User(options.targetUser);
+        UserModule.targetUserPortfolio = new Portfolio(options.targetUser.profile.portfolio, { userId: UserModule.targetUser.get('id') });
 
         //Initialize layout
         UserModule.profileLayout = new ProfileLayout();

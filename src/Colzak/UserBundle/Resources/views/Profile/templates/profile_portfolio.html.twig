@@ -50,6 +50,7 @@
     </div>
     <div class="col-md-8">
         <h2>Je cherche ... </h2>
+        <a href="#" class="edit-btn">edit</a>
         <p id="profile-portfolio-targets-description"></p>
         {#} Un premier "panel" avec le type de profil recherché + description(avec des icones a l'interieur)
             ex. Recherche guitariste/chanteur de blues confirmé
@@ -60,4 +61,20 @@
             ex. Monter sur scène pour la fête de la musique
         {#}
     </div>
+</script>
+
+<script type="text/template" id="clzk-profile-portfolio-form-template">
+    <div class="modal-header">
+        <button type="button" class="close close-modal-btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h1>Targets</h1>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <textarea class="form-control" row="5" id="profile-portfolio-targets-description">aaaaa</textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default close-modal-btn" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary save-modal-btn">Valider</button>
+    </div>  
 </script>
