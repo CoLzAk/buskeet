@@ -1,7 +1,7 @@
 <?php
-// src/Colzak/UserBundle/Document/Coordinate.php
+// src/Colzak/PortfolioBundle/Document/Objective.php
 
-namespace Colzak\UserBundle\Document;
+namespace Colzak\PortfolioBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as SERIAL;
@@ -40,6 +40,16 @@ class Objective
      * @SERIAL\Type("DateTime")
      */
     protected $endDate;
+
+    /**
+     * Get id
+     *
+     * @return id $id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set title
@@ -127,15 +137,5 @@ class Objective
     public function getEndDate()
     {
         return $this->endDate;
-    }
-
-    /**
-     * Get id
-     *
-     * @return id $id
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 }

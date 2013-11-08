@@ -1,6 +1,6 @@
 <?php
 
-namespace Colzak\MusicBundle\Tests\Controller;
+namespace Colzak\PortfolioBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

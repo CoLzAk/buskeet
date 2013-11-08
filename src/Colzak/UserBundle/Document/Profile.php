@@ -52,7 +52,7 @@ class Profile
 
     /**
      * @MongoDB\ReferenceOne(targetDocument="Portfolio", cascade="all")
-     * @SERIAL\Type("Colzak\UserBundle\Document\Portfolio")
+     * @SERIAL\Type("Colzak\PortfolioBundle\Document\Portfolio")
      */
     protected $portfolio;
 
@@ -179,10 +179,10 @@ class Profile
     /**
      * Set portfolio
      *
-     * @param Colzak\UserBundle\Document\Portfolio $portfolio
+     * @param Colzak\PortfolioBundle\Document\Portfolio $portfolio
      * @return self
      */
-    public function setPortfolio(\Colzak\UserBundle\Document\Portfolio $portfolio)
+    public function setPortfolio(\Colzak\PortfolioBundle\Document\Portfolio $portfolio)
     {
         $this->portfolio = $portfolio;
         return $this;
@@ -191,7 +191,7 @@ class Profile
     /**
      * Get portfolio
      *
-     * @return Colzak\UserBundle\Document\Portfolio $portfolio
+     * @return Colzak\PortfolioBundle\Document\Portfolio $portfolio
      */
     public function getPortfolio()
     {

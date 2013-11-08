@@ -26,8 +26,6 @@ class UserRepository extends DocumentRepository
         }
 
         // Get a list of the similar usernames
-        $dql = "SELECT u.username FROM ColzakUserBundle:User u";
-        $dql .= " WHERE LOWER(u.username) LIKE :username";
         $results = $this->createQueryBuilder('User')
             ->select('username')
             ->field('username')->equals($basename . '%')

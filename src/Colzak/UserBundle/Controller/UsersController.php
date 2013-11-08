@@ -51,6 +51,7 @@ class UsersController extends BaseController
             $request = $this->getRequest();
             $serializer = $this->get('jms_serializer');
             $updatedUser = $serializer->deserialize($request->getContent(), 'Colzak\UserBundle\Document\User', 'json');
+            var_dump($updatedUser);
         }
 
         $user = $dm->merge($updatedUser);

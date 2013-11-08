@@ -1,7 +1,7 @@
 <?php
-// src/Colzak/MusicBundle/Document/InstrumentType.php
+// src/Colzak/PortfolioBundle/Document/InstrumentType.php
 
-namespace Colzak\MusicBundle\Document;
+namespace Colzak\PortfolioBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 

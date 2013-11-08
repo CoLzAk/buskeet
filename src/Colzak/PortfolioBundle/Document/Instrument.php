@@ -1,7 +1,7 @@
 <?php
-// src/Colzak/MusicBundle/Document/Instrument.php
+// src/Colzak/PortfolioBundle/Document/Instrument.php
 
-namespace Colzak\MusicBundle\Document;
+namespace Colzak\PortfolioBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
@@ -21,7 +21,7 @@ class Instrument
     protected $name;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="InstrumentType")
+     * @MongoDB\ReferenceOne(targetDocument="Colzak\PortfolioBundle\Document\InstrumentType")
      */
     protected $instrumentType;
 
@@ -60,10 +60,10 @@ class Instrument
     /**
      * Set instrumentType
      *
-     * @param Colzak\MusicBundle\Document\InstrumentType $instrumentType
+     * @param Colzak\PortfolioBundle\Document\InstrumentType $instrumentType
      * @return self
      */
-    public function setInstrumentType(\Colzak\MusicBundle\Document\InstrumentType $instrumentType)
+    public function setInstrumentType(\Colzak\PortfolioBundle\Document\InstrumentType $instrumentType)
     {
         $this->instrumentType = $instrumentType;
         return $this;
@@ -72,7 +72,7 @@ class Instrument
     /**
      * Get instrumentType
      *
-     * @return Colzak\MusicBundle\Document\InstrumentType $instrumentType
+     * @return Colzak\PortfolioBundle\Document\InstrumentType $instrumentType
      */
     public function getInstrumentType()
     {
