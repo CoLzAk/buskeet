@@ -41,7 +41,6 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
             UserModule.modalLayout.modalContentRegion.show(new ProfileDescriptionFormView({ model: UserModule.targetUser }));
         }
         $('#clzk-modal').modal('show');
-        console.log(UserModule.targetUser);
     };
 
     UserModule.addInitializer(function(options){

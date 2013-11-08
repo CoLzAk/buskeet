@@ -2,6 +2,13 @@ colzak_portfolio:
     resource: "@ColzakPortfolioBundle/Resources/config/routing.yml"
     prefix:   /
 
+colzak_portfolio_api:
+    resource: "@ColzakPortfolioBundle/Resources/config/routing_api.yml"
+    prefix:   /api
+    type: rest
+    options:
+        expose: true
+
 colzak_static:
     resource: "@ColzakStaticBundle/Resources/config/routing.yml"
     prefix:   /
@@ -14,7 +21,7 @@ colzak_user:
     resource: "@ColzakUserBundle/Resources/config/routing.yml"
     prefix:   /
 
-cariboo_cn_user_api:
+colzak_user_api:
     resource: "@ColzakUserBundle/Resources/config/routing_api.yml"
     prefix:   /api
     type:     rest

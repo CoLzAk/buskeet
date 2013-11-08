@@ -1,0 +1,4 @@
+colzak_users_portfolios:
+    type:     rest
+    resource: Colzak\PortfolioBundle\Controller\PortfoliosController
+    name_prefix:  users_
