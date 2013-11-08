@@ -1,8 +1,8 @@
 App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
 
     Portfolio = Backbone.DeepModel.extend({
-        url: function() {
-            return 'http://colzakfr.dev/app_dev.php/api/users/' + this.username + '/';
+        urlRoot: function() {
+            return 'http://colzakfr.dev/app_dev.php/api/users/' + this.username + '/portfolios';
         },
 
         initialize: function(model, options) {
@@ -12,6 +12,6 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
 
     Portfolios = Backbone.Collection.extend({
         model: Portfolio,
-        urlRoot: 'http://colzakfr.dev/app_dev.php/api/users/' + this.username + '/portfolios'
+        url: 'http://colzakfr.dev/app_dev.php/api/users/' + this.username + '/portfolios'
     });
 });
