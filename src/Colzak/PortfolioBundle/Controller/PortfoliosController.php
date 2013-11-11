@@ -13,6 +13,7 @@ use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\UserBundle\Model\UserInterface;
 use Colzak\PortfolioBundle\Document\Portfolio;
+use Symfony\Component\HttpFoundation\Response;
 
 class PortfoliosController extends BaseController
 {
@@ -65,12 +66,14 @@ class PortfoliosController extends BaseController
      */
     public function getPortfolioInstrumentsAction($slug) {
         $dm = $this->container->get('doctrine_mongodb')->getManager();
-        $instruments = $dm->getRepository('ColzakPortfolioBundle:Instrument')->findAll();
+        // $data = $dm->getRepository('ColzakPortfolioBundle:Instrument')->findInstrumentsBySlug($slug)->toArray();
+        $data = $dm->getRepository('ColzakPortfolioBundle:Instrument')->findAll()->toArray();
 
-        var_dump($instruments->getName());
+        // $serializer = $this->get('jms_serializer');
+        // $response = new Response(json_encode(array('data' => $data)));
+        // $response->headers->set('Content-Type', 'application/json');
 
-        $data = $instruments;
-
+        // return $response;
         return $this->handleView($this->view($data, 200));
     } // "get_portfolio_instruments"   [GET] /portfolio/instruments/{slug}
 }

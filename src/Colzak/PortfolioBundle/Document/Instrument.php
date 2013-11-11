@@ -7,7 +7,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as SERIAL;
 
 /**
- * @MongoDB\Document()
+ * @MongoDB\Document(repositoryClass="Colzak\PortfolioBundle\Repository\InstrumentRepository")
+ * @SERIAL\ExclusionPolicy("none")
  */
 class Instrument
 {

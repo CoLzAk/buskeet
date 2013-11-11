@@ -46,16 +46,29 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             $('#clzk-modal').modal('hide');
         },
         getInstrumentsList: function(e) {
+            var instruments;
             e.preventDefault();
             if ($(e.currentTarget).val().length >= 3) {
                 //Call ajax function to get the instruments list
+                // instruments = new Instruments({}, {slug: $(e.currentTarget).val()});
+                // instruments.fetch({
+                //     success: function(results) {
+                //         console.log(results);
+                //     }
+                // })
                 $.ajax({
                     type: 'GET', // Le type de ma requete
                     url: 'http://colzakfr.dev/app_dev.php/api/portfolio/instruments/' + $(e.currentTarget).val(),
                     success: function(data, textStatus, jqXHR) {
+                        // var result = $.parseJSON(data);
+                        console.log(data);
+                        for (var i=0, j=data.length; i<j; i++) {
+                            $('#profile-portfolio-targets-results').append('<li class="list-group-item">Cras justo odio</li>');
+                        }
+                        $('#profile-portfolio-targets-results').show();
                         // La reponse du serveur est contenu dans data
                         // On peut faire ce qu'on veut avec ici
-                        console.log(data);
+                        // console.log(data);
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         // Une erreur s'est produite lors de la requete

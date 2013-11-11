@@ -47,3 +47,6 @@ body {
 .clzk-profile-msg-btn-container {
     margin-bottom: 30px;
 }
+#profile-portfolio-targets-results {
+    display: none;
+}
