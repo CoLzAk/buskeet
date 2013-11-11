@@ -1,6 +1,6 @@
 colzak_portfolio:
     resource: "@ColzakPortfolioBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /portfolio
 
 colzak_portfolio_api:
     resource: "@ColzakPortfolioBundle/Resources/config/routing_api.yml"
@@ -15,7 +15,7 @@ colzak_static:
 
 colzak_geo:
     resource: "@ColzakGeoBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /geo
 
 colzak_user:
     resource: "@ColzakUserBundle/Resources/config/routing.yml"

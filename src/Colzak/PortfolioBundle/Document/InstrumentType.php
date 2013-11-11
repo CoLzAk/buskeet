@@ -4,6 +4,7 @@
 namespace Colzak\PortfolioBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use JMS\Serializer\Annotation as SERIAL;
 
 /**
  * @MongoDB\Document()
@@ -12,11 +13,13 @@ class InstrumentType
 {
     /**
      * @MongoDB\Id(strategy="auto")
+     * @SERIAL\Type("string")
      */
     protected $id;
 
     /**
      * @MongoDB\String
+     * @SERIAL\Type("string")
      */
     protected $category;
 

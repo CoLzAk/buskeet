@@ -27,7 +27,8 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         },
         events: {
             'click .close-modal-btn': 'closeModal',
-            'click .save-modal-btn': 'save'
+            'click .save-modal-btn': 'save',
+            'keyup #profile-portfolio-targets': 'getInstrumentsList'
         },
         save: function(e) {
             var that = this;
@@ -43,6 +44,28 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             e.preventDefault();
             Backbone.history.navigate(this.username, { trigger: false });
             $('#clzk-modal').modal('hide');
+        },
+        getInstrumentsList: function(e) {
+            e.preventDefault();
+            if ($(e.currentTarget).val().length >= 3) {
+                //Call ajax function to get the instruments list
+                $.ajax({
+                    type: 'GET', // Le type de ma requete
+                    url: 'http://colzakfr.dev/app_dev.php/api/portfolio/instruments/' + $(e.currentTarget).val(),
+                    success: function(data, textStatus, jqXHR) {
+                        // La reponse du serveur est contenu dans data
+                        // On peut faire ce qu'on veut avec ici
+                        console.log(data);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        // Une erreur s'est produite lors de la requete
+                        console.log(data);
+                    }
+                });
+                //Show results in a box
+                //on results item click, add to list
+                // console.log($(e.currentTarget).val());
+            }
         },
         onRender: function() {
             this.stickit();

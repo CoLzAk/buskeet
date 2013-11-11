@@ -51,11 +51,26 @@ class PortfoliosController extends BaseController
         $dm->persist($portfolio);
 
         $user->getProfile()->setPortfolio($portfolio);
-        
+
         $dm->flush();
 
         $data = $portfolio;
 
         return $this->handleView($this->view($data, 200));
     } // "post_users_portfolios"   [POST] /users/{username}/portfolios
+
+    /**
+     * GET Route annotation.
+     * @Get("/portfolio/instruments/{slug}")
+     */
+    public function getPortfolioInstrumentsAction($slug) {
+        $dm = $this->container->get('doctrine_mongodb')->getManager();
+        $instruments = $dm->getRepository('ColzakPortfolioBundle:Instrument')->findAll();
+
+        var_dump($instruments->getName());
+
+        $data = $instruments;
+
+        return $this->handleView($this->view($data, 200));
+    } // "get_portfolio_instruments"   [GET] /portfolio/instruments/{slug}
 }
