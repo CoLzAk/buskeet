@@ -66,8 +66,8 @@ class PortfoliosController extends BaseController
      */
     public function getPortfolioInstrumentsAction($slug) {
         $dm = $this->container->get('doctrine_mongodb')->getManager();
-        // $data = $dm->getRepository('ColzakPortfolioBundle:Instrument')->findInstrumentsBySlug($slug)->toArray();
-        $data = $dm->getRepository('ColzakPortfolioBundle:Instrument')->findAll()->toArray();
+        $data = $dm->getRepository('ColzakPortfolioBundle:Instrument')->findInstrumentsBySlug($slug)->toArray();
+        // $data = $dm->getRepository('ColzakPortfolioBundle:Instrument')->findAll()->toArray();
 
         // $serializer = $this->get('jms_serializer');
         // $response = new Response(json_encode(array('data' => $data)));

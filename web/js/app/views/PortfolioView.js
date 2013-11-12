@@ -61,10 +61,16 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                     url: 'http://colzakfr.dev/app_dev.php/api/portfolio/instruments/' + $(e.currentTarget).val(),
                     success: function(data, textStatus, jqXHR) {
                         // var result = $.parseJSON(data);
-                        console.log(data);
-                        for (var i=0, j=data.length; i<j; i++) {
-                            $('#profile-portfolio-targets-results').append('<li class="list-group-item">Cras justo odio</li>');
+                        console.log('1 >', data);
+                        console.log('2 >', data['5280dbda29bdd5e61334514a']);
+
+                        for (var id in data) {
+                            $('#profile-portfolio-targets-results').append('<li class="list-group-item">'+ data[id].name +'</li>');
                         }
+                        // console.log('3 >', data.5280dbda29bdd5e61334514a);
+                        // for (var i=0, j=data.length; i<j; i++) {
+                        //     $('#profile-portfolio-targets-results').append('<li class="list-group-item">Cras justo odio</li>');
+                        // }
                         $('#profile-portfolio-targets-results').show();
                         // La reponse du serveur est contenu dans data
                         // On peut faire ce qu'on veut avec ici
