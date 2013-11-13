@@ -14,8 +14,10 @@ class DefaultController extends Controller
     {
     	$dm = $this->container->get('doctrine_mongodb')->getManager();
         $instrumentType = $dm->getRepository('ColzakPortfolioBundle:InstrumentType')->findOneByCategory('CORDES');
+        // $instrumentType = new InstrumentType();
+        // $instrumentType->setCategory('VENT');
         $instrument = new Instrument();
-        $instrument->setName('piano');
+        $instrument->setName('basse');
         $instrument->setInstrumentType($instrumentType);
         // $instrumentForm = $this->container->get('form.factory')->create
 

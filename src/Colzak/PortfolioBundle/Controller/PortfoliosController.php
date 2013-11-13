@@ -14,6 +14,7 @@ use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\UserBundle\Model\UserInterface;
 use Colzak\PortfolioBundle\Document\Portfolio;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 class PortfoliosController extends BaseController
 {
@@ -62,18 +63,29 @@ class PortfoliosController extends BaseController
 
     /**
      * GET Route annotation.
+     * @Get("/portfolio/instruments")
+     */
+    // public function getPortfolioInstrumentsAction(Request $request) {
+    //     $dm = $this->container->get('doctrine_mongodb')->getManager();
+
+    //     $data = $dm->getRepository('ColzakPortfolioBundle:Instrument')->findInstrumentsBySlug($request->query->get('term'))->toArray();
+    //     // $data = $dm->getRepository('ColzakPortfolioBundle:Instrument')->findAll()->toArray();
+
+    //     // $serializer = $this->get('jms_serializer');
+    //     // $response = new Response(json_encode(array('data' => $data)));
+    //     // $response->headers->set('Content-Type', 'application/json');
+
+    //     // return $response;
+    //     return $this->handleView($this->view($data, 200));
+    // } // "get_portfolio_instruments"   [GET] /portfolio/instruments
+
+    /**
+     * GET Route annotation.
      * @Get("/portfolio/instruments/{slug}")
      */
     public function getPortfolioInstrumentsAction($slug) {
         $dm = $this->container->get('doctrine_mongodb')->getManager();
         $data = $dm->getRepository('ColzakPortfolioBundle:Instrument')->findInstrumentsBySlug($slug)->toArray();
-        // $data = $dm->getRepository('ColzakPortfolioBundle:Instrument')->findAll()->toArray();
-
-        // $serializer = $this->get('jms_serializer');
-        // $response = new Response(json_encode(array('data' => $data)));
-        // $response->headers->set('Content-Type', 'application/json');
-
-        // return $response;
         return $this->handleView($this->view($data, 200));
     } // "get_portfolio_instruments"   [GET] /portfolio/instruments/{slug}
 }

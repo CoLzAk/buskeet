@@ -49,6 +49,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             var instruments;
             e.preventDefault();
             if ($(e.currentTarget).val().length >= 3) {
+                console.log(e);
                 //Call ajax function to get the instruments list
                 // instruments = new Instruments({}, {slug: $(e.currentTarget).val()});
                 // instruments.fetch({
