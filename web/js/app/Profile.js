@@ -20,7 +20,6 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
     });
 
     UserModule.show = function(username) {
-        console.log('az > ', UserModule.targetUserPortfolio);
         UserModule.profileLayout.profilePictureRegion.show(new ProfilePictureView());
         UserModule.profileLayout.profileMessageRegion.show(new ProfileMessageView());
         UserModule.profileLayout.profileInformationRegion.show(new ProfileInformationView({ model: UserModule.targetUser }));
