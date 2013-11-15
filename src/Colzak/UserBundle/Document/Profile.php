@@ -8,6 +8,7 @@ use JMS\Serializer\Annotation as SERIAL;
 
 /**
  * @MongoDB\Document()
+ * @SERIAL\ExclusionPolicy("none")
  */
 class Profile
 {
@@ -51,7 +52,7 @@ class Profile
     protected $description;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Colzak\PortfolioBundle\Document\Portfolio", cascade="all")
+     * @MongoDB\ReferenceOne(targetDocument="Colzak\PortfolioBundle\Document\Portfolio", cascade={"all"})
      * @SERIAL\Type("Colzak\PortfolioBundle\Document\Portfolio")
      */
     protected $portfolio;

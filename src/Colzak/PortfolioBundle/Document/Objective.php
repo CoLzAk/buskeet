@@ -8,6 +8,7 @@ use JMS\Serializer\Annotation as SERIAL;
 
 /**
  * @MongoDB\Document()
+ * @SERIAL\ExclusionPolicy("none")
  */
 class Objective
 {

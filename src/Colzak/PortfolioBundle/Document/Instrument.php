@@ -25,7 +25,7 @@ class Instrument
     protected $name;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Colzak\PortfolioBundle\Document\InstrumentType", cascade="all")
+     * @MongoDB\ReferenceOne(targetDocument="Colzak\PortfolioBundle\Document\InstrumentType", {"all"})
      * @SERIAL\Type("Colzak\PortfolioBundle\Document\InstrumentType")
      */
     protected $instrumentType;

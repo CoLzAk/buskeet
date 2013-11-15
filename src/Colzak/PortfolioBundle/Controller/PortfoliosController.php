@@ -66,7 +66,7 @@ class PortfoliosController extends BaseController
      * GET Route annotation.
      * @Put("/users/{id}/portfolio/{portfolioId}")
      */
-    public function putUserAction($id, $portfolioId)
+    public function putUserPortfolioAction($id, $portfolioId)
     {
         // the actual user
         $owner = $this->get('security.context')->getToken()->getUser();
@@ -83,17 +83,15 @@ class PortfoliosController extends BaseController
         if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
             $request = $this->getRequest();
             $serializer = $this->get('jms_serializer');
-            var_dump($request->getContent()); die();
-            // $updatedPortfolio = json_decode($request->getContent(), true);
-            // foreach ($updatedPortfolio['targets'] as $target) {
-            //     $instrument = new Instrument();
-            //     $instrument->
-            //     $portfolio->addTarget($target);
-            // }
-            // $updatedPortfolio = $serializer->deserialize($request->getContent(), 'Colzak\PortfolioBundle\Document\Portfolio', 'json');
+            $updatedPortfolio = json_decode($request->getContent(), true);
+            $portfolio->setTargetsDescription($updatedPortfolio['targets_description']);
+            foreach ($updatedPortfolio['targets'] as $target) {
+                $portfolio->addTarget($dm->getRepository('ColzakPortfolioBundle:Instrument')->find($target['id']));
+            }
+            foreach ($updatedPortfolio['instruments'] as $instrument) {
+                $portfolio->addTarget($dm->getRepository('ColzakPortfolioBundle:Instrument')->find($instrument['id']));
+            }
         }
-        var_dump($updatedPortfolio); die();
-        //$portfolio->setProfile($owner->getProfile());
         $dm->flush();
         $data = $portfolio;
 

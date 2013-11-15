@@ -27,6 +27,7 @@ class UsersController extends BaseController
     		$user = $dm->getRepository('ColzakUserBundle:User')->findOneByUsername($username);
     		$data = $user;
     	}
+
         return $this->handleView($this->view($data, 200));
     } // "get_user"     [GET] /users/{id}
 

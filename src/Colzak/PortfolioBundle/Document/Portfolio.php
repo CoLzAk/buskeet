@@ -8,6 +8,7 @@ use JMS\Serializer\Annotation as SERIAL;
 
 /**
  * @MongoDB\Document(repositoryClass="Colzak\PortfolioBundle\Repository\PortfolioRepository")
+ * @SERIAL\ExclusionPolicy("none")
  */
 class Portfolio
 {
@@ -18,10 +19,10 @@ class Portfolio
     protected $id;
 
     /**
-     * @MongoDB\ReferenceMany(targetDocument="Colzak\PortfolioBundle\Document\Instrument", cascade="all")
+     * @MongoDB\ReferenceMany(targetDocument="Colzak\PortfolioBundle\Document\Instrument", cascade={"all"})
      * @SERIAL\Type("Colzak\PortfolioBundle\Document\Instrument")
      */
-    protected $instruments;
+    protected $instruments = array();
 
     /**
      * @MongoDB\String
@@ -30,16 +31,20 @@ class Portfolio
     protected $targetsDescription;
 
     /**
-     * @MongoDB\ReferenceMany(targetDocument="Colzak\PortfolioBundle\Document\Instrument", cascade="all")
+     * @MongoDB\ReferenceMany(targetDocument="Colzak\PortfolioBundle\Document\Instrument", cascade={"all"})
      * @SERIAL\Type("Colzak\PortfolioBundle\Document\Instrument")
      */
-    protected $targets;
+    protected $targets = array();
 
     /**
-     * @MongoDB\ReferenceMany(targetDocument="Colzak\PortfolioBundle\Document\Objective", cascade="all")
+     * @MongoDB\ReferenceMany(targetDocument="Colzak\PortfolioBundle\Document\Objective", cascade={"all"})
      * @SERIAL\Type("Colzak\PortfolioBundle\Document\Objective")
      */
-    protected $objectives;
+    protected $objectives = array();
+
+    // /** @MongoDB\ReferenceOne(targetDocument="Colzak\UserBundle\Document\Profile", inversedBy="portfolio") */
+    //private $profile;
+    
     public function __construct()
     {
         $this->instruments = new \Doctrine\Common\Collections\ArrayCollection();
@@ -168,4 +173,26 @@ class Portfolio
     {
         return $this->objectives;
     }
+
+    // /**
+    //  * Set profile
+    //  *
+    //  * @param Colzak\UserBundle\Document\Profile $profile
+    //  * @return self
+    //  */
+    // public function setProfile(\Colzak\UserBundle\Document\Profile $profile)
+    // {
+    //     $this->profile = $profile;
+    //     return $this;
+    // }
+
+    // /**
+    //  * Get profile
+    //  *
+    //  * @return Colzak\UserBundle\Document\Profile $profile
+    //  */
+    // public function getProfile()
+    // {
+    //     return $this->profile;
+    // }
 }
