@@ -18,7 +18,7 @@ class Portfolio
     protected $id;
 
     /**
-     * @MongoDB\ReferenceMany(targetDocument="Colzak\PortfolioBundle\Document\Instrument")
+     * @MongoDB\ReferenceMany(targetDocument="Colzak\PortfolioBundle\Document\Instrument", cascade="all")
      * @SERIAL\Type("Colzak\PortfolioBundle\Document\Instrument")
      */
     protected $instruments;
@@ -30,13 +30,13 @@ class Portfolio
     protected $targetsDescription;
 
     /**
-     * @MongoDB\ReferenceMany(targetDocument="Colzak\PortfolioBundle\Document\Instrument")
+     * @MongoDB\ReferenceMany(targetDocument="Colzak\PortfolioBundle\Document\Instrument", cascade="all")
      * @SERIAL\Type("Colzak\PortfolioBundle\Document\Instrument")
      */
     protected $targets;
 
     /**
-     * @MongoDB\ReferenceMany(targetDocument="Colzak\PortfolioBundle\Document\Objective")
+     * @MongoDB\ReferenceMany(targetDocument="Colzak\PortfolioBundle\Document\Objective", cascade="all")
      * @SERIAL\Type("Colzak\PortfolioBundle\Document\Objective")
      */
     protected $objectives;

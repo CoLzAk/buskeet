@@ -17,6 +17,6 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             console.log(options);
             this.slug = options.slug;
         },
-        url: 'http://colzakfr.dev/app_dev.php/api/portfolio/instruments/' + this.slug
+        url: 'http://colzakfr.dev/app_dev.php/api/portfolio/instruments/'
     });
 });

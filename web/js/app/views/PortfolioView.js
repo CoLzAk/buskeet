@@ -65,7 +65,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                             // var result = $.parseJSON(data);
 
                             for (var id in data) {
-                                $('#profile-portfolio-targets-results').html('<li class="list-group-item" data-id="' + id + '" data-name="' + data[id].name + '">'+ data[id].name +'</li>');
+                                $('#profile-portfolio-targets-results').html('<li class="list-group-item" data-id="' + id + '" data-name="' + data[id].name + '" data-instrumenttypeid="' + data[id].instrument_type.id + '" data-instrumenttypecategory="' + data[id].instrument_type.category + '">'+ data[id].name +'</li>');
                             }
                             // console.log('3 >', data.5280dbda29bdd5e61334514a);
                             // for (var i=0, j=data.length; i<j; i++) {
@@ -90,6 +90,17 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         selectInstrument: function(e) {
             $('#profile-portfolio-targets-results').hide();
             $('#profile-portfolio-targets').val('');
+
+            this.targets.push({
+                id: e.currentTarget.getAttribute('data-id'),
+                name: e.currentTarget.getAttribute('data-name'),
+                instrument_type: {
+                    id: e.currentTarget.getAttribute('data-instrumenttypeid'),
+                    category: e.currentTarget.getAttribute('data-instrumenttypecategory')
+                }
+            });
+            this.model.set('targets', this.targets);
+            console.log(this.targets);
             console.log(this.model);
             $('#profile-portfolio-targets-list').append('<li>'+ e.currentTarget.getAttribute('data-name') +'</li>');
         },
@@ -101,6 +112,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         },
         initialize: function(model, options) {
             this.username = options.username;
+            this.targets = [];
         }
     });
 });

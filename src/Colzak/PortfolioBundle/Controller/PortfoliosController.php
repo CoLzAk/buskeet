@@ -13,6 +13,7 @@ use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\UserBundle\Model\UserInterface;
 use Colzak\PortfolioBundle\Document\Portfolio;
+use Colzak\PortfolioBundle\Document\Instrument;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -60,6 +61,46 @@ class PortfoliosController extends BaseController
 
         return $this->handleView($this->view($data, 200));
     } // "post_users_portfolios"   [POST] /users/{username}/portfolios
+
+    /**
+     * GET Route annotation.
+     * @Put("/users/{id}/portfolio/{portfolioId}")
+     */
+    public function putUserAction($id, $portfolioId)
+    {
+        // the actual user
+        $owner = $this->get('security.context')->getToken()->getUser();
+        if (!is_object($owner) || !$owner instanceof UserInterface) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
+
+        $dm = $this->container->get('doctrine_mongodb')->getManager();
+
+        $request = $this->getRequest(); 
+
+        $portfolio = $dm->getRepository('ColzakPortfolioBundle:Portfolio')->find($portfolioId);
+
+        if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
+            $request = $this->getRequest();
+            $serializer = $this->get('jms_serializer');
+            var_dump($request->getContent()); die();
+            // $updatedPortfolio = json_decode($request->getContent(), true);
+            // foreach ($updatedPortfolio['targets'] as $target) {
+            //     $instrument = new Instrument();
+            //     $instrument->
+            //     $portfolio->addTarget($target);
+            // }
+            // $updatedPortfolio = $serializer->deserialize($request->getContent(), 'Colzak\PortfolioBundle\Document\Portfolio', 'json');
+        }
+        var_dump($updatedPortfolio); die();
+        //$portfolio->setProfile($owner->getProfile());
+        $dm->flush();
+        $data = $portfolio;
+
+        return $this->handleView($this->view($data, 200));
+
+    } // "put_users_portfolio"      [PUT] /users/{id}/portfolio/{portfolioId}
+
 
     /**
      * GET Route annotation.
