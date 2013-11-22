@@ -14,7 +14,7 @@ services:
 
     colzak_user.registration.form.eventlistener:
         class: Colzak\UserBundle\Form\EventListener\RegistrationSubscriber
-        arguments: ["@doctrine.odm.mongodb.document_manager"]
+        arguments: ["@doctrine.orm.entity_manager"]
 
 
 # FOS\UserBundle\Model\User:

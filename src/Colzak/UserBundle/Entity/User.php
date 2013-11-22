@@ -21,7 +21,7 @@ class User extends BaseUser
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="bigint")
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @SERIAL\Type("integer")
      */
     protected $id;

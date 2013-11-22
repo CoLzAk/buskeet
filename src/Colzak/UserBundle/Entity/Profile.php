@@ -22,7 +22,7 @@ class Profile
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="bigint", nullable=false)
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @SERIAL\Type("integer")
      */
     protected $id;

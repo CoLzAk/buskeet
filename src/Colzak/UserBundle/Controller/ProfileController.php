@@ -11,12 +11,12 @@ class ProfileController extends Controller
     {
         // return $this->render('ColzakUserBundle:Profile:index.html.twig', array('username' => $username));
         
-        $dm = $this->container->get('doctrine_mongodb')->getManager();
+        $em = $this->container->get('doctrine')->getManager();
 
         if ($username == 'me') {
             $targetUser = $this->container->get('security.context')->getToken()->getUser();
         } else {
-            $targetUser = $dm->getRepository('ColzakUserBundle:User')->findOneByUsername($username);
+            $targetUser = $em->getRepository('ColzakUserBundle:User')->loadUserByUsername($username);
         }
 
         return $this->render('ColzakUserBundle:Profile:index.html.twig', array('targetUser' => $targetUser));

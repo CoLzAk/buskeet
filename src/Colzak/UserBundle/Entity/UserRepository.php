@@ -33,7 +33,6 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     }
 
     public function generateUniqueUsername($data) {
-
         if (!$data['username']) {
             if ( isset($data['first_name']) || isset($data['last_name']) ) {
                 $basename = $this->removeAccents(strtolower($data['first_name'] . '.' . $data['last_name']));
@@ -110,7 +109,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     private function loadUserByUsernameDQL()
     {
         $dql = "SELECT 
-                    partial u.{id, username, usernameCanonical, emailCanonical, lastLogin, lastActivity, roles}
+                    partial u.{id, username, usernameCanonical, emailCanonical, lastLogin, roles}
                 FROM 
                     ColzakUserBundle:User u";
         // $dql .= " WHERE u.activated = true";

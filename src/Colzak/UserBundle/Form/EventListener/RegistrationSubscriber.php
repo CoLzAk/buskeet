@@ -5,18 +5,18 @@ namespace Colzak\UserBundle\Form\EventListener;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Doctrine\ODM\MongoDB\DocumentManager;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Event subscriber used to generate unique username during the registration process
  */
 class RegistrationSubscriber implements EventSubscriberInterface
 {
-    protected $documentManager;
+    protected $entityManager;
 
-    public function __construct(DocumentManager $documentManager)
+    public function __construct(EntityManager $entityManager)
     {
-        $this->documentManager = $documentManager;
+        $this->entityManager = $entityManager;
     }
 
 
@@ -32,7 +32,7 @@ class RegistrationSubscriber implements EventSubscriberInterface
         $data = $event->getData();
         if (null === $data) return;
 
-        $data['username'] = $this->documentManager->getRepository('ColzakUserBundle:User')->generateUniqueUsername($data);
+        $data['username'] = $this->entityManager->getRepository('ColzakUserBundle:User')->generateUniqueUsername($data);
 
         $event->setData($data);
     }

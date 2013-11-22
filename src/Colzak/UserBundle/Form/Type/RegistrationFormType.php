@@ -46,7 +46,7 @@ class RegistrationFormType extends BaseType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Colzak\UserBundle\Document\User',
+            'data_class' => 'Colzak\UserBundle\Entity\User',
             'intention'  => 'registration',
         ));
     }
