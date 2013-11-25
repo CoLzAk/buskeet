@@ -74,8 +74,7 @@ class Profile
     protected $portfolio;
 
     /**
-     * @ORM\OneToOne(targetEntity="Colzak\UserBundle\Entity\User", inversedBy="profile", cascade={"all"})
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\OneToOne(targetEntity="Colzak\UserBundle\Entity\User", mappedBy="profile", cascade={"all"})
      * @SERIAL\Type("Colzak\UserBundle\Entity\User")
      */
     protected $user;

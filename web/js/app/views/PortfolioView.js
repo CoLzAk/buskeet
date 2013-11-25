@@ -10,13 +10,18 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         },
         edit: function(e) {
             e.preventDefault();
-            Backbone.history.navigate(this.username + '/edit/portfolio', { trigger: true });
+            Backbone.history.navigate(this.username + '/edit/portfolio-' + e.currentTarget.getAttribute('data-edit'), { trigger: true });
         },
         onRender: function() {
             this.stickit();
         },
         initialize: function(model, options) {
             this.username = options.username;
+        },
+        serializeData: function() {
+            return {
+                portfolio: this.model.toJSON()
+            };
         }
     });
 
@@ -29,6 +34,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             'click .close-modal-btn': 'closeModal',
             'click .save-modal-btn': 'save',
             'keyup #profile-portfolio-targets': 'getInstrumentsList',
+            'keyup #profile-portfolio-instruments': 'getInstrumentsList',
             'click .list-group-item': 'selectInstrument'
         },
         save: function(e) {
@@ -56,19 +62,18 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                         type: 'GET', // Le type de ma requete
                         url: 'http://colzakfr.dev/app_dev.php/api/portfolio/instruments/' + $(e.currentTarget).val(),
                         success: function(data, textStatus, jqXHR) {
-                            for (var id in data) {
-                                $('#profile-portfolio-targets-results').html('<li class="list-group-item" data-id="' + id + '" data-name="' + data[id].name + '" data-instrumenttypeid="' + data[id].instrument_type.id + '" data-instrumenttypecategory="' + data[id].instrument_type.category + '">'+ data[id].name +'</li>');
+                            var html = '';
+                            for (var i in data) {
+                                html += '<li class="list-group-item" data-id="' + data[i].id + '" data-name="' + data[i].name + '" data-instrumenttypeid="' + data[i].instrumentType.id + '" data-instrumenttypecategory="' + data[i].instrumentType.category + '">'+ data[i].name +'</li>';
                             }
+                            $('#profile-portfolio-targets-results').html(html);
                             $('#profile-portfolio-targets-results').show();
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
-                            // Une erreur s'est produite lors de la requete
                             console.log(data);
                         }
                     });
                 }
-                //Show results in a box
-                //on results item click, add to list
             }
         },
         selectInstrument: function(e) {
@@ -86,18 +91,24 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             this.model.set('targets', this.targets);
             $('#profile-portfolio-targets-list').append('<li>'+ e.currentTarget.getAttribute('data-name') +'</li>');
         },
-        onDomRefresh: function() {
-            console.log(this.targets);
-        },
         onRender: function() {
             this.stickit();
         },
         initialize: function(model, options) {
-            console.log(this.model);
+            console.log(options);
+            console.log('portfolio > ',this.model);
+            console.log('portfolio-targets > ',this.model.get('targets'));
+            console.log('portfolio-instruments > ',this.model.get('instruments'));
             this.username = options.username;
-            this.targets = this.model.get('targets') || [];
-            this.instruments = [];
-            this.objectives = [];
+            this.edit = options.edit;
+            this.targets = this.model.get('targets') || [];
+            this.instruments = this.model.get('instruments') || [];
+            // this.objectives = [];
+        },
+        serializeData: function() {
+            return {
+                edit: this.edit
+            };
         }
     });
 });

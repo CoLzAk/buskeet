@@ -20,7 +20,7 @@ class Instrument
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="bigint")
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @SERIAL\Type("integer")
      */
     protected $id;
@@ -34,7 +34,8 @@ class Instrument
     protected $name;
 
     /**
-     * @ORM\OneToOne(targetEntity="Colzak\PortfolioBundle\Entity\InstrumentType", mappedBy="instrument", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="Colzak\PortfolioBundle\Entity\InstrumentType")
+     * @ORM\JoinColumn(name="instrument_type_id", referencedColumnName="id")
      * @SERIAL\Type("Colzak\PortfolioBundle\Entity\InstrumentType")
      */
     protected $instrumentType;

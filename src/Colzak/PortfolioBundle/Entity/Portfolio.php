@@ -20,7 +20,7 @@ class Portfolio
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="bigint")
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @SERIAL\Type("integer")
      */
     protected $id;
@@ -68,6 +68,14 @@ class Portfolio
      * @SERIAL\Type("Colzak\PortfolioBundle\Entity\Objective")
      */
     protected $objectives;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Colzak\UserBundle\Entity\Profile", inversedBy="portfolio", cascade={"all"})
+     * @ORM\JoinColumn(name="profile_id", referencedColumnName="id", onDelete="CASCADE")
+     * @SERIAL\Type("Colzak\UserBundle\Entity\Profile")
+     */
+    protected $profile;
+
     /**
      * Constructor
      */
@@ -114,12 +122,14 @@ class Portfolio
     /**
      * Add instruments
      *
-     * @param \Colzak\PortfolioBundle\Entity\Instrument $instruments
+     * @param \Colzak\PortfolioBundle\Entity\Instrument $instrument
      * @return Portfolio
      */
-    public function addInstrument(\Colzak\PortfolioBundle\Entity\Instrument $instruments)
+    public function addInstrument(\Colzak\PortfolioBundle\Entity\Instrument $instrument)
     {
-        $this->instruments[] = $instruments;
+        if ($this->instruments->contains($instrument)) {
+            $this->instruments[] = $instrument;
+        }
     
         return $this;
     }
@@ -127,11 +137,11 @@ class Portfolio
     /**
      * Remove instruments
      *
-     * @param \Colzak\PortfolioBundle\Entity\Instrument $instruments
+     * @param \Colzak\PortfolioBundle\Entity\Instrument $instrument
      */
-    public function removeInstrument(\Colzak\PortfolioBundle\Entity\Instrument $instruments)
+    public function removeInstrument(\Colzak\PortfolioBundle\Entity\Instrument $instrument)
     {
-        $this->instruments->removeElement($instruments);
+        $this->instruments->removeElement($instrument);
     }
 
     /**
@@ -147,24 +157,25 @@ class Portfolio
     /**
      * Add targets
      *
-     * @param \Colzak\PortfolioBundle\Entity\Instrument $targets
+     * @param \Colzak\PortfolioBundle\Entity\Instrument $target
      * @return Portfolio
      */
-    public function addTarget(\Colzak\PortfolioBundle\Entity\Instrument $targets)
+    public function addTarget(\Colzak\PortfolioBundle\Entity\Instrument $target)
     {
-        $this->targets[] = $targets;
-    
+        if (!$this->targets->contains($target)) {
+            $this->targets[] = $target;
+        }
         return $this;
     }
 
     /**
      * Remove targets
      *
-     * @param \Colzak\PortfolioBundle\Entity\Instrument $targets
+     * @param \Colzak\PortfolioBundle\Entity\Instrument $target
      */
-    public function removeTarget(\Colzak\PortfolioBundle\Entity\Instrument $targets)
+    public function removeTarget(\Colzak\PortfolioBundle\Entity\Instrument $target)
     {
-        $this->targets->removeElement($targets);
+        $this->targets->removeElement($target);
     }
 
     /**
@@ -180,12 +191,14 @@ class Portfolio
     /**
      * Add objectives
      *
-     * @param \Colzak\PortfolioBundle\Entity\Objective $objectives
+     * @param \Colzak\PortfolioBundle\Entity\Objective $objective
      * @return Portfolio
      */
-    public function addObjective(\Colzak\PortfolioBundle\Entity\Objective $objectives)
+    public function addObjective(\Colzak\PortfolioBundle\Entity\Objective $objective)
     {
-        $this->objectives[] = $objectives;
+        if ($this->objectives->contains($objective)) {
+            $this->objectives[] = $objective;
+        }
     
         return $this;
     }
@@ -193,11 +206,11 @@ class Portfolio
     /**
      * Remove objectives
      *
-     * @param \Colzak\PortfolioBundle\Entity\Objective $objectives
+     * @param \Colzak\PortfolioBundle\Entity\Objective $objective
      */
-    public function removeObjective(\Colzak\PortfolioBundle\Entity\Objective $objectives)
+    public function removeObjective(\Colzak\PortfolioBundle\Entity\Objective $objective)
     {
-        $this->objectives->removeElement($objectives);
+        $this->objectives->removeElement($objective);
     }
 
     /**
@@ -208,5 +221,28 @@ class Portfolio
     public function getObjectives()
     {
         return $this->objectives;
+    }
+
+    /**
+     * Set profile
+     *
+     * @param \Colzak\UserBundle\Entity\Profile $profile
+     * @return Portfolio
+     */
+    public function setProfile(\Colzak\UserBundle\Entity\Profile $profile = null)
+    {
+        $this->profile = $profile;
+    
+        return $this;
+    }
+
+    /**
+     * Get profile
+     *
+     * @return \Colzak\UserBundle\Entity\Profile 
+     */
+    public function getProfile()
+    {
+        return $this->profile;
     }
 }

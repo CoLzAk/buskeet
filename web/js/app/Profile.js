@@ -36,8 +36,9 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
         if (formName == 'aboutme') {
             UserModule.modalLayout.modalContentRegion.show(new ProfileDescriptionFormView({ model: UserModule.targetUser }));
         }
-        if (formName == 'portfolio') {
-            UserModule.modalLayout.modalContentRegion.show(new PortfolioFormView({ model: UserModule.targetUserPortfolio }, { username: username }));
+        if (formName == 'portfolio-targets' || formName == 'portfolio-instruments' || formName == 'portfolio-objectives') {
+            var formNameArray = formName.split('-');
+            UserModule.modalLayout.modalContentRegion.show(new PortfolioFormView({ model: UserModule.targetUserPortfolio }, { username: username, edit: formNameArray[1] }));
         }
         $('#clzk-modal').modal('show');
     };

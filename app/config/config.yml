@@ -83,9 +83,9 @@ jms_serializer:
                 path: "@ColzakUserBundle/Resources/config/serializer/fos"
 
 fos_user:
-    db_driver: mongodb
+    db_driver: orm
     firewall_name: main
-    user_class: Colzak\UserBundle\Document\User
+    user_class: Colzak\UserBundle\Entity\User
     registration:
         form:
             type: colzak_user_registration

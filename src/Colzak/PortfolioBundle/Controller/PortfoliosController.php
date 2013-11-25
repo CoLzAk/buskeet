@@ -12,8 +12,8 @@ use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\UserBundle\Model\UserInterface;
-use Colzak\PortfolioBundle\Document\Portfolio;
-use Colzak\PortfolioBundle\Document\Instrument;
+use Colzak\PortfolioBundle\Entity\Portfolio;
+use Colzak\PortfolioBundle\Entity\Instrument;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -25,9 +25,9 @@ class PortfoliosController extends BaseController
      */
     public function getUserPortfolioAction($id)
     {
-        $dm = $this->container->get('doctrine_mongodb')->getManager();
-        $user = $dm->getRepository('ColzakUserBundle:User')->findOneByUsername($username);
-        $data = $em->getRepository('ColzakPortfolioBundle:Portfolio')->findAllByProfile($user->getProfile());
+        $em = $this->container->get('doctrine')->getManager();
+        $user = $em->getRepository('ColzakUserBundle:User')->find($id);
+        $data = $em->getRepository('ColzakPortfolioBundle:Portfolio')->findByProfile($user->getProfile());
 
         return $this->handleView($this->view($data, 200));
     } // "get_users_portfolio"   [GET] /users/{id}/portfolio
@@ -38,24 +38,18 @@ class PortfoliosController extends BaseController
      */
     public function postUserPortfolioAction($id)
     {
-        $user = $this->get('security.context')->getToken()->getUser();
-
-        $dm = $this->container->get('doctrine_mongodb')->getManager();
-
-        $portfolio = new Portfolio();
+        $em = $this->container->get('doctrine')->getManager();
+        $user = $em->getRepository('ColzakUserBundle:User')->find($id);
 
         $request = $this->getRequest(); 
         if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
             $request = $this->getRequest();
-            $serializer = $this->get('jms_serializer');
-            $portfolio = $serializer->deserialize($request->getContent(), 'Colzak\PortfolioBundle\Document\Portfolio', 'json');
+            $portfolio = $this->managePortfolio(json_decode($request->getContent(), true));
         }
 
-        $dm->persist($portfolio);
-
-        $user->getProfile()->setPortfolio($portfolio);
-
-        $dm->flush();
+        $portfolio->setProfile($user->getProfile());
+        $em->persist($portfolio);
+        $em->flush();
 
         $data = $portfolio;
 
@@ -68,63 +62,51 @@ class PortfoliosController extends BaseController
      */
     public function putUserPortfolioAction($id, $portfolioId)
     {
-        // the actual user
-        $owner = $this->get('security.context')->getToken()->getUser();
-        if (!is_object($owner) || !$owner instanceof UserInterface) {
-            throw new AccessDeniedException('This user does not have access to this section.');
-        }
+        $em = $this->container->get('doctrine')->getManager();
+        $user = $em->getRepository('ColzakUserBundle:User')->find($id);
 
-        $dm = $this->container->get('doctrine_mongodb')->getManager();
+        $request = $this->getRequest();
 
-        $request = $this->getRequest(); 
-
-        $portfolio = $dm->getRepository('ColzakPortfolioBundle:Portfolio')->find($portfolioId);
+        // $portfolio = $em->getRepository('ColzakPortfolioBundle:Portfolio')->find($portfolioId);
 
         if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
             $request = $this->getRequest();
-            $serializer = $this->get('jms_serializer');
-            $updatedPortfolio = json_decode($request->getContent(), true);
-            $portfolio->setTargetsDescription($updatedPortfolio['targets_description']);
-            foreach ($updatedPortfolio['targets'] as $target) {
-                $portfolio->addTarget($dm->getRepository('ColzakPortfolioBundle:Instrument')->find($target['id']));
-            }
-            foreach ($updatedPortfolio['instruments'] as $instrument) {
-                $portfolio->addTarget($dm->getRepository('ColzakPortfolioBundle:Instrument')->find($instrument['id']));
-            }
+            $portfolio = $this->managePortfolio(json_decode($request->getContent(), true));
         }
-        $dm->flush();
+        $portfolio->setProfile($user->getProfile());
+        $em->persist($portfolio);
+        $em->flush();
         $data = $portfolio;
 
         return $this->handleView($this->view($data, 200));
 
     } // "put_users_portfolio"      [PUT] /users/{id}/portfolio/{portfolioId}
 
-
-    /**
-     * GET Route annotation.
-     * @Get("/portfolio/instruments")
-     */
-    // public function getPortfolioInstrumentsAction(Request $request) {
-    //     $dm = $this->container->get('doctrine_mongodb')->getManager();
-
-    //     $data = $dm->getRepository('ColzakPortfolioBundle:Instrument')->findInstrumentsBySlug($request->query->get('term'))->toArray();
-    //     // $data = $dm->getRepository('ColzakPortfolioBundle:Instrument')->findAll()->toArray();
-
-    //     // $serializer = $this->get('jms_serializer');
-    //     // $response = new Response(json_encode(array('data' => $data)));
-    //     // $response->headers->set('Content-Type', 'application/json');
-
-    //     // return $response;
-    //     return $this->handleView($this->view($data, 200));
-    // } // "get_portfolio_instruments"   [GET] /portfolio/instruments
-
     /**
      * GET Route annotation.
      * @Get("/portfolio/instruments/{slug}")
      */
     public function getPortfolioInstrumentsAction($slug) {
-        $dm = $this->container->get('doctrine_mongodb')->getManager();
-        $data = $dm->getRepository('ColzakPortfolioBundle:Instrument')->findInstrumentsBySlug($slug)->toArray();
+        $em = $this->container->get('doctrine')->getManager();
+        $data = $em->getRepository('ColzakPortfolioBundle:Instrument')->loadInstrumentsBySlug($slug);
         return $this->handleView($this->view($data, 200));
     } // "get_portfolio_instruments"   [GET] /portfolio/instruments/{slug}
+
+    public function managePortfolio($reqPortfolio) {
+        $em = $this->get('doctrine')->getManager();
+        $portfolio = (!isset($reqPortfolio['id']) ? new Portfolio() : $em->getRepository('ColzakPortfolioBundle:Portfolio')->find($reqPortfolio['id']));
+        $portfolio->setTargetsDescription($reqPortfolio['targets_description']);
+        if (isset($reqPortfolio['targets'])) {
+            foreach ($reqPortfolio['targets'] as $target) {
+                $portfolio->addTarget($em->getRepository('ColzakPortfolioBundle:Instrument')->find($target['id']));
+            }
+        }
+        if (isset($reqPortfolio['instruments'])) {
+            foreach ($reqPortfolio['instruments'] as $instrument) {
+                $portfolio->addTarget($em->getRepository('ColzakPortfolioBundle:Instrument')->find($instrument['id']));
+            }
+        }
+
+        return $portfolio;
+    }
 }

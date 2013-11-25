@@ -27,7 +27,8 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Colzak\UserBundle\Entity\Profile", mappedBy="user", cascade={"all"})
+     * @ORM\OneToOne(targetEntity="Colzak\UserBundle\Entity\Profile", inversedBy="user", cascade={"all"})
+     * @ORM\JoinColumn(name="profile_id", referencedColumnName="id", onDelete="CASCADE")
      * @SERIAL\Type("Colzak\UserBundle\Entity\Profile")
      */
     protected $profile;

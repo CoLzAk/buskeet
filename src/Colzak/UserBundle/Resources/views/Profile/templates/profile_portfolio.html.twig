@@ -16,9 +16,9 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <span class="text-left">Instruments</span>
-                {#% if targetUser == app.user %}
-                    <a href="#" class="pull-right glyphicon glyphicon-edit"></a>
-                {% endif %#}
+                {% if targetUser == app.user %}
+                    <a href="#" class="pull-right glyphicon glyphicon-edit edit-btn" data-edit="instruments"></a>
+                {% endif %}
             </div>
             <div class="panel-body">
                 {#% if targetUser.portfolio is not null %}
@@ -50,12 +50,18 @@
     </div>
     <div class="col-md-8">
         <h2>Je cherche ... </h2>
-        <a href="#" class="edit-btn">edit</a>
+        <a href="#" class="edit-btn" data-edit="targets">edit</a>
         <p id="profile-portfolio-targets-description"></p>
+        <ul class="list-unstyled">
+            <% for (var i in portfolio.targets) { %>
+                <li><%= portfolio.targets[i].name %></li>
+            <% } %>
+        </ul>
         {#} Un premier "panel" avec le type de profil recherché + description(avec des icones a l'interieur)
             ex. Recherche guitariste/chanteur de blues confirmé
         {#}
         <h2> Mes objectifs </h2>
+        <a href="#" class="edit-btn" data-edit="objectives">edit</a>
         {#} Un deuxième panel avec les objectifs
             ex. Sortir un album tribute to oasis
             ex. Monter sur scène pour la fête de la musique
@@ -66,18 +72,52 @@
 <script type="text/template" id="clzk-profile-portfolio-form-template">
     <div class="modal-header">
         <button type="button" class="close close-modal-btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h1>Targets</h1>
+        <h1>Mon portfolio</h1>
     </div>
     <div class="modal-body">
-        <div class="form-group">
-            <textarea class="form-control" row="5" id="profile-portfolio-targets-description">aaaaa</textarea>
+        <div class="panel-group" id="accordion">
+            {#} Instruments {#}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#instrumentsCollapse">
+                          Instruments
+                        </a>
+                    </h4>
+                </div>
+                <div id="instrumentsCollapse" class="panel-collapse collapse <% if (edit == 'instruments') { %>in<% } %>">
+                    <div class="panel-body">
+                        <input type="text" class="form-control" id="profile-portfolio-instruments" placeholder="Ajouter un instrument">
+                        <ul class="list-group" id="profile-portfolio-instruments-results">
+                        </ul>
+                        <ul class="list-unstyled" id="profile-portfolio-instruments-list">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            {#} Targets {#}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#targetsCollapse">
+                          Targets
+                        </a>
+                    </h4>
+                </div>
+                <div id="targetsCollapse" class="panel-collapse collapse <% if (edit == 'targets') { %>in<% } %>">
+                    <div class="panel-body">
+                        <textarea class="form-control" row="5" id="profile-portfolio-targets-description"></textarea>
+                        <hr>
+                        <input type="text" class="form-control" id="profile-portfolio-targets" placeholder="Ajouter une cible">
+                        <ul class="list-group" id="profile-portfolio-targets-results">
+                        </ul>
+                        <ul class="list-unstyled" id="profile-portfolio-targets-list">
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-        <hr>
-        <input type="text" class="form-control" id="profile-portfolio-targets" placeholder="Ajouter un instrument">
-        <ul class="list-group" id="profile-portfolio-targets-results">
-        </ul>
-        <ul class="list-unstyled" id="profile-portfolio-targets-list">
-        </ul>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default close-modal-btn" data-dismiss="modal">Fermer</button>

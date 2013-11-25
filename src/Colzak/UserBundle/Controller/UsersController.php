@@ -43,22 +43,22 @@ class UsersController extends BaseController
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        $dm = $this->container->get('doctrine_mongodb')->getManager();
+        $em = $this->container->get('doctrine')->getManager();
 
         $request = $this->getRequest(); 
 
         // $user = $dm->getRepository('ColzakUserBundle:User')->findOneByUsername($username);
-        $user = $dm->getRepository('ColzakUserBundle:User')->find($id);
+        // $user = $dm->getRepository('ColzakUserBundle:User')->find($id);
 
         if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
             $request = $this->getRequest();
             $serializer = $this->get('jms_serializer');
-            $updatedUser = $serializer->deserialize($request->getContent(), 'Colzak\UserBundle\Document\User', 'json');
+            $updatedUser = $serializer->deserialize($request->getContent(), 'Colzak\UserBundle\Entity\User', 'json');
         }
 
-        $user->setProfile($updatedUser->getProfile());
-        $dm->flush();
-        $data = $updatedUser;
+        $user = $em->merge($updatedUser);
+        $em->flush();
+        $data = $user;
 
         return $this->handleView($this->view($data, 200));
 

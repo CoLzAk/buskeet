@@ -19,7 +19,7 @@ class InstrumentType
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="bigint")
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @SERIAL\Type("integer")
      */
     protected $id;
@@ -63,5 +63,28 @@ class InstrumentType
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Set instrument
+     *
+     * @param \Colzak\PortfolioBundle\Entity\Instrument $instrument
+     * @return InstrumentType
+     */
+    public function setInstrument(\Colzak\PortfolioBundle\Entity\Instrument $instrument = null)
+    {
+        $this->instrument = $instrument;
+    
+        return $this;
+    }
+
+    /**
+     * Get instrument
+     *
+     * @return \Colzak\PortfolioBundle\Entity\Instrument 
+     */
+    public function getInstrument()
+    {
+        return $this->instrument;
     }
 }
