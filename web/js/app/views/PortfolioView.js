@@ -137,11 +137,12 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         },
         addObjective: function(e) {
             e.preventDefault();
+            moment.lang('fr');
             var html = '', objective = {
                 title: $('#profile-portfolio-objective-title').val(),
                 content: $('#profile-portfolio-objective-description').val(),
-                start_date: $('#profile-portfolio-objective-startDate').val(),
-                end_date: $('#profile-portfolio-objective-endDate').val()
+                start_date: moment($('#profile-portfolio-objective-startDate').val(), "DD/MM/YYYY").format("YYYY-MM-DD\\THH:mm:ssZZ"),
+                end_date: moment($('#profile-portfolio-objective-endDate').val(), "DD/MM/YYYY").format("YYYY-MM-DD\\THH:mm:ssZZ")
             };
 
             html += '<div class="col-md-4">';

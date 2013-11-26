@@ -49,10 +49,17 @@ class Objective
 
     /**
      * @var datetime $endTime
-     * @ORM\Column(name="end_time", type="time", nullable=true)
+     * @ORM\Column(name="end_time", type="datetime", nullable=true)
      * @SERIAL\Type("DateTime")
      */
     protected $endDate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Colzak\PortfolioBundle\Entity\Portfolio", inversedBy="objectives", cascade={"all"})
+     * @ORM\JoinColumn(name="portfolio_id", referencedColumnName="id")
+     * @SERIAL\Type("Colzak\PortfolioBundle\Entity\Portfolio")
+     */
+    protected $portfolio;
 
     /**
      * Get id
@@ -154,5 +161,28 @@ class Objective
     public function getEndDate()
     {
         return $this->endDate;
+    }
+
+    /**
+     * Set portfolio
+     *
+     * @param \Colzak\PortfolioBundle\Entity\Portfolio $portfolio
+     * @return Objective
+     */
+    public function setPortfolio(\Colzak\PortfolioBundle\Entity\Portfolio $portfolio = null)
+    {
+        $this->portfolio = $portfolio;
+    
+        return $this;
+    }
+
+    /**
+     * Get portfolio
+     *
+     * @return \Colzak\PortfolioBundle\Entity\Portfolio 
+     */
+    public function getPortfolio()
+    {
+        return $this->portfolio;
     }
 }

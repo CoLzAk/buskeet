@@ -118,8 +118,9 @@ class PortfoliosController extends BaseController
                 $oObjective = new Objective();
                 $oObjective->setTitle($objective['title']);
                 $oObjective->setContent($objective['content']);
-                $oObjective->setStartDate(date("Y-m-d H:i:s",strtotime(str_replace('/','-',$objective['start_date']))));
-                $oObjective->setEndDate(date("Y-m-d H:i:s",strtotime(str_replace('/','-',$objective['end_date']))));
+                $oObjective->setStartDate(new \DateTime($objective['start_date']));
+                $oObjective->setEndDate(new \DateTime($objective['end_date']));
+                $oObjective->setPortfolio($portfolio);
                 $portfolio->addObjective($oObjective);
             }
         }

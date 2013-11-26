@@ -60,11 +60,7 @@ class Portfolio
     /**
      * @var ArrayCollection $objectives
      *
-     * @ORM\ManyToMany(targetEntity="Colzak\PortfolioBundle\Entity\Objective", cascade={"all"})
-     * @ORM\JoinTable(name="clzk_portfolios_objectives",
-     *      joinColumns={@ORM\JoinColumn(name="portfolio_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="objective_id", referencedColumnName="id")}
-     *      )
+     * @ORM\OneToMany(targetEntity="Colzak\PortfolioBundle\Entity\Objective", mappedBy="portfolio", cascade={"all"})
      * @SERIAL\Type("Colzak\PortfolioBundle\Entity\Objective")
      */
     protected $objectives;
