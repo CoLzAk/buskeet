@@ -103,10 +103,14 @@ class PortfoliosController extends BaseController
         }
         if (isset($reqPortfolio['instruments'])) {
             foreach ($reqPortfolio['instruments'] as $instrument) {
-                $portfolio->addTarget($em->getRepository('ColzakPortfolioBundle:Instrument')->find($instrument['id']));
+                $portfolio->addInstrument($em->getRepository('ColzakPortfolioBundle:Instrument')->find($instrument['id']));
             }
         }
-
+        if (isset($reqPortfolio['objectives'])) {
+            foreach ($reqPortfolio['objectives'] as $objective) {
+                $portfolio->addObjective($em->getRepository($objective));
+            }
+        }
         return $portfolio;
     }
 }

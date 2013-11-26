@@ -127,7 +127,7 @@ class Portfolio
      */
     public function addInstrument(\Colzak\PortfolioBundle\Entity\Instrument $instrument)
     {
-        if ($this->instruments->contains($instrument)) {
+        if (!$this->instruments->contains($instrument)) {
             $this->instruments[] = $instrument;
         }
     
@@ -196,7 +196,7 @@ class Portfolio
      */
     public function addObjective(\Colzak\PortfolioBundle\Entity\Objective $objective)
     {
-        if ($this->objectives->contains($objective)) {
+        if (!$this->objectives->contains($objective)) {
             $this->objectives[] = $objective;
         }
     

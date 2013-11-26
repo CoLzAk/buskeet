@@ -21,17 +21,11 @@
                 {% endif %}
             </div>
             <div class="panel-body">
-                {#% if targetUser.portfolio is not null %}
-                    <ul class="list-unstyled">
-                        {% for instrument in targetUser.portfolio.instruments if targetUser.portfolio.instruments|length > 0 %}
-                            <li>{{ instrument }}</li>
-                        {% else %}
-                            <li>vide</li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    vide
-                {% endif %#}
+                <ul class="list-unstyled">
+                    <% for (var i in portfolio.instruments) { %>
+                        <li><%= portfolio.instruments[i].name %></li>
+                    <% } %>
+                </ul>
             </div>
         </div>
         <div class="panel panel-default">
@@ -88,10 +82,8 @@
                 <div id="instrumentsCollapse" class="panel-collapse collapse <% if (edit == 'instruments') { %>in<% } %>">
                     <div class="panel-body">
                         <input type="text" class="form-control" id="profile-portfolio-instruments" placeholder="Ajouter un instrument">
-                        <ul class="list-group" id="profile-portfolio-instruments-results">
-                        </ul>
-                        <ul class="list-unstyled" id="profile-portfolio-instruments-list">
-                        </ul>
+                        <ul class="list-group" id="profile-portfolio-instruments-results"></ul>
+                        <ul class="list-unstyled" id="profile-portfolio-instruments-list"></ul>
                     </div>
                 </div>
             </div>
@@ -110,10 +102,38 @@
                         <textarea class="form-control" row="5" id="profile-portfolio-targets-description"></textarea>
                         <hr>
                         <input type="text" class="form-control" id="profile-portfolio-targets" placeholder="Ajouter une cible">
-                        <ul class="list-group" id="profile-portfolio-targets-results">
-                        </ul>
-                        <ul class="list-unstyled" id="profile-portfolio-targets-list">
-                        </ul>
+                        <ul class="list-group" id="profile-portfolio-targets-results"></ul>
+                        <ul class="list-unstyled" id="profile-portfolio-targets-list"></ul>
+                    </div>
+                </div>
+            </div>
+
+            {#} Objectives {#}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#objectivesCollapse">
+                          Objectives
+                        </a>
+                    </h4>
+                </div>
+                <div id="objectivesCollapse" class="panel-collapse collapse <% if (edit == 'objectives') { %>in<% } %>">
+                    <div class="panel-body">
+                        <input type="text" class="form-control" id="profile-portfolio-objective-title" placeholder="Titre">
+                        <hr>
+                        <textarea class="form-control" row="5" id="profile-portfolio-objective-description"></textarea>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="profile-portfolio-objective-startDate" placeholder="Début">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="profile-portfolio-objective-endDate" placeholder="Fin">
+                            </div>
+                        </div>
+                        <hr>
+                        <a href="#" class="btn btn-default btn-block" id="add-objective-btn">Ajouter</a>
+                        <div class="row" id="profile-portfolio-objectives-result"></div>
                     </div>
                 </div>
             </div>
