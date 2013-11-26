@@ -56,6 +56,11 @@
         {#}
         <h2> Mes objectifs </h2>
         <a href="#" class="edit-btn" data-edit="objectives">edit</a>
+        <% for (var i in portfolio.objectives) { %>
+            <h4><%= portfolio.objectives[i].title %></h4>
+            <p><%= portfolio.objectives[i].content %></p>
+            <span>Du <%= portfolio.objectives[i].start_date %> au <%= portfolio.objectives[i].end_date %></span>
+        <% } %>
         {#} Un deuxième panel avec les objectifs
             ex. Sortir un album tribute to oasis
             ex. Monter sur scène pour la fête de la musique
@@ -142,5 +147,5 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-default close-modal-btn" data-dismiss="modal">Fermer</button>
         <button type="button" class="btn btn-primary save-modal-btn">Valider</button>
-    </div>  
+    </div>
 </script>
