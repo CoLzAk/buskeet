@@ -163,7 +163,9 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             this.objectives.push(objective);
         },
         onDomRefresh: function() {
-            $('.datepicker').datepicker({});
+            $('.datepicker').datepicker({
+                dateFormat: 'dd/mm/yy'
+            });
         },
         onRender: function() {
             this.stickit();

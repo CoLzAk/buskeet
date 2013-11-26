@@ -13,6 +13,7 @@ use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\UserBundle\Model\UserInterface;
 use Colzak\PortfolioBundle\Entity\Portfolio;
+use Colzak\PortfolioBundle\Entity\Objective;
 use Colzak\PortfolioBundle\Entity\Instrument;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -96,6 +97,8 @@ class PortfoliosController extends BaseController
         return $this->handleView($this->view($data, 200));
     } // "get_portfolio_instruments"   [GET] /portfolio/instruments/{slug}
 
+
+    // Construct the portfolio
     public function managePortfolio($reqPortfolio) {
         $em = $this->get('doctrine')->getManager();
         $portfolio = (!isset($reqPortfolio['id']) ? new Portfolio() : $em->getRepository('ColzakPortfolioBundle:Portfolio')->find($reqPortfolio['id']));
@@ -112,7 +115,12 @@ class PortfoliosController extends BaseController
         }
         if (isset($reqPortfolio['objectives'])) {
             foreach ($reqPortfolio['objectives'] as $objective) {
-                $portfolio->addObjective($em->getRepository($objective));
+                $oObjective = new Objective();
+                $oObjective->setTitle($objective['title']);
+                $oObjective->setContent($objective['content']);
+                $oObjective->setStartDate(date("Y-m-d H:i:s",strtotime(str_replace('/','-',$objective['start_date']))));
+                $oObjective->setEndDate(date("Y-m-d H:i:s",strtotime(str_replace('/','-',$objective['end_date']))));
+                $portfolio->addObjective($oObjective);
             }
         }
         return $portfolio;
