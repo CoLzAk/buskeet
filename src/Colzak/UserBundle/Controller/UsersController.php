@@ -47,9 +47,6 @@ class UsersController extends BaseController
 
         $request = $this->getRequest(); 
 
-        // $user = $dm->getRepository('ColzakUserBundle:User')->findOneByUsername($username);
-        // $user = $dm->getRepository('ColzakUserBundle:User')->find($id);
-
         if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
             $request = $this->getRequest();
             $serializer = $this->get('jms_serializer');

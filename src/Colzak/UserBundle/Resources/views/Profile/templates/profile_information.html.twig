@@ -1,5 +1,4 @@
 <script type="text/template" id="clzk-profile-information-template">
-    <a href="#" class="edit-btn">edit</a>
     <h1 class="text-left"><span id="profile-firstname"></span>&nbsp;<span id="profile-lastname"></span></h1>
     <hr>
     <div class="row">
@@ -12,6 +11,30 @@
         <div class="col-md-3">
             <span>Expérience: Héro
         </div>
-        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <a href="#" class="edit-btn">edit</a>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="clzk-profile-information-form-template">
+    <div class="modal-header">
+        <button type="button" class="close close-modal-btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h1>Mes informations</h1>
+    </div>
+    <div class="modal-body">
+        {#} Address {#}
+        <div class="form-group">
+            <input type="text" class="form-control" id="clzk-profile-address-input" placeholder="Où vous situez-vous ?">
+        </div>
+        <div id="map"></div>
+        <hr>
+
+        {#} Birthdate {#}
+        <input type="text" class="form-control datepicker" id="clzk-profile-birthdate" placeholder="Date de naissance">
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default close-modal-btn" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary save-modal-btn">Valider</button>
     </div>
 </script>

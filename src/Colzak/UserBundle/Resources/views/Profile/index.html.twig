@@ -1,5 +1,27 @@
 {% extends 'ColzakUserBundle::layout.html.twig' %}
 
+{% block extra_stylesheets %}
+    {% stylesheets
+        "osm/leaflet/leaflet.css"
+    %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
+
+    <style>
+        #leaftlet-map {
+            height: 180px;
+        }
+
+        #map {
+            height: 180px;
+        }
+
+        #map img {
+            max-width: 100%;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
     <div id="clzk-profile-region"></div>
 
@@ -42,7 +64,6 @@
     {#} Profile description {#}
     {% include 'ColzakUserBundle:Profile:templates/profile_portfolio.html.twig' %}
 
-    
 {% endblock %}
 {% block extra_javascripts %}
     {% javascripts
@@ -54,6 +75,7 @@
         "js/vendor/backbone.stickit.min.js"
         "js/vendor/moment-2.0.0.min.js"
         "js/vendor/moment.lang.fr.min.js"
+        "osm/leaflet/leaflet.js"
         "js/app/App.js"
         "js/app/Profile.js"
         "js/app/views/ProfilePictureView.js"
@@ -76,6 +98,12 @@
                 path: "{{ path(app.request.attributes.get('_route')) }}"
         };
         App.start(options);
+
+        // var map = L.map('map').setView([51.505, -0.09], 13);
+        // L.tileLayer('http://{s}.tile.cloudmade.com/0141904cfe59413f8a10df5a6e5352a5/997/256/{z}/{x}/{y}.png', {
+        //     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+        //     maxZoom: 18
+        // }).addTo(map);
     })
     </script>
 {% endblock %}

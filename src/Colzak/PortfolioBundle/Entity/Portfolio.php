@@ -60,7 +60,7 @@ class Portfolio
     /**
      * @var ArrayCollection $objectives
      *
-     * @ORM\OneToMany(targetEntity="Colzak\PortfolioBundle\Entity\Objective", mappedBy="portfolio", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="Colzak\PortfolioBundle\Entity\Objective", mappedBy="portfolio", cascade={"persist", "remove"})
      * @SERIAL\Type("Colzak\PortfolioBundle\Entity\Objective")
      */
     protected $objectives;

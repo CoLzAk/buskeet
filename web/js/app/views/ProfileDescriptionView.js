@@ -10,7 +10,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         },
         edit: function(e) {
             e.preventDefault();
-            Backbone.history.navigate(this.model.username + '/edit/aboutme', { trigger: true });
+            Backbone.history.navigate(this.model.get('username') + '/edit/aboutme', { trigger: true });
         },
         serializeData: function() {
             return {
@@ -45,7 +45,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         },
         closeModal: function(e) {
             e.preventDefault();
-            Backbone.history.navigate(this.model.username, { trigger: false });
+            Backbone.history.navigate(this.model.get('username'), { trigger: false });
             $('#clzk-modal').modal('hide');
         },
         onRender: function() {
