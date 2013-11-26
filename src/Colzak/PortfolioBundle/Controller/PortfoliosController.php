@@ -88,7 +88,11 @@ class PortfoliosController extends BaseController
      */
     public function getPortfolioInstrumentsAction($slug) {
         $em = $this->container->get('doctrine')->getManager();
-        $data = $em->getRepository('ColzakPortfolioBundle:Instrument')->loadInstrumentsBySlug($slug);
+        $adjective = false;
+        if ($this->container->get('request')->query->get('adjective') !== NULL) {
+            $adjective = true;
+        }
+        $data = $em->getRepository('ColzakPortfolioBundle:Instrument')->loadInstrumentsBySlug($slug, $adjective);
         return $this->handleView($this->view($data, 200));
     } // "get_portfolio_instruments"   [GET] /portfolio/instruments/{slug}
 

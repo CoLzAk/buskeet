@@ -7,11 +7,15 @@ use Doctrine\ORM\QueryBuilder;
 
 class InstrumentRepository extends EntityRepository
 {
-    public function loadInstrumentsBySlug($slug) {
+    public function loadInstrumentsBySlug($slug, $adjective) {
+        $dql = ' SELECT i,t FROM ColzakPortfolioBundle:Instrument i JOIN i.instrumentType t ';
+        if ($adjective) {
+            $dql .= ' WHERE i.adjective LIKE :slug ';
+        } else {
+            $dql .= ' WHERE i.name LIKE :slug ';
+        }
         return $this->getEntityManager()
-            ->createQuery('SELECT i,t FROM ColzakPortfolioBundle:Instrument i
-                            JOIN i.instrumentType t
-                            WHERE i.name LIKE :slug')
+            ->createQuery($dql)
             ->setParameter('slug', $slug.'%')
             ->getArrayResult();
     }

@@ -28,10 +28,18 @@ class Instrument
     /**
      * @var string $name
      *
-     * @ORM\Column(name="name", type="string", length=50, nullable=false)
+     * @ORM\Column(name="name", type="string", length=50, nullable=true)
      * @SERIAL\Type("string")
      */
     protected $name;
+
+    /**
+     * @var string $adjective
+     *
+     * @ORM\Column(name="adjective", type="string", length=50, nullable=true)
+     * @SERIAL\Type("string")
+     */
+    protected $adjective;
 
     /**
      * @ORM\ManyToOne(targetEntity="Colzak\PortfolioBundle\Entity\InstrumentType")
@@ -94,5 +102,28 @@ class Instrument
     public function getInstrumentType()
     {
         return $this->instrumentType;
+    }
+
+    /**
+     * Set adjective
+     *
+     * @param string $adjective
+     * @return Instrument
+     */
+    public function setAdjective($adjective)
+    {
+        $this->adjective = $adjective;
+    
+        return $this;
+    }
+
+    /**
+     * Get adjective
+     *
+     * @return string 
+     */
+    public function getAdjective()
+    {
+        return $this->adjective;
     }
 }

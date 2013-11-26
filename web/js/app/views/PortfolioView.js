@@ -33,9 +33,10 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         events: {
             'click .close-modal-btn': 'closeModal',
             'click .save-modal-btn': 'save',
-            'keyup #profile-portfolio-targets': 'getInstrumentsList',
+            'keyup #profile-portfolio-targets': 'getTargetsList',
             'keyup #profile-portfolio-instruments': 'getInstrumentsList',
-            'click .list-group-item': 'selectInstrument',
+            'click .list-group-item-instruments': 'selectInstrument',
+            'click .list-group-item-targets': 'selectTarget',
             'click #add-objective-btn': 'addObjective'
         },
         save: function(e) {
@@ -60,15 +61,42 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 //Call ajax function to get the instruments list
                 if (e.keyCode >= 65 && e.keyCode <= 90) {
                     $.ajax({
-                        type: 'GET', // Le type de ma requete
+                        type: 'GET',
                         url: 'http://colzakfr.dev/app_dev.php/api/portfolio/instruments/' + $(e.currentTarget).val(),
                         success: function(data, textStatus, jqXHR) {
                             var html = '';
                             for (var i in data) {
-                                html += '<li class="list-group-item" data-id="' + data[i].id + '" data-name="' + data[i].name + '" data-instrumenttypeid="' + data[i].instrumentType.id + '" data-instrumenttypecategory="' + data[i].instrumentType.category + '">'+ data[i].name +'</li>';
+                                html += '<li class="list-group-item list-group-item-instruments" data-id="' + data[i].id + '" data-name="' + data[i].name + '" data-adjective="' + data[i].adjective + '" data-instrumenttypeid="' + data[i].instrumentType.id + '" data-instrumenttypecategory="' + data[i].instrumentType.category + '">'+ data[i].name +'</li>';
                             }
-                            $('#profile-portfolio-'+ that.edit +'-results').html(html);
-                            $('#profile-portfolio-'+ that.edit +'-results').show();
+                            $('#profile-portfolio-instruments-results').html(html);
+                            $('#profile-portfolio-instruments-results').show();
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(data);
+                        }
+                    });
+                }
+            }
+        },
+        getTargetsList: function(e) {
+            var instruments, that = this;
+            e.preventDefault();
+            if ($(e.currentTarget).val().length >= 3) {
+                //Call ajax function to get the targets list
+                if (e.keyCode >= 65 && e.keyCode <= 90) {
+                    $.ajax({
+                        type: 'GET', // Le type de ma requete
+                        url: 'http://colzakfr.dev/app_dev.php/api/portfolio/instruments/' + $(e.currentTarget).val(),
+                        data: {
+                            adjective: true
+                        },
+                        success: function(data, textStatus, jqXHR) {
+                            var html = '';
+                            for (var i in data) {
+                                html += '<li class="list-group-item list-group-item-targets" data-id="' + data[i].id + '" data-name="' + data[i].name + '" data-adjective="' + data[i].adjective + '" data-instrumenttypeid="' + data[i].instrumentType.id + '" data-instrumenttypecategory="' + data[i].instrumentType.category + '">'+ data[i].adjective +'</li>';
+                            }
+                            $('#profile-portfolio-targets-results').html(html);
+                            $('#profile-portfolio-targets-results').show();
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                             console.log(data);
@@ -78,34 +106,34 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             }
         },
         selectInstrument: function(e) {
-            var that = this;
-            $('#profile-portfolio-'+ that.edit +'-results').hide();
-            $('#profile-portfolio-'+ that.edit +'').val('');
-
-            if (that.edit == 'targets') {
-                this.targets.push({
-                    id: e.currentTarget.getAttribute('data-id'),
-                    name: e.currentTarget.getAttribute('data-name'),
-                    instrument_type: {
-                        id: e.currentTarget.getAttribute('data-instrumenttypeid'),
-                        category: e.currentTarget.getAttribute('data-instrumenttypecategory')
-                    }
-                });
-                this.model.set('targets', this.targets);
-            }
-            if (that.edit == 'instruments') {
-                this.instruments.push({
-                    id: e.currentTarget.getAttribute('data-id'),
-                    name: e.currentTarget.getAttribute('data-name'),
-                    instrument_type: {
-                        id: e.currentTarget.getAttribute('data-instrumenttypeid'),
-                        category: e.currentTarget.getAttribute('data-instrumenttypecategory')
-                    }
-                });
-                this.model.set('instruments', this.instruments);
-            }
-            
-            $('#profile-portfolio-'+ that.edit +'-list').append('<li>'+ e.currentTarget.getAttribute('data-name') +'</li>');
+            $('#profile-portfolio-instruments-results').hide();
+            $('#profile-portfolio-instruments').val('');
+            this.instruments.push({
+                id: e.currentTarget.getAttribute('data-id'),
+                name: e.currentTarget.getAttribute('data-name'),
+                adjective: e.currentTarget.getAttribute('data-adjective'),
+                instrument_type: {
+                    id: e.currentTarget.getAttribute('data-instrumenttypeid'),
+                    category: e.currentTarget.getAttribute('data-instrumenttypecategory')
+                }
+            });
+            this.model.set('instruments', this.instruments);
+            $('#profile-portfolio-instruments-list').append('<li>'+ e.currentTarget.getAttribute('data-name') +'</li>');
+        },
+        selectTarget: function(e) {
+            $('#profile-portfolio-targets-results').hide();
+            $('#profile-portfolio-targets').val('');
+            this.targets.push({
+                id: e.currentTarget.getAttribute('data-id'),
+                name: e.currentTarget.getAttribute('data-name'),
+                adjective: e.currentTarget.getAttribute('data-adjective'),
+                instrument_type: {
+                    id: e.currentTarget.getAttribute('data-instrumenttypeid'),
+                    category: e.currentTarget.getAttribute('data-instrumenttypecategory')
+                }
+            });
+            this.model.set('targets', this.targets);
+            $('#profile-portfolio-targets-list').append('<li>'+ e.currentTarget.getAttribute('data-name') +'</li>');
         },
         addObjective: function(e) {
             e.preventDefault();
@@ -133,6 +161,9 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             //Push in the object
             $('#profile-portfolio-objectives-result').append(html);
             this.objectives.push(objective);
+        },
+        onDomRefresh: function() {
+            $('.datepicker').datepicker({});
         },
         onRender: function() {
             this.stickit();
