@@ -23,15 +23,27 @@
         <h1>Mes informations</h1>
     </div>
     <div class="modal-body">
+
         {#} Address {#}
-        <div class="form-group">
-            <input type="text" class="form-control" id="clzk-profile-address-input" placeholder="Où vous situez-vous ?">
+        <div class="form-horizontal" role="form">
+            <div class="form-group">
+                <div class="col-lg-10 input-group">
+                    <input type="text" class="form-control input-lg" id="clzk-profile-address-input" placeholder="Ville ou code postal">
+                    <span class="input-group-addon glyphicon glyphicon-map-marker"></span>
+                </div>
+                <div class="col-lg-2">
+                    <button class="btn btn-default btn-block btn-lg" type="button" id="clzk-geocode"><span class="glyphicon glyphicon-search"></span></button>
+                </div>
+            </div>
         </div>
         <div id="map"></div>
         <hr>
 
         {#} Birthdate {#}
-        <input type="text" class="form-control datepicker" id="clzk-profile-birthdate" placeholder="Date de naissance">
+        <div class="col-lg-12 input-group">
+            <input type="text" class="form-control datepicker input-lg" id="clzk-profile-birthdate" placeholder="Date de naissance">
+            <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default close-modal-btn" data-dismiss="modal">Fermer</button>
