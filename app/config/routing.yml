@@ -1,3 +1,7 @@
+colzak_file:
+    resource: "@ColzakFileBundle/Resources/config/routing.yml"
+    prefix:   /
+
 colzak_portfolio:
     resource: "@ColzakPortfolioBundle/Resources/config/routing.yml"
     prefix:   /portfolio

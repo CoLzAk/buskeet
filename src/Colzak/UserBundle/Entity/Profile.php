@@ -80,6 +80,14 @@ class Profile
     protected $user;
 
     /**
+     * @var ArrayCollection $files
+     *
+     * @ORM\OneToMany(targetEntity="Colzak\FileBundle\Entity\File", mappedBy="profile")
+     * @SERIAL\Type("Colzak\FileBundle\Entity\File")
+     */
+    protected $files;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -248,5 +256,45 @@ class Profile
     public function getUser()
     {
         return $this->user;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->files = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add files
+     *
+     * @param \Colzak\FileBundle\Entity\File $files
+     * @return Profile
+     */
+    public function addFile(\Colzak\FileBundle\Entity\File $files)
+    {
+        $this->files[] = $files;
+    
+        return $this;
+    }
+
+    /**
+     * Remove files
+     *
+     * @param \Colzak\FileBundle\Entity\File $files
+     */
+    public function removeFile(\Colzak\FileBundle\Entity\File $files)
+    {
+        $this->files->removeElement($files);
+    }
+
+    /**
+     * Get files
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFiles()
+    {
+        return $this->files;
     }
 }
