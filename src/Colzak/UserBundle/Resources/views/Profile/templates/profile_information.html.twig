@@ -27,12 +27,21 @@
         {#} Address {#}
         <div class="form-horizontal" role="form">
             <div class="form-group">
-                <div class="col-lg-10 input-group">
+                <div class="col-lg-12 input-group">
                     <input type="text" class="form-control input-lg" id="clzk-profile-address-input" placeholder="Ville ou code postal">
                     <span class="input-group-addon glyphicon glyphicon-map-marker"></span>
                 </div>
-                <div class="col-lg-2">
-                    <button class="btn btn-default btn-block btn-lg" type="button" id="clzk-geocode"><span class="glyphicon glyphicon-search"></span></button>
+                <div class="hidden">
+                    <input type="text" id="clzk-profile-street-number">
+                    <input type="text" id="clzk-profile-route">
+                    <input type="text" id="clzk-profile-locality">
+                    <input type="text" id="clzk-profile-sublocality">
+                    <input type="text" id="clzk-profile-postal-code">
+                    <input type="text" id="clzk-profile-administrative-area-level-1">
+                    <input type="text" id="clzk-profile-administrative-area-level-2">
+                    <input type="text" id="clzk-profile-country">
+                    <input type="text" id="clzk-profile-lat">
+                    <input type="text" id="clzk-profile-lon">
                 </div>
             </div>
         </div>

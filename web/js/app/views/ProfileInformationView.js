@@ -43,11 +43,31 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
     ProfileInformationFormView = Backbone.Marionette.ItemView.extend({
         template: '#clzk-profile-information-form-template',
         bindings: {
-            '#profile-birthdate': 'birthdate',
+            '#clzk-profile-birthdate': 'birthdate',
+            '#clzk-profile-street-number': 'street_number',
+            '#clzk-profile-route': 'route',
+            '#clzk-profile-locality': 'locality',
+            '#clzk-profile-sublocality': 'sublocality',
+            '#clzk-profile-administrative-area-level-1': 'administrative_area_level_1',
+            '#clzk-profile-administrative-area-level-2': 'administrative_area_level_2',
+            '#clzk-profile-country': 'country',
+            '#clzk-profile-postal-code': 'postal_code',
+            '#clzk-profile-lat': 'lat',
+            '#clzk-profile-lon': 'lon'
         },
         events: {
             'click .close-modal-btn': 'closeModal',
+            'click .save-modal-btn': 'save',
             'click #clzk-geocode' : 'geocode'
+        },
+        save: function(e) {
+            e.preventDefault();
+            this.model.save({}, {
+                success: function(model, response) {
+                    $('#clzk-modal').modal('hide');
+                    Backbone.history.navigate(model.get('username'), { trigger: true });
+                }
+            });
         },
         closeModal: function(e) {
             e.preventDefault();
@@ -58,28 +78,16 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             this.stickit();
         },
         onDomRefresh: function() {
-            // this.initMap();
             var that = this;
+            var map = this.initMap();
             $('.datepicker').datepicker({
                 dateFormat: 'dd/mm/yy'
             });
-            // this.initMap();
             $('#clzk-modal').on('shown.bs.modal', function () {
-                var map = that.initMap();
                 google.maps.event.trigger(map, "resize");
             });
         },
-        // initialize: function() {
-        // },
-        // initMap: function() {
-        //     return new google.maps.Map(document.getElementById('map'), {
-        //         zoom: 15,
-        //         center: new google.maps.LatLng(51.505, -0.09),
-        //         mapTypeId: google.maps.MapTypeId.ROADMAP
-        //     });
-        // },
         initMap: function() {
-            console.log('go');
             var profile = this.model.get('profile');
             if (this.model.get('profile').lat === 0 && this.model.get('profile').lon === 0) {
                 map = new google.maps.Map(document.getElementById('googleMap'), {
@@ -107,8 +115,9 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             google.maps.event.addListener(autocomplete, 'place_changed', function() {
                 infowindow.close();
                 marker.setVisible(false);
-                input.className = '';
+                // input.className = '';
                 var place = autocomplete.getPlace();
+                
                 if (!place.geometry) {
                     // Inform the user that the place was not found and return.
                     input.className = 'notfound';
@@ -146,42 +155,42 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                     //fill hidden fields
                     for (var i=0, j=place.address_components.length; i<j; i++) {
                         if (place.address_components[i].types.indexOf("street_number") > -1) {
-                            $('#profile-coordinates-addressNumber').val(place.address_components[i].long_name);
-                            profile.address_number = place.address_components[i].long_name;
+                            $('#clzk-profile-street-number').val(place.address_components[i].long_name);
+                            profile.street_number = place.address_components[i].long_name;
                         }
                         if (place.address_components[i].types.indexOf("route") > -1) {
-                            $('#profile-coordinates-addressStreet').val(place.address_components[i].long_name);
-                            profile.address_street = place.address_components[i].long_name;
+                            $('#clzk-profile-route').val(place.address_components[i].long_name);
+                            profile.route = place.address_components[i].long_name;
                         }
                         if (place.address_components[i].types.indexOf("locality") > -1) {
-                            $('#profile-coordinates-addressCity').val(place.address_components[i].long_name);
-                            profile.address_city = place.address_components[i].long_name;
+                            $('#clzk-profile-locality').val(place.address_components[i].long_name);
+                            profile.locality = place.address_components[i].long_name;
                         }
                         if (place.address_components[i].types.indexOf("administrative_area_level_2") > -1) {
-                            $('#profile-coordinates-addressDepartment').val(place.address_components[i].long_name);
-                            profile.address_department = place.address_components[i].long_name;
+                            $('#clzk-profile-administrative-area-level-2').val(place.address_components[i].long_name);
+                            profile.administrative_area_level_2 = place.address_components[i].long_name;
                         }
                         if (place.address_components[i].types.indexOf("administrative_area_level_1") > -1) {
-                            $('#profile-coordinates-addressRegion').val(place.address_components[i].long_name);
-                            profile.address_region = place.address_components[i].long_name;
+                            $('#clzk-profile-administrative-area-level-1').val(place.address_components[i].long_name);
+                            profile.administrative_area_level_1 = place.address_components[i].long_name;
                         }
                         if (place.address_components[i].types.indexOf("country") > -1) {
-                            $('#profile-coordinates-addressCountry').val(place.address_components[i].long_name);
-                            profile.address_country = place.address_components[i].long_name;
+                            $('#clzk-profile-country').val(place.address_components[i].long_name);
+                            profile.country = place.address_components[i].long_name;
                         }
                         if (place.address_components[i].types.indexOf("postal_code") > -1) {
-                            $('#profile-coordinates-addressZipcode').val(place.address_components[i].long_name);
-                            profile.address_zipcode = place.address_components[i].long_name;
+                            $('#clzk-profile-postal-code').val(place.address_components[i].long_name);
+                            profile.postal_code = place.address_components[i].long_name;
                         }
                         if (place.address_components[i].types.indexOf("sublocality") > -1) {
-                            $('#profile-coordinates-addressSublocality').val(place.address_components[i].long_name);
-                            profile.address_sublocality = place.address_components[i].long_name;
+                            $('#clzk-profile-sublocality').val(place.address_components[i].long_name);
+                            profile.sublocality = place.address_components[i].long_name;
                         }
                     }
-                    $('#profile-coordinates-addressCoordinates_longitude').val(place.geometry.location.lng());
-                    profile.address_coordinates['y'] = place.geometry.location.lng();
-                    $('#profile-coordinates-addressCoordinates_latitude').val(place.geometry.location.lat());
-                    profile.address_coordinates.x = place.geometry.location.lat();
+                    $('#clzk-profile-lon').val(place.geometry.location.lng());
+                    profile.lon = place.geometry.location.lng();
+                    $('#clzk-profile-lat').val(place.geometry.location.lat());
+                    profile.lat = place.geometry.location.lat();
                 }
                 infowindow.setContent(place.name + ':<br>' + address);
                 infowindow.open(map, marker);
