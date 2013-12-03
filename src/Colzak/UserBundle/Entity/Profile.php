@@ -88,6 +88,66 @@ class Profile
     protected $files;
 
     /**
+     * @ORM\Column(name="street_number", type="string", nullable=true)
+     * @SERIAL\Type("string")
+     */
+    protected $streetNumber;
+
+    /**
+     * @ORM\Column(name="route", type="string", length=128, nullable=true)
+     * @SERIAL\Type("string")
+     */
+    protected $route;
+
+    /**
+     * @ORM\Column(name="locality", type="string", length=128, nullable=true)
+     * @SERIAL\Type("string")
+     */
+    protected $locality;
+
+    /**
+     * @ORM\Column(name="sublocality", type="string", length=128, nullable=true)
+     * @SERIAL\Type("string")
+     */
+    protected $sublocality;
+
+    /**
+     * @ORM\Column(name="postal_code", type="string", length=10, nullable=true)
+     * @SERIAL\Type("string")
+     */
+    protected $postalCode;
+
+    /**
+     * @ORM\Column(name="administrative_area_level_2", type="string", length=128, nullable=true)
+     * @SERIAL\Type("string")
+     */
+    protected $administrativeAreaLevel2;
+
+    /**
+     * @ORM\Column(name="administrative_area_level_1", type="string", length=128, nullable=true)
+     * @SERIAL\Type("string")
+     */
+    protected $administrativeAreaLevel1;
+
+    /**
+     * @ORM\Column(type="string", length=128, nullable=true)
+     * @SERIAL\Type("string")
+     */
+    protected $country;
+
+    /**
+     * @ORM\Column(name="lat", type="float", length=255, nullable=true)
+     * @SERIAL\Type("double")
+     */
+    protected $lat;
+
+    /**
+     * @ORM\Column(name="lon", type="float", length=255, nullable=true)
+     * @SERIAL\Type("double")
+     */
+    protected $lon;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -296,5 +356,235 @@ class Profile
     public function getFiles()
     {
         return $this->files;
+    }
+
+    /**
+     * Set streetNumber
+     *
+     * @param string $streetNumber
+     * @return Profile
+     */
+    public function setStreetNumber($streetNumber)
+    {
+        $this->streetNumber = $streetNumber;
+    
+        return $this;
+    }
+
+    /**
+     * Get streetNumber
+     *
+     * @return string 
+     */
+    public function getStreetNumber()
+    {
+        return $this->streetNumber;
+    }
+
+    /**
+     * Set route
+     *
+     * @param string $route
+     * @return Profile
+     */
+    public function setRoute($route)
+    {
+        $this->route = $route;
+    
+        return $this;
+    }
+
+    /**
+     * Get route
+     *
+     * @return string 
+     */
+    public function getRoute()
+    {
+        return $this->route;
+    }
+
+    /**
+     * Set locality
+     *
+     * @param string $locality
+     * @return Profile
+     */
+    public function setLocality($locality)
+    {
+        $this->locality = $locality;
+    
+        return $this;
+    }
+
+    /**
+     * Get locality
+     *
+     * @return string 
+     */
+    public function getLocality()
+    {
+        return $this->locality;
+    }
+
+    /**
+     * Set sublocality
+     *
+     * @param string $sublocality
+     * @return Profile
+     */
+    public function setSublocality($sublocality)
+    {
+        $this->sublocality = $sublocality;
+    
+        return $this;
+    }
+
+    /**
+     * Get sublocality
+     *
+     * @return string 
+     */
+    public function getSublocality()
+    {
+        return $this->sublocality;
+    }
+
+    /**
+     * Set postalCode
+     *
+     * @param string $postalCode
+     * @return Profile
+     */
+    public function setPostalCode($postalCode)
+    {
+        $this->postalCode = $postalCode;
+    
+        return $this;
+    }
+
+    /**
+     * Get postalCode
+     *
+     * @return string 
+     */
+    public function getPostalCode()
+    {
+        return $this->postalCode;
+    }
+
+    /**
+     * Set administrativeAreaLevel2
+     *
+     * @param string $administrativeAreaLevel2
+     * @return Profile
+     */
+    public function setAdministrativeAreaLevel2($administrativeAreaLevel2)
+    {
+        $this->administrativeAreaLevel2 = $administrativeAreaLevel2;
+    
+        return $this;
+    }
+
+    /**
+     * Get administrativeAreaLevel2
+     *
+     * @return string 
+     */
+    public function getAdministrativeAreaLevel2()
+    {
+        return $this->administrativeAreaLevel2;
+    }
+
+    /**
+     * Set administrativeAreaLevel1
+     *
+     * @param string $administrativeAreaLevel1
+     * @return Profile
+     */
+    public function setAdministrativeAreaLevel1($administrativeAreaLevel1)
+    {
+        $this->administrativeAreaLevel1 = $administrativeAreaLevel1;
+    
+        return $this;
+    }
+
+    /**
+     * Get administrativeAreaLevel1
+     *
+     * @return string 
+     */
+    public function getAdministrativeAreaLevel1()
+    {
+        return $this->administrativeAreaLevel1;
+    }
+
+    /**
+     * Set country
+     *
+     * @param string $country
+     * @return Profile
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return string 
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Set lat
+     *
+     * @param float $lat
+     * @return Profile
+     */
+    public function setLat($lat)
+    {
+        $this->lat = $lat;
+    
+        return $this;
+    }
+
+    /**
+     * Get lat
+     *
+     * @return float 
+     */
+    public function getLat()
+    {
+        return $this->lat;
+    }
+
+    /**
+     * Set lon
+     *
+     * @param float $lon
+     * @return Profile
+     */
+    public function setLon($lon)
+    {
+        $this->lon = $lon;
+    
+        return $this;
+    }
+
+    /**
+     * Get lon
+     *
+     * @return float 
+     */
+    public function getLon()
+    {
+        return $this->lon;
     }
 }
