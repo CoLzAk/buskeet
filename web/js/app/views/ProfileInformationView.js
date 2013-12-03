@@ -20,6 +20,23 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         initialize: function() {
             console.log(this.model);
             console.log('init profile-information-template');
+
+
+            // => ça c'est cool
+            // var latlng = new google.maps.LatLng(this.model.get('profile').address_coordinates.x, this.model.get('profile').address_coordinates.y),
+            //     mapOptions = {
+            //         zoom: 15,
+            //         center: latlng,
+            //         mapTypeId: google.maps.MapTypeId.ROADMAP
+            //     },
+            //     map = new google.maps.Map(document.getElementById('cn-map-canvas'), mapOptions),
+            //     marker = new google.maps.Marker({
+            //         position: latlng,
+            //         map: map,
+            //         title: 'Moi'
+            //     });
+
+            // return map;
         }
     });
 
