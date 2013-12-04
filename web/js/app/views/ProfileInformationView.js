@@ -3,9 +3,10 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
     ProfileInformationView = Backbone.Marionette.ItemView.extend({
         template: '#clzk-profile-information-template',
         bindings: {
-            '#profile-firstname': 'profile.firstname',
-            '#profile-lastname': 'profile.lastname',
-            '#profile-description': 'profile.description'
+            '#clzk-profile-firstname': 'profile.firstname',
+            '#clzk-profile-lastname': 'profile.lastname',
+            '#clzk-profile-birthdate': 'birthdate',
+            'clzk-profile-locality': 'locality'
         },
         events: {
             'click .edit-btn': 'edit'
