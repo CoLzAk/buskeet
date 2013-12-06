@@ -1,0 +1,3 @@
+colzak_search_result:
+    pattern:  /s/{category}/{localization}
+    defaults: { _controller: ColzakSearchBundle:Default:index }

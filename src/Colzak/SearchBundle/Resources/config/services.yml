@@ -1,0 +1,7 @@
+parameters:
+#    colzak_search.example.class: Colzak\SearchBundle\Example
+
+services:
+#    colzak_search.example:
+#        class: %colzak_search.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

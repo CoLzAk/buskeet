@@ -6,7 +6,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             '#clzk-profile-firstname': 'profile.firstname',
             '#clzk-profile-lastname': 'profile.lastname',
             '#clzk-profile-birthdate': 'birthdate',
-            'clzk-profile-locality': 'locality'
+            '#clzk-profile-locality': 'locality'
         },
         events: {
             'click .edit-btn': 'edit'

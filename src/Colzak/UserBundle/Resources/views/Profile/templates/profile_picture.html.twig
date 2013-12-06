@@ -1,5 +1,112 @@
+<script type="text/template" id="clzk-profile-pictures-template">
+    <div class="clzk-profile-picture-container" id="clzk-profile-pictures-container"></div>
+    <a href="#" class="edit-btn" data-edit="pictures">edit</a>
+</script>
+
 <script type="text/template" id="clzk-profile-picture-template">
-    <div class="clzk-profile-picture-container">
-        <img src="/img/user_256.png" alt="..." class="img-thumbnail clzk-profile-picture">
+    <a data-toggle="modal" id="gallery" href="#">
+        <% if (picture.profile_picture === true) { %>
+            <img src="<%= picture.thumb_path %>" alt="..." class="img-thumbnail img-responsive">
+        <% } %>
+    </a>
+</script>
+
+<script type="text/template" id="clzk-profile-picture-empty-template">
+    <img src="/img/user_256.png" alt="..." class="img-thumbnail clzk-profile-picture">
+</script>
+
+<script type="text/template" id="clzk-profile-pictures-carousel-template">
+    <div id="cn-profile-photos-carousel" class="carousel slide">
+        <button type="button" class="close close-carousel-btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <% for (var i in pictures) { %>
+               <li data-target="#cn-profile-photos-carousel" data-slide-to="<%= i %>" <% if(pictures[i].profile_picture) { %> class="active"<% } %>></li>
+            <% } %>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <% for (var i in pictures) { %>
+                <div class="item <% if(pictures[i].profile_picture) { %> active<% } %>">
+                    <img src="<%= pictures[i].path %>" class="img-responsive"/>
+                </div>
+            <% } %>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#cn-profile-photos-carousel" data-slide="prev">
+            <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#cn-profile-photos-carousel" data-slide="next">
+            <span class="icon-next"></span>
+        </a>
+    </div>
+</script>
+
+{#} Form {#}
+
+<script type="text/template" id="clzk-profile-picture-form-template">
+    <div class="thumbnail">
+        <img data-src="holder.js/300x200" src="<%= picture.thumb_path %>" alt="...">
+        <div class="caption col-md-12">
+            <span><a href="#<%= picture.id %>" class="btn btn-primary col-md-6 profile-picture-button<% if (picture.profile_picture === true) { %> ui-disabled <% } %>" id="picture-<%= picture.id %>">P</a></span>
+            <span><a href="#<%= picture.id %>" class="btn btn-default col-md-6 delete-picture-button">X</a></span>
+            <div class="cn-clear"></div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="clzk-profile-pictures-form-template">
+    <div class="modal-header">
+        <button type="button" class="close close-modal-btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title font-pacifico">J'ajoute <span class="cn-earwig cn-orange">ou</span> je gère mes photos</h4>
+    </div>
+    <div class="modal-body">
+        <div class="col-md-12 well well-sm">
+            <p class="text-left"><span class="cn-earwig cn-orange">T</span>éléchargement</p>
+        </div>
+        <div class="col-md-12 drop-zone">
+            <p class="text-center">Glisse et dépose ta photo ici !</p>
+            <% if (typeof pictures === 'undefined' || pictures.length === 0) { %>
+                <div class="drop-zone-empty-bg"></div>
+                <div class="cn-tof-advice"><strong>Attirez l’oeil sur vous ! </strong>Choisissez <strong class="cn-orange">la photo </strong>qui apparaîtra dans les résultats de recherche. <strong>C’est la plus importante :</strong> préférez une photo vous montrant de face en mode portrait, nette. <strong class="cn-orange">Téléchargez au moins une photo</strong>, vous pourrez en rajouter <strong>d’autres plus tard.</strong>
+                    <img src="/img/tof-img-upload.png" alt="" />
+                </div>
+            <% } else { %>
+                <div class="fileUpload-container">
+                    <% for (var i=0, j=pictures.length, k; i<j; i++) { %>
+                        <div class="cn-dropped-pic wrapper wrapper<%= i %>">
+                            <img src="<%= pictures[i].thumb_path %>" alt="">
+                        </div>
+                    <% } %>
+                    <div class="cn-clear"></div>
+                </div>
+            <% } %>
+        </div>
+        <div class="col-md-12">
+            <p class="text-center cn-earwig cn-orange">ou</p>
+            <div class="form-horizontal row" role="form">
+                <div class="form-group">
+                    <label class="col-lg-12">Télécharger une photo depuis votre ordinateur</label>
+                    <div class="col-lg-12 input-group">
+                        <div class="cn-file-input btn-block">
+                            <input id="fileUpload" name="photos" type="file" multiple/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <% if (pictures.length > 0) { %>
+            <div class="col-md-12 well well-sm">
+                <p class="text-left"><span class="cn-earwig cn-orange">G</span>estion des photos</p>
+            </div>
+        <% } %>
+        <div id="clzk-profile-pictures-form-container" class="row"></div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default close-modal-btn" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary close-modal-btn" data-dismiss="modal">Valider</button>
     </div>
 </script>

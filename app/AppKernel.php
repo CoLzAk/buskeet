@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             new Colzak\StaticBundle\ColzakStaticBundle(),
             new Colzak\PortfolioBundle\ColzakPortfolioBundle(),
             new Colzak\FileBundle\ColzakFileBundle(),
+            new Colzak\SearchBundle\ColzakSearchBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

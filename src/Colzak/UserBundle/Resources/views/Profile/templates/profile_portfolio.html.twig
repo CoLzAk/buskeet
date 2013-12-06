@@ -1,5 +1,5 @@
 <script type="text/template" id="clzk-profile-portfolio-template">
-    <div class="col-md-4">
+    <div class="col-md-4 col-sm-4">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <span class="text-left">Styles musicaux</span>
@@ -42,17 +42,24 @@
             </div>
         </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-8 col-sm-8">
+        {#} Un premier "panel" avec le type de profil recherché + description(avec des icones a l'interieur)
+            ex. Recherche guitariste/chanteur de blues confirmé
+        {#}
         <h2>Je cherche ... </h2>
         <a href="#" class="edit-btn" data-edit="targets">edit</a>
         <p id="profile-portfolio-targets-description"></p>
-        <ul class="list-unstyled">
+        <div class="targets-picto-container row">
             <% for (var i in portfolio.targets) { %>
-                <li><%= portfolio.targets[i].name %></li>
+                <div class="targets-picto col-md-2 col-sm-3 col-xs-4">
+                    <p class="text-center"><%= portfolio.targets[i].name %></p>
+                </div>
             <% } %>
-        </ul>
-        {#} Un premier "panel" avec le type de profil recherché + description(avec des icones a l'interieur)
-            ex. Recherche guitariste/chanteur de blues confirmé
+        </div>
+        
+        {#} Un deuxième panel avec les objectifs
+            ex. Sortir un album tribute to oasis
+            ex. Monter sur scène pour la fête de la musique
         {#}
         <h2> Mes objectifs </h2>
         <a href="#" class="edit-btn" data-edit="objectives">edit</a>
@@ -61,10 +68,6 @@
             <p><%= portfolio.objectives[i].content %></p>
             <span>Du <%= portfolio.objectives[i].start_date %> au <%= portfolio.objectives[i].end_date %></span>
         <% } %>
-        {#} Un deuxième panel avec les objectifs
-            ex. Sortir un album tribute to oasis
-            ex. Monter sur scène pour la fête de la musique
-        {#}
     </div>
 </script>
 

@@ -20,7 +20,7 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
     });
 
     UserModule.show = function(username) {
-        UserModule.profileLayout.profilePictureRegion.show(new ProfilePictureView({ model: UserModule.targetUser }));
+        UserModule.profileLayout.profilePictureRegion.show(new ProfilePicturesView({ collection: UserModule.targetUserPictures }, { username: UserModule.targetUser.get('username') }));
         UserModule.profileLayout.profileMessageRegion.show(new ProfileMessageView());
         UserModule.profileLayout.profileInformationRegion.show(new ProfileInformationView({ model: UserModule.targetUser }));
         UserModule.profileLayout.profileDescriptionRegion.show(new ProfileDescriptionView({ model: UserModule.targetUser }));
@@ -40,12 +40,23 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
             var formNameArray = formName.split('-');
             UserModule.modalLayout.modalContentRegion.show(new PortfolioFormView({ model: UserModule.targetUserPortfolio }, { username: username, edit: formNameArray[1] }));
         }
+        if (formName == 'photos') {
+            UserModule.modalLayout.modalContentRegion.show(new ProfilePicturesFormView({ collection: UserModule.targetUserPictures }, { username: UserModule.targetUser.get('username') }));
+        }
+        $('#clzk-modal').modal('show');
+    };
+
+    UserModule.gallery = function(username) {
+        UserModule.modalLayout = new ModalLayout();
+        App.modalRegion.show(UserModule.modalLayout);
+        UserModule.modalLayout.modalContentRegion.show(new ProfilePicturesCarouselView({ collection: UserModule.targetUserPictures }, { username: UserModule.targetUser.get('username') }));
         $('#clzk-modal').modal('show');
     };
 
     UserModule.addInitializer(function(options){
         UserModule.targetUser = new User(options.targetUser);
         UserModule.targetUserPortfolio = new Portfolio(options.targetUser.profile.portfolio, { userId: UserModule.targetUser.get('id') });
+        UserModule.targetUserPictures = new Files(options.targetUser.profile.files, { userId: UserModule.targetUser.get('id') });
 
         //Initialize layout
         UserModule.profileLayout = new ProfileLayout();
