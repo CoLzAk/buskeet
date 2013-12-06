@@ -19,17 +19,12 @@ class ProfileController extends Controller
             $targetUser = $em->getRepository('ColzakUserBundle:User')->loadUserByUsername($username);
         }
 
-        // if ($targetUser === $visitor) {
-        //     if (count($em->getRepository('ColzakPortfolioBundle:Portfolio')->findByProfile($targetUser->getProfile())) === 0) {
-        //         var_dump('test');
-        //         $portfolio = new Portfolio();
-        //         $portfolio->setProfile($targetUser->getProfile());
-                
-        //         $em->persist($portfolio);
-        //         $em->flush();
-        //     }
-        // }
-
         return $this->render('ColzakUserBundle:Profile:index.html.twig', array('targetUser' => $targetUser));
+    }
+
+    public function getLastSubscribedUser() {
+        $em = $this->container->get('doctrine')->getManager();
+        $users = $em->getRepository('ColzakUserBundle:User')->getLastUsers();
+        return $this->render('ColzakUserBundle:Profile:partials/last_users.html.twig', array('users' => $users));
     }
 }

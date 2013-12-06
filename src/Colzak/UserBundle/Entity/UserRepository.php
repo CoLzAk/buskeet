@@ -90,6 +90,11 @@ class UserRepository extends EntityRepository implements UserProviderInterface
         return str_replace($from, $to, $str); 
     }
 
+    public function getLastUsers($limit = 6) {
+        return $this->getLastUsersDQL($limit)
+            ->getResult();
+    }
+
 
     /**
      * 
@@ -204,5 +209,23 @@ class UserRepository extends EntityRepository implements UserProviderInterface
 
         return $this->getEntityManager()
             ->createQuery($dql);
+    }
+
+    private function getLastUsersDQL($limit) {
+        $dql = 'SELECT 
+                    partial us.{id, usernameCanonical, emailCanonical},
+                    partial pr.{id, firstname, lastname},
+                    partial fi.{id, thumbPath}
+                FROM
+                    ColzakUserBundle:User us
+                LEFT JOIN
+                    us.profile pr
+                LEFT JOIN
+                    pr.files fi
+                WHERE 1
+                ORDER BY us.id DESC
+                LIMIT 0,6
+                ';
+        return $this->getManager()->createQuery($dql);
     }
 }
