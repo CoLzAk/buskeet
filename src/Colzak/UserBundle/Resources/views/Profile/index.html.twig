@@ -1,6 +1,7 @@
 {% extends 'ColzakUserBundle::layout.html.twig' %}
 
 {% block extra_stylesheets %}
+    <link href='http://fonts.googleapis.com/css?family=Euphoria+Script' rel='stylesheet' type='text/css'>
     <style>
         #map {
             height: 180px;
@@ -26,13 +27,13 @@
 {% endblock %}
 
 {% block body %}
-    <div id="clzk-profile-region"></div>
+    <div id="clzk-main-region"></div>
 
     {#} Profile Layout {#}
     <script type="text/template" id="clzk-profile-layout">
         <div class="row">
             <div class="col-md-4 col-xs-4 col-sm-4">
-                <div id="clzk-profile-picture-region"></div>
+                <div id="clzk-profile-picture-region" class="clzk-region"></div>
                 <div id="clzk-profile-message-region"></div>
             </div>
             <div class="col-md-8 col-xs-8 col-sm-8">
@@ -98,6 +99,7 @@
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&libraries=places&language=fr&region=fr"></script>
     <script type="text/javascript">
     $(document).ready(function() {
+        moment.lang('fr');
         var targetUser = "{{ targetUser|serialize('json') }}"
             options = {
                 targetUser: $.parseJSON(targetUser.replace(/&quot;/g,'"').replace(/\n/g,"\\n").replace(/&#039;/g, '\'').replace(/&amp;/g, '&')),

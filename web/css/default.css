@@ -2,17 +2,14 @@ body {
     padding-top: 60px;
     background: #f7f7f7;
 }
-
 .clzk-pre-body, .clzk-body {
     min-height: 400px;
     border-bottom: 3px #ccc solid;
 }
-
 .clzk-home-container {
     position: relative;
     top: 100px;
 }
-
 .clzk-home-last-member {
     height: 200px;
     margin: 15px auto;
@@ -23,30 +20,51 @@ body {
 .glyphicon {
     top: 0;
 }
-
 .clzk-footer {
     background: #484E55;
 }
-
 .clzk-dropdown-title {
     text-transform: uppercase;
     font-weight: bold;
     margin: 10px auto;
 }
-
 .clzk-profile-picture-container {
-    min-height: 256px;
     text-align: center;
     margin-bottom: 30px;
 }
-
 .clzk-profile-picture-container img{
     width: 100%;
 }
-
 .clzk-profile-msg-btn-container {
     margin-bottom: 30px;
 }
-#profile-portfolio-targets-results {
-    display: none;
+.list-group-item:hover {
+    background: #3276b1;
+    color: #FFF;
+    cursor: pointer;
+}
+.clzk-region {
+    position: relative;
+}
+.clzk-profile-pictures-modify-bar {
+    position: absolute;
+    top: 0;
+    background-image: linear-gradient(to bottom, #F5F5F5 0%, #E8E8E8 100%);
+    height: 30px;
+    padding-right: 5px;
+    padding-top: 3px;
+    width: 100%;
+    background-repeat: repeat-x;
+    border: 1px #ddd solid;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.edit-btn {
+    font-size: 13px;
+}
+.clzk-profile-portfolio-title {
+    font-family: 'Euphoria Script', cursive;
+    font-weight: bold;
+}
+.clzk-btn-empty {
+    border: 2px #ddd solid;
 }

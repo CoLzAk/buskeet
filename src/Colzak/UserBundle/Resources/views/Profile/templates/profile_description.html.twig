@@ -1,5 +1,7 @@
 <script type="text/template" id="clzk-profile-description-template">
-    <a href="#" class="edit-btn">edit</a>
+    {% if targetUser == app.user %}
+        <a href="#" class="pull-right edit-btn">[ modifier ]</a>
+    {% endif %}
     <p class="text-center" id="profile-description"></p>
 </script>
 

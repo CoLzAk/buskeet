@@ -1,0 +1,64 @@
+{% extends 'ColzakUserBundle::layout.html.twig' %}
+
+{% block extra_stylesheets %}
+
+{% endblock %}
+
+{% block body %}
+    <div id="clzk-main-region"></div>
+
+    {#} Search Layout {#}
+    <script type="text/template" id="clzk-search-layout">
+        <div class="row">
+            <div class="col-md-4">
+                <div id="clzk-search-menu-region"></div>
+            </div>
+            <div class="col-md-8">
+                <div id="clzk-search-results-region"></div>
+            </div>
+        </div>
+    </script>
+
+    {#} Modal Layout {#}
+    <script type="text/template" id="clzk-modal-layout">
+        <div id="clzk-modal-content-region"></div>
+    </script>
+
+    {% include 'ColzakSearchBundle:Default:templates/search_menu.html.twig' %}
+    {% include 'ColzakSearchBundle:Default:templates/search_results.html.twig' %}
+{% endblock %}
+
+{% block extra_javascripts %}
+    {% javascripts
+        "js/jquery/ui-widgets/jquery.ui.datepicker.min.js"
+        "js/vendor/underscore-1.4.4.min.js"
+        "js/vendor/backbone-1.0.0.min.js"
+        "js/vendor/backbone-deepmodel-min.js"
+        "js/vendor/backbone.marionette-1.0.1.min.js"
+        "js/vendor/backbone.stickit.min.js"
+        "js/vendor/moment-2.0.0.min.js"
+        "js/vendor/moment.lang.fr.min.js"
+        "js/app/App.js"
+        "js/app/Search.js"
+        "js/app/models/Search.js"
+        "js/app/models/User.js"
+    %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>
+
+    {% endjavascripts %}
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&libraries=places&language=fr&region=fr"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        moment.lang('fr');
+        var localization = "{{ localization }}",
+            category = "{{ category }}",
+            options = {
+                module: 'search',
+                localization: localization,
+                category: category,
+                path: "{{ path(app.request.attributes.get('_route')) }}"
+        };
+        App.start(options);
+    })
+    </script>
+{% endblock %}

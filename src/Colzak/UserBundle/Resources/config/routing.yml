@@ -1,3 +1,7 @@
 colzak_user_homepage:
-    pattern:  /profile/{username}
+    pattern: /profile/{username}
     defaults: { _controller: ColzakUserBundle:Profile:index, username: 'me' }
+
+# colzak_user_know_me:
+#     pattern: /whoami
+#     defaults: { _controller: ColzakUserBundle:Profile:knowMe }

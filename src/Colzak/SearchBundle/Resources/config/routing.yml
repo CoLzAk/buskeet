@@ -1,3 +1,6 @@
 colzak_search_result:
-    pattern:  /s/{category}/{localization}
-    defaults: { _controller: ColzakSearchBundle:Default:index }
+    pattern:  /s/{localization}/{category}
+    defaults: { _controller: ColzakSearchBundle:Default:index, localization: 'FR', category: 'all' }
+    methods: GET
+    options:
+        expose: true

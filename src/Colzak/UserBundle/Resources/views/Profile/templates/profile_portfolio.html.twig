@@ -17,7 +17,7 @@
             <div class="panel-heading">
                 <span class="text-left">Instruments</span>
                 {% if targetUser == app.user %}
-                    <a href="#" class="pull-right glyphicon glyphicon-edit edit-btn" data-edit="instruments"></a>
+                    <a href="#" class="pull-right edit-btn" data-edit="instruments">[ modifier ]</a>
                 {% endif %}
             </div>
             <div class="panel-body">
@@ -46,8 +46,14 @@
         {#} Un premier "panel" avec le type de profil recherché + description(avec des icones a l'interieur)
             ex. Recherche guitariste/chanteur de blues confirmé
         {#}
-        <h2>Je cherche ... </h2>
-        <a href="#" class="edit-btn" data-edit="targets">edit</a>
+        <h2>
+            <span class="clzk-profile-portfolio-title">Ce que je recherche</span>
+            {% if targetUser == app.user %}
+                <a href="#" class="pull-right edit-btn" data-edit="targets">[ modifier ]</a>
+            {% endif %}
+        </h2>
+        
+        
         <p id="profile-portfolio-targets-description"></p>
         <div class="targets-picto-container row">
             <% for (var i in portfolio.targets) { %>
@@ -61,12 +67,39 @@
             ex. Sortir un album tribute to oasis
             ex. Monter sur scène pour la fête de la musique
         {#}
-        <h2> Mes objectifs </h2>
-        <a href="#" class="edit-btn" data-edit="objectives">edit</a>
+        <h2>
+            <span class="clzk-profile-portfolio-title">Ce que je souhaite faire</span>
+            {% if targetUser == app.user %}
+                <a href="#" class="pull-right edit-btn" data-edit="objectives">[ modifier ]</a>
+            {% endif %}
+        </h2>
         <% for (var i in portfolio.objectives) { %>
-            <h4><%= portfolio.objectives[i].title %></h4>
-            <p><%= portfolio.objectives[i].content %></p>
-            <span>Du <%= portfolio.objectives[i].start_date %> au <%= portfolio.objectives[i].end_date %></span>
+            <div class="col-md-4">
+                <span>
+                    Du <%= moment(portfolio.objectives[i].start_date, "YYYY-MM-DD\\THH:mm:ssZZ").format("DD/MM/YYYY") %>
+                    au <%= moment(portfolio.objectives[i].end_date, "YYYY-MM-DD\\THH:mm:ssZZ").format("DD/MM/YYYY") %>
+                </span>
+            </div>
+            <div class="col-md-8">
+                <p><%= portfolio.objectives[i].title %></p>
+                <p><%= portfolio.objectives[i].content %></p>
+                <div class="row">
+                    <div class="col-md-8">
+                        <p>PARTICIPANTS:</p>
+                        <img src="/img/user_128.png" class="img-responsive img-thumbnail clzk-portfolio-participants">
+                        <img src="/img/user_128.png" class="img-responsive img-thumbnail clzk-portfolio-participants">
+                        <img src="/img/user_128.png" class="img-responsive img-thumbnail clzk-portfolio-participants">
+                        <img src="/img/user_128.png" class="img-responsive img-thumbnail clzk-portfolio-participants">
+                    </div>
+                    <div class="col-md-4">
+                        {#% if is_granted('ROLE_USER') and targetUser != app.user %#}
+                            <a href="#" class="participate-btn btn btn-secondary btn-block">Participer</a>
+                        {#% endif %#}
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <hr>
         <% } %>
     </div>
 </script>

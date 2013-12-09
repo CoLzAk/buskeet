@@ -2,6 +2,13 @@ colzak_search:
     resource: "@ColzakSearchBundle/Resources/config/routing.yml"
     prefix:   /
 
+colzak_search_api:
+    resource: "@ColzakSearchBundle/Resources/config/routing_api.yml"
+    prefix:   /api
+    type: rest
+    options:
+        expose: true
+
 colzak_file:
     resource: "@ColzakFileBundle/Resources/config/routing.yml"
     prefix:   /

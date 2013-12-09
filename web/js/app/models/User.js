@@ -12,9 +12,8 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         // }
     });
 
-    // Users = Backbone.Collection.extend({
-    //     model: User,
-    //     url: 'http://colzakfr.dev/app_dev.php/api/users'
-    //     // url: 'http://www.famileasy.dev/app_dev.php/api/users'
-    // });
+    Users = Backbone.Collection.extend({
+        model: User,
+        url: 'http://colzakfr.dev/app_dev.php/api/users'
+    });
 });

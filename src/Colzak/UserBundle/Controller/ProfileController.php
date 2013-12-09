@@ -27,4 +27,8 @@ class ProfileController extends Controller
         $users = $em->getRepository('ColzakUserBundle:User')->getLastUsers();
         return $this->render('ColzakUserBundle:Profile:partials/last_users.html.twig', array('users' => $users));
     }
+
+    public function knowMeAction(Request $request) {
+        return $this->render('ColzakUserBundle:Profile:whoami.html.twig');
+    }
 }

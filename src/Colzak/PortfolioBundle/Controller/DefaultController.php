@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Colzak\PortfolioBundle\Form\Type\InstrumentFormType;
 use Colzak\PortfolioBundle\Document\Instrument;
 use Colzak\PortfolioBundle\Document\InstrumentType;
+use Colzak\PortfolioBundle\Entity\Portfolio;
 
 class DefaultController extends Controller
 {

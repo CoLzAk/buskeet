@@ -40,7 +40,7 @@ class Portfolio
     /**
      * @var string $targetsDescription
      *
-     * @ORM\Column(name="targetsDescription", type="string", nullable=false)
+     * @ORM\Column(name="targetsDescription", type="string", nullable=true)
      * @SERIAL\Type("string")
      */
     protected $targetsDescription;
@@ -66,7 +66,7 @@ class Portfolio
     protected $objectives;
 
     /**
-     * @ORM\OneToOne(targetEntity="Colzak\UserBundle\Entity\Profile", inversedBy="portfolio", cascade={"all"})
+     * @ORM\OneToOne(targetEntity="Colzak\UserBundle\Entity\Profile", inversedBy="portfolio", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="profile_id", referencedColumnName="id", onDelete="CASCADE")
      * @SERIAL\Type("Colzak\UserBundle\Entity\Profile")
      */

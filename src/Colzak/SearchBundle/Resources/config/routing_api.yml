@@ -1,0 +1,4 @@
+colzak_search:
+    type:     rest
+    resource: Colzak\SearchBundle\Controller\SearchController
+    name_prefix:  search_

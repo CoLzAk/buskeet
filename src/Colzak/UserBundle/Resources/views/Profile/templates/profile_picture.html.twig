@@ -1,6 +1,10 @@
 <script type="text/template" id="clzk-profile-pictures-template">
     <div class="clzk-profile-picture-container" id="clzk-profile-pictures-container"></div>
-    <a href="#" class="edit-btn" data-edit="pictures">edit</a>
+    {% if targetUser == app.user %}
+        <div class="clzk-profile-pictures-modify-bar">
+            <a href="#" class="pull-right edit-btn" data-edit="pictures">[ modifier ]</a>
+        </div>
+    {% endif %}
 </script>
 
 <script type="text/template" id="clzk-profile-picture-template">

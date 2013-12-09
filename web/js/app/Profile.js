@@ -60,7 +60,7 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
 
         //Initialize layout
         UserModule.profileLayout = new ProfileLayout();
-        App.profileRegion.show(UserModule.profileLayout);
+        App.mainRegion.show(UserModule.profileLayout);
     });
 
 });

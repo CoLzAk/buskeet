@@ -5,8 +5,8 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         bindings: {
             '#clzk-profile-firstname': 'profile.firstname',
             '#clzk-profile-lastname': 'profile.lastname',
-            '#clzk-profile-birthdate': 'birthdate',
-            '#clzk-profile-locality': 'locality'
+            '#clzk-profile-birthdate': 'profile.birthdate',
+            '#clzk-profile-locality': 'profile.locality'
         },
         events: {
             'click .edit-btn': 'edit'
@@ -80,195 +80,93 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         },
         onDomRefresh: function() {
             var that = this;
-            var map = this.initMap();
             $('.datepicker').datepicker({
                 dateFormat: 'dd/mm/yy'
             });
             $('#clzk-modal').on('shown.bs.modal', function () {
-                google.maps.event.trigger(map, "resize");
+                //google.maps.event.trigger(map, "resize");
+                that.initMap();
             });
         },
         initMap: function() {
             var profile = this.model.get('profile');
-            if (this.model.get('profile').lat === 0 && this.model.get('profile').lon === 0) {
-                map = new google.maps.Map(document.getElementById('googleMap'), {
-                    zoom: 5,
-                    center: new google.maps.LatLng(47.00, 2.00),
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                });
-            } else {
-                map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 15,
-                    center: new google.maps.LatLng(profile.lat, profile.lon),
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                });
-            }
+            var mapWidth = $('.modal-body').width();
+            var mapUrl;
             var input = document.getElementById('clzk-profile-address-input');
             var autocomplete = new google.maps.places.Autocomplete(input);
-            var infowindow = new google.maps.InfoWindow();
-            var marker = new google.maps.Marker({
-              map: map,
-              visible: true
-            });
+            var place;
+            var center;
 
-            autocomplete.bindTo('bounds', map);
+            //Show the map
+            if (typeof profile.lat === 'undefined' || profile.lat === 0 && typeof profile.lon === 'undefined' || profile.lon === 0) {
+                mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center=47.00,2.00&zoom=5&size='+mapWidth+'x180&maptype=roadmap&markers=color:red|47.00,2.00&sensor=false';
+            } else {
+                mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center='+ profile.lat +','+ profile.lon +'&zoom=13&size='+mapWidth+'x180&maptype=roadmap&markers=color:red|'+ profile.lat +','+ profile.lon +'&sensor=false';
+            }
 
+            $('#map').html('<img src="'+ mapUrl +'">');
+
+            //Bind the input with autocomplete function
             google.maps.event.addListener(autocomplete, 'place_changed', function() {
-                infowindow.close();
-                marker.setVisible(false);
-                // input.className = '';
-                var place = autocomplete.getPlace();
-                
+                place = autocomplete.getPlace();
                 if (!place.geometry) {
                     // Inform the user that the place was not found and return.
-                    input.className = 'notfound';
+                    console.log('place not found');
                     return;
-                }
-
-                // If the place has a geometry, then present it on a map.
-                if (place.geometry.viewport) {
-                    map.fitBounds(place.geometry.viewport);
                 } else {
-                    map.setCenter(place.geometry.location);
-                    map.setZoom(17);
-                }
+                    if (place.address_components) {
+                        address = [
+                          (place.address_components[0] && place.address_components[0].short_name || ''),
+                          (place.address_components[1] && place.address_components[1].short_name || ''),
+                          (place.address_components[2] && place.address_components[2].short_name || '')
+                        ].join(' ');
 
-                // icon that represents the user's position
-                var image = {
-                    url: place.icon,
-                    size: new google.maps.Size(71, 71),
-                    origin: new google.maps.Point(0, 0),
-                    anchor: new google.maps.Point(17, 34),
-                    scaledSize: new google.maps.Size(35, 35)
-                };
-                marker.setIcon(image);
-                marker.setPosition(place.geometry.location);
-                marker.setVisible(true);
+                        //fill hidden fields
+                        for (var i=0, j=place.address_components.length; i<j; i++) {
+                            if (place.address_components[i].types.indexOf("street_number") > -1) {
+                                $('#clzk-profile-street-number').val(place.address_components[i].long_name);
+                                profile.street_number = place.address_components[i].long_name;
+                            }
+                            if (place.address_components[i].types.indexOf("route") > -1) {
+                                $('#clzk-profile-route').val(place.address_components[i].long_name);
+                                profile.route = place.address_components[i].long_name;
+                            }
+                            if (place.address_components[i].types.indexOf("locality") > -1) {
+                                $('#clzk-profile-locality').val(place.address_components[i].long_name);
+                                profile.locality = place.address_components[i].long_name;
+                            }
+                            if (place.address_components[i].types.indexOf("administrative_area_level_2") > -1) {
+                                $('#clzk-profile-administrative-area-level-2').val(place.address_components[i].long_name);
+                                profile.administrative_area_level_2 = place.address_components[i].long_name;
+                            }
+                            if (place.address_components[i].types.indexOf("administrative_area_level_1") > -1) {
+                                $('#clzk-profile-administrative-area-level-1').val(place.address_components[i].long_name);
+                                profile.administrative_area_level_1 = place.address_components[i].long_name;
+                            }
+                            if (place.address_components[i].types.indexOf("country") > -1) {
+                                $('#clzk-profile-country').val(place.address_components[i].long_name);
+                                profile.country = place.address_components[i].long_name;
+                            }
+                            if (place.address_components[i].types.indexOf("postal_code") > -1) {
+                                $('#clzk-profile-postal-code').val(place.address_components[i].long_name);
+                                profile.postal_code = place.address_components[i].long_name;
+                            }
+                            if (place.address_components[i].types.indexOf("sublocality") > -1) {
+                                $('#clzk-profile-sublocality').val(place.address_components[i].long_name);
+                                profile.sublocality = place.address_components[i].long_name;
+                            }
+                        }
+                        $('#clzk-profile-lon').val(place.geometry.location.lng());
+                        profile.lon = place.geometry.location.lng();
+                        $('#clzk-profile-lat').val(place.geometry.location.lat());
+                        profile.lat = place.geometry.location.lat();
 
-                var address = '';
-                if (place.address_components) {
-                    address = [
-                      (place.address_components[0] && place.address_components[0].short_name || ''),
-                      (place.address_components[1] && place.address_components[1].short_name || ''),
-                      (place.address_components[2] && place.address_components[2].short_name || '')
-                    ].join(' ');
+                        mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center='+ place.geometry.location.lat() +','+ place.geometry.location.lng() +'&zoom=13&size='+mapWidth+'x180&maptype=roadmap&markers=color:red|'+ place.geometry.location.lat() +','+ place.geometry.location.lng() +'&sensor=false';
 
-                    //fill hidden fields
-                    for (var i=0, j=place.address_components.length; i<j; i++) {
-                        if (place.address_components[i].types.indexOf("street_number") > -1) {
-                            $('#clzk-profile-street-number').val(place.address_components[i].long_name);
-                            profile.street_number = place.address_components[i].long_name;
-                        }
-                        if (place.address_components[i].types.indexOf("route") > -1) {
-                            $('#clzk-profile-route').val(place.address_components[i].long_name);
-                            profile.route = place.address_components[i].long_name;
-                        }
-                        if (place.address_components[i].types.indexOf("locality") > -1) {
-                            $('#clzk-profile-locality').val(place.address_components[i].long_name);
-                            profile.locality = place.address_components[i].long_name;
-                        }
-                        if (place.address_components[i].types.indexOf("administrative_area_level_2") > -1) {
-                            $('#clzk-profile-administrative-area-level-2').val(place.address_components[i].long_name);
-                            profile.administrative_area_level_2 = place.address_components[i].long_name;
-                        }
-                        if (place.address_components[i].types.indexOf("administrative_area_level_1") > -1) {
-                            $('#clzk-profile-administrative-area-level-1').val(place.address_components[i].long_name);
-                            profile.administrative_area_level_1 = place.address_components[i].long_name;
-                        }
-                        if (place.address_components[i].types.indexOf("country") > -1) {
-                            $('#clzk-profile-country').val(place.address_components[i].long_name);
-                            profile.country = place.address_components[i].long_name;
-                        }
-                        if (place.address_components[i].types.indexOf("postal_code") > -1) {
-                            $('#clzk-profile-postal-code').val(place.address_components[i].long_name);
-                            profile.postal_code = place.address_components[i].long_name;
-                        }
-                        if (place.address_components[i].types.indexOf("sublocality") > -1) {
-                            $('#clzk-profile-sublocality').val(place.address_components[i].long_name);
-                            profile.sublocality = place.address_components[i].long_name;
-                        }
+                        $('#map').html('<img src="'+ mapUrl +'">');
                     }
-                    $('#clzk-profile-lon').val(place.geometry.location.lng());
-                    profile.lon = place.geometry.location.lng();
-                    $('#clzk-profile-lat').val(place.geometry.location.lat());
-                    profile.lat = place.geometry.location.lat();
-                }
-                infowindow.setContent(place.name + ':<br>' + address);
-                infowindow.open(map, marker);
-            });
-
-            return map;
-        },
-
-        // Fonction de callback en cas d’erreur
-        errorCallback: function(error) {
-            var info = "Erreur lors de la géolocalisation : ";
-            switch(error.code) {
-            case error.TIMEOUT:
-                info += "Cela semble mettre trop de temps...";
-            break;
-            case error.PERMISSION_DENIED:
-            info += "Vous n’avez pas autorisé la géolocalisation";
-            break;
-            case error.POSITION_UNAVAILABLE:
-                info += "La position n’a pu être déterminée";
-            break;
-            case error.UNKNOWN_ERROR:
-            info += "Erreur inconnue";
-            break;
-            }
-            flashMessage('error', info);
-        },
-
-        successCallback: function(position) {
-            map.setZoom = 17;
-            map.panTo(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-            var marker = new google.maps.Marker({
-                position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
-                map: map
-            });
-            this.codeLatLng(position.coords.latitude, position.coords.longitude);
-        },
-
-        codeLatLng: function(lat, lng) {
-            var latlng = new google.maps.LatLng(lat, lng);
-            var geocoder = new google.maps.Geocoder();
-            geocoder.geocode({'latLng': latlng}, function(results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    if (results[1]) {
-                        //find country name
-                        for (var i=0, j=results[0].address_components.length; i<j; i++) {
-                            // for (var b=0, c=results[0].address_components[i].types.length; b<c; b++) {
-
-                                //there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
-                                // if (results[0].address_components[i].types[b] == "locality") {
-                                if (results[0].address_components[i].types.indexOf("locality") > -1) {
-                                    //this is the object you are looking for
-                                    city = results[0].address_components[i].long_name+", ";
-                                    break;
-                                }
-                                // if (results[0].address_components[i].types[b] == "administrative_area_level_2") {
-                                if (results[0].address_components[i].types.indexOf("administrative_area_level_2") > -1) {
-                                    //this is the object you are looking for
-                                    city += results[0].address_components[i].long_name+", ";
-                                    break;
-                                }
-                                // if (results[0].address_components[i].types[b] == "country") {
-                                if (results[0].address_components[i].types.indexOf("country") > -1) {
-                                    //this is the object you are looking for
-                                    city += results[0].address_components[i].long_name;
-                                    break;
-                                }
-                            // }
-                        }
-                        $('#clzk-profile-address-input').val(city);
-                    } else {
-                        alert("No results found");
-                    }
-                } else {
-                    alert("Geocoder failed due to: " + status);
                 }
             });
-        }
+        },
     });
 });

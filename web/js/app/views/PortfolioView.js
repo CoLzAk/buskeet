@@ -137,7 +137,6 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         },
         addObjective: function(e) {
             e.preventDefault();
-            moment.lang('fr');
             var html = '', objective = {
                 title: $('#profile-portfolio-objective-title').val(),
                 content: $('#profile-portfolio-objective-description').val(),

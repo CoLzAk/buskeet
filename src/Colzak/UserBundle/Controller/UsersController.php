@@ -16,6 +16,19 @@ class UsersController extends BaseController
 {
     /**
      * GET Route annotation.
+     * @Get("/users")
+     */
+    public function getUsersAction()
+    {
+        $em    = $this->get('doctrine')->getManager();
+        $data = $em->getRepository('ColzakUserBundle:User')->findAll();
+
+        return $this->handleView($this->view($data, 200));
+    } // "get_users"    [GET] /users
+
+
+    /**
+     * GET Route annotation.
      * @Get("/users/{id}")
      * @Route(options={"segment_separators"={0="/"}})
      */

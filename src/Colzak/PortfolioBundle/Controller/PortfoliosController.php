@@ -102,7 +102,9 @@ class PortfoliosController extends BaseController
     public function managePortfolio($reqPortfolio) {
         $em = $this->get('doctrine')->getManager();
         $portfolio = (!isset($reqPortfolio['id']) ? new Portfolio() : $em->getRepository('ColzakPortfolioBundle:Portfolio')->find($reqPortfolio['id']));
-        $portfolio->setTargetsDescription($reqPortfolio['targets_description']);
+        if (isset($reqPortfolio['targets_description'])) {
+            $portfolio->setTargetsDescription($reqPortfolio['targets_description']);
+        }
         if (isset($reqPortfolio['targets'])) {
             foreach ($reqPortfolio['targets'] as $target) {
                 $portfolio->addTarget($em->getRepository('ColzakPortfolioBundle:Instrument')->find($target['id']));

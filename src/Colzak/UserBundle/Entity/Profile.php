@@ -68,7 +68,7 @@ class Profile
     protected $description;
 
     /**
-     * @ORM\OneToOne(targetEntity="Colzak\PortfolioBundle\Entity\Portfolio", mappedBy="profile", cascade={"all"})
+     * @ORM\OneToOne(targetEntity="Colzak\PortfolioBundle\Entity\Portfolio", mappedBy="profile", cascade={"persist", "remove"})
      * @SERIAL\Type("Colzak\PortfolioBundle\Entity\Portfolio")
      */
     protected $portfolio;
