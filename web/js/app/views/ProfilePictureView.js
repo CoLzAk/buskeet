@@ -120,7 +120,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         template: '#clzk-profile-pictures-form-template',
         tagName: 'div',
         itemView: ProfilePictureFormView,
-        emptyView: ProfilePictureFormEmptyView,
+        //emptyView: ProfilePictureFormEmptyView,
 
         events: {
             'click .save-modal-btn': 'closeModal',
