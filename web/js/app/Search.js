@@ -20,6 +20,9 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         SearchModule.search = new Search([], { localization: localization, category: category});
         SearchModule.search.fetch( {
             success: function(results) {
+                SearchModule.users = new Users(results);
+                SearchModule.searchLayout.searchMenuRegion.show(new SearchMenuView());
+                SearchModule.searchLayout.searchResultsRegion.show(new SearchResultsView({ collection: SearchModule.users }));
                 console.log(results);
             }
         });

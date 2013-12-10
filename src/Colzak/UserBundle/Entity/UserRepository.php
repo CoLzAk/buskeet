@@ -90,6 +90,11 @@ class UserRepository extends EntityRepository implements UserProviderInterface
         return str_replace($from, $to, $str); 
     }
 
+    public function getUsersList() {
+        return $this->getUsersListDQL()
+            ->getArrayResult();
+    }
+
     public function getLastUsers($limit = 6) {
         return $this->getLastUsersDQL($limit)
             ->getResult();
@@ -125,90 +130,21 @@ class UserRepository extends EntityRepository implements UserProviderInterface
             ->createQuery($dql);
     }
 
-    //Other stuff
-
-    public function loadUsersList($slugParams) {
-        $parameters = array(
-            'blacklisted' => false,
-            'profilePicture' => true,
-            'fileType' => 'photogallery',
-        );
-
-        foreach ($slugParams as $key => $value) {
-            if ($key == 'age') {
-                $dates = $this->getAgeGroup($value);
-                $parameters['date1'] = $dates['d1'];
-                $parameters['date2'] = $dates['d2'];
-            } else {
-                $parameters[$key] = $value;
-            }
-        }
-
-        // print($this->loadUsersListDQL($slugParams)->getSQL());
-
-        return $this->loadUsersListDQL($slugParams)
-            ->setParameters($parameters)
-            ->getArrayResult();
-    }
-
-    public function getAgeGroup($group) {
-        $d1 = new \DateTime('NOW');
-        $d2 = new \DateTime('NOW');
-        $dates = array();
-
-        if ($group == 'young') {
-            $d1->sub(new \DateInterval('P18Y'));
-            $d2->sub(new \DateInterval('P25Y'));
-        }
-        if ($group == 'middle') {
-            $d1->sub(new \DateInterval('P25Y'));
-            $d2->sub(new \DateInterval('P40Y'));
-        }
-        if ($group == 'advanced') {
-            $d1->sub(new \DateInterval('P40Y'));
-            $d2->sub(new \DateInterval('P60Y'));
-        }
-        if ($group == 'senior') {
-            $d1->sub(new \DateInterval('P60Y'));
-            $d2->sub(new \DateInterval('P120Y'));
-        }
-
-        $dates['d1'] = $d1->format('Y-m-d');
-        $dates['d2'] = $d2->format('Y-m-d');
-
-        return $dates;
-    }
-
-    private function loadUsersListDQL($slugParams) {
+    private function getUsersListDQL() {
         $dql = 'SELECT 
-                    partial us.{id, usernameCanonical, emailCanonical, lastLogin, lastActivity, roles}, 
-                    partial pr.{id, firstname, lastname, birthdate, addressZipcode, addressCity, addressCoordinates, type, verifiedIdentity, verifiedDiplomas},
-                    partial po.{id, universe, experience},
-                    partial fi.{id, thumbPath}
-                FROM 
-                    CaribooCNUserBundle:User us
-                LEFT JOIN 
+                    partial us.{id, usernameCanonical, emailCanonical},
+                    partial pr.{id, firstname, lastname},
+                    partial fi.{id, thumbPath, profilePicture}
+                FROM
+                    ColzakUserBundle:User us
+                LEFT JOIN
                     us.profile pr
                 LEFT JOIN
-                    pr.portfolios po
-                LEFT JOIN
-                    pr.files fi';
-
-        $dql .= ' WHERE us.blacklisted = :blacklisted';
-        $dql .= ' AND fi.profilePicture = :profilePicture';
-        $dql .= ' AND fi.fileType = :fileType';
-        $dql .= (isset($slugParams['gender']) ? ' AND pr.gender = :gender' : '');
-        $dql .= (isset($slugParams['age']) ? ' AND pr.birthdate BETWEEN :date1 AND :date2' : '');
-        $dql .= (isset($slugParams['language']) ? ' AND pr.motherTongue = :language' : '');
-        $dql .= (isset($slugParams['acceptSickChildren']) ? ' AND po.acceptSickChildren = :acceptSickChildren' : '');
-        $dql .= (isset($slugParams['acceptLastMinute']) ? ' AND po.acceptLastMinute = :acceptLastMinute' : '');
-        $dql .= (isset($slugParams['comfortableWithAnimals']) ? ' AND pr.comfortableWithAnimals = :comfortableWithAnimals' : '');
-        $dql .= (isset($slugParams['smoker']) ? ' AND pr.smoker = :smoker' : '');
-        $dql .= (isset($slugParams['ownCar']) ? ' AND pr.ownCar = :ownCar' : '');
-        $dql .= (isset($slugParams['drivingLicence']) ? ' AND pr.drivingLicence = :drivingLicence' : '');
-
-        return $this->getEntityManager()
-            ->createQuery($dql);
+                    pr.files fi
+                WHERE fi.profilePicture = TRUE
+                ORDER BY us.id DESC
+                ';
+        return $this->getEntityManager()->createQuery($dql);
     }
 
     private function getLastUsersDQL($limit) {
@@ -222,7 +158,6 @@ class UserRepository extends EntityRepository implements UserProviderInterface
                     us.profile pr
                 LEFT JOIN
                     pr.files fi
-                WHERE 1
                 ORDER BY us.id DESC
                 LIMIT 0,6
                 ';

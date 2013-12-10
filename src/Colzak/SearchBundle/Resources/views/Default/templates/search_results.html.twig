@@ -1,1 +1,28 @@
-search_results.html.twig
+<script type="text/template" id="clzk-search-result-template">
+    <div class="clzk-search-profile-container">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <img src="<%= user[0].profile.files[0].thumbPath %>">
+            </div>
+            <div class="col-md-8">
+                <span><%= user[0].profile.firstname %>&nbsp;<%= user[0].profile.lastname %></span>
+                <span><%= user[0].profile.locality %></span>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-8">
+                    Ici la liste des instruments que le user sait jouer
+                </div>
+                <div class="col-md-4">
+                    <a href="#" class="btn btn-block btn-secondary">Voir le profil</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+
+<script type="text/template" id="clzk-search-results-template">
+    <div id="clzk-search-result-container"></div>
+</script>

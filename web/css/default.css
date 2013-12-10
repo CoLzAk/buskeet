@@ -68,3 +68,27 @@ body {
 .clzk-btn-empty {
     border: 2px #ddd solid;
 }
+/*#map {
+    height: 180px;
+}*/
+
+/*#map img {
+    max-width: 100%;
+}*/
+.pac-container {
+    background-color: #FFF;
+    z-index: 9001;
+    position: fixed;
+    display: inline-block;
+}
+.modal {
+    z-index: 9000;
+}
+.modal-backdrop {
+    z-index: 8990;
+}​
+.clzk-search-profile-container {
+    border: 1px #ddd solid;
+    margin-bottom: 5px;
+    width: 100%;
+}
