@@ -1,18 +1,24 @@
 <script type="text/template" id="clzk-search-result-template">
     <div class="clzk-search-profile-container">
-        <div class="col-md-12">
-            <div class="col-md-4">
-                <img src="<%= user[0].profile.files[0].thumbPath %>">
-            </div>
-            <div class="col-md-8">
-                <span><%= user[0].profile.firstname %>&nbsp;<%= user[0].profile.lastname %></span>
-                <span><%= user[0].profile.locality %></span>
+        <div class="col-md-12 clzk-search-profile-content-upper">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="<%= user[0].profile.files[0].thumbPath %>" class="img-thumbnail img-responsive">
+                </div>
+                <div class="col-md-8">
+                    <h2><%= user[0].profile.firstname %>&nbsp;<%= user[0].profile.lastname %></h2>
+                    <p><%= user[0].profile.locality %></p>
+                </div>
             </div>
         </div>
-        <div class="col-md-12">
+        <div class="clearfix"></div>
+        <hr>
+        <div class="col-md-12 clzk-search-profile-content-lower">
             <div class="row">
                 <div class="col-md-8">
-                    Ici la liste des instruments que le user sait jouer
+                    <% for (var i in user[0].profile.portfolio.instruments) { %>
+                        <span><%= user[0].profile.portfolio.instruments[i].name %></span> |
+                    <% } %>
                 </div>
                 <div class="col-md-4">
                     <a href="#" class="btn btn-block btn-secondary">Voir le profil</a>

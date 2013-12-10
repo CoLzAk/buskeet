@@ -133,12 +133,18 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     private function getUsersListDQL() {
         $dql = 'SELECT 
                     partial us.{id, usernameCanonical, emailCanonical},
-                    partial pr.{id, firstname, lastname},
+                    partial pr.{id, firstname, lastname, locality},
+                    partial po.{id},
+                    partial poi.{id, name},
                     partial fi.{id, thumbPath, profilePicture}
                 FROM
                     ColzakUserBundle:User us
                 LEFT JOIN
                     us.profile pr
+                LEFT JOIN
+                    pr.portfolio po
+                LEFT JOIN
+                    po.instruments poi
                 LEFT JOIN
                     pr.files fi
                 WHERE fi.profilePicture = TRUE

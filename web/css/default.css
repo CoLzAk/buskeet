@@ -68,6 +68,12 @@ body {
 .clzk-btn-empty {
     border: 2px #ddd solid;
 }
+.clzk-search-profile-container {
+    border: 5px #ddd solid;
+    margin-bottom: 5px;
+    width: 100%;
+    padding: 5px;
+}
 /*#map {
     height: 180px;
 }*/
@@ -87,8 +93,3 @@ body {
 .modal-backdrop {
     z-index: 8990;
 }​
-.clzk-search-profile-container {
-    border: 1px #ddd solid;
-    margin-bottom: 5px;
-    width: 100%;
-}
