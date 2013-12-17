@@ -3,11 +3,11 @@
         <div class="col-md-12 clzk-search-profile-content-upper">
             <div class="row">
                 <div class="col-md-4">
-                    <img src="<%= user[0].profile.files[0].thumbPath %>" class="img-thumbnail img-responsive">
+                    <img src="<%= user.profile.files.thumbPath %>" class="img-thumbnail img-responsive">
                 </div>
                 <div class="col-md-8">
-                    <h2><%= user[0].profile.firstname %>&nbsp;<%= user[0].profile.lastname %></h2>
-                    <p><%= user[0].profile.locality %></p>
+                    <h2><%= user.profile.firstname %>&nbsp;<%= user.profile.lastname %></h2>
+                    <p><%= user.profile.locality %></p>
                 </div>
             </div>
         </div>
@@ -16,8 +16,8 @@
         <div class="col-md-12 clzk-search-profile-content-lower">
             <div class="row">
                 <div class="col-md-8">
-                    <% for (var i in user[0].profile.portfolio.instruments) { %>
-                        <span><%= user[0].profile.portfolio.instruments[i].name %></span> |
+                    <% for (var i in user.profile.portfolio.instruments) { %>
+                        <span><%= user.profile.portfolio.instruments[i].name %></span> |
                     <% } %>
                 </div>
                 <div class="col-md-4">

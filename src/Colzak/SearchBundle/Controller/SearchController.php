@@ -23,7 +23,10 @@ class SearchController extends BaseController
      */
     public function getSearchAction($localization, $category, Request $request) {
         $em    = $this->get('doctrine')->getManager();
-        $data = $em->getRepository('ColzakUserBundle:User')->getUsersList();
+        // $data = $em->getRepository('ColzakUserBundle:User')->getUsersList();
+        $data = array(
+            'items' => $em->getRepository('ColzakUserBundle:User')->findAll()
+        );
 
         // $paginator = $this->get('knp_paginator');
         // $pagination = $paginator->paginate(

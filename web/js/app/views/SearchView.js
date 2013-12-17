@@ -12,12 +12,11 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             var mapUrl = '';
 
             for (var i in users.models) {
-                console.log(users.models[i]);
                 if (typeof users.models[i].get('profile').lat !== 'undefined' || users.models[i].get('profile').lat !== null && typeof users.models[i].get('profile').lon !== 'undefined' || users.models[i].get('profile').lon !== null) {
                     markers += '&markers=color:red|' + users.models[i].get('profile').lat + ',' + users.models[i].get('profile').lon;
                 }
             }
-            mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center=Paris&zoom=13&size='+mapWidth+'x'+mapWidth+'&maptype=roadmap&sensor=false' + markers;
+            mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center=Paris&zoom=5&size='+mapWidth+'x'+mapWidth+'&maptype=roadmap&sensor=false' + markers;
             $('#map').html('<img src="'+ mapUrl +'">');
         },
         initialize: function() {
