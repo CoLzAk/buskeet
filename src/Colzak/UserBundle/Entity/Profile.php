@@ -148,6 +148,17 @@ class Profile
     protected $lon;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Colzak\PortfolioBundle\Entity\Objective", mappedBy="participants")
+     * @SERIAL\Type("Colzak\PortfolioBundle\Entity\Objective")
+     **/
+    private $objectives;
+
+    public function __construct() {
+        $this->files = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->objectives = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -316,13 +327,6 @@ class Profile
     public function getUser()
     {
         return $this->user;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->files = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -586,5 +590,38 @@ class Profile
     public function getLon()
     {
         return $this->lon;
+    }
+
+    /**
+     * Add objectives
+     *
+     * @param \Colzak\PortfolioBundle\Entity\Objective $objectives
+     * @return Profile
+     */
+    public function addObjective(\Colzak\PortfolioBundle\Entity\Objective $objectives)
+    {
+        $this->objectives[] = $objectives;
+    
+        return $this;
+    }
+
+    /**
+     * Remove objectives
+     *
+     * @param \Colzak\PortfolioBundle\Entity\Objective $objectives
+     */
+    public function removeObjective(\Colzak\PortfolioBundle\Entity\Objective $objectives)
+    {
+        $this->objectives->removeElement($objectives);
+    }
+
+    /**
+     * Get objectives
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getObjectives()
+    {
+        return $this->objectives;
     }
 }

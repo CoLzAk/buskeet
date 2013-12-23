@@ -62,6 +62,17 @@ class Objective
     protected $portfolio;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Colzak\UserBundle\Entity\Profile", inversedBy="objectives")
+     * @ORM\JoinTable(name="clzk_objectives_participants")
+     * @SERIAL\Type("Colzak\UserBundle\Entity\Profile")
+     **/
+    protected $participants;
+
+    public function __construct() {
+        $this->participants = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -184,5 +195,38 @@ class Objective
     public function getPortfolio()
     {
         return $this->portfolio;
+    }
+    
+    /**
+     * Add participants
+     *
+     * @param \Colzak\UserBundle\Entity\Profile $participants
+     * @return Objective
+     */
+    public function addParticipant(\Colzak\UserBundle\Entity\Profile $participants)
+    {
+        $this->participants[] = $participants;
+    
+        return $this;
+    }
+
+    /**
+     * Remove participants
+     *
+     * @param \Colzak\UserBundle\Entity\Profile $participants
+     */
+    public function removeParticipant(\Colzak\UserBundle\Entity\Profile $participants)
+    {
+        $this->participants->removeElement($participants);
+    }
+
+    /**
+     * Get participants
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getParticipants()
+    {
+        return $this->participants;
     }
 }

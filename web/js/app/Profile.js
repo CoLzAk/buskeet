@@ -58,6 +58,7 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
         UserModule.targetUserPortfolio = new Portfolio(options.targetUser.profile.portfolio, { userId: UserModule.targetUser.get('id') });
         UserModule.targetUserPictures = new Files(options.targetUser.profile.files, { userId: UserModule.targetUser.get('id') });
 
+        UserModule.visitor = new User(options.visitor);
         //Initialize layout
         UserModule.profileLayout = new ProfileLayout();
         App.mainRegion.show(UserModule.profileLayout);

@@ -6,11 +6,19 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             '#profile-portfolio-targets-description': 'targets_description'
         },
         events: {
-            'click .edit-btn': 'edit'
+            'click .edit-btn': 'edit',
+            'click .participate-btn': 'toggleParticipate'
         },
         edit: function(e) {
             e.preventDefault();
             Backbone.history.navigate(this.username + '/edit/portfolio-' + e.currentTarget.getAttribute('data-edit'), { trigger: true });
+        },
+        toggleParticipate: function(e) {
+            e.preventDefault();
+            console.log(UserModule.visitor.get('id'));
+            $.ajax({
+
+            });
         },
         onRender: function() {
             this.stickit();
