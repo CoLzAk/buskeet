@@ -2,3 +2,8 @@ colzak_users_portfolios:
     type:     rest
     resource: Colzak\PortfolioBundle\Controller\PortfoliosController
     name_prefix:  portfolios_
+
+# colzak_users_portfolios_objectives:
+#     type:     rest
+#     parent:   colzak_users_portfolios
+#     resource: Colzak\PortfolioBundle\Controller\ObjectivesController

@@ -11,6 +11,7 @@ use Colzak\PortfolioBundle\Entity\Portfolio;
 
 class DefaultController extends Controller
 {
+    // Test
     public function indexAction($name)
     {
     	$dm = $this->container->get('doctrine_mongodb')->getManager();

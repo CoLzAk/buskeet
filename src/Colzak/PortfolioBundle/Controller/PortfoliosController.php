@@ -10,6 +10,7 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\Annotations\Post;
+use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\UserBundle\Model\UserInterface;
 use Colzak\PortfolioBundle\Entity\Portfolio;
@@ -97,9 +98,8 @@ class PortfoliosController extends BaseController
         return $this->handleView($this->view($data, 200));
     } // "get_portfolio_instruments"   [GET] /portfolio/instruments/{slug}
 
-
     // Construct the portfolio
-    public function managePortfolio($reqPortfolio) {
+    private function managePortfolio($reqPortfolio) {
         $em = $this->get('doctrine')->getManager();
         $portfolio = (!isset($reqPortfolio['id']) ? new Portfolio() : $em->getRepository('ColzakPortfolioBundle:Portfolio')->find($reqPortfolio['id']));
         if (isset($reqPortfolio['targets_description'])) {
@@ -128,4 +128,44 @@ class PortfoliosController extends BaseController
         }
         return $portfolio;
     }
+
+    /**
+     * GET Route annotation.
+     * @Post("/objectives/{id}/participate")
+     */
+    public function postObjectivesParticipateAction($id)
+    {
+        $em = $this->container->get('doctrine')->getManager();
+        $participant = $this->container->get('security.context')->getToken()->getUser();
+        $objective = $em->getRepository('ColzakPortfolioBundle:Objective')->find($id);
+
+        $objective->addParticipant($participant->getProfile());
+
+        $em->persist($objective);
+        $em->flush();
+
+        $data = $participant;
+
+        return $this->handleView($this->view($data, 200));
+    } // "post_objectives_participate"   [POST] /objectives/{id}/participate
+
+    /**
+     * GET Route annotation.
+     * @Delete("/objectives/{id}/unparticipate")
+     */
+    public function deleteObjectivesParticipateAction($id)
+    {
+        $em = $this->container->get('doctrine')->getManager();
+        $participant = $this->container->get('security.context')->getToken()->getUser();
+        $objective = $em->getRepository('ColzakPortfolioBundle:Objective')->find($id);
+
+        $objective->removeParticipant($participant->getProfile());
+
+        $em->persist($objective);
+        $em->flush();
+
+        $data = $participant;
+
+        return $this->handleView($this->view());
+    } // delete_objectives_participate"   [DELETE] /objectives/{id}/unparticipate
 }

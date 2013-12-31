@@ -3,7 +3,7 @@
         <div class="col-md-12 clzk-search-profile-content-upper">
             <div class="row">
                 <div class="col-md-4">
-                    <img src="<%= user.profile.files.thumbPath %>" class="img-thumbnail img-responsive">
+                    <img src="<%= profile_picture_path %>" class="img-thumbnail img-responsive">
                 </div>
                 <div class="col-md-8">
                     <h2><%= user.profile.firstname %>&nbsp;<%= user.profile.lastname %></h2>
@@ -16,6 +16,7 @@
         <div class="col-md-12 clzk-search-profile-content-lower">
             <div class="row">
                 <div class="col-md-8">
+                    <!-- icons -->
                     <% for (var i in user.profile.portfolio.instruments) { %>
                         <span><%= user.profile.portfolio.instruments[i].name %></span> |
                     <% } %>
@@ -27,7 +28,6 @@
         </div>
     </div>
 </script>
-
 
 <script type="text/template" id="clzk-search-results-template">
     <div id="clzk-search-result-container"></div>

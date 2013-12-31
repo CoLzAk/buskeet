@@ -15,10 +15,40 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         },
         toggleParticipate: function(e) {
             e.preventDefault();
-            console.log(UserModule.visitor.get('id'));
-            $.ajax({
+            var that = this;
+            var objectiveId = $(e.currentTarget).data('objective');
+            var objective = _.findWhere(this.model.get('objectives'), { id: objectiveId });
+            var hasParticipated = _.where(objective.participants, { id: UserModule.visitor.get('id') });
 
-            });
+            console.log(objective.participants);
+            console.log(hasParticipated.length);
+            // this.model.get()
+            // console.log(this.model);
+            if (hasParticipated.length === 0) {
+                $.ajax({
+                    url: 'http://colzakfr.dev/app_dev.php/api/objectives/'+ objectiveId +'/participate',
+                    type: 'POST',
+                    success: function(data) {
+                        objective.participants.push(data);
+                        $(e.currentTarget).removeClass('btn-success').addClass('btn-default');
+                    },
+                    error: function(data) {
+                        console.log(data);
+
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: 'http://colzakfr.dev/app_dev.php/api/objectives/'+ objectiveId +'/unparticipate',
+                    type: 'DELETE',
+                    success: function(data) {
+                        console.log(that.model);
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+            }
         },
         onRender: function() {
             this.stickit();
@@ -28,6 +58,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         },
         serializeData: function() {
             return {
+                visitor: UserModule.visitor.toJSON(),
                 portfolio: this.model.toJSON()
             };
         }

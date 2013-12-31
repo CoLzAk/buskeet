@@ -83,20 +83,22 @@
             <div class="col-md-8">
                 <p><%= portfolio.objectives[i].title %></p>
                 <p><%= portfolio.objectives[i].content %></p>
-                <div class="row">
-                    <div class="col-md-8">
-                        <p>PARTICIPANTS:</p>
-                        <img src="/img/user_128.png" class="img-responsive img-thumbnail clzk-portfolio-participants">
-                        <img src="/img/user_128.png" class="img-responsive img-thumbnail clzk-portfolio-participants">
-                        <img src="/img/user_128.png" class="img-responsive img-thumbnail clzk-portfolio-participants">
-                        <img src="/img/user_128.png" class="img-responsive img-thumbnail clzk-portfolio-participants">
+                <% for (var j in portfolio.objectives[i].participants) { %>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p>PARTICIPANTS:</p>
+                            <img src="/img/user_128.png" class="img-responsive img-thumbnail clzk-portfolio-participants">
+                            <img src="/img/user_128.png" class="img-responsive img-thumbnail clzk-portfolio-participants">
+                            <img src="/img/user_128.png" class="img-responsive img-thumbnail clzk-portfolio-participants">
+                            <img src="/img/user_128.png" class="img-responsive img-thumbnail clzk-portfolio-participants">
+                        </div>
+                        <div class="col-md-4">
+                            {#% if is_granted('ROLE_USER') and targetUser != app.user %#}
+                                <a href="#" data-objective="<%= portfolio.objectives[i].id %>" class="participate-btn btn btn-success btn-block">Participer</a>
+                            {#% endif %#}
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        {#% if is_granted('ROLE_USER') and targetUser != app.user %#}
-                            <a href="#" class="participate-btn btn btn-secondary btn-block">Participer</a>
-                        {#% endif %#}
-                    </div>
-                </div>
+                <% } %>
             </div>
             <div class="clearfix"></div>
             <hr>
