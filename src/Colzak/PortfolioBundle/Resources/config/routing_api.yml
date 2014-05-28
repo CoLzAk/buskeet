@@ -3,6 +3,11 @@ colzak_users_portfolios:
     resource: Colzak\PortfolioBundle\Controller\PortfoliosController
     name_prefix:  portfolios_
 
+colzak_users_instruments:
+    type:     rest
+    resource: Colzak\PortfolioBundle\Controller\InstrumentsController
+    name_prefix:  instruments_
+
 # colzak_users_portfolios_objectives:
 #     type:     rest
 #     parent:   colzak_users_portfolios

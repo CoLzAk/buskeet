@@ -4,11 +4,24 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
     ProfileLayout = Backbone.Marionette.Layout.extend({
         template: '#clzk-profile-layout',
         regions: {
-            profilePictureRegion: '#clzk-profile-picture-region',
-            profileMessageRegion: '#clzk-profile-message-region',
-            profileInformationRegion: '#clzk-profile-information-region',
-            profileDescriptionRegion: '#clzk-profile-description-region',
-            profilePortfolioRegion: '#clzk-profile-portfolio-region'
+            profilePhotosRegion: '#clzk-profile-photos-region',
+            profileInformationsRegion: '#clzk-profile-informations-region',
+            profilePortfolioRegion: '#clzk-profile-portfolio-region',
+            profileEventsRegion: '#clzk-profile-events-region'
+        }
+    });
+
+    ProfileMenuLayout = Backbone.Marionette.Layout.extend({
+        template: '#clzk-profile-menu-layout',
+        regions: {
+            actionsRegion: '#clzk-profile-menu-actions-region'
+        }
+    });
+
+    ProfileEditLayout = Backbone.Marionette.Layout.extend({
+        template: '#clzk-profile-edit-layout',
+        regions: {
+            profileEditRegion: '#clzk-profile-edit-region'
         }
     });
 
@@ -16,52 +29,103 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
         template: "#clzk-modal-layout",
         regions: {
             modalContentRegion: "#clzk-modal-content-region"
+        },
+        onDomRefresh: function() {
+            $('#clzk-modal').on('hide.bs.modal', function(e) {
+                Backbone.history.navigate(UserModule.targetUserUsername, true);
+            });
         }
     });
 
     UserModule.show = function(username) {
-        UserModule.profileLayout.profilePictureRegion.show(new ProfilePicturesView({ collection: UserModule.targetUserPictures }, { username: UserModule.targetUser.get('username') }));
-        UserModule.profileLayout.profileMessageRegion.show(new ProfileMessageView());
-        UserModule.profileLayout.profileInformationRegion.show(new ProfileInformationView({ model: UserModule.targetUser }));
-        UserModule.profileLayout.profileDescriptionRegion.show(new ProfileDescriptionView({ model: UserModule.targetUser }));
-        UserModule.profileLayout.profilePortfolioRegion.show(new PortfolioView({ model: UserModule.targetUserPortfolio }, { username: UserModule.targetUser.get('username') }));
+        App.formRegion.close();
+        App.mainRegion.show(UserModule.profileLayout);
+        if (typeof UserModule.targetUserProfile === 'undefined') {
+            UserModule.targetUserUsername = username;
+
+            var profile = new Profile({}, { userId: UserModule.userId });
+            profile.fetch({
+                success: function(model) {
+                    UserModule.displayViews(model);
+                }
+            });
+        } else {
+            UserModule.displayViews(UserModule.targetUserProfile, UserModule.targetUserPhotos);
+        }
+    };
+
+    UserModule.displayViews = function(data) {
+        UserModule.targetUserProfile = data;
+        UserModule.targetUserPhotos = new Photos(data.get('photos'), { userId: UserModule.userId });
+        UserModule.targetUserProfilePortfolio = new Portfolio(data.get('portfolio'), { userId: UserModule.userId });
+        UserModule.targetUserEvents = new ProfileEvents(data.get('events'), { userId: UserModule.userId });
+        UserModule.targetUserProfile.store();
+        UserModule.targetUserProfilePortfolio.store();
+        // if (UserModule.firstRender) {
+        //     UserModule.profileMenuLayout.actionsRegion.attachView(new ProfileMenuView({ model: profile, el: $('#clzk-profile-menu-static') }));
+        //     UserModule.profileLayout.profilePhotosRegion.attachView(new ProfilePhotosView({ collection: photos, el: $('#clzk-profile-photos-static') }));
+        //     UserModule.profileLayout.profileInformationsRegion.attachView(new ProfileInformationsView({ model: profile, el: $('#clzk-profile-informations-static') }));
+
+        //     App.menuRegion.attachView(UserModule.profileMenuLayout);
+        //     App.mainRegion.attachView(UserModule.profileLayout);
+
+        //     $('#clzk-profile-menu-loading').addClass('hidden');
+        //     $('#clzk-profile-menu-static').removeClass('hidden');
+        // } else {
+        UserModule.profileMenuLayout.actionsRegion.show(new ProfileMenuView({ model: UserModule.targetUserProfile }));
+        UserModule.profileLayout.profilePhotosRegion.show(new ProfilePhotosView({ collection: UserModule.targetUserPhotos }));
+        UserModule.profileLayout.profileInformationsRegion.show(new ProfileInformationsView({ model: UserModule.targetUserProfile }));
+        UserModule.profileLayout.profilePortfolioRegion.show(new ProfilePortfolioView({ model: UserModule.targetUserProfilePortfolio }));
+        UserModule.profileLayout.profileEventsRegion.show(new ProfileEventsView({ collection: UserModule.targetUserEvents }));
+            // App.menuRegion.show(UserModule.profileMenuLayout);
+            // App.mainRegion.show(UserModule.profileLayout);
+            // $('#clzk-profile-menu-loading').addClass('hidden');
+            // $('#clzk-profile-menu-static').removeClass('hidden');
+        // }
+        NProgress.done();
     };
 
     UserModule.edit = function(username, formName) {
-        UserModule.modalLayout = new ModalLayout();
-        App.modalRegion.show(UserModule.modalLayout);
-        if (formName == 'information') {
-            UserModule.modalLayout.modalContentRegion.show(new ProfileInformationFormView({ model: UserModule.targetUser }));
-        }
-        if (formName == 'aboutme') {
-            UserModule.modalLayout.modalContentRegion.show(new ProfileDescriptionFormView({ model: UserModule.targetUser }));
-        }
-        if (formName == 'portfolio-targets' || formName == 'portfolio-instruments' || formName == 'portfolio-objectives') {
-            var formNameArray = formName.split('-');
-            UserModule.modalLayout.modalContentRegion.show(new PortfolioFormView({ model: UserModule.targetUserPortfolio }, { username: username, edit: formNameArray[1] }));
+        App.mainRegion.close();
+        App.formRegion.close();
+        UserModule.profileEditLayout = new ProfileEditLayout();
+        App.formRegion.show(UserModule.profileEditLayout);
+        if (formName == 'informations') {
+            UserModule.profileEditLayout.profileEditRegion.show(new ProfileInformationsFormView({ model: UserModule.targetUserProfile }));
         }
         if (formName == 'photos') {
-            UserModule.modalLayout.modalContentRegion.show(new ProfilePicturesFormView({ collection: UserModule.targetUserPictures }, { username: UserModule.targetUser.get('username') }));
+            UserModule.profileEditLayout.profileEditRegion.show(new ProfilePhotosFormView({ collection: UserModule.targetUserPhotos }));
         }
-        $('#clzk-modal').modal('show');
+        if (formName == 'portfolio') {
+            UserModule.profileEditLayout.profileEditRegion.show(new ProfilePortfolioFormView({ model: UserModule.targetUserProfilePortfolio }));
+        }
+        if (formName == 'events') {
+            UserModule.profileEditLayout.profileEditRegion.show(new ProfileEventsFormView({ collection: UserModule.targetUserEvents }));
+        }
+    };
+
+    UserModule.closeFormView = function() {
+        App.formRegion.close();
+        NProgress.done();
     };
 
     UserModule.gallery = function(username) {
         UserModule.modalLayout = new ModalLayout();
         App.modalRegion.show(UserModule.modalLayout);
-        UserModule.modalLayout.modalContentRegion.show(new ProfilePicturesCarouselView({ collection: UserModule.targetUserPictures }, { username: UserModule.targetUser.get('username') }));
+        UserModule.modalLayout.modalContentRegion.show(new ProfilePhotosCarouselView({ collection: UserModule.targetUserPhotos }));
+
         $('#clzk-modal').modal('show');
     };
 
     UserModule.addInitializer(function(options){
-        UserModule.targetUser = new User(options.targetUser);
-        UserModule.targetUserPortfolio = new Portfolio(options.targetUser.profile.portfolio, { userId: UserModule.targetUser.get('id') });
-        UserModule.targetUserPictures = new Files(options.targetUser.profile.files, { userId: UserModule.targetUser.get('id') });
-
-        UserModule.visitor = new User(options.visitor);
+        UserModule.firstRender = true;
+        UserModule.userId = options.userId;
+        UserModule.visitorId = options.visitorId;
         //Initialize layout
         UserModule.profileLayout = new ProfileLayout();
-        App.mainRegion.show(UserModule.profileLayout);
+        UserModule.profileMenuLayout = new ProfileMenuLayout();
+        UserModule.profileEditLayout = new ProfileEditLayout();
+        App.menuRegion.show(UserModule.profileMenuLayout);
     });
 
 });

@@ -53,7 +53,7 @@ class UserRepository extends DocumentRepository
         return $data['username'];
     }
 
-    protected function removeAccents($str)
+    private function removeAccents($str)
     { 
         $from = array(
             "á", "à", "â", "ã", "ä", "é", "è", "ê", "ë", "í", "ì", "î", "ï", 

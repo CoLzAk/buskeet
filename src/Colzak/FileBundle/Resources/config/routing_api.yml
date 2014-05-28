@@ -1,4 +1,0 @@
-colzak_users_files:
-    type:     rest
-    resource: Colzak\FileBundle\Controller\FilesController
-    name_prefix:  files_

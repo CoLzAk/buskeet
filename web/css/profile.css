@@ -1,0 +1,33 @@
+.clzk-profile-region {
+    /*margin-top: 20px;*/
+}
+
+.clzk-profile-edit-region {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: url(/img/navy_blue.png) repeat #222;
+}
+
+.clzk-portfolio-instruments-container {
+	margin: 20px auto;
+}
+.clzk-edit-header {
+    height: 60px !important;
+    padding-top: 10px;
+    position: fixed;
+    top: 50px;
+    width: 82%;
+    z-index: 10;
+    background: url(/img/navy_blue.png) repeat #222
+}
+.clzk-edit-header hr {
+	background: none repeat scroll 0 0 #555555;
+    border: medium none;
+    height: 1px;
+}
+.clzk-edit-header h1 {
+    color: #DDD;
+}

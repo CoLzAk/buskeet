@@ -25,10 +25,22 @@ class Instrument
     protected $name;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Colzak\PortfolioBundle\Document\InstrumentType", {"all"})
-     * @SERIAL\Type("Colzak\PortfolioBundle\Document\InstrumentType")
+     * @MongoDB\String
+     * @SERIAL\Type("string")
      */
-    protected $instrumentType;
+    protected $category;
+
+    /**
+     * @MongoDB\String
+     * @SERIAL\Type("string")
+     */
+    protected $colorCode;
+
+    /**
+     * @MongoDB\String
+     * @SERIAL\Type("string")
+     */
+    protected $iconPath;
 
     /**
      * Get id
@@ -63,24 +75,68 @@ class Instrument
     }
 
     /**
-     * Set instrumentType
+     * Set category
      *
-     * @param Colzak\PortfolioBundle\Document\InstrumentType $instrumentType
+     * @param string $category
      * @return self
      */
-    public function setInstrumentType(\Colzak\PortfolioBundle\Document\InstrumentType $instrumentType)
+    public function setCategory($category)
     {
-        $this->instrumentType = $instrumentType;
+        $this->category = $category;
         return $this;
     }
 
     /**
-     * Get instrumentType
+     * Get category
      *
-     * @return Colzak\PortfolioBundle\Document\InstrumentType $instrumentType
+     * @return string $category
      */
-    public function getInstrumentType()
+    public function getCategory()
     {
-        return $this->instrumentType;
+        return $this->category;
+    }
+
+    /**
+     * Set colorCode
+     *
+     * @param string $colorCode
+     * @return self
+     */
+    public function setColorCode($colorCode)
+    {
+        $this->colorCode = $colorCode;
+        return $this;
+    }
+
+    /**
+     * Get colorCode
+     *
+     * @return string $colorCode
+     */
+    public function getColorCode()
+    {
+        return $this->colorCode;
+    }
+
+    /**
+     * Set iconPath
+     *
+     * @param string $iconPath
+     * @return self
+     */
+    public function setIconPath($iconPath)
+    {
+        $this->iconPath = $iconPath;
+        return $this;
+    }
+
+    /**
+     * Get iconPath
+     *
+     * @return string $iconPath
+     */
+    public function getIconPath()
+    {
+        return $this->iconPath;
     }
 }

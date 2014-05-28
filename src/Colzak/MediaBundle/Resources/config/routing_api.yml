@@ -1,0 +1,4 @@
+colzak_users_photos:
+    type:     rest
+    resource: Colzak\MediaBundle\Controller\PhotosController
+    name_prefix:  photos_

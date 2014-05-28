@@ -100,6 +100,12 @@ class UserRepository extends EntityRepository implements UserProviderInterface
             ->getResult();
     }
 
+    public function getUser($id) {
+        return $this->getUserDQL()
+            ->setParameter('id', $id)
+            ->getOneOrNullResult();
+    }
+
 
     /**
      * 
@@ -168,5 +174,20 @@ class UserRepository extends EntityRepository implements UserProviderInterface
                 LIMIT 0,6
                 ';
         return $this->getManager()->createQuery($dql);
+    }
+
+    private function getUserDQL()
+    {
+        $dql = "SELECT 
+                    partial us.{id, username, usernameCanonical, emailCanonical, lastLogin},
+                    partial pr.{id, lastname, firstname, }
+                FROM 
+                    ColzakUserBundle:User u";
+        // $dql .= " WHERE u.activated = true";
+        // $dql .= " AND (u.blacklisted = false OR u.whitelisted = true)";
+        $dql .= " WHERE u.usernameCanonical = :username";
+
+        return $this->getEntityManager()
+            ->createQuery($dql);
     }
 }

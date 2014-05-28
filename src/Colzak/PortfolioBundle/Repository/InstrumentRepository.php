@@ -12,11 +12,10 @@ use Doctrine\ODM\MongoDB\DocumentRepository;
  */
 class InstrumentRepository extends DocumentRepository
 {
-	public function findInstrumentsBySlug($slug) {
-		return $this->createQueryBuilder('Instrument')
-			->field('name')->equals(new \MongoRegex('/.*'.$slug.'.*/i'))
-			->eagerCursor(true)
-			->getQuery()
-			->execute();
-	}
+    public function findInstrumentsBySlug($slug) {
+        return $this->createQueryBuilder('ColzakPortfolioBundle:Instrument')
+            ->field('name')->equals(new \MongoRegex('/.*'.$slug.'.*/i'))
+            ->getQuery()
+            ->execute();
+    }
 }

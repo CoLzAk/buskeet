@@ -29,20 +29,20 @@ class UsersController extends BaseController
 
     /**
      * GET Route annotation.
-     * @Get("/users/{id}")
-     * @Route(options={"segment_separators"={0="/"}})
+     * @Get("/users/{identifier}")
      */
-    public function getUserAction($username) {
-    	$dm = $this->container->get('doctrine_mongodb')->getManager();
-    	if ($username == 'me') {
-    		$data = $this->container->get('security.context')->getToken()->getUser()->getProfile();
-    	} else {
-    		$user = $dm->getRepository('ColzakUserBundle:User')->findOneByUsername($username);
-    		$data = $user;
-    	}
+    public function getUserAction($identifier)
+    {
+        // the target user
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $user = $dm->getRepository('ColzakUserBundle:User')->find($identifier);
 
-        return $this->handleView($this->view($data, 200));
-    } // "get_user"     [GET] /users/{id}
+        $view = View::create();
+        $view->setData($user, 200);
+        $view->setFormat('json');
+        return $view;
+
+    } // "get_user"      [GET] /users/{identifier}
 
     /**
      * GET Route annotation.
@@ -56,19 +56,66 @@ class UsersController extends BaseController
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        $em = $this->container->get('doctrine')->getManager();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        // $user = $dm->getRepository('ColzakUserBundle:User')->find($id);
 
         $request = $this->getRequest(); 
 
         if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
             $request = $this->getRequest();
             $serializer = $this->get('jms_serializer');
-            $updatedUser = $serializer->deserialize($request->getContent(), 'Colzak\UserBundle\Entity\User', 'json');
+            $updatedUser = $serializer->deserialize($request->getContent(), 'Colzak\UserBundle\Document\User', 'json');
+        }
+        $user = $dm->merge($updatedUser);
+        $dm->flush();
+        $data = $updatedUser;
+
+        return $this->handleView($this->view($data, 200));
+
+    } // "put_user"      [PUT] /users/{id}
+
+
+    // PROFILE
+
+    /**
+     * GET Route annotation.
+     * @Get("/users/{userId}/profile")
+     */
+    public function getUserProfileAction($userId) {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $user = $dm->getRepository('ColzakUserBundle:User')->find($userId);
+
+        $view = View::create();
+        $view->setData($user->getProfile(), 200);
+        $view->setFormat('json');
+        return $view;
+    }
+
+    /**
+     * GET Route annotation.
+     * @Put("/users/{userId}/profile/{id}")
+     */
+    public function putUserProfileAction($id)
+    {
+        // the actual user
+        $owner = $this->get('security.context')->getToken()->getUser();
+        if (!is_object($owner) || !$owner instanceof UserInterface) {
+            throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        $user = $em->merge($updatedUser);
-        $em->flush();
-        $data = $user;
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        // $user = $dm->getRepository('ColzakUserBundle:User')->find($id);
+
+        $request = $this->getRequest(); 
+
+        if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
+            $request = $this->getRequest();
+            $serializer = $this->get('jms_serializer');
+            $updatedProfile = $serializer->deserialize($request->getContent(), 'Colzak\UserBundle\Document\Profile', 'json');
+        }
+        $profile = $dm->merge($updatedProfile);
+        $dm->flush();
+        $data = $updatedProfile;
 
         return $this->handleView($this->view($data, 200));
 

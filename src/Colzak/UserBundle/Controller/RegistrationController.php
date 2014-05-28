@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
-use Colzak\UserBundle\Entity\Profile;
+use Colzak\UserBundle\Document\Profile;
 
 class RegistrationController extends BaseController
 {

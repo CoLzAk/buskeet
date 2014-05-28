@@ -1,0 +1,25 @@
+bandeau de gauche:
+
+	Menu contextuel
+	Actus + evenement à venir (dans la ville de l'utilisateur ou partout (si pas loggué))
+	Pub
+
+Ajout d'element dans le portfolio:
+	Ajout instruments (portfolioInstrument)
+	Ajout styles musicaux (array (liste style connus + champs autre))
+	Ajout influences (array libre)
+
+Ajout Evenement (concert etc.)
+
+Recherche géolocalisée multicritère
+	ville
+	type d'instrument
+	style
+	evenements (comme des liens sponsorisés) avec code couleur flashy (concerts, street perf)
+	(pas de rayon)
+
+Ajouter/supprimer amis
+
+Creer groupe
+	nom
+	membres (Users)

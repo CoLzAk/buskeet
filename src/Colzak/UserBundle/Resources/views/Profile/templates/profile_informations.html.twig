@@ -1,0 +1,86 @@
+<script type="text/template" id="clzk-profile-informations-template">
+    <h1 class="text-left mt0">
+        <span id="clzk-profile-firstname"></span>&nbsp;<span id="clzk-profile-lastname"></span>
+    </h1>
+    <p class="text-left">
+        <span id="clzk-profile-birthdate"></span>, <span id="clzk-profile-locality"></span>
+    </p>
+    <hr class="clzk-hr">
+    <p class="text-left" id="clzk-profile-description"></p>
+</script>
+
+<script type="text/template" id="clzk-profile-informations-form-template">
+    <div class="row clzk-edit-header">
+        <div class="col-md-6">
+            <h1 class="text-left mt0 mb1">Mes informations</h1>
+        </div>
+        <div class="col-md-6">
+            <div class="btn-group pull-right">
+                <a class="btn btn-default cancel-button" href="#"><span class="glyphicon glyphicon-remove"></span>&nbsp;Retour</a>
+                <a class="btn btn-primary save-button" href="#"><span class="glyphicon glyphicon-ok"></span>&nbsp;Enregistrer les modifications</a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <hr class="mt0">
+    </div>
+
+    <div class="mt6"></div>
+
+    <div class="row">
+        <div class="col-md-6">
+            {#} Birthdate {#}
+            <div class="form-horizontal mt2">
+                <h4>Date de naissance</h4>
+                <div class="col-md-12 bg-dark">
+                    <div class="input-group col-md-12 mt1 mb1">
+                        <input type="text" class="form-control clzk-form-control datepicker" id="clzk-profile-birthdate" placeholder="Date de naissance">
+                        <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            {#} Description {#}
+            <div class="form-horizontal mt2">
+                <h4>Ma description</h4>
+                <div class="col-md-12 bg-dark">
+                    <div class="input-group col-md-12 mt1 mb1">
+                        <textarea class="form-control clzk-form-control" rows="8" id="clzk-profile-description" placeholder="Ma description..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="col-md-6">
+            {#} Address {#}
+            <div class="form-horizontal mt2" role="form">
+                <h4>Mon adresse</h4>
+                <div class="col-md-12 bg-dark">
+                    <div class="col-md-12 input-group mb1 mt1">
+                        <input type="text" class="form-control clzk-form-control" id="clzk-profile-address-input" placeholder="Ville ou code postal">
+                        <span class="input-group-addon glyphicon glyphicon-map-marker"></span>
+                    </div>
+                </div>
+                <input type="hidden" id="clzk-profile-street-number">
+                <input type="hidden" id="clzk-profile-route">
+                <input type="hidden" id="clzk-profile-locality">
+                <input type="hidden" id="clzk-profile-sublocality">
+                <input type="hidden" id="clzk-profile-postal-code">
+                <input type="hidden" id="clzk-profile-administrative-area-level-1">
+                <input type="hidden" id="clzk-profile-administrative-area-level-2">
+                <input type="hidden" id="clzk-profile-country">
+                <input type="hidden" id="clzk-profile-lat">
+                <input type="hidden" id="clzk-profile-lon">
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div id="map-container" class="col-md-12 mt2">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

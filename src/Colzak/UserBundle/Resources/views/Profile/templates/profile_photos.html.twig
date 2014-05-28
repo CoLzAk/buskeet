@@ -1,0 +1,79 @@
+<script type="text/template" id="clzk-profile-photos-template">
+    <div class="clzk-profile-photos-container">
+        <% if (typeof profile_picture !== 'undefined') { %>
+            <a data-toggle="modal" id="image-modal" href="#">
+                <img src="<%= profile_picture.path %>" alt="..." class="img-responsive clzk-profile-picture">
+            </a>
+        <% } else { %>
+            <img src="/img/user_256.png" alt="..." class="img-responsive clzk-profile-picture">
+        <% } %>
+    </div>
+</script>
+
+<script type="text/template" id="clzk-profile-photos-carousel-template">
+    <div id="clzk-profile-photos-carousel" class="carousel slide">
+        <button type="button" class="close close-carousel-btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <% for (var i in photos) { %>
+                <div class="item <% if(photos[i].id === active_photo.id) { %> active<% } %>">
+                    <img src="<%= photos[i].path %>" class="img-responsive"/>
+                </div>
+            <% } %>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#clzk-profile-photos-carousel" data-slide="prev">
+            <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#clzk-profile-photos-carousel" data-slide="next">
+            <span class="icon-next"></span>
+        </a>
+    </div>
+</script>
+
+{#} Profile pictures form {#}
+<script type="text/template" id="clzk-profile-photo-form-template">
+    <div class="thumbnail">
+        <img src="<%= photo.thumb_path %>" alt="..." class="clzk-profile-picture-form-img">
+        <div class="caption">
+            <div class="row">
+                <div class="col-md-8">
+                    <a href="#" class="btn btn-block btn-default">Photo de profil</a>
+                </div>
+                <div class="col-md-4">
+                    <a href="#" class="btn btn-block btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="clzk-profile-photos-form-template">
+    <div class="row clzk-edit-header">
+        <div class="col-md-6">
+            <h1 class="text-left mt0 mb1">Mes photos</h1>
+        </div>
+        <div class="col-md-6">
+            <div class="btn-group pull-right">
+                <a class="btn btn-default cancel-button" href="#">Retour</a>
+                <a class="btn btn-primary add-photos-button" href="#"><span class="glyphicon glyphicon-plus"></span>&nbsp;Ajouter des photos</a>
+                <a class="btn btn-primary upload-photos-button disabled" href="#"><span class="glyphicon glyphicon-upload"></span>&nbsp;Envoyer vers le serveur</a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <hr class="mt0">
+    </div>
+
+    <div class="mt6"></div>
+    
+    <div class="clzk-file-input btn-block hidden">
+        <input id="fileUpload" name="photos" type="file" multiple>
+    </div>
+
+    <div id="photos-previews" class="row"></div>
+    <hr class="photos-previews-separator hidden">
+
+    <div id="profile-photos-form-container" class="row"></div>
+</script>

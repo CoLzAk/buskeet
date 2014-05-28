@@ -1,0 +1,127 @@
+<script type="text/template" id="clzk-profile-event-template">
+    <div class="row">
+        <div class="col-md-3">
+            <p> Du <span id="clzk-profile-event-start-date"></span><br>
+                Au <span id="clzk-profile-event-end-date"></span>
+            </p>
+        </div>
+        <div class="col-md-9">
+            <h2 id="clzk-profile-event-title"></h2>
+            <p id="clzk-profile-event-content"></p>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="clzk-profile-event-empty-template">
+    <p class="text-center"><i>Rien de prévu pour le moment !</i></p>
+</script>
+
+<script type="text/template" id="clzk-profile-events-template">
+    <h2>Mon programmme</h2>
+    <div id="clzk-profile-events-container"></div>
+</script>
+
+<script type="text/template" id="clzk-profile-event-form-template">
+    <div class="col-md-6">
+        <div class="form-horizontal mt2 mb1">
+            <h4>Nom de l'évènement</h4>
+            <div class="col-md-12">
+                <div class="input-group col-md-12 mt1 mb1">
+                    <input type="text" class="form-control clzk-form-control" id="clzk-profile-event-title-input" placeholder="Donnez un nom à cet évènement">
+                </div>
+            </div>
+            <div class="clearfix mb1"></div>
+            <h4>Dates</h4>
+            <div class="col-md-12">
+                <div class="input-group col-md-12 mt1 mb1">
+                    <input type="text" class="form-control clzk-form-control datepicker" id="clzk-profile-event-start-date-input" placeholder="Date de début">
+                    <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+                </div>
+            </div>
+            <div class="clearfix mb1"></div>
+            <div class="col-md-12">
+                <div class="input-group col-md-12 mt1 mb1">
+                    <input type="text" class="form-control clzk-form-control datepicker" id="clzk-profile-event-end-date-input" placeholder="Date de fin">
+                    <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-horizontal mt2">
+            <h4>Description de l'évènement</h4>
+            <div class="col-md-12">
+                <div class="input-group col-md-12 mt1 mb1">
+                    <textarea class="form-control clzk-form-control" rows="8" id="clzk-profile-event-content-input" placeholder="Décrivez ce que vous souhaitez faire pendant cette période"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</script>
+
+<script type="text/template" id="clzk-profile-events-form-template">
+    <div class="row clzk-edit-header">
+        <div class="col-md-6">
+            <h1 class="text-left mt0 mb1">Mon programme</h1>
+        </div>
+        <div class="col-md-6">
+            <div class="btn-group pull-right">
+                <a class="btn btn-default cancel-button" href="#"><span class="glyphicon glyphicon-remove"></span>&nbsp;Retour</a>
+                <a class="btn btn-primary save-button" href="#"><span class="glyphicon glyphicon-ok"></span>&nbsp;Enregistrer les modifications</a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <hr class="mt0">
+    </div>
+
+    <div class="mt6"></div>
+
+    <a href="#" class="btn show-add-event-form-button"><span class="glyphicon glyphicon-plus"></span>&nbsp;Ajouter un évènement</a>
+    <div class="col-md-12 bg-dark hidden mb1" id="show-add-event-form">
+        <div class="col-md-6">
+            <div class="form-horizontal mt2 mb1">
+                <h4>Nom de l'évènement</h4>
+                <div class="col-md-12">
+                    <div class="input-group col-md-12 mt1 mb1">
+                        <input type="text" class="form-control clzk-form-control" id="new-event-title-input" placeholder="Donnez un nom à cet évènement">
+                    </div>
+                </div>
+                <div class="clearfix mb1"></div>
+                <h4>Dates</h4>
+                <div class="col-md-12">
+                    <div class="input-group col-md-12 mt1 mb1">
+                        <input type="text" class="form-control clzk-form-control datepicker" id="new-event-start-date-input" placeholder="Date de début">
+                        <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+                    </div>
+                </div>
+                <div class="clearfix mb1"></div>
+                <div class="col-md-12">
+                    <div class="input-group col-md-12 mt1 mb1">
+                        <input type="text" class="form-control clzk-form-control datepicker" id="new-event-end-date-input" placeholder="Date de fin">
+                        <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-horizontal mt2">
+                <h4>Description de l'évènement</h4>
+                <div class="col-md-12">
+                    <div class="input-group col-md-12 mt1 mb1">
+                        <textarea class="form-control clzk-form-control" rows="8" id="new-event-content-input" placeholder="Décrivez ce que vous souhaitez faire pendant cette période"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <hr>
+        <div class="col-md-12">
+            <a class="btn btn-primary add-event-button pull-right" href="#">Ajouter</a>
+            <a class="btn btn-default cancel-event-button pull-right" href="#">Annuler</a>
+            <div class="clearfix mb1"></div>
+        </div>
+    </div>
+
+    <div id="clzk-profile-events-form-container"></div>
+</script>

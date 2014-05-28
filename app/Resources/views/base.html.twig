@@ -7,13 +7,13 @@
         {% block stylesheets %}
             {% stylesheets
                 "bootstrap/css/bootstrap.min.css"
-                "css/default.css"
+                "css/nprogress.css"
+                "css/global.css"
                 "css/theme.css"
                 filter="cssrewrite"
             %}
                 <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
             {% endstylesheets %}
-            <link href='http://fonts.googleapis.com/css?family=Euphoria+Script' rel='stylesheet' type='text/css'>
             {% block extra_stylesheets %}{% endblock %}
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -21,77 +21,129 @@
     <body>
         <header class="clzk-header">
             {% block header %}
-                <div class="navbar navbar-default navbar-fixed-top clzk-navbar">
-                    <div class="container">
+                <nav class="navbar navbar-inverse navbar-fixed-top clzk-navbar" role="navigation">
+                    <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-9 col-sm-9">
+                            <div class="col-md-2 clzk-brand-container">
+                                <!-- Brand and toggle get grouped for better mobile display -->
                                 <div class="navbar-header">
-                                    <a class="navbar-brand" href="{{ path('colzak_static_homepage') }}">Brand</a>
+                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                    <a class="navbar-brand" href="#">Brand</a>
                                 </div>
-                                <ul class="nav navbar-nav navbar-right clzk-nav">
-                                    {% if is_granted('ROLE_USER') %}
-                                        <li class="dropdown">
-                                            <a href="{{ path('colzak_user_homepage', { username: app.user.username }) }}">{{ [app.user.profile.firstname, app.user.profile.lastname]|join(' ') }}</a>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Messages<b class="caret"></b></a>
-                                            <ul class="dropdown-menu">
-                                                <li> {{ render(controller('FOSUserBundle:Security:login')) }} </li>
-                                            </ul>
-                                        </li>
-                                    {% else %}
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Inscription<b class="caret"></b></a>
-                                            <ul class="dropdown-menu">
-                                                <li> {{ render(controller('FOSUserBundle:Registration:register')) }} </li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Connexion<b class="caret"></b></a>
-                                            <ul class="dropdown-menu">
-                                                <li> {{ render(controller('FOSUserBundle:Security:login')) }} </li>
-                                            </ul>
-                                        </li>
-                                    {% endif %}
-                                </ul>
                             </div>
-                            <div class="col-md-3 col-sm-3 hidden-xs">
-                                <a href="#" class="btn btn-block btn-primary" id="know-me-btn">Je me fais connaître</a>
+
+                            <div class="col-md-10 clzk-navbar-actions">
+                                <!-- Collect the nav links, forms, and other content for toggling -->
+                                <div class="collapse navbar-collapse row" id="bs-example-navbar-collapse-1">
+                                    <div class="col-md-6 clzk-navbar-form">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Ou êtes-vous ?">
+                                            <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="nav navbar-nav navbar-right">
+                                            {% if is_granted('ROLE_USER') %}
+                                                <li><a href="#">
+                                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                                    <span class="label label-danger">4</span>
+                                                </a></li>
+                                                <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
+                                                <li><a href="#"><span class="glyphicon glyphicon-off"></span></a></li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ [app.user.profile.firstname, app.user.profile.lastname]|join(' ') }} <b class="caret"></b></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="#">Action</a></li>
+                                                        <li><a href="#">Another action</a></li>
+                                                        <li><a href="#">Something else here</a></li>
+                                                        <li class="divider"></li>
+                                                        <li><a href="#">Separated link</a></li>
+                                                        <li class="divider"></li>
+                                                        <li><a href="#">One more separated link</a></li>
+                                                    </ul>
+                                                </li>
+                                            {% else %}
+                                                <li><a href="#" data-toggle="modal" data-target="#login-modal">Se connecter</a></li>
+                                                <li><a href="#">S'inscrire gratuitement</a></li>
+                                            {% endif %}
+                                            
+                                        </ul>
+                                    </div>
+                                </div><!-- /.navbar-collapse -->
                             </div>
+                        </div>
+                    </div><!-- /.container-fluid -->
+                </nav>
+            {% endblock %}
+        </header>
+
+        <div class="container-fluid clzk-global-container">
+            <div class="row">
+                <div class="col-md-2 clzk-left-region">
+                    {% block menu_region %}{% endblock %}
+                </div>
+                <div class="col-md-10 clzk-right-region">
+                    <div class="clzk-scrolling-content row">
+                        <div class="col-md-12">
+                            {% block content_region %}{% endblock %}
                         </div>
                     </div>
                 </div>
-            {% endblock %}
-        </header>
-        <div class="clzk-body">
-            {% block pre_body %}{% endblock %}
-            <div class="container">
-                {% block body %}{% endblock %}
             </div>
         </div>
-        <footer class="clzk-footer">
-            {% block footer %}
-                youhou
-            {% endblock %}
-        </footer>
-        {% block modal %}
-            <div class="modal fade" id="clzk-modal" role="dialog">
-                <div class="modal-dialog container">
-                    <div class="modal-content" id="clzk-modal-region">
+
+        {#} modal {#}
+        <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="login-modal-label">Je m'identifie</h4>
+                    </div>
+                
+                    <div class="modal-body">
+                        {{ render(controller('FOSUserBundle:Security:login')) }}
+                    </div>
+      
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        <button type="button" class="btn btn-primary" id="login-button">Valider</button>
                     </div>
                 </div>
             </div>
-        {% endblock %}
+        </div>
+        {% block extra_modal %}{% endblock %}
+
         {% block javascripts %}
             {% javascripts
+                "bundles/fosjsrouting/js/router.js"
                 "js/jquery/jquery-2.0.2.min.js"
                 "js/jquery/ui-widgets/jquery.ui.widget.min.js"
                 "js/jquery/jquery.ui.core.min.js"
                 "bootstrap/js/bootstrap.min.js"
+                "js/vendor/nprogress.js"
                 "js/global.js"
             %}
                 <script src="{{ asset_url }}" type="text/javascript"></script>
             {% endjavascripts %}
+            {% if app.debug %}
+                {% javascripts
+                    "js/fos_js_routes.dev.js"
+                %}
+                    <script src="{{ asset_url }}"></script>
+                {% endjavascripts %}
+            {% else %}
+                {% javascripts
+                    "js/fos_js_routes.prod.js"
+                %}
+                    <script src="{{ asset_url }}"></script>
+                {% endjavascripts %}
+            {% endif %}
             {% block extra_javascripts %}{% endblock %}
         {% endblock %}
     </body>

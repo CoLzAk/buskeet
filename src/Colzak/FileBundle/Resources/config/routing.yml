@@ -1,3 +1,0 @@
-colzak_file_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: ColzakFileBundle:Default:index }

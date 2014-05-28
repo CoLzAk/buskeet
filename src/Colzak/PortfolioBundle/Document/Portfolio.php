@@ -7,8 +7,9 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as SERIAL;
 
 /**
- * @MongoDB\Document(repositoryClass="Colzak\PortfolioBundle\Repository\PortfolioRepository")
+ * @MongoDB\Document
  * @SERIAL\ExclusionPolicy("none")
+ * @MongoDB\HasLifecycleCallbacks
  */
 class Portfolio
 {
@@ -19,39 +20,35 @@ class Portfolio
     protected $id;
 
     /**
-     * @MongoDB\ReferenceMany(targetDocument="Colzak\PortfolioBundle\Document\Instrument", cascade={"all"})
-     * @SERIAL\Type("Colzak\PortfolioBundle\Document\Instrument")
+     * @MongoDB\ReferenceOne(targetDocument="Colzak\UserBundle\Document\Profile", inversedBy="portfolio")
+     * @SERIAL\Type("Colzak\UserBundle\Document\Profile")
      */
-    protected $instruments = array();
+    protected $profile;
 
     /**
-     * @MongoDB\String
-     * @SERIAL\Type("string")
+     * @MongoDB\ReferenceMany(targetDocument="Colzak\PortfolioBundle\Document\PortfolioInstrument", mappedBy="portfolio", cascade={"all"})
+     * @SERIAL\Type("ArrayCollection<Colzak\PortfolioBundle\Document\PortfolioInstrument>")
      */
-    protected $targetsDescription;
+    protected $portfolioInstruments = array();
 
     /**
-     * @MongoDB\ReferenceMany(targetDocument="Colzak\PortfolioBundle\Document\Instrument", cascade={"all"})
-     * @SERIAL\Type("Colzak\PortfolioBundle\Document\Instrument")
+     * @MongoDB\EmbedMany(targetDocument="Colzak\PortfolioBundle\Document\MusicStyle")
+     * @SERIAL\Type("ArrayCollection<Colzak\PortfolioBundle\Document\MusicStyle>")
      */
-    protected $targets = array();
+    protected $musicStyles = array();
 
     /**
-     * @MongoDB\ReferenceMany(targetDocument="Colzak\PortfolioBundle\Document\Objective", cascade={"all"})
-     * @SERIAL\Type("Colzak\PortfolioBundle\Document\Objective")
+     * @MongoDB\EmbedMany(targetDocument="Colzak\PortfolioBundle\Document\Influence")
+     * @SERIAL\Type("ArrayCollection<Colzak\PortfolioBundle\Document\Influence>")
      */
-    protected $objectives = array();
+    protected $influences = array();
 
-    // /** @MongoDB\ReferenceOne(targetDocument="Colzak\UserBundle\Document\Profile", inversedBy="portfolio") */
-    //private $profile;
-    
-    public function __construct()
-    {
-        $this->instruments = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->targets = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->objectives = new \Doctrine\Common\Collections\ArrayCollection();
+    public function __construct() {
+        $this->portfolioInstruments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->musicStyles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->influences = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
@@ -63,136 +60,136 @@ class Portfolio
     }
 
     /**
-     * Add instrument
+     * Set level
      *
-     * @param Colzak\PortfolioBundle\Document\Instrument $instrument
-     */
-    public function addInstrument(\Colzak\PortfolioBundle\Document\Instrument $instrument)
-    {
-        $this->instruments[] = $instrument;
-    }
-
-    /**
-     * Remove instrument
-     *
-     * @param Colzak\PortfolioBundle\Document\Instrument $instrument
-     */
-    public function removeInstrument(\Colzak\PortfolioBundle\Document\Instrument $instrument)
-    {
-        $this->instruments->removeElement($instrument);
-    }
-
-    /**
-     * Get instruments
-     *
-     * @return Doctrine\Common\Collections\Collection $instruments
-     */
-    public function getInstruments()
-    {
-        return $this->instruments;
-    }
-
-    /**
-     * Set targetsDescription
-     *
-     * @param string $targetsDescription
+     * @param string $level
      * @return self
      */
-    public function setTargetsDescription($targetsDescription)
+    public function setLevel($level)
     {
-        $this->targetsDescription = $targetsDescription;
+        $this->level = $level;
         return $this;
     }
 
     /**
-     * Get targetsDescription
+     * Get level
      *
-     * @return string $targetsDescription
+     * @return string $level
      */
-    public function getTargetsDescription()
+    public function getLevel()
     {
-        return $this->targetsDescription;
+        return $this->level;
     }
 
     /**
-     * Add target
+     * Add portfolioInstrument
      *
-     * @param Colzak\PortfolioBundle\Document\Instrument $target
+     * @param Colzak\PortfolioBundle\Document\PortfolioInstrument $portfolioInstrument
      */
-    public function addTarget(\Colzak\PortfolioBundle\Document\Instrument $target)
+    public function addPortfolioInstrument(\Colzak\PortfolioBundle\Document\PortfolioInstrument $portfolioInstrument)
     {
-        $this->targets[] = $target;
+        $this->portfolioInstruments[] = $portfolioInstrument;
     }
 
     /**
-     * Remove target
+     * Remove portfolioInstrument
      *
-     * @param Colzak\PortfolioBundle\Document\Instrument $target
+     * @param Colzak\PortfolioBundle\Document\PortfolioInstrument $portfolioInstrument
      */
-    public function removeTarget(\Colzak\PortfolioBundle\Document\Instrument $target)
+    public function removePortfolioInstrument(\Colzak\PortfolioBundle\Document\PortfolioInstrument $portfolioInstrument)
     {
-        $this->targets->removeElement($target);
+        $this->portfolioInstruments->removeElement($portfolioInstrument);
     }
 
     /**
-     * Get targets
+     * Get portfolioInstruments
      *
-     * @return Doctrine\Common\Collections\Collection $targets
+     * @return Doctrine\Common\Collections\Collection $portfolioInstruments
      */
-    public function getTargets()
+    public function getPortfolioInstruments()
     {
-        return $this->targets;
+        return $this->portfolioInstruments;
     }
 
     /**
-     * Add objective
+     * Set profile
      *
-     * @param Colzak\PortfolioBundle\Document\Objective $objective
+     * @param Colzak\UserBundle\Document\Profile $profile
+     * @return self
      */
-    public function addObjective(\Colzak\PortfolioBundle\Document\Objective $objective)
+    public function setProfile(\Colzak\UserBundle\Document\Profile $profile)
     {
-        $this->objectives[] = $objective;
+        $this->profile = $profile;
+        return $this;
     }
 
     /**
-     * Remove objective
+     * Get profile
      *
-     * @param Colzak\PortfolioBundle\Document\Objective $objective
+     * @return Colzak\UserBundle\Document\Profile $profile
      */
-    public function removeObjective(\Colzak\PortfolioBundle\Document\Objective $objective)
+    public function getProfile()
     {
-        $this->objectives->removeElement($objective);
+        return $this->profile;
     }
 
     /**
-     * Get objectives
+     * Add musicStyle
      *
-     * @return Doctrine\Common\Collections\Collection $objectives
+     * @param Colzak\PortfolioBundle\Document\MusicStyle $musicStyle
      */
-    public function getObjectives()
+    public function addMusicStyle(\Colzak\PortfolioBundle\Document\MusicStyle $musicStyle)
     {
-        return $this->objectives;
+        $this->musicStyles[] = $musicStyle;
     }
 
-    // /**
-    //  * Set profile
-    //  *
-    //  * @param Colzak\UserBundle\Document\Profile $profile
-    //  * @return self
-    //  */
-    // public function setProfile(\Colzak\UserBundle\Document\Profile $profile)
-    // {
-    //     $this->profile = $profile;
-    //     return $this;
-    // }
+    /**
+     * Remove musicStyle
+     *
+     * @param Colzak\PortfolioBundle\Document\MusicStyle $musicStyle
+     */
+    public function removeMusicStyle(\Colzak\PortfolioBundle\Document\MusicStyle $musicStyle)
+    {
+        $this->musicStyles->removeElement($musicStyle);
+    }
 
-    // /**
-    //  * Get profile
-    //  *
-    //  * @return Colzak\UserBundle\Document\Profile $profile
-    //  */
-    // public function getProfile()
-    // {
-    //     return $this->profile;
-    // }
+    /**
+     * Get musicStyles
+     *
+     * @return Doctrine\Common\Collections\Collection $musicStyles
+     */
+    public function getMusicStyles()
+    {
+        return $this->musicStyles;
+    }
+
+    /**
+     * Add influence
+     *
+     * @param Colzak\PortfolioBundle\Document\Influence $influence
+     */
+    public function addInfluence(\Colzak\PortfolioBundle\Document\Influence $influence)
+    {
+        $this->influences[] = $influence;
+    }
+
+    /**
+     * Remove influence
+     *
+     * @param Colzak\PortfolioBundle\Document\Influence $influence
+     */
+    public function removeInfluence(\Colzak\PortfolioBundle\Document\Influence $influence)
+    {
+        $this->influences->removeElement($influence);
+    }
+
+    /**
+     * Get influences
+     *
+     * @return Doctrine\Common\Collections\Collection $influences
+     */
+    public function getInfluences()
+    {
+        return $this->influences;
+    }
 }

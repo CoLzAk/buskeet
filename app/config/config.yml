@@ -83,9 +83,9 @@ jms_serializer:
                 path: "@ColzakUserBundle/Resources/config/serializer/fos"
 
 fos_user:
-    db_driver: orm
+    db_driver: mongodb
     firewall_name: main
-    user_class: Colzak\UserBundle\Entity\User
+    user_class: Colzak\UserBundle\Document\User
     registration:
         form:
             type: colzak_user_registration
@@ -119,20 +119,20 @@ fos_rest:
     service:
         router: router
         templating: templating
-        serializer: serializer
+        serializer: jms_serializer
         view_handler: fos_rest.view_handler.default
 
 sensio_framework_extra:
     view:
         annotations: false
 
-knp_paginator:
-    page_range: 5                      # default page range used in pagination control
-    default_options:
-        page_name: page                # page query parameter name
-        sort_field_name: sort          # sort field query parameter name
-        sort_direction_name: direction # sort direction query parameter name
-        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
-    template:
-        pagination: KnpPaginatorBundle:Pagination:sliding.html.twig     # sliding pagination controls template
-        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
+# knp_paginator:
+#     page_range: 5                      # default page range used in pagination control
+#     default_options:
+#         page_name: page                # page query parameter name
+#         sort_field_name: sort          # sort field query parameter name
+#         sort_direction_name: direction # sort direction query parameter name
+#         distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+#     template:
+#         pagination: KnpPaginatorBundle:Pagination:sliding.html.twig     # sliding pagination controls template
+#         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template

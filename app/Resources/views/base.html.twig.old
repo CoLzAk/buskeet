@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            {% stylesheets
+                "bootstrap/css/bootstrap.min.css"
+                "css/theme.css"
+                "css/default.css"
+                filter="cssrewrite"
+            %}
+                <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+            {% endstylesheets %}
+            <link href='http://fonts.googleapis.com/css?family=Euphoria+Script' rel='stylesheet' type='text/css'>
+            {% block extra_stylesheets %}{% endblock %}
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <header class="clzk-header">
+            {% block header %}
+                <div class="navbar navbar-default navbar-fixed-top clzk-navbar">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-9 col-sm-9">
+                                <div class="navbar-header">
+                                    <a class="navbar-brand" href="{{ path('colzak_static_homepage') }}">Brand</a>
+                                </div>
+                                <ul class="nav navbar-nav navbar-right clzk-nav">
+                                    {% if is_granted('ROLE_USER') %}
+                                        <li class="dropdown">
+                                            <a href="{{ path('colzak_user_homepage', { username: app.user.username }) }}">{{ [app.user.profile.firstname, app.user.profile.lastname]|join(' ') }}</a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Messages<b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                <li> {{ render(controller('FOSUserBundle:Security:login')) }} </li>
+                                            </ul>
+                                        </li>
+                                    {% else %}
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Inscription<b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                <li> {{ render(controller('FOSUserBundle:Registration:register')) }} </li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Connexion<b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                <li> {{ render(controller('FOSUserBundle:Security:login')) }} </li>
+                                            </ul>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            <div class="col-md-3 col-sm-3 hidden-xs">
+                                <a href="#" class="btn btn-block btn-primary" id="know-me-btn">Je me fais connaître</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+        </header>
+        <div class="clzk-body">
+            {% block pre_body %}{% endblock %}
+            <div class="container">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+        <footer class="clzk-footer">
+            {% block footer %}
+                youhou
+            {% endblock %}
+        </footer>
+        {% block modal %}
+            <div class="modal fade" id="clzk-modal" role="dialog">
+                <div class="modal-dialog container">
+                    <div class="modal-content" id="clzk-modal-region">
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+        {% block javascripts %}
+            {% javascripts
+                "js/jquery/jquery-2.0.2.min.js"
+                "js/jquery/ui-widgets/jquery.ui.widget.min.js"
+                "js/jquery/jquery.ui.core.min.js"
+                "bootstrap/js/bootstrap.min.js"
+                "js/global.js"
+            %}
+                <script src="{{ asset_url }}" type="text/javascript"></script>
+            {% endjavascripts %}
+            {% block extra_javascripts %}{% endblock %}
+        {% endblock %}
+    </body>
+</html>

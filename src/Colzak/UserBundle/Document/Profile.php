@@ -17,7 +17,7 @@ class Profile
 
     /**
      * @MongoDB\Id(strategy="auto")
-     * @SERIAL\Type("integer")
+     * @SERIAL\Type("string")
      */
     protected $id;
 
@@ -52,10 +52,88 @@ class Profile
     protected $description;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Colzak\PortfolioBundle\Document\Portfolio", cascade={"all"})
+     * @MongoDB\String
+     * @SERIAL\Type("string")
+     */
+    protected $streetNumber;
+
+    /**
+     * @MongoDB\String
+     * @SERIAL\Type("string")
+     */
+    protected $route;
+
+    /**
+     * @MongoDB\String
+     * @SERIAL\Type("string")
+     */
+    protected $locality;
+
+    /**
+     * @MongoDB\String
+     * @SERIAL\Type("string")
+     */
+    protected $sublocality;
+
+    /**
+     * @MongoDB\String
+     * @SERIAL\Type("string")
+     */
+    protected $postalCode;
+
+    /**
+     * @MongoDB\String
+     * @SERIAL\Type("string")
+     */
+    protected $administrativeAreaLevel2;
+
+    /**
+     * @MongoDB\String
+     * @SERIAL\Type("string")
+     */
+    protected $administrativeAreaLevel1;
+
+    /**
+     * @MongoDB\String
+     * @SERIAL\Type("string")
+     */
+    protected $country;
+
+    /**
+     * @MongoDB\Float
+     * @SERIAL\Type("double")
+     */
+    protected $lat;
+
+    /**
+     * @MongoDB\Float
+     * @SERIAL\Type("double")
+     */
+    protected $lon;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Colzak\PortfolioBundle\Document\Portfolio", mappedBy="profile")
      * @SERIAL\Type("Colzak\PortfolioBundle\Document\Portfolio")
      */
     protected $portfolio;
+
+    /**
+     * @MongoDB\ReferenceMany(targetDocument="Colzak\MediaBundle\Document\Photo", mappedBy="profile")
+     * @SERIAL\Type("ArrayCollection<Colzak\MediaBundle\Document\Photo>")
+     */
+    protected $photos = array();
+
+    /**
+     * @MongoDB\ReferenceMany(targetDocument="Colzak\EventBundle\Document\Event", mappedBy="profile")
+     * @SERIAL\Type("ArrayCollection<Colzak\EventBundle\Document\Event>")
+     */
+    protected $events = array();
+
+    public function __construct()
+    {
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->events = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -178,6 +256,226 @@ class Profile
     }
 
     /**
+     * Set streetNumber
+     *
+     * @param string $streetNumber
+     * @return self
+     */
+    public function setStreetNumber($streetNumber)
+    {
+        $this->streetNumber = $streetNumber;
+        return $this;
+    }
+
+    /**
+     * Get streetNumber
+     *
+     * @return string $streetNumber
+     */
+    public function getStreetNumber()
+    {
+        return $this->streetNumber;
+    }
+
+    /**
+     * Set route
+     *
+     * @param string $route
+     * @return self
+     */
+    public function setRoute($route)
+    {
+        $this->route = $route;
+        return $this;
+    }
+
+    /**
+     * Get route
+     *
+     * @return string $route
+     */
+    public function getRoute()
+    {
+        return $this->route;
+    }
+
+    /**
+     * Set locality
+     *
+     * @param string $locality
+     * @return self
+     */
+    public function setLocality($locality)
+    {
+        $this->locality = $locality;
+        return $this;
+    }
+
+    /**
+     * Get locality
+     *
+     * @return string $locality
+     */
+    public function getLocality()
+    {
+        return $this->locality;
+    }
+
+    /**
+     * Set sublocality
+     *
+     * @param string $sublocality
+     * @return self
+     */
+    public function setSublocality($sublocality)
+    {
+        $this->sublocality = $sublocality;
+        return $this;
+    }
+
+    /**
+     * Get sublocality
+     *
+     * @return string $sublocality
+     */
+    public function getSublocality()
+    {
+        return $this->sublocality;
+    }
+
+    /**
+     * Set postalCode
+     *
+     * @param string $postalCode
+     * @return self
+     */
+    public function setPostalCode($postalCode)
+    {
+        $this->postalCode = $postalCode;
+        return $this;
+    }
+
+    /**
+     * Get postalCode
+     *
+     * @return string $postalCode
+     */
+    public function getPostalCode()
+    {
+        return $this->postalCode;
+    }
+
+    /**
+     * Set administrativeAreaLevel2
+     *
+     * @param string $administrativeAreaLevel2
+     * @return self
+     */
+    public function setAdministrativeAreaLevel2($administrativeAreaLevel2)
+    {
+        $this->administrativeAreaLevel2 = $administrativeAreaLevel2;
+        return $this;
+    }
+
+    /**
+     * Get administrativeAreaLevel2
+     *
+     * @return string $administrativeAreaLevel2
+     */
+    public function getAdministrativeAreaLevel2()
+    {
+        return $this->administrativeAreaLevel2;
+    }
+
+    /**
+     * Set administrativeAreaLevel1
+     *
+     * @param string $administrativeAreaLevel1
+     * @return self
+     */
+    public function setAdministrativeAreaLevel1($administrativeAreaLevel1)
+    {
+        $this->administrativeAreaLevel1 = $administrativeAreaLevel1;
+        return $this;
+    }
+
+    /**
+     * Get administrativeAreaLevel1
+     *
+     * @return string $administrativeAreaLevel1
+     */
+    public function getAdministrativeAreaLevel1()
+    {
+        return $this->administrativeAreaLevel1;
+    }
+
+    /**
+     * Set country
+     *
+     * @param string $country
+     * @return self
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return string $country
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Set lat
+     *
+     * @param float $lat
+     * @return self
+     */
+    public function setLat($lat)
+    {
+        $this->lat = $lat;
+        return $this;
+    }
+
+    /**
+     * Get lat
+     *
+     * @return float $lat
+     */
+    public function getLat()
+    {
+        return $this->lat;
+    }
+
+    /**
+     * Set lon
+     *
+     * @param float $lon
+     * @return self
+     */
+    public function setLon($lon)
+    {
+        $this->lon = $lon;
+        return $this;
+    }
+
+    /**
+     * Get lon
+     *
+     * @return float $lon
+     */
+    public function getLon()
+    {
+        return $this->lon;
+    }
+    
+    /**
      * Set portfolio
      *
      * @param Colzak\PortfolioBundle\Document\Portfolio $portfolio
@@ -197,5 +495,65 @@ class Profile
     public function getPortfolio()
     {
         return $this->portfolio;
+    }
+
+    /**
+     * Add photo
+     *
+     * @param Colzak\MediaBundle\Document\Photo $photo
+     */
+    public function addPhoto(\Colzak\MediaBundle\Document\Photo $photo)
+    {
+        $this->photos[] = $photo;
+    }
+
+    /**
+     * Remove photo
+     *
+     * @param Colzak\MediaBundle\Document\Photo $photo
+     */
+    public function removePhoto(\Colzak\MediaBundle\Document\Photo $photo)
+    {
+        $this->photos->removeElement($photo);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return Doctrine\Common\Collections\Collection $photos
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
+
+    /**
+     * Add event
+     *
+     * @param Colzak\EventBundle\Document\Event $event
+     */
+    public function addEvent(\Colzak\EventBundle\Document\Event $event)
+    {
+        $this->events[] = $event;
+    }
+
+    /**
+     * Remove event
+     *
+     * @param Colzak\EventBundle\Document\Event $event
+     */
+    public function removeEvent(\Colzak\EventBundle\Document\Event $event)
+    {
+        $this->events->removeElement($event);
+    }
+
+    /**
+     * Get events
+     *
+     * @return Doctrine\Common\Collections\Collection $events
+     */
+    public function getEvents()
+    {
+        return $this->events;
     }
 }

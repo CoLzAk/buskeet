@@ -1,0 +1,19 @@
+<?php
+
+// src/Colzak/MediaBundle/Form/Extension/FileTypeExtension.php
+namespace Colzak\MediaBundle\Form\Extension;
+
+use Symfony\Component\Form\AbstractTypeExtension;
+
+class FileTypeExtension extends AbstractTypeExtension
+{
+    /**
+     * Returns the name of the type being extended.
+     *
+     * @return string The name of the type being extended
+     */
+    public function getExtendedType()
+    {
+        return 'file';
+    }
+}

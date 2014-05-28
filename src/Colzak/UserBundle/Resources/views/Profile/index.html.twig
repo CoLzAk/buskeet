@@ -1,23 +1,118 @@
 {% extends 'ColzakUserBundle::layout.html.twig' %}
+{% block extra_stylesheets %}
+    {% stylesheets
+        "css/profile.css"
+        "css/select2.css"
+        "css/select2-bootstrap.css"
+        filter="cssrewrite"
+    %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
+{% endblock %}
 
-{% block body %}
-    <div id="clzk-main-region"></div>
+{% block menu_region %}
+    {#} MENU FIRST RENDER {#}
+    <div id="clzk-menu-region">
+        <div id="clzk-profile-menu-actions-region">
+            <div id="clzk-profile-menu-loading">
+                <div class="spinner">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                </div>
+                <p class="text-center">chargement</p>
+            </div>
+            <div id="clzk-profile-menu-static" class="hidden">
+                <ul class="list-group">
+                    {% if userId == visitorId %}
+                        <li class="list-group-item"><a href="#" class="clzk-context-links edit-button" data-form="profile"><h5>MON PROFIL</h5></a></li>
+                        <li class="list-group-item"><a href="#" class="clzk-context-links edit-button" data-form="informations"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Mes informations</a></li>
+                        <li class="list-group-item"><a href="#" class="clzk-context-links edit-button" data-form="photos"><span class="glyphicon glyphicon-picture"></span>&nbsp;&nbsp;Mes photos</a></li>
+                        <li class="list-group-item"><a href="#" class="clzk-context-links edit-button" data-form="portfolio"><span class="glyphicon glyphicon-music"></span>&nbsp;&nbsp;Mon portfolio</a></li>
+                        <li class="list-group-item"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;Mon programme</a></li>
+                    {% else %}
+                        <li class="list-group-item"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Suivre</a></li>
+                        <li class="list-group-item"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-envelope"></span>&nbsp;&nbsp;Contacter</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
 
+    {#} MENU TEMPLATES {#}
+    <script type="text/template" id="clzk-profile-menu-layout">
+        <div id="clzk-profile-menu-actions-region"></div>
+    </script>
+
+    <script type="text/template" id="clzk-profile-menu-template">
+        <ul class="list-group">
+            <% if (owner) { %>
+                <li class="list-group-item"><a href="#" class="clzk-context-links edit-button" data-form="profile"><h5>MON PROFIL</h5></a></li>
+                <li class="list-group-item"><a href="#" class="clzk-context-links edit-button" data-form="informations"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Mes informations</a></li>
+                <li class="list-group-item"><a href="#" class="clzk-context-links edit-button" data-form="photos"><span class="glyphicon glyphicon-picture"></span>&nbsp;&nbsp;Mes photos</a></li>
+                <li class="list-group-item"><a href="#" class="clzk-context-links edit-button" data-form="portfolio"><span class="glyphicon glyphicon-music"></span>&nbsp;&nbsp;Mon portfolio</a></li>
+                <li class="list-group-item"><a href="#" class="clzk-context-links edit-button" data-form="events"><span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;Mon programme</a></li>
+            <% } else { %>
+                <li class="list-group-item"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Suivre</a></li>
+                <li class="list-group-item"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-envelope"></span>&nbsp;&nbsp;Contacter</a></li>
+            <% } %>
+        </ul>
+    </script>
+{% endblock %}
+
+{% block content_region %}
+    {#} PROFILE FIRST RENDER {#}
+    <div id="clzk-main-region" class="clzk-profile-region">
+        <div class="row">
+            <div class="col-md-4">
+                <div id="clzk-profile-photos-region" class="clzk-region">
+                    <div id="clzk-profile-photos-static">
+                        <div class="clzk-profile-photos-container">
+                            {% if profilePicture is not null %}
+                                <a data-toggle="modal" id="image-modal" href="#" data-target="#clzk-modal">
+                                    <img src="{{ profilePicture.path }}" alt="..." class="img-responsive clzk-profile-picture">
+                                </a>
+                            {% else %}
+                                <img src="/img/user_256.png" alt="..." class="img-responsive clzk-profile-picture">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div id="clzk-profile-message-region"></div>
+            </div>
+            <div class="col-md-8">
+                <div id="clzk-profile-informations-region" class="clzk-region">
+                    <div id="clzk-profile-informations-static">
+                        <h1 class="text-left mt0">
+                            <span id="clzk-profile-firstname">{{ profile.firstname }}</span>&nbsp;<span id="clzk-profile-lastname">{{ profile.lastname }}</span>
+                        </h1>
+                        <p class="text-left">
+                            <span id="clzk-profile-birthdate">{{ profile.birthdate|date('d/m/Y') }}</span>, <span id="clzk-profile-locality">{{ profile.locality }}</span>
+                        </p>
+                        <hr class="clzk-hr">
+                        <p class="text-left" id="clzk-profile-description">{{ profile.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div id="clzk-portfolio-region" class="clzk-region"></div>
+        </div>
+    </div>
+
+    {#} PROFILE TEMPLATES {#}
     {#} Profile Layout {#}
     <script type="text/template" id="clzk-profile-layout">
         <div class="row">
-            <div class="col-md-4 col-xs-4 col-sm-4">
-                <div id="clzk-profile-picture-region" class="clzk-region"></div>
-                <div id="clzk-profile-message-region"></div>
+            <div class="col-md-4">
+                <div id="clzk-profile-photos-region" class="clzk-region"></div>
+                <div id="clzk-profile-portfolio-region" class="clzk-region"></div>
             </div>
-            <div class="col-md-8 col-xs-8 col-sm-8">
-                <div id="clzk-profile-information-region"></div>
+            <div class="col-md-8">
+                <div id="clzk-profile-informations-region" class="clzk-region"></div>
                 <hr>
-                <div id="clzk-profile-description-region"></div>
+                <div id="clzk-profile-events-region" class="clzk-region"></div>
             </div>
-        </div>
-        <div class="row">
-            <div id="clzk-profile-portfolio-region"></div>
         </div>
     </script>
 
@@ -27,45 +122,86 @@
     </script>
 
     {#} Templates {#}
-    {#} Profile picture {#}
-    {% include 'ColzakUserBundle:Profile:templates/profile_picture.html.twig' %}
+    {#} Profile photo {#}
+    {% include 'ColzakUserBundle:Profile:templates/profile_photos.html.twig' %}
 
-    {#} Profile message {#}
-    {% include 'ColzakUserBundle:Profile:templates/profile_message.html.twig' %}
+    {#} Profile informations {#}
+    {% include 'ColzakUserBundle:Profile:templates/profile_informations.html.twig' %}
 
-    {#} Profile information {#}
-    {% include 'ColzakUserBundle:Profile:templates/profile_information.html.twig' %}
-
-    {#} Profile description {#}
-    {% include 'ColzakUserBundle:Profile:templates/profile_description.html.twig' %}
-
-    {#} Profile description {#}
+    {#} Profile portfolio {#}
     {% include 'ColzakUserBundle:Profile:templates/profile_portfolio.html.twig' %}
 
+    {#} Profile events {#}
+    {% include 'ColzakUserBundle:Profile:templates/profile_events.html.twig' %}
+
+
+    {#} EDIT {#}
+    <div id="clzk-form-region" class="clzk-profile-edit-region hidden"></div>
+    
+    <script type="text/template" id="clzk-profile-edit-layout">
+        <div class="col-md-12">
+            <div id="clzk-profile-edit-region"></div>
+        </div>
+    </script>
+
 {% endblock %}
+
+{% block extra_modal %}
+    <div class="modal fade" id="clzk-modal" role="dialog">
+        <div class="modal-dialog container">
+            <div class="modal-content" id="clzk-modal-region">
+                <div id="clzk-profile-photos-carousel" class="carousel slide">
+                    <button type="button" class="close close-carousel-btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        {% for photo in photos %}
+                            <div class="item {% if profilePicture.id == photo.id %} active {% endif %}">
+                                <img src="{{ photo.path }}" class="img-responsive"/>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#clzk-profile-photos-carousel" data-slide="prev">
+                        <span class="icon-prev"></span>
+                    </a>
+                    <a class="right carousel-control" href="#clzk-profile-photos-carousel" data-slide="next">
+                        <span class="icon-next"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
 {% block extra_javascripts %}
     {% javascripts
         "js/jquery/ui-widgets/jquery.ui.datepicker.min.js"
         "js/vendor/underscore-1.4.4.min.js"
-        "js/vendor/backbone-1.0.0.min.js"
+        "js/vendor/backbone.min.js"
         "js/vendor/backbone-deepmodel-min.js"
         "js/vendor/backbone.marionette-1.0.1.min.js"
         "js/vendor/backbone.stickit.min.js"
+        "js/vendor/backbone-memento.min.js"
         "js/vendor/moment-2.0.0.min.js"
         "js/vendor/moment.lang.fr.min.js"
         "js/jquery/jquery.iframe-transport.js"
         "js/jquery/jquery.fileupload.js"
         "js/jquery/jquery.fileupload-fp.js"
+        "js/vendor/select2.min.js"
         "js/app/App.js"
         "js/app/Profile.js"
-        "js/app/views/ProfilePictureView.js"
+        "js/app/views/ProfilePhotosView.js"
         "js/app/views/ProfileMessageView.js"
-        "js/app/views/ProfileInformationView.js"
-        "js/app/views/ProfileDescriptionView.js"
-        "js/app/views/PortfolioView.js"
-        "js/app/models/User.js"
+        "js/app/views/ProfileInformationsView.js"
+        "js/app/views/ProfilePortfolioView.js"
+        "js/app/views/ProfileMenuView.js"
+        "js/app/views/ProfileEventsView.js"
+        "js/app/models/Profile.js"
         "js/app/models/Portfolio.js"
-        "js/app/models/File.js"
+        "js/app/models/Photo.js"
+        "js/app/models/ProfileEvent.js"
     %}
         <script src="{{ asset_url }}" type="text/javascript"></script>
 
@@ -73,12 +209,11 @@
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&libraries=places&language=fr&region=fr"></script>
     <script type="text/javascript">
     $(document).ready(function() {
+
         moment.lang('fr');
-        var targetUser = "{{ targetUser|serialize('json') }}",
-            visitor = "{{ app.user|serialize('json') }}",
-            options = {
-                targetUser: $.parseJSON(targetUser.replace(/&quot;/g,'"').replace(/\n/g,"\\n").replace(/&#039;/g, '\'').replace(/&amp;/g, '&')),
-                visitor: $.parseJSON(visitor.replace(/&quot;/g,'"').replace(/\n/g,"\\n").replace(/&#039;/g, '\'').replace(/&amp;/g, '&')),
+        var options = {
+                userId: "{{ userId }}",
+                visitorId: "{{ visitorId }}",
                 path: "{{ path(app.request.attributes.get('_route')) }}"
         };
         App.start(options);

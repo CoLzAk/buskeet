@@ -30,7 +30,7 @@ class ProfileFormType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Colzak\UserBundle\Entity\Profile',
+            'data_class' => 'Colzak\UserBundle\Document\Profile',
         ));
     }
 

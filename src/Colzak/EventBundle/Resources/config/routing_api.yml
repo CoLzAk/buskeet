@@ -1,0 +1,4 @@
+colzak_users_events:
+    type:     rest
+    resource: Colzak\EventBundle\Controller\EventsController
+    name_prefix:  events_

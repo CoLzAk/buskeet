@@ -1,189 +1,193 @@
 <script type="text/template" id="clzk-profile-portfolio-template">
-    <div class="col-md-4 col-sm-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <span class="text-left">Styles musicaux</span>
-            </div>
-            <div class="panel-body">
-                <ul class="list-unstyled">
-                    <li>Reggae</li>
-                    <li>Séga</li>
-                    <li>Maloya</li>
-                    <li>Pop/Folk</li>
-                </ul>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <span class="text-left">Instruments</span>
-                {% if targetUser == app.user %}
-                    <a href="#" class="pull-right edit-btn" data-edit="instruments">[ modifier ]</a>
-                {% endif %}
-            </div>
-            <div class="panel-body">
-                <ul class="list-unstyled">
-                    <% for (var i in portfolio.instruments) { %>
-                        <li><%= portfolio.instruments[i].name %></li>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="clzk-portfolio-instruments-container">
+                <div class="row">
+                    <% for (var i in portfolio.portfolio_instruments) { %>
+                        <div class="col-md-4 mb1">
+                            <img src="<%= portfolio.portfolio_instruments[i].instrument.icon_path %>" class="img-responsive">
+                            <p class="text-center"><%= portfolio.portfolio_instruments[i].instrument.name %></p>
+                            <div class="progress">
+                                <% if (portfolio.portfolio_instruments[i].level == 'BEGINNER') { %>
+                                    <div class="progress-bar progress-bar-success" style="width: 33%"></div>
+                                <% } %>
+                                <% if (portfolio.portfolio_instruments[i].level == 'AMATEUR') { %>
+                                    <div class="progress-bar progress-bar-success" style="width: 33%"></div>
+                                    <div class="progress-bar progress-bar-success" style="width: 33%"></div>
+                                <% } %>
+                                <% if (portfolio.portfolio_instruments[i].level == 'PROFESSIONAL') { %>
+                                    <div class="progress-bar progress-bar-success" style="width: 33%"></div>
+                                    <div class="progress-bar progress-bar-success" style="width: 33%"></div>
+                                    <div class="progress-bar progress-bar-success" style="width: 34%"></div>
+                                <% } %>
+                            </div>
+                        </div>
                     <% } %>
-                </ul>
+                    <div class="clearfix"></div>
+                </div>
             </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <span class="text-left">Influences</span>
-            </div>
-            <div class="panel-body">
-                <ul class="list-unstyled">
-                    <li>Moriarty</li>
-                    <li>John Butler Trio</li>
-                    <li>Patrice</li>
-                    <li>Aldebert</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-8 col-sm-8">
-        {#} Un premier "panel" avec le type de profil recherché + description(avec des icones a l'interieur)
-            ex. Recherche guitariste/chanteur de blues confirmé
-        {#}
-        <h2>
-            <span class="clzk-profile-portfolio-title">Ce que je recherche</span>
-            {% if targetUser == app.user %}
-                <a href="#" class="pull-right edit-btn" data-edit="targets">[ modifier ]</a>
-            {% endif %}
-        </h2>
-        
-        
-        <p id="profile-portfolio-targets-description"></p>
-        <div class="targets-picto-container row">
-            <% for (var i in portfolio.targets) { %>
-                <div class="targets-picto col-md-2 col-sm-3 col-xs-4">
-                    <p class="text-center"><%= portfolio.targets[i].name %></p>
+            
+            <% if (portfolio.music_styles.length > 0) { %>
+                <div class="panel panel-inverse border-green-sea">
+                    <div class="panel-heading">
+                        <h3 class="text-left mb0 mt0">Styles musicaux</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-inline">
+                            <% for (var i in portfolio.music_styles) { %>
+                                <li><%= portfolio.music_styles[i].name %></li>
+                            <% } %>
+                        </ul>
+                    </div>
+                </div>
+            <% } %>
+
+            <% if (portfolio.influences.length > 0) { %>
+                <div class="panel panel-inverse border-belize-hole">
+                    <div class="panel-heading">
+                        <h3 class="text-left mb0 mt0">Influences</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-inline">
+                            <% for (var i in portfolio.influences) { %>
+                                <li><%= portfolio.influences[i].name %></li>
+                            <% } %>
+                        </ul>
+                    </div>
                 </div>
             <% } %>
         </div>
-        
-        {#} Un deuxième panel avec les objectifs
-            ex. Sortir un album tribute to oasis
-            ex. Monter sur scène pour la fête de la musique
-        {#}
-        <h2>
-            <span class="clzk-profile-portfolio-title">Ce que je souhaite faire</span>
-            {% if targetUser == app.user %}
-                <a href="#" class="pull-right edit-btn" data-edit="objectives">[ modifier ]</a>
-            {% endif %}
-        </h2>
-        <% for (var i in portfolio.objectives) { %>
-            <div class="col-md-4">
-                <span>
-                    Du <%= moment(portfolio.objectives[i].start_date, "YYYY-MM-DD\\THH:mm:ssZZ").format("DD/MM/YYYY") %>
-                    au <%= moment(portfolio.objectives[i].end_date, "YYYY-MM-DD\\THH:mm:ssZZ").format("DD/MM/YYYY") %>
-                </span>
-            </div>
-            <div class="col-md-8">
-                <p><%= portfolio.objectives[i].title %></p>
-                <p><%= portfolio.objectives[i].content %></p>
-                <% for (var j in portfolio.objectives[i].participants) { %>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <p>PARTICIPANTS:</p>
-                            <img src="/img/user_128.png" class="img-responsive img-thumbnail clzk-portfolio-participants">
-                            <img src="/img/user_128.png" class="img-responsive img-thumbnail clzk-portfolio-participants">
-                            <img src="/img/user_128.png" class="img-responsive img-thumbnail clzk-portfolio-participants">
-                            <img src="/img/user_128.png" class="img-responsive img-thumbnail clzk-portfolio-participants">
-                        </div>
-                        <div class="col-md-4">
-                            {#% if is_granted('ROLE_USER') and targetUser != app.user %#}
-                                <a href="#" data-objective="<%= portfolio.objectives[i].id %>" class="participate-btn btn btn-success btn-block">Participer</a>
-                            {#% endif %#}
-                        </div>
-                    </div>
-                <% } %>
-            </div>
-            <div class="clearfix"></div>
-            <hr>
-        <% } %>
     </div>
 </script>
 
 <script type="text/template" id="clzk-profile-portfolio-form-template">
-    <div class="modal-header">
-        <button type="button" class="close close-modal-btn" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h1>Mon portfolio</h1>
+    <div class="row clzk-edit-header">
+        <div class="col-md-6">
+            <h1 class="text-left mt0 mb1">Mon portfolio</h1>
+        </div>
+        <div class="col-md-6">
+            <div class="btn-group pull-right">
+                <a class="btn btn-default cancel-button" href="#"><span class="glyphicon glyphicon-remove"></span>&nbsp;Retour</a>
+                <a class="btn btn-primary save-button" href="#"><span class="glyphicon glyphicon-ok"></span>&nbsp;Enregistrer les modifications</a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <hr class="mt0">
     </div>
-    <div class="modal-body">
-        <div class="panel-group" id="accordion">
-            {#} Instruments {#}
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#instrumentsCollapse">
-                          Instruments
-                        </a>
-                    </h4>
-                </div>
-                <div id="instrumentsCollapse" class="panel-collapse collapse <% if (edit == 'instruments') { %>in<% } %>">
-                    <div class="panel-body">
-                        <input type="text" class="form-control" id="profile-portfolio-instruments" placeholder="Ajouter un instrument">
-                        <ul class="list-group" id="profile-portfolio-instruments-results"></ul>
-                        <ul class="list-unstyled" id="profile-portfolio-instruments-list"></ul>
-                    </div>
-                </div>
-            </div>
 
-            {#} Targets {#}
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#targetsCollapse">
-                          Targets
-                        </a>
-                    </h4>
-                </div>
-                <div id="targetsCollapse" class="panel-collapse collapse <% if (edit == 'targets') { %>in<% } %>">
-                    <div class="panel-body">
-                        <textarea class="form-control" row="5" id="profile-portfolio-targets-description"></textarea>
-                        <hr>
-                        <input type="text" class="form-control" id="profile-portfolio-targets" placeholder="Ajouter une cible">
-                        <ul class="list-group" id="profile-portfolio-targets-results"></ul>
-                        <ul class="list-unstyled" id="profile-portfolio-targets-list"></ul>
-                    </div>
-                </div>
-            </div>
+    <div class="mt6"></div>
 
-            {#} Objectives {#}
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#objectivesCollapse">
-                          Objectives
-                        </a>
-                    </h4>
-                </div>
-                <div id="objectivesCollapse" class="panel-collapse collapse <% if (edit == 'objectives') { %>in<% } %>">
-                    <div class="panel-body">
-                        <input type="text" class="form-control" id="profile-portfolio-objective-title" placeholder="Titre">
-                        <hr>
-                        <textarea class="form-control" row="5" id="profile-portfolio-objective-description"></textarea>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control datepicker" id="profile-portfolio-objective-startDate" placeholder="Début">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-horizontal mt2 row">
+                <div class="col-md-12">
+                    <h4>Mes compétences</h4>
+                    <div class="bg-dark">
+                        <div class="col-md-12 mb1 mt1">
+                            <p>Ajouter une compétence</p>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <select id="clzk-portfolio-portfolio-instruments" class="form-control">
+                                        <option value="">Choisissez un instrument</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5">
+                                    <select class="form-control" id="clzk-portfolio-portfolio-instruments-level">
+                                        <option value="BEGINNER">Débutant</option>
+                                        <option value="AMATEUR">Amateur</option>
+                                        <option value="PROFESSIONAL">Professionnel</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <a href="#" class="add-portfolio-item-button btn btn-block" data-item="portfolio-instrument"><span class="glyphicon glyphicon-plus"></span></a>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control datepicker" id="profile-portfolio-objective-endDate" placeholder="Fin">
-                            </div>
+                            <div class="mb1"></div>
+                            <% for (var i in portfolio_instruments) { %>
+                                <div class="row mb1">
+                                    <div class="col-md-2">
+                                        <img src="<%= portfolio_instruments[i].instrument.icon_path %>" class="img-responsive">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p class="clzk-center text-center"><%= portfolio_instruments[i].instrument.name %></p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p class="clzk-center text-center"><%= portfolio_instruments[i].level %></p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="#" class="btn btn-block"><span class="glyphicon glyphicon-minus"></span></a>
+                                    </div>
+                                </div>
+                            <% } %>
                         </div>
-                        <hr>
-                        <a href="#" class="btn btn-default btn-block" id="add-objective-btn">Ajouter</a>
-                        <div class="row" id="profile-portfolio-objectives-result"></div>
+                        <div class="clearfix"></div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-default close-modal-btn" data-dismiss="modal">Fermer</button>
-        <button type="button" class="btn btn-primary save-modal-btn">Valider</button>
+
+        <div class="col-md-6">
+            <div class="form-horizontal mt2 row">
+                <div class="col-md-12">
+                    <h4>Mes styles musicaux</h4>
+                    <div class="bg-dark">
+                        <div class="col-md-12 mb1 mt1">
+                            <p>Ajouter un style musical</p>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <input type="text" id="clzk-portfolio-music-style" class="form-control clzk-form-control" placeholder="Type de musique">
+                                </div>
+                                <div class="col-md-2">
+                                    <a href="#" class="add-portfolio-item-button btn btn-block" data-item="music-style"><span class="glyphicon glyphicon-plus"></span></a>
+                                </div>
+                            </div>
+                            <div class="mb1"></div>
+                            <% for (var i in music_styles) { %>
+                                <div class="row mb1">
+                                    <div class="col-md-10">
+                                        <p class="clzk-center"><%= music_styles[i].name %></p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="#" class="btn btn-block"><span class="glyphicon glyphicon-minus"></span></a>
+                                    </div>
+                                </div>
+                            <% } %>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal mt2 row">
+                <div class="col-md-12">
+                    <h4>Mes influences</h4>
+                    <div class="bg-dark">
+                        <div class="col-md-12 mb1 mt1">
+                            <p>Ajouter une influence musicale</p>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <input type="text" id="clzk-portfolio-influence" class="form-control clzk-form-control" placeholder="Nom">
+                                </div>
+                                <div class="col-md-2">
+                                    <a href="#" class="add-portfolio-item-button btn btn-block" data-item="influence"><span class="glyphicon glyphicon-plus"></span></a>
+                                </div>
+                            </div>
+                            <div class="mb1"></div>
+                            <% for (var i in influences) { %>
+                                <div class="row mb1">
+                                    <div class="col-md-10">
+                                        <p class="clzk-center"><%= influences[i].name %></p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="#" class="btn btn-block"><span class="glyphicon glyphicon-minus"></span></a>
+                                    </div>
+                                </div>
+                            <% } %>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </script>
