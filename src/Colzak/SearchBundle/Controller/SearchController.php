@@ -23,17 +23,15 @@ class SearchController extends BaseController
      */
     public function getSearchAction($localization, Request $request) {
         $dm    = $this->get('doctrine_mongodb')->getManager();
-        $data = array(
-            'items' => $dm->getRepository('ColzakUserBundle:User')->findAll()
+        $data = $dm->getRepository('ColzakUserBundle:User')->findAll();
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $data,
+            $this->get('request')->query->get('page', 1)/*page number*/,
+            25 //number of elements per page
         );
 
-        // $paginator = $this->get('knp_paginator');
-        // $pagination = $paginator->paginate(
-        //     $data,
-        //     $this->get('request')->query->get('page', 1)/*page number*/,
-        //     25 //number of elements per page
-        // );
-
-        return $this->handleView($this->view($data, 200));
+        return $this->handleView($this->view($pagination, 200));
     } // "get_search"   [GET] /search/{localization}
 }

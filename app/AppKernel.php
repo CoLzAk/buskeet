@@ -26,7 +26,7 @@ class AppKernel extends Kernel
             new Colzak\StaticBundle\ColzakStaticBundle(),
             new Colzak\PortfolioBundle\ColzakPortfolioBundle(),
             new Colzak\SearchBundle\ColzakSearchBundle(),
-            // new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Colzak\MediaBundle\ColzakMediaBundle(),
             new Colzak\EventBundle\ColzakEventBundle(),
         );

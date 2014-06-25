@@ -20,8 +20,7 @@ use Colzak\UserBundle\Document\Profile;
 
 class RegistrationController extends BaseController
 {
-    public function registerAction(Request $request)
-    {
+    protected function register(Request $request) {
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
         $formFactory = $this->container->get('fos_user.registration.form.factory');
         /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
@@ -64,7 +63,22 @@ class RegistrationController extends BaseController
             }
         }
 
+        return $form;
+    }
+
+    public function registerAction(Request $request)
+    {
+        $form = $this->register($request);
+
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:register.html.'.$this->getEngine(), array(
+            'form' => $form->createView(),
+        ));
+    }
+
+    public function embeddedRegisterAction(Request $request) {
+        $form = $this->register($request);
+
+        return $this->container->get('templating')->renderResponse('ColzakUserBundle:Registration:embedded_register.html.'.$this->getEngine(), array(
             'form' => $form->createView(),
         ));
     }

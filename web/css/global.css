@@ -75,7 +75,7 @@ html, body {
     .clzk-navbar-form { margin: 8px 15px 8px 50px; width: 325px; }
 }
 @media (min-width: 769px) {
-    .clzk-navbar-form { margin: 8px 360px 8px 175px; width: 375px; }
+    .clzk-navbar-form { margin: 8px 360px 8px 175px; width: 365px; }
 }
 .clzk-search-form-submit-btn:hover, .clzk-search-form-geolocation-btn:hover {
     color: #00c0ef;

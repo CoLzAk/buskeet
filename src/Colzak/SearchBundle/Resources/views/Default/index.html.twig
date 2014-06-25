@@ -1,5 +1,14 @@
 {% extends 'ColzakUserBundle::layout.html.twig' %}
 
+{% block extra_stylesheets %}
+    {% stylesheets
+        "css/search.css"
+        filter="cssrewrite"
+    %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
+{% endblock %}
+
 {% block body %}
     <div id="clzk-main-region"></div>
 
