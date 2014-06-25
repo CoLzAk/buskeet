@@ -5,6 +5,18 @@ html, body {
     background: url(/img/navy_blue.png) repeat #222;
 }
 
+.pac-container {
+    background: none repeat scroll 0 0 #333;
+    color: #fff;
+    z-index: 1030;
+}
+.pac-item-query {
+    color: #FFF !important;
+}
+.pac-item:hover .pac-item-query {
+    color: #555 !important;
+}
+
 /* ... */
 .m0 {
     margin: 0;
@@ -56,23 +68,18 @@ html, body {
 .clzk-navbar-actions {
     background: #222;
 }
-.clzk-navbar-form {
-    margin: 8px auto;
+@media (max-width: 360px) {
+    .clzk-navbar-form { margin: 8px 15px 8px auto; width: 175px; }
 }
-.clzk-navbar .nav > li > a > .label {
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-    position: absolute;
-    top: 7px;
-    right: 2px;
-    font-size: 10px;
-    font-weight: normal;
-    width: 15px;
-    height: 15px;
-    line-height: 1.0em;
-    text-align: center;
-    padding: 2px;
+@media (min-width: 361px) and (max-width: 768px) {
+    .clzk-navbar-form { margin: 8px 15px 8px 50px; width: 325px; }
+}
+@media (min-width: 769px) {
+    .clzk-navbar-form { margin: 8px 360px 8px 175px; width: 375px; }
+}
+.clzk-search-form-submit-btn:hover, .clzk-search-form-geolocation-btn:hover {
+    color: #00c0ef;
+    cursor: pointer;
 }
 .label-danger {
     background: #f56954;

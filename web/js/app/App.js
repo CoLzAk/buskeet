@@ -11,7 +11,7 @@ App.Router = Backbone.Marionette.AppRouter.extend({
 App.SearchRouter = Backbone.Marionette.AppRouter.extend({
     appRoutes: {
         ':localization' : 'search',
-        ':localization/:category' : 'search'
+        ':localization?:slug' : 'search'
         // ':localization/:category?:slug' : "search"
     }
 });
@@ -56,7 +56,6 @@ var MainRegion = Backbone.Marionette.Region.extend({
 
     open: function(view, callback){
         var that = this;
-        // console.log(this.$el.addClass('hidden'));
         this.$el.html(view.$el.hide());
 
         this.$el.removeClass('hidden');
@@ -107,7 +106,6 @@ var FormRegion = Backbone.Marionette.Region.extend({
 
     open: function(view, callback){
         var that = this;
-        // console.log(this.$el.addClass('hidden'));
         this.$el.html(view.$el.hide());
 
         this.$el.removeClass('hidden');

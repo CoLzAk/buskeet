@@ -28,7 +28,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         template: '#clzk-search-result-template',
         tagName: 'div',
         serializeData: function() {
-            var profile_picture = _.findWhere(this.model.get('profile').files, {profile_picture: true});
+            var profile_picture = _.findWhere(this.model.get('profile').photos, { is_profile_picture: true });
 
             return {
                 profile_picture_path: profile_picture.thumb_path,

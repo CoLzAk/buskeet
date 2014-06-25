@@ -16,8 +16,8 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         }
     });
 
-    SearchModule.search = function(localization, category) {
-        SearchModule.search = new Search([], { localization: localization, category: category});
+    SearchModule.search = function(localization) {
+        SearchModule.search = new Search([], { localization: localization });
         SearchModule.search.fetch({
             success: function(results) {
                 SearchModule.users = new Users(results.get('items'));

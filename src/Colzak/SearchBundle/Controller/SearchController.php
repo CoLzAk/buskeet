@@ -19,13 +19,12 @@ class SearchController extends BaseController
 {
     /**
      * GET Route annotation.
-     * @Get("/search/{localization}/{category}")
+     * @Get("/search/{localization}")
      */
-    public function getSearchAction($localization, $category, Request $request) {
-        $em    = $this->get('doctrine')->getManager();
-        // $data = $em->getRepository('ColzakUserBundle:User')->getUsersList();
+    public function getSearchAction($localization, Request $request) {
+        $dm    = $this->get('doctrine_mongodb')->getManager();
         $data = array(
-            'items' => $em->getRepository('ColzakUserBundle:User')->findAll()
+            'items' => $dm->getRepository('ColzakUserBundle:User')->findAll()
         );
 
         // $paginator = $this->get('knp_paginator');
@@ -36,5 +35,5 @@ class SearchController extends BaseController
         // );
 
         return $this->handleView($this->view($data, 200));
-    } // "get_search"   [GET] /search/{localization}/{category}
+    } // "get_search"   [GET] /search/{localization}
 }

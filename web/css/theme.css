@@ -201,6 +201,12 @@ COLORS:
     box-shadow: none !important;
     color: #FFF;
 }
+.clzk-form-control .form-control {
+    background: #222;
+    border: none !important;
+    border-bottom: 1px #555 solid !important;
+}
+
 .form-control:focus {
   border-color: #c0392b;
   outline: 0;

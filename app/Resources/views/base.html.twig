@@ -23,30 +23,38 @@
             {% block header %}
                 <nav class="navbar navbar-inverse navbar-fixed-top clzk-navbar" role="navigation">
                     <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-2 clzk-brand-container">
+                        <!-- <div class="row"> -->
+                            <div class="clzk-brand-container pull-left">
                                 <!-- Brand and toggle get grouped for better mobile display -->
                                 <div class="navbar-header">
-                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                    <a class="navbar-brand" href="#">Brand</a>
+                                    <div class="clzk-navbar-form pull-left">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control clzk-form-control clzk-search-form" id="clzk-search-input" placeholder="Ou êtes-vous ?">
+                                            <span class="input-group-addon clzk-geoloader hidden"><img src="/img/ajax-loader.gif" class="img-responsive" width="20"></span>
+                                            <span class="input-group-addon clzk-search-form-geolocation-btn"><span class="glyphicon glyphicon-screenshot"></span></span>
+                                            <span class="input-group-addon clzk-search-form-submit-btn"><span class="glyphicon glyphicon-search"></span></span>
+                                            <input type="hidden" id="clzk-search-addressNumber" name="clzk-search-addressNumber">
+                                            <input type="hidden" id="clzk-search-addressStreet" name="clzk-search-addressStreet">
+                                            <input type="hidden" id="clzk-search-addressCity" name="clzk-search-addressCity">
+                                            <input type="hidden" id="clzk-search-addressCountry" name="clzk-search-addressCountry">
+                                            <input type="hidden" id="clzk-search-addressZipcode" name="clzk-search-addressZipcode">
+                                            <input type="hidden" id="clzk-search-addressSublocality" name="clzk-search-addressSublocality">
+                                        </div>
+                                    </div>
+                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
                                         <span class="sr-only">Toggle navigation</span>
                                         <span class="icon-bar"></span>
                                         <span class="icon-bar"></span>
                                         <span class="icon-bar"></span>
                                     </button>
-                                    <a class="navbar-brand" href="#">Brand</a>
                                 </div>
                             </div>
 
-                            <div class="col-md-10 clzk-navbar-actions">
+                            <div class="clzk-navbar-actions pull-left">
                                 <!-- Collect the nav links, forms, and other content for toggling -->
-                                <div class="collapse navbar-collapse row" id="bs-example-navbar-collapse-1">
-                                    <div class="col-md-6 clzk-navbar-form">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Ou êtes-vous ?">
-                                            <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
+                                <div class="collapse navbar-collapse" id="navbar-collapse">
+                                    <!-- <div class="col-md-6"> -->
                                         <ul class="nav navbar-nav navbar-right">
                                             {% if is_granted('ROLE_USER') %}
                                                 <li><a href="#">
@@ -73,28 +81,30 @@
                                             {% endif %}
                                             
                                         </ul>
-                                    </div>
+                                    <!-- </div> -->
                                 </div><!-- /.navbar-collapse -->
                             </div>
-                        </div>
+                        <!-- </div> -->
                     </div><!-- /.container-fluid -->
                 </nav>
             {% endblock %}
         </header>
 
         <div class="container-fluid clzk-global-container">
-            <div class="row">
-                <div class="col-md-2 clzk-left-region">
-                    {% block menu_region %}{% endblock %}
-                </div>
-                <div class="col-md-10 clzk-right-region">
-                    <div class="clzk-scrolling-content row">
-                        <div class="col-md-12">
-                            {% block content_region %}{% endblock %}
+            {% block body %}
+                <div class="row">
+                    <div class="col-md-2 clzk-left-region">
+                        {% block menu_region %}{% endblock %}
+                    </div>
+                    <div class="col-md-10 clzk-right-region">
+                        <div class="clzk-scrolling-content row">
+                            <div class="col-md-12">
+                                {% block content_region %}{% endblock %}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            {% endblock %}
         </div>
 
         {#} modal {#}
@@ -144,6 +154,8 @@
                     <script src="{{ asset_url }}"></script>
                 {% endjavascripts %}
             {% endif %}
+            <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&libraries=places&language=fr&region=fr"></script>
+            <script type="text/javascript" src="/js/vendor/gmap3.min.js"></script>
             {% block extra_javascripts %}{% endblock %}
         {% endblock %}
     </body>
