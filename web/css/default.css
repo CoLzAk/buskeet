@@ -1,8 +1,7 @@
 body {
     padding-top: 60px;
-    background: #f7f7f7;
 }
-.clzk-pre-body, .clzk-body {
+.clzk-pre-body {
     min-height: 400px;
     border-bottom: 3px #ccc solid;
 }
@@ -15,7 +14,8 @@ body {
     margin: 15px auto;
     border: 1px #ccc solid;
     padding-top: 15px;
-    background: #fff;
+    padding-bottom: 15px;
+    background: #222;
 }
 .glyphicon {
     top: 0;

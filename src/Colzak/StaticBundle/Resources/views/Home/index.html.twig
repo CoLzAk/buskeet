@@ -1,5 +1,57 @@
 {% extends 'ColzakStaticBundle::layout.html.twig' %}
 
+{% block header %}
+    <nav class="navbar navbar-inverse navbar-fixed-top clzk-navbar" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header col-md-3 col-sm-3 col-xs-3">
+                <a class="navbar-brand" href="{{ path('colzak_static_homepage') }}"><span class="hidden-xs">buskeet.com</span><span class="visible-xs">b</span></a>
+            </div>
+            <div class="nav navbar-nav navbar-right col-md-9 col-sm-9 col-xs-9 pull-right">
+                <div class="pull-right">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="navbar-collapse">
+                        <!-- <div class="col-md-6"> -->
+                            <ul class="nav navbar-nav navbar-right">
+                                {% if is_granted('ROLE_USER') %}
+                                    <li><a href="#">
+                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                        <span class="label label-danger">4</span>
+                                    </a></li>
+                                    <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
+                                    <li><a href="#"><span class="glyphicon glyphicon-off"></span></a></li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ [app.user.profile.firstname, app.user.profile.lastname]|join(' ') }} <b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Action</a></li>
+                                            <li><a href="#">Another action</a></li>
+                                            <li><a href="#">Something else here</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Separated link</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">One more separated link</a></li>
+                                        </ul>
+                                    </li>
+                                {% else %}
+                                    <li><a href="#" data-toggle="modal" data-target="#login-modal">Connexion</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#register-modal">Inscription</a></li>
+                                {% endif %}
+                                <!-- <li><a href="#">Ajouter un évènement</a></li> -->
+                            </ul>
+                        <!-- </div> -->
+                    </div><!-- /.navbar-collapse -->
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>
+{% endblock %}
+
 {% block body %}
     <div class="clzk-pre-body">
         <div class="container">
@@ -13,15 +65,17 @@
 
                 <div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
                     <div class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <!-- <label class="col-lg-3 control-label" for="clzk-city">Trouver un musicien à</label> -->
-                            <div class="col-md-9 col-sm-9 col-xs-12 input-group">
-                                <input type="text" class="form-control input-lg" id="clzk-city" placeholder="Où cherchez-vous ?">
-                                <span class="input-group-addon glyphicon glyphicon-map-marker"></span>
-                            </div>
-                            <div class="col-md-3 col-sm-3 col-xs-12">
-                                <button class="btn btn-secondary btn-block btn-lg" type="button">Rechercher</button>
-                            </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 input-group">
+                            <input type="text" class="form-control input-lg" id="clzk-search-input" placeholder="Ou êtes-vous ?">
+                            <span class="input-group-addon clzk-geoloader hidden"><img src="/img/ajax-loader.gif" class="img-responsive" width="20"></span>
+                            <span class="input-group-addon clzk-search-form-geolocation-btn"><span class="glyphicon glyphicon-map-marker"></span></span>
+                            <span class="input-group-addon clzk-search-form-submit-btn btn-primary"><span class="glyphicon glyphicon-search"></span> Rechercher</span>
+                            <input type="hidden" id="clzk-search-addressNumber" name="clzk-search-addressNumber">
+                            <input type="hidden" id="clzk-search-addressStreet" name="clzk-search-addressStreet">
+                            <input type="hidden" id="clzk-search-addressCity" name="clzk-search-addressCity">
+                            <input type="hidden" id="clzk-search-addressCountry" name="clzk-search-addressCountry">
+                            <input type="hidden" id="clzk-search-addressZipcode" name="clzk-search-addressZipcode">
+                            <input type="hidden" id="clzk-search-addressSublocality" name="clzk-search-addressSublocality">
                         </div>
                     </div>
                 </div>
@@ -30,132 +84,7 @@
     </div>
 
     <h1>Les derniers participants sur buskeet.com</h1>
-    <div class="row">
-        <div class="col-md-4 col-sm-4 col-xs-6">
-            <div class="clzk-home-last-member">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img src="/img/user_128.png" alt="..." class="img-thumbnail">
-                        </div>
-                        <div class="col-md-8">
-                            <p class="text-left">Jean Dupont</p>
-                            <p class="text-left">Recherche un group de pop/rock</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <hr />
-                    <div class="col-md-6 col-md-offset-6">
-                        <a href="#" class="btn btn-block btn-primary btn-sm">Voir le profil</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-6">
-            <div class="clzk-home-last-member">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img src="/img/user_128.png" alt="..." class="img-thumbnail">
-                        </div>
-                        <div class="col-md-8">
-                            <p class="text-left">Jean Dupont</p>
-                            <p class="text-left">Recherche un group de pop/rock</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <hr />
-                    <div class="col-md-6 col-md-offset-6">
-                        <a href="#" class="btn btn-block btn-primary btn-sm">Voir le profil</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-6">
-            <div class="clzk-home-last-member">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img src="/img/user_128.png" alt="..." class="img-thumbnail">
-                        </div>
-                        <div class="col-md-8">
-                            <p class="text-left">Jean Dupont</p>
-                            <p class="text-left">Recherche un group de pop/rock</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <hr />
-                    <div class="col-md-6 col-md-offset-6">
-                        <a href="#" class="btn btn-block btn-primary btn-sm">Voir le profil</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-6">
-            <div class="clzk-home-last-member">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img src="/img/user_128.png" alt="..." class="img-thumbnail">
-                        </div>
-                        <div class="col-md-8">
-                            <p class="text-left">Jean Dupont</p>
-                            <p class="text-left">Recherche un group de pop/rock</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <hr />
-                    <div class="col-md-6 col-md-offset-6">
-                        <a href="#" class="btn btn-block btn-primary btn-sm">Voir le profil</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-6">
-            <div class="clzk-home-last-member">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img src="/img/user_128.png" alt="..." class="img-thumbnail">
-                        </div>
-                        <div class="col-md-8">
-                            <p class="text-left">Jean Dupont</p>
-                            <p class="text-left">Recherche un group de pop/rock</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <hr />
-                    <div class="col-md-6 col-md-offset-6">
-                        <a href="#" class="btn btn-block btn-primary btn-sm">Voir le profil</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-6">
-            <div class="clzk-home-last-member">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img src="/img/user_128.png" alt="..." class="img-thumbnail">
-                        </div>
-                        <div class="col-md-8">
-                            <p class="text-left">Jean Dupont</p>
-                            <p class="text-left">Recherche un group de pop/rock</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <hr />
-                    <div class="col-md-6 col-md-offset-6">
-                        <a href="#" class="btn btn-block btn-primary btn-sm">Voir le profil</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
+    {{ render(controller('ColzakUserBundle:Profile:getLastRegisteredUsers')) }}
+    
 {% endblock %}

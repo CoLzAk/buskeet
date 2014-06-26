@@ -1,1 +1,22 @@
-youhou
+<div class="row">
+    {% for user in users %}
+        <div class="col-md-4 col-sm-4 col-xs-6">
+            <div class="clzk-home-last-member row">
+                <div class="col-md-6">
+                    {% if user.photos|length > 0 %}
+                        {% for photo in user.photos if photo.isProfilePicture %}
+                            <img src="{{ photo.thumbPath }}" alt="..." class="img-thumbnail">
+                        {% endfor %}
+                    {% else %}
+                        <img src="/img/user_128.png" alt="..." class="img-thumbnail">
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    <p class="text-left">{{ [user.firstname, user.lastname]|join(' ') }}</p>
+                    <p class="text-left">Recherche un group de pop/rock</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <div class="clearfix"></div>
+</div>

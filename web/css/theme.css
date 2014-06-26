@@ -124,6 +124,9 @@ COLORS:
     border-top: 2px #00c0ef solid;
     padding-top: 13px !important;
 }
+.navbar-brand {
+    padding-left: 0;
+}
 
 /* PROGRESS */
 .progress {
@@ -193,7 +196,11 @@ COLORS:
 }
 
 /* FORM */
-.clzk-form-control, .input-group-addon {
+input {
+    border-radius: 0 !important;
+}
+
+.clzk-form-control, .clzk-input-group-addon {
     background: #222;
     border-radius: 0 !important;
     border: none !important;
