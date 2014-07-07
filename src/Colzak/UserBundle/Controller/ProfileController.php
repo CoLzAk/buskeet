@@ -85,24 +85,16 @@ class ProfileController extends Controller
 
         // $dm->persist($portfolio);
         // $dm->flush();
-        
-
-
         // $form = $this->get('form.factory')->create(new PortfolioInstrumentFormType(), $portfolioInstrument);
     }
 
     public function getLastRegisteredUsersAction() {
         $dm = $this->get('doctrine_mongodb')->getManager();
+        
         $q = $dm->createQueryBuilder('ColzakUserBundle:Profile');
         $q->sort('createdAt', 'desc');
         $q->limit(12);
-
         $users = $q->getQuery()->execute()->toArray();
-
-        // echo '<pre>';
-        // \Doctrine\Common\Util\Debug::dump($profiles);
-
-        // die();
 
         return $this->container->get('templating')->renderResponse('ColzakUserBundle:Profile:partials/last_users.html.twig', array(
             'users' => $users

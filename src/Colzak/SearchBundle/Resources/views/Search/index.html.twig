@@ -3,6 +3,7 @@
 {% block extra_stylesheets %}
     {% stylesheets
         "css/search.css"
+        "css/jquery.nouislider.css"
         filter="cssrewrite"
     %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
@@ -15,11 +16,14 @@
     {#} Search Layout {#}
     <script type="text/template" id="clzk-search-layout">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3 clzk-search-menu-region-container">
                 <div id="clzk-search-menu-region"></div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-7">
                 <div id="clzk-search-results-region"></div>
+            </div>
+            <div class="col-md-2">
+                <div id="clzk-search-extra-region"></div>
             </div>
         </div>
     </script>
@@ -29,24 +33,26 @@
         <div id="clzk-modal-content-region"></div>
     </script>
 
-    {% include 'ColzakSearchBundle:Default:templates/search_menu.html.twig' %}
-    {% include 'ColzakSearchBundle:Default:templates/search_results.html.twig' %}
+    {% include 'ColzakSearchBundle:Search:templates/search_menu.html.twig' %}
+    {% include 'ColzakSearchBundle:Search:templates/search_results.html.twig' %}
 {% endblock %}
 
 {% block extra_javascripts %}
     {% javascripts
         "js/jquery/ui-widgets/jquery.ui.datepicker.min.js"
+        "js/jquery/jquery.nouislider.min.js"
         "js/vendor/underscore-1.4.4.min.js"
         "js/vendor/backbone-1.0.0.min.js"
         "js/vendor/backbone-deepmodel-min.js"
         "js/vendor/backbone.marionette-1.0.1.min.js"
         "js/vendor/backbone.stickit.min.js"
+        "js/vendor/backbone-memento.min.js"
         "js/vendor/moment-2.0.0.min.js"
         "js/vendor/moment.lang.fr.min.js"
         "js/app/App.js"
         "js/app/Search.js"
         "js/app/models/Search.js"
-        "js/app/models/User.js"
+        "js/app/models/Profile.js"
         "js/app/views/SearchView.js"
     %}
         <script src="{{ asset_url }}" type="text/javascript"></script>
@@ -55,10 +61,9 @@
     <script type="text/javascript">
     $(document).ready(function() {
         moment.lang('fr');
-        var localization = "{{ localization }}",
-            options = {
+        var options = {
                 module: 'search',
-                localization: localization,
+                queryUrl: {{ queryUrl|serialize|raw }},
                 path: "{{ path(app.request.attributes.get('_route')) }}"
         };
         App.start(options);

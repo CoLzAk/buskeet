@@ -7,9 +7,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as SERIAL;
 
 /**
- * @MongoDB\Document
- * @SERIAL\ExclusionPolicy("none")
- * @MongoDB\HasLifecycleCallbacks
+ * @MongoDB\EmbeddedDocument
  */
 class PortfolioInstrument
 {
@@ -30,16 +28,25 @@ class PortfolioInstrument
     protected $level;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Colzak\PortfolioBundle\Document\Portfolio", inversedBy="portfolioInstruments")
-     * @SERIAL\Type("Colzak\PortfolioBundle\Document\Portfolio")
+     * @MongoDB\String
+     * @SERIAL\Type("string")
      */
-    protected $portfolio;
+    protected $name;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Colzak\PortfolioBundle\Document\Instrument")
-     * @SERIAL\Type("Colzak\PortfolioBundle\Document\Instrument")
+     * @MongoDB\String
+     * @SERIAL\Type("string")
      */
-    protected $instrument;
+    protected $category;
+
+    public static function getLevelList()
+    {
+        return array(
+            self::LEVEL_BEGINNER => 'Débutant',
+            self::LEVEL_AMATEUR => 'Amateur',
+            self::LEVEL_PROFESSIONAL => 'Professionnel'
+        );
+    }
 
     /**
      * Get id
@@ -74,55 +81,46 @@ class PortfolioInstrument
     }
 
     /**
-     * Set portfolio
+     * Set name
      *
-     * @param Colzak\PortfolioBundle\Document\Portfolio $portfolio
+     * @param string $name
      * @return self
      */
-    public function setPortfolio(\Colzak\PortfolioBundle\Document\Portfolio $portfolio)
+    public function setName($name)
     {
-        $this->portfolio = $portfolio;
+        $this->name = $name;
         return $this;
     }
 
     /**
-     * Get portfolio
+     * Get name
      *
-     * @return Colzak\PortfolioBundle\Document\Portfolio $portfolio
+     * @return string $name
      */
-    public function getPortfolio()
+    public function getName()
     {
-        return $this->portfolio;
+        return $this->name;
     }
 
     /**
-     * Set instrument
+     * Set category
      *
-     * @param Colzak\PortfolioBundle\Document\Instrument $instrument
+     * @param string $category
      * @return self
      */
-    public function setInstrument(\Colzak\PortfolioBundle\Document\Instrument $instrument)
+    public function setCategory($category)
     {
-        $this->instrument = $instrument;
+        $this->category = $category;
         return $this;
     }
 
     /**
-     * Get instrument
+     * Get category
      *
-     * @return Colzak\PortfolioBundle\Document\Instrument $instrument
+     * @return string $category
      */
-    public function getInstrument()
+    public function getCategory()
     {
-        return $this->instrument;
-    }
-
-    public static function getLevelList()
-    {
-        return array(
-            self::LEVEL_BEGINNER => 'Débutant',
-            self::LEVEL_AMATEUR => 'Amateur',
-            self::LEVEL_PROFESSIONAL => 'Professionnel'
-        );
+        return $this->category;
     }
 }

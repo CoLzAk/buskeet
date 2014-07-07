@@ -26,7 +26,7 @@ class Portfolio
     protected $profile;
 
     /**
-     * @MongoDB\ReferenceMany(targetDocument="Colzak\PortfolioBundle\Document\PortfolioInstrument", mappedBy="portfolio", cascade={"all"})
+     * @MongoDB\EmbedMany(targetDocument="Colzak\PortfolioBundle\Document\PortfolioInstrument")
      * @SERIAL\Type("ArrayCollection<Colzak\PortfolioBundle\Document\PortfolioInstrument>")
      */
     protected $portfolioInstruments = array();
@@ -42,6 +42,8 @@ class Portfolio
      * @SERIAL\Type("ArrayCollection<Colzak\PortfolioBundle\Document\Influence>")
      */
     protected $influences = array();
+
+
 
     public function __construct() {
         $this->portfolioInstruments = new \Doctrine\Common\Collections\ArrayCollection();

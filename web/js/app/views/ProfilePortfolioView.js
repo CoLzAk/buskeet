@@ -45,9 +45,14 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                     return;
                 }
                 items = this.model.get('portfolio_instruments');
+
+                // console.log(this.instrumentsList);
+                var instrument = _.findWhere(this.instrumentsList, { id: $('#clzk-portfolio-portfolio-instruments').val() });
+                // console.log(instrument);
                 items.push({
                     level: $('#clzk-portfolio-portfolio-instruments-level').val(),
-                    instrument: _.findWhere(this.instrumentsList, { id: $('#clzk-portfolio-portfolio-instruments').val() })
+                    name: instrument.name,
+                    category: instrument.category
                 });
                 this.model.set('portfolio_instruments', items);
             }
@@ -67,9 +72,11 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 });
                 this.model.set('influences', items);
             }
+            // console.log(this.model);
             this.render();
         },
         onDomRefresh: function() {
+            console.log(this.model);
             var that = this;
             $.ajax({
                 type: 'GET',

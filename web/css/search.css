@@ -1,6 +1,49 @@
+.clzk-search-menu-region-container {
+	background: #222;
+	border-right: 1px solid #555;
+}
+
+.clzk-search-menu-map {
+	height: 180px;
+	margin-bottom: 20px;
+}
+
+.clzk-results-number-container {
+	background: none repeat scroll 0 0 #6aaca2;
+    border-radius: 0 !important;
+    font-size: 18px;
+    font-style: italic;
+    height: 35px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
 .clzk-search-profile-container {
-    border: 5px #ddd solid;
+    /*border-bottom: 1px #ddd solid;*/
     margin-bottom: 5px;
     width: 100%;
     padding: 5px;
+    background: #333;
+}
+.clzk-search-profile-container:hover {
+	background: #444;
+	position: relative;
+	cursor: pointer;
+	/*border-left: 3px #2980b9 solid;*/
+}
+.clzk-search-profile-container:hover .view-profile-btn-container {
+	display: block;
+}
+.view-profile-btn-container {
+	position: absolute;
+	right: 10px;
+	top: 30%;
+	font-size: 40px;
+	display: none;
+}
+
+.clzk-search-user-instruments {
+    max-width: 70px;
+    float: left;
+    margin-right: 2px;
 }

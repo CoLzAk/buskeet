@@ -7,8 +7,10 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as SERIAL;
 
 /**
- * @MongoDB\Document()
+ * @MongoDB\Document(repositoryClass="Colzak\UserBundle\Repository\ProfileRepository")
  * @SERIAL\ExclusionPolicy("none")
+ * @MongoDB\HasLifecycleCallbacks
+ * @MongoDB\Index(keys={"coordinates"="2d"})
  */
 class Profile
 {
@@ -20,6 +22,12 @@ class Profile
      * @SERIAL\Type("string")
      */
     protected $id;
+
+    /**
+     * @MongoDB\String
+     * @SERIAL\Type("string")
+     */
+    protected $username;
 
     /**
      * @MongoDB\String
@@ -100,16 +108,10 @@ class Profile
     protected $country;
 
     /**
-     * @MongoDB\Float
-     * @SERIAL\Type("double")
+     * @MongoDB\EmbedOne(targetDocument="Colzak\UserBundle\Document\Coordinate")
+     * @SERIAL\Type("Colzak\UserBundle\Document\Coordinate")
      */
-    protected $lat;
-
-    /**
-     * @MongoDB\Float
-     * @SERIAL\Type("double")
-     */
-    protected $lon;
+    protected $coordinates;
 
     /**
      * @MongoDB\ReferenceOne(targetDocument="Colzak\PortfolioBundle\Document\Portfolio", mappedBy="profile")
@@ -129,10 +131,41 @@ class Profile
      */
     protected $events = array();
 
+    /**
+     * @MongoDB\Date(nullable=true)
+     * @SERIAL\Type("DateTime")
+     */
+    protected $createdAt;
+
+    /**
+     * @MongoDB\Date(nullable=true)
+     * @SERIAL\Type("DateTime")
+     */
+    protected $updatedAt;
+
+    /** @MongoDB\Distance */
+    public $distance;
+
     public function __construct()
     {
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->events = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * @MongoDB\PrePersist()
+     */
+    public function prePersist() {
+        $this->username = $this->getUser()->getUsername();
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
+    /**
+     * @MongoDB\PreUpdate()
+     */
+    public function preUpdate() {
+        $this->updatedAt = new \DateTime();
     }
 
     /**
@@ -430,50 +463,6 @@ class Profile
     {
         return $this->country;
     }
-
-    /**
-     * Set lat
-     *
-     * @param float $lat
-     * @return self
-     */
-    public function setLat($lat)
-    {
-        $this->lat = $lat;
-        return $this;
-    }
-
-    /**
-     * Get lat
-     *
-     * @return float $lat
-     */
-    public function getLat()
-    {
-        return $this->lat;
-    }
-
-    /**
-     * Set lon
-     *
-     * @param float $lon
-     * @return self
-     */
-    public function setLon($lon)
-    {
-        $this->lon = $lon;
-        return $this;
-    }
-
-    /**
-     * Get lon
-     *
-     * @return float $lon
-     */
-    public function getLon()
-    {
-        return $this->lon;
-    }
     
     /**
      * Set portfolio
@@ -555,5 +544,115 @@ class Profile
     public function getEvents()
     {
         return $this->events;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param date $createdAt
+     * @return self
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return date $createdAt
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param date $updatedAt
+     * @return self
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return date $updatedAt
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set coordinates
+     *
+     * @param Colzak\UserBundle\Document\Coordinate $coordinates
+     * @return self
+     */
+    public function setCoordinates(\Colzak\UserBundle\Document\Coordinate $coordinates)
+    {
+        $this->coordinates = $coordinates;
+        return $this;
+    }
+
+    /**
+     * Get coordinates
+     *
+     * @return Colzak\UserBundle\Document\Coordinate $coordinates
+     */
+    public function getCoordinates()
+    {
+        return $this->coordinates;
+    }
+
+    /**
+     * Set distance
+     *
+     * @param string $distance
+     * @return self
+     */
+    public function setDistance($distance)
+    {
+        $this->distance = $distance;
+        return $this;
+    }
+
+    /**
+     * Get distance
+     *
+     * @return string $distance
+     */
+    public function getDistance()
+    {
+        return $this->distance;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     * @return self
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string $username
+     */
+    public function getUsername()
+    {
+        return $this->username;
     }
 }

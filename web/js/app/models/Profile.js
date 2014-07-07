@@ -9,4 +9,9 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             this.userId = options.userId;
         }
     });
+
+    Profiles = Backbone.Collection.extend({
+        model: Profile,
+        url: Routing.generate('users_get_profiles')
+    });
 });

@@ -79,6 +79,18 @@ class UsersController extends BaseController
 
     /**
      * GET Route annotation.
+     * @Get("/users/profiles")
+     */
+    public function getProfilesAction()
+    {
+        $em    = $this->get('doctrine')->getManager();
+        $data = $em->getRepository('ColzakUserBundle:Profile')->findAll();
+
+        return $this->handleView($this->view($data, 200));
+    } // "get_users"    [GET] /users/profiles
+
+    /**
+     * GET Route annotation.
      * @Get("/users/{userId}/profile")
      */
     public function getUserProfileAction($userId) {

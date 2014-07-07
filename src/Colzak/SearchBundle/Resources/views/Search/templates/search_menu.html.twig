@@ -1,0 +1,84 @@
+<script type="text/template" id="clzk-search-menu-template">
+
+    <div id="map" class="clzk-search-menu-map"></div>
+    
+    <div class="search-filter-container col-md-12">
+        <div class="form-horizontal" role="form">
+
+            <div class="form-group">
+                <label for="filter-radius" class="control-label mb1">Distance</label>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="slider search-filter" id="filter-radius" data-filter="radius"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="text-center mb0"><span id="filter-radius-value">20</span>&nbsp;<span>km</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="filter-gender" class="control-label mb1">Profil</label>
+                <div class="clzk-moz-select">
+                    <select class="search-filter" id="filter-gender" data-filter="gender">
+                        <option value="">Choisissez</option>
+                        <option value="MALE">Masculin</option>
+                        <option value="FEMALE">Feminin</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="filter-age" class="control-label mb1">Tranche d'age</label>
+                <div class="clzk-moz-select">
+                    <select class="search-filter" id="filter-age" data-filter="age">
+                        <option value="">Choisissez</option>
+                        <option value="18-25">18-25 ans</option>
+                        <option value="25-35">25-35 ans</option>
+                        <option value="35-50">35-50 ans</option>
+                        <option value="50+">>50 ans</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="filter-category" class="control-label mb1">Type d'instruments</label>
+                <input type="hidden" class="search-filter" id="filter-category" data-filter="category">
+                <p>
+                    <input type="checkbox" id="keyboards-category" data-category="keyboards" class="filter-category"><label for="keyboards-category"><span class="ui"></span>Claviers</label>
+                </p>
+                <p>
+                    <input type="checkbox" id="percussions-category" data-category="percussions" class="filter-category"><label for="percussions-category"><span class="ui"></span>Percussions</label>
+                </p>
+                <p>
+                    <input type="checkbox" id="woodwinds-category" data-category="woodwinds" class="filter-category"><label for="woodwinds-category"><span class="ui"></span>Vents</label>
+                </p>
+                <p>
+                    <input type="checkbox" id="strings-category" data-category="strings" class="filter-category"><label for="strings-category"><span class="ui"></span>Cordes</label>
+                </p>
+                <p>
+                    <input type="checkbox" id="brass-category" data-category="brass" class="filter-category"><label for="brass-category"><span class="ui"></span>Cuivres</label>
+                </p>
+                <p>
+                    <input type="checkbox" id="voices-category" data-category="voices" class="filter-category"><label for="voices-category"><span class="ui"></span>Voix</label>
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label for="filter-experience" class="control-label mb1">Expérience</label>
+                <div class="clzk-moz-select">
+                    <select class="search-filter" id="filter-experience" data-filter="experience">
+                        <option value="">Choisissez</option>
+                        <option value="beginner">Débutant</option>
+                        <option value="amateur">Amateur</option>
+                        <option value="professional">Professionnel</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clzk-ad">
+        pub
+    </div>
+</script>

@@ -5,8 +5,8 @@
                 <div class="row">
                     <% for (var i in portfolio.portfolio_instruments) { %>
                         <div class="col-md-4 mb1">
-                            <img src="<%= portfolio.portfolio_instruments[i].instrument.icon_path %>" class="img-responsive">
-                            <p class="text-center"><%= portfolio.portfolio_instruments[i].instrument.name %></p>
+                            <img src="/img/instruments/<%= portfolio.portfolio_instruments[i].category %>.png" class="img-responsive">
+                            <p class="text-center"><%= portfolio.portfolio_instruments[i].name %></p>
                             <div class="progress">
                                 <% if (portfolio.portfolio_instruments[i].level == 'BEGINNER') { %>
                                     <div class="progress-bar progress-bar-success" style="width: 33%"></div>
@@ -92,11 +92,13 @@
                                     </select>
                                 </div>
                                 <div class="col-md-5">
-                                    <select class="form-control" id="clzk-portfolio-portfolio-instruments-level">
-                                        <option value="BEGINNER">Débutant</option>
-                                        <option value="AMATEUR">Amateur</option>
-                                        <option value="PROFESSIONAL">Professionnel</option>
-                                    </select>
+                                    <div class="clzk-moz-select">
+                                        <select id="clzk-portfolio-portfolio-instruments-level">
+                                            <option value="BEGINNER">Débutant</option>
+                                            <option value="AMATEUR">Amateur</option>
+                                            <option value="PROFESSIONAL">Professionnel</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="col-md-2">
                                     <a href="#" class="add-portfolio-item-button btn btn-block" data-item="portfolio-instrument"><span class="glyphicon glyphicon-plus"></span></a>
@@ -106,10 +108,10 @@
                             <% for (var i in portfolio_instruments) { %>
                                 <div class="row mb1">
                                     <div class="col-md-2">
-                                        <img src="<%= portfolio_instruments[i].instrument.icon_path %>" class="img-responsive">
+                                        <img src="/img/instruments/<%= portfolio_instruments[i].category %>.png" class="img-responsive">
                                     </div>
                                     <div class="col-md-4">
-                                        <p class="clzk-center text-center"><%= portfolio_instruments[i].instrument.name %></p>
+                                        <p class="clzk-center text-center"><%= portfolio_instruments[i].name %></p>
                                     </div>
                                     <div class="col-md-4">
                                         <p class="clzk-center text-center"><%= portfolio_instruments[i].level %></p>

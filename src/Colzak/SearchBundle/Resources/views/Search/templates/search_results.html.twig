@@ -1,0 +1,38 @@
+<script type="text/template" id="clzk-search-result-template">
+    <div class="clzk-search-profile-container">
+        <div class="clzk-search-profile-content-upper">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="<%= profile_picture_path %>" class="img-responsive">
+                </div>
+                <div class="col-md-8">
+                    <h2 class="mt1"><%= profile.firstname %>&nbsp;<%= profile.lastname %></h2>
+                    <p><%= profile.locality %></p>
+                    <% for (var i in profile.portfolio.portfolio_instruments) { %>
+                        <% if (i < 3) { %>
+                            <div class="clzk-search-user-instruments">
+                                <img src="/img/instruments/<%= profile.portfolio.portfolio_instruments[i].category %>.png" class="img-responsive">
+                            </div>
+                        <% } %>
+                    <% } %>
+                </div>
+                <div class="view-profile-btn-container">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <hr class="mt1 mb1">
+</script>
+
+<script type="text/template" id="clzk-search-result-empty-template">
+    <p class="text-center"><i>Aucun résultat.</i></p>
+</script>
+
+<script type="text/template" id="clzk-search-results-template">
+    <div class="clzk-results-number-container">
+        <p class="text-center"><%= results.length %><% if (results.length > 1) { %> résultats <% } else { %> résultat <% } %></p>
+    </div>
+    <div id="clzk-search-result-container" class="clzk-results-container"></div>
+</script>

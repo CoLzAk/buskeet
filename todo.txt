@@ -1,3 +1,6 @@
+BUGFIX:
+	bind coordinates du profil sur nouvelle structure dans le JS
+
 bandeau de gauche:
 
 	Menu contextuel
@@ -12,7 +15,7 @@ Ajout d'element dans le portfolio:
 Ajout Evenement (concert etc.)
 
 Recherche géolocalisée multicritère
-	ville
+	ville: ok
 	type d'instrument
 	style
 	evenements (comme des liens sponsorisés) avec code couleur flashy (concerts, street perf)
@@ -23,3 +26,15 @@ Ajouter/supprimer amis
 Creer groupe
 	nom
 	membres (Users)
+
+CGU
+Politique de confidentialité
+
+Catégories d'instrument (icones)
+	- Percussions
+	- Cuivres
+	- Cordes
+	- Claviers
+	- Bois
+	- Voix
+	- Electronique

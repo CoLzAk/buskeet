@@ -51,13 +51,6 @@ class PortfoliosController extends BaseController
             $updatedPortfolio = $serializer->deserialize($request->getContent(), 'Colzak\PortfolioBundle\Document\Portfolio', 'json');
         }
 
-        foreach ($updatedPortfolio->getPortfolioInstruments() as $portfolioInstrument) {
-            if (null === $portfolioInstrument->getId()) {
-                $portfolioInstrument->setLevel($portfolioInstrument->getLevel());
-                $portfolioInstrument->setInstrument($dm->getRepository('ColzakPortfolioBundle:Instrument')->find($portfolioInstrument->getInstrument()->getId()));
-                $portfolioInstrument->setPortfolio($portfolio);
-            }
-        }
         $updatedPortfolio->setProfile($user->getProfile());
         $portfolio = $dm->merge($updatedPortfolio);
         $dm->flush();

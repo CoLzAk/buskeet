@@ -1,6 +1,8 @@
 colzak_user_homepage:
     pattern: /profile/{username}
     defaults: { _controller: ColzakUserBundle:Profile:index, username: 'me' }
+    options:
+        expose: true
 
 colzak_user_test_portfolio:
     pattern: /test

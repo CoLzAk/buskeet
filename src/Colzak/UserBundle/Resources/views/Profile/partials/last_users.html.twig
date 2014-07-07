@@ -12,8 +12,18 @@
                     {% endif %}
                 </div>
                 <div class="col-md-6">
-                    <p class="text-left">{{ [user.firstname, user.lastname]|join(' ') }}</p>
-                    <p class="text-left">Recherche un group de pop/rock</p>
+                    <h4 class="text-right">{{ [user.firstname, user.lastname]|join(' ') }}</h4>
+                    <p class="text-right">age, {{ user.locality }}</p>
+                    <p class="text-center">
+                        {% for item in user.portfolio.portfolioInstruments %}
+                            {% if loop.index <= 3 %}
+                                <div class="clzk-home-user-instruments">
+                                    <img src="{{ item.instrument.iconPath }}" class="img-responsive">
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        <div class="clearfix"></div>
+                    </p>
                 </div>
             </div>
         </div>

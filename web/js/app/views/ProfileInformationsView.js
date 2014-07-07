@@ -48,8 +48,8 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             '#clzk-profile-administrative-area-level-2': 'administrative_area_level_2',
             '#clzk-profile-country': 'country',
             '#clzk-profile-postal-code': 'postal_code',
-            '#clzk-profile-lat': 'lat',
-            '#clzk-profile-lon': 'lon',
+            '#clzk-profile-lat': 'coordinates.y',
+            '#clzk-profile-lon': 'coordinates.x',
             '#clzk-profile-description': 'description'
         },
         events: {
@@ -84,6 +84,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         },
         initMap: function() {
             var profile = this.model.toJSON(),
+                coordinates = this.model.get('coordinates'),
                 mapWidth = $('#map-container').width(),
                 mapUrl,
                 input = document.getElementById('clzk-profile-address-input'),
@@ -93,11 +94,13 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 that = this;
 
             //Show the map
-            if (typeof profile.lat === 'undefined' || profile.lat === 0 && typeof profile.lon === 'undefined' || profile.lon === 0) {
-                mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center=47.00,2.00&zoom=5&size='+mapWidth+'x250&maptype=roadmap&markers=color:red|47.00,2.00&sensor=false&scale=1';
-            } else {
-                mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center='+ profile.lat +','+ profile.lon +'&zoom=13&size='+mapWidth+'x250&maptype=roadmap&markers=color:red|'+ profile.lat +','+ profile.lon +'&sensor=false&scale=1';
-            }
+            // if (typeof profile.lat === 'undefined' || profile.lat === 0 && typeof profile.lon === 'undefined' || profile.lon === 0) {
+            //     mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center=47.00,2.00&zoom=5&size='+mapWidth+'x250&maptype=roadmap&markers=color:red|47.00,2.00&sensor=false&scale=1';
+            // } else {
+            //     mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center='+ profile.lat +','+ profile.lon +'&zoom=13&size='+mapWidth+'x250&maptype=roadmap&markers=color:red|'+ profile.lat +','+ profile.lon +'&sensor=false&scale=1';
+            // }
+
+            mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center='+ (typeof coordinates !== 'undefined' ? coordinates.y : 47.00) +','+ (typeof coordinates !== 'undefined' ? coordinates.x : 2.00) +'&zoom='+ (typeof coordinates !== 'undefined' ? 13 : 5) +'&size='+ mapWidth +'x250&maptype=roadmap&markers=color:red|'+ (typeof coordinates !== 'undefined' ? coordinates.y : 47.00) +','+ (typeof coordinates !== 'undefined' ? coordinates.x : 2.00) +'&sensor=false&scale=1';
 
             $('#map').html('<img src="'+ mapUrl +'">');
 
@@ -119,42 +122,32 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                         //fill hidden fields
                         for (var i=0, j=place.address_components.length; i<j; i++) {
                             if (place.address_components[i].types.indexOf("street_number") > -1) {
-                                $('#clzk-profile-street-number').val(place.address_components[i].long_name);
-                                that.model.set('street_number', place.address_components[i].long_name);
+                                $('#clzk-profile-street-number').val(place.address_components[i].long_name).trigger('change');
                             }
                             if (place.address_components[i].types.indexOf("route") > -1) {
-                                $('#clzk-profile-route').val(place.address_components[i].long_name);
-                                that.model.set('route', place.address_components[i].long_name);
+                                $('#clzk-profile-route').val(place.address_components[i].long_name).trigger('change');
                             }
                             if (place.address_components[i].types.indexOf("locality") > -1) {
-                                $('#clzk-profile-locality').val(place.address_components[i].long_name);
-                                that.model.set('locality', place.address_components[i].long_name);
+                                $('#clzk-profile-locality').val(place.address_components[i].long_name).trigger('change');
                             }
                             if (place.address_components[i].types.indexOf("administrative_area_level_2") > -1) {
-                                $('#clzk-profile-administrative-area-level-2').val(place.address_components[i].long_name);
-                                that.model.set('administrative_area_level_2', place.address_components[i].long_name);
+                                $('#clzk-profile-administrative-area-level-2').val(place.address_components[i].long_name).trigger('change');
                             }
                             if (place.address_components[i].types.indexOf("administrative_area_level_1") > -1) {
-                                $('#clzk-profile-administrative-area-level-1').val(place.address_components[i].long_name);
-                                that.model.set('administrative_area_level_1', place.address_components[i].long_name);
+                                $('#clzk-profile-administrative-area-level-1').val(place.address_components[i].long_name).trigger('change');
                             }
                             if (place.address_components[i].types.indexOf("country") > -1) {
-                                $('#clzk-profile-country').val(place.address_components[i].long_name);
-                                that.model.set('country', place.address_components[i].long_name);
+                                $('#clzk-profile-country').val(place.address_components[i].long_name).trigger('change');
                             }
                             if (place.address_components[i].types.indexOf("postal_code") > -1) {
-                                $('#clzk-profile-postal-code').val(place.address_components[i].long_name);
-                                that.model.set('postal_code', place.address_components[i].long_name);
+                                $('#clzk-profile-postal-code').val(place.address_components[i].long_name).trigger('change');
                             }
                             if (place.address_components[i].types.indexOf("sublocality") > -1) {
-                                $('#clzk-profile-sublocality').val(place.address_components[i].long_name);
-                                that.model.set('sublocality', place.address_components[i].long_name);
+                                $('#clzk-profile-sublocality').val(place.address_components[i].long_name).trigger('change');
                             }
                         }
-                        $('#clzk-profile-lon').val(place.geometry.location.lng());
-                        that.model.set('lon', place.geometry.location.lng());
-                        $('#clzk-profile-lat').val(place.geometry.location.lat());
-                        that.model.set('lat', place.geometry.location.lat());
+                        $('#clzk-profile-lon').val(place.geometry.location.lng()).trigger('change');
+                        $('#clzk-profile-lat').val(place.geometry.location.lat()).trigger('change');
 
                         mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center='+ place.geometry.location.lat() +','+ place.geometry.location.lng() +'&zoom=13&size='+mapWidth+'x250&maptype=roadmap&markers=color:red|'+ place.geometry.location.lat() +','+ place.geometry.location.lng() +'&sensor=false';
 

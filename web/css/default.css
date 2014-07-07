@@ -1,5 +1,5 @@
 body {
-    padding-top: 60px;
+    padding-top: 55px;
 }
 .clzk-pre-body {
     min-height: 400px;
@@ -16,6 +16,11 @@ body {
     padding-top: 15px;
     padding-bottom: 15px;
     background: #222;
+}
+.clzk-home-user-instruments {
+    width: 32%;
+    float: left;
+    margin-right: 2px;
 }
 .glyphicon {
     top: 0;
