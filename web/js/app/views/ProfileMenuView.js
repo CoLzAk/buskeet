@@ -13,7 +13,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             if (form == 'profile') {
                 Backbone.history.navigate(UserModule.targetUserUsername, { trigger: true });
             } else {
-                $(e.currentTarget).parent().addClass('active');
+                $(e.currentTarget).addClass('active');
                 Backbone.history.navigate(UserModule.targetUserUsername + '/edit/' + form, { trigger: true });
             }
         },

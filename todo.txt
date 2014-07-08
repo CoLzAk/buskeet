@@ -1,36 +1,37 @@
-BUGFIX:
-	bind coordinates du profil sur nouvelle structure dans le JS
+TODO:
 
-bandeau de gauche:
+Global:
+	Rédaction CGU et politique de confidentialité
 
+Portfolio:
+	Delete les éléments du portfolio
+
+Profil:
+	ajout évènement (concert etc.)
+		type: public / perso (ou 2 documents ?)
+
+	retirer preview photo et bouton upload (ajout direct)
+
+Recherche:
+	evenements (comme des liens sponsorisés) avec code couleur flashy (concerts, street perf)
+	autoriser radius + grand
+
+News Feed
+	Autour de moi (A tours : Festival terre du son ce weekend)
+	Ce que font les "amis" (Jean pierre va jouer au connemara ce soir, Augustine va jouer dans la rue demain apres midi)
+
+Ajouter/supprimer amis
+
+Creer groupe (feature)
+	nom
+	membres (Users)
+
+Bandeau de gauche:
 	Menu contextuel
 	Actus + evenement à venir (dans la ville de l'utilisateur ou partout (si pas loggué))
 	Pub
 
-Ajout d'element dans le portfolio:
-	Ajout instruments (portfolioInstrument)
-	Ajout styles musicaux (array (liste style connus + champs autre))
-	Ajout influences (array libre)
-
-Ajout Evenement (concert etc.)
-
-Recherche géolocalisée multicritère
-	ville: ok
-	type d'instrument
-	style
-	evenements (comme des liens sponsorisés) avec code couleur flashy (concerts, street perf)
-	(pas de rayon)
-
-Ajouter/supprimer amis
-
-Creer groupe
-	nom
-	membres (Users)
-
-CGU
-Politique de confidentialité
-
-Catégories d'instrument (icones)
+Type d'instrument:
 	- Percussions
 	- Cuivres
 	- Cordes
@@ -38,3 +39,5 @@ Catégories d'instrument (icones)
 	- Bois
 	- Voix
 	- Electronique
+
+

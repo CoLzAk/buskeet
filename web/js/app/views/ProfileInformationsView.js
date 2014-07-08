@@ -54,7 +54,8 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         },
         events: {
             'click .save-button': 'save',
-            'click .cancel-button': 'cancel'
+            'click .cancel-button': 'cancel',
+            'change .birthdate-selector': 'setBirthdate'
         },
         save: function(e) {
             NProgress.start();
@@ -77,10 +78,44 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         },
         onDomRefresh: function() {
             var that = this;
-            $('.datepicker').datepicker({
-                dateFormat: 'dd/mm/yy'
-            });
+            var birthdate = moment(this.model.get('birthdate'), "YYYY-MM-DD\\THH:mm:ssZZ").format("DD/MM/YYYY").split('/');
+            $('#birthdate-day-selector').val(birthdate[0]);
+            $('#birthdate-month-selector').val(parseInt(birthdate[1]));
+            $('#birthdate-year-selector').val(birthdate[2]);
             that.initMap();
+        },
+        serializeData: function() {
+            return {
+                profile: this.model.toJSON(),
+                dayRange: this.getDays(),
+                monthRange: this.getMonths(),
+                yearRange: this.getYears()
+            };
+        },
+        setBirthdate: function(e) {
+            var birthdate,
+                daySelected = $('#birthdate-day-selector').val(),
+                monthSelected = $('#birthdate-month-selector').val(),
+                yearSelected = $('#birthdate-year-selector').val();
+
+            birthdate = daySelected + '/0' + monthSelected + '/' + yearSelected;
+            this.model.set('birthdate', moment(birthdate, "DD/MM/YYYY").format("YYYY-MM-DD\\THH:mm:ssZZ"));
+        },
+        getDays: function() {
+            return ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
+        },
+        getMonths: function() {
+            return {'1':'jan','2':'feb','3':'mar','4':'apr','5':'may','6':'jun','7':'jul','8':'aug','9':'sep','10':'oct','11':'nov','12':'dec'};
+        },
+        getYears: function() {
+            var years = [],
+                date = new Date(),
+                yearMin = date.getFullYear()-70,
+                yearMax = date.getFullYear()-16;
+            for (var i = yearMin; i <= yearMax; i++) {
+                years.push(i);
+            }
+            return years;
         },
         initMap: function() {
             var profile = this.model.toJSON(),
@@ -91,16 +126,23 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 autocomplete = new google.maps.places.Autocomplete(input),
                 place,
                 center,
-                that = this;
+                that = this,
+                completeAddress = '';
+
+            // fill the address if user has defined it
+            if ($('#clzk-profile-street-number').val() !== '') completeAddress += $('#clzk-profile-street-number').val() + ' ';
+            if ($('#clzk-profile-route').val() !== '') completeAddress += $('#clzk-profile-route').val().replace(/-/g, ' ') + ', ';
+            if ($('#clzk-profile-postal-code').val() !== '') completeAddress += $('#clzk-profile-postal-code').val() + ', ';
+            if ($('#clzk-profile-sublocality').val() !== '') completeAddress += $('#clzk-profile-sublocality').val().replace(/-/g, ' ') + ', ';
+            if ($('#clzk-profile-locality').val() !== '') completeAddress += $('#clzk-profile-locality').val().replace(/-/g, ' ') + ', ';
+            if ($('#clzk-profile-country').val() !== '') completeAddress += $('#clzk-profile-country').val();
+
+            if (completeAddress != '') {
+                $('#clzk-profile-address-input').val(completeAddress);
+            }
 
             //Show the map
-            // if (typeof profile.lat === 'undefined' || profile.lat === 0 && typeof profile.lon === 'undefined' || profile.lon === 0) {
-            //     mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center=47.00,2.00&zoom=5&size='+mapWidth+'x250&maptype=roadmap&markers=color:red|47.00,2.00&sensor=false&scale=1';
-            // } else {
-            //     mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center='+ profile.lat +','+ profile.lon +'&zoom=13&size='+mapWidth+'x250&maptype=roadmap&markers=color:red|'+ profile.lat +','+ profile.lon +'&sensor=false&scale=1';
-            // }
-
-            mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center='+ (typeof coordinates !== 'undefined' ? coordinates.y : 47.00) +','+ (typeof coordinates !== 'undefined' ? coordinates.x : 2.00) +'&zoom='+ (typeof coordinates !== 'undefined' ? 13 : 5) +'&size='+ mapWidth +'x250&maptype=roadmap&markers=color:red|'+ (typeof coordinates !== 'undefined' ? coordinates.y : 47.00) +','+ (typeof coordinates !== 'undefined' ? coordinates.x : 2.00) +'&sensor=false&scale=1';
+            mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center='+ (typeof coordinates !== 'undefined' ? coordinates.y : 47.00) +','+ (typeof coordinates !== 'undefined' ? coordinates.x : 2.00) +'&zoom='+ (typeof coordinates !== 'undefined' ? 14 : 5) +'&size='+ mapWidth +'x250&maptype=roadmap&markers=color:red|'+ (typeof coordinates !== 'undefined' ? coordinates.y : 47.00) +','+ (typeof coordinates !== 'undefined' ? coordinates.x : 2.00) +'&sensor=false&scale=1';
 
             $('#map').html('<img src="'+ mapUrl +'">');
 
@@ -149,7 +191,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                         $('#clzk-profile-lon').val(place.geometry.location.lng()).trigger('change');
                         $('#clzk-profile-lat').val(place.geometry.location.lat()).trigger('change');
 
-                        mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center='+ place.geometry.location.lat() +','+ place.geometry.location.lng() +'&zoom=13&size='+mapWidth+'x250&maptype=roadmap&markers=color:red|'+ place.geometry.location.lat() +','+ place.geometry.location.lng() +'&sensor=false';
+                        mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center='+ place.geometry.location.lat() +','+ place.geometry.location.lng() +'&zoom=14&size='+mapWidth+'x250&maptype=roadmap&markers=color:red|'+ place.geometry.location.lat() +','+ place.geometry.location.lng() +'&sensor=false';
 
                         $('#map').html('<img src="'+ mapUrl +'">');
                     }

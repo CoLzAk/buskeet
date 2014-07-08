@@ -1,3 +1,9 @@
+#clzk-profile-photos-region {
+    min-height: 240px;
+}
+#clzk-profile-informations-region {
+    min-height: 220px;
+}
 .clzk-profile-pictures-modify-bar {
     position: absolute;
     top: 0;
@@ -20,6 +26,9 @@
     top: 0;
     left: 0;
     background: url(/img/navy_blue.png) repeat #222;
+}
+.birthdate-container {
+    padding: 5px 0;
 }
 
 .clzk-portfolio-instruments-container {

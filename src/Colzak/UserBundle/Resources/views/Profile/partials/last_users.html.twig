@@ -18,7 +18,8 @@
                         {% for item in user.portfolio.portfolioInstruments %}
                             {% if loop.index <= 3 %}
                                 <div class="clzk-home-user-instruments">
-                                    <img src="{{ item.instrument.iconPath }}" class="img-responsive">
+                                    <img src="/img/instruments/{{ item.category }}.png" class="img-responsive">
+                                    <p class="text-center">{{ item.name }}</p>
                                 </div>
                             {% endif %}
                         {% endfor %}

@@ -34,7 +34,8 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         },
         closeCarousel: function(e) {
             e.preventDefault();
-            Backbone.history.navigate(UserModule.targetUserUsername, true);
+            $('#clzk-modal').modal('hide');
+            Backbone.history.navigate(UserModule.targetUserUsername, { trigger: false });
         },
         serializeData: function() {
             var photos = this.collection.toJSON(), activePhoto = _.findWhere(photos, {is_profile_picture: true});
@@ -56,7 +57,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
 
         events: {
             'click .profile-picture-button': 'setAsProfilePicture',
-            'click .delete-picture-button': 'deletePicture'
+            'click #delete-picture-button': 'deletePicture'
         },
 
         setAsProfilePicture: function(e) {
@@ -78,9 +79,14 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
 
         deletePicture: function(e) {
             e.preventDefault();
-            this.model.destroy();
+            var profile = UserModule.targetUserProfile.toJSON();
+            var photo = this.model;
+            this.model.destroy({
+                success: function(response, data) {
+                    UserModule.targetUserProfile.set('photos', data);
+                }
+            });
             this.render();
-            this.collectionView.render();
         },
         serializeData: function() {
             return {
@@ -145,8 +151,9 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                         path: data.result.path,
                         thumb_path: data.result.thumb_path
                     }, { userId: UserModule.userId });
-                    that.collection.push(photo.toJSON());
-                    that.render();
+                    that.collection.add(photo.toJSON());
+                    UserModule.targetUserProfile.get('photos').push(photo);
+                    return that.render();
                 }
             });
         },

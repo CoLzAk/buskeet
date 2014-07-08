@@ -27,65 +27,36 @@ class ProfileRepository extends DocumentRepository
             }
         }
 
-        // $portfolioQuery = $this->getDocumentManager()->createQueryBuilder('ColzakPortfolioBundle:Portfolio')->eagerCursor(true);
-
-        // $portfolioQuery->field('profile.firstname')->equals('Joel');
-
-        // if (array_key_exists('category', $searchParams)) {
-        //     $categories = explode(',', $searchParams['category']);
-        //     $portfolioQuery->field('portfolioInstruments.category')->in($categories);
-        // }
-
-        // // $cursor = $portfolioQuery->getQuery()->execute();
-        // $portfolios = $portfolioQuery->getQuery()->execute()->toArray(true);
-
-        // // foreach ($cursor as $portfolio) {
-        // //     $profiles[] = $portfolio->getProfile();
-        // // }
-
-
-
-
-        // \Doctrine\Common\Util\Debug::dump($portfolios);
-
 		//For instance I have to do geoNear(lat, lng) instead of geoNear(lng, lat) to have good distance calculation ? wtf ?
         // $portfolio = $this->getDocumentManager('ColzakPortfolioBundle:PortfolioInstrument');
         // $portfolio->createQueryBuilder()->eagerCursor(true);
         // $portfolio->field('level')->equals('PROFESSIONAL');
         // \Doctrine\Common\Util\Debug::dump($portfolio->getQuery()->execute());
 
+        $profile = array();
         $q = $this->createQueryBuilder()->eagerCursor(true);
         $q->field('coordinates')->geoNear((float)$parameters['lat'], (float)$parameters['lng'])->spherical(true)->distanceMultiplier(6378.137)->maxDistance((isset($parameters['radius']) ? $parameters['radius'] : 20)/6371);
         if (array_key_exists('gender', $searchParams)) {
         	$q->field('gender')->equals($parameters['gender']);
 		}
         if (array_key_exists('age', $searchParams)) {
-        	$q->field('birthdate')->lte($parameters['date1']);
-        	$q->field('birthdate')->gte($parameters['date2']);
+            $dates = $this->getAgeGroup($searchParams['age']);
+        	$q->field('birthdate')->lte($dates['d1']);
+        	$q->field('birthdate')->gte($dates['d2']);
         }
 
-        $profiles = $q->getQuery()->execute()->toArray(false);
-
-        // if (array_key_exists('category', $searchParams)) {
-        //     $categories = explode(',', $searchParams['category']);
-        //     $profiles = $this->applyFilters($cursor, $items);
-        // }
-
-        
-
-        return $profiles;
-    }
-
-    private function applyFilters($cursor, $items) {
-        foreach ($cursor as $profile) {
+        if (array_key_exists('category', $searchParams)) {
+            $categories = explode(',', $searchParams['category']);
+            $q->field('portfolio.portfolioInstruments.category')->in($categories);
         }
-        // $i = 0;
-        // while ($i <= 25) {
-        //     foreach ($variable as $key => $value) {
-        //         # code...
-        //     }
-        //     $i++;
-        // }
+
+        if (array_key_exists('experience', $searchParams)) {
+            $q->field('portfolio.portfolioInstruments.level')->equals(strtoupper($searchParams['experience']));
+        }
+
+        $q->limit(20);
+
+        return $q->getQuery()->execute()->toArray(false);;
     }
 
     private function getAgeGroup($group) {

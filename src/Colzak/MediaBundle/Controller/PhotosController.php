@@ -9,6 +9,7 @@ use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Route;
+use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\UserBundle\Model\UserInterface;
 use Colzak\MediaBundle\Document\Photo;
 use Colzak\MediaBundle\Form\Type\PhotoFormType;
@@ -48,7 +49,7 @@ class PhotosController extends BaseController {
 
         $photo->setProfile($user->getProfile());
 
-        $photo->setIsProfilePicture(false);
+        (count($user->getProfile()->getPhotos()) === 0 ? $photo->setIsProfilePicture(true) : $photo->setIsProfilePicture(false));
 
         if ($request->files->get('photos') !== NULL) $photo->setFile($request->files->get('photos'));
 
@@ -57,11 +58,27 @@ class PhotosController extends BaseController {
             $dm->flush();
 
             $data = $photo;
-
         } else {
-            die;
+            die($photoForm->getErrorsAsString());
         }
 
         return $this->handleView($this->view($data, 200));
     } // "post_users_files"   [POST] /users/{id}/files
+
+    /**
+     * POST Route annotation.
+     * @Delete("/users/{userId}/photos/{photoId}")
+     */
+    public function deleteUserPhotosAction($userId, $photoId) {
+        $dm = $this->container->get('doctrine_mongodb')->getManager();
+        $user = $dm->getRepository('ColzakUserBundle:User')->find($userId);
+        $photos = $user->getProfile()->getPhotos();
+        $photo = $dm->getRepository('ColzakMediaBundle:Photo')->find($photoId);
+
+        $dm->remove($photo);
+        $dm->flush();
+
+        return $this->handleView($this->view($photos, 200));
+        // $user = $dm->getRepository('ColzakUserBundle:User')->find($userId);
+    }
 }

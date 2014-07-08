@@ -12,7 +12,6 @@
 	background: none repeat scroll 0 0 #6aaca2;
     border-radius: 0 !important;
     font-size: 18px;
-    font-style: italic;
     height: 35px;
     margin-bottom: 10px;
     padding: 5px;
@@ -24,26 +23,44 @@
     width: 100%;
     padding: 5px;
     background: #333;
+    position: relative;
 }
 .clzk-search-profile-container:hover {
 	background: #444;
-	position: relative;
 	cursor: pointer;
 	/*border-left: 3px #2980b9 solid;*/
 }
 .clzk-search-profile-container:hover .view-profile-btn-container {
 	display: block;
 }
+.clzk-search-photo-container {
+	float: left;
+	margin-right: 20px;
+}
+.clzk-search-photo-container img {
+	width: 220px;
+	height: auto;
+	overflow: hidden;
+}
+@media (max-width: 360px) {
+	.clzk-search-photo-container img { width: 280px; }
+}
 .view-profile-btn-container {
 	position: absolute;
 	right: 10px;
-	top: 30%;
+	top: 35%;
 	font-size: 40px;
 	display: none;
 }
-
+.distance-container {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	font-size: 15px;
+	font-weight: bold;
+}
 .clzk-search-user-instruments {
-    max-width: 70px;
+    max-width: 55px;
     float: left;
     margin-right: 2px;
 }

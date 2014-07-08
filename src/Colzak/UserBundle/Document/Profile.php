@@ -5,6 +5,7 @@ namespace Colzak\UserBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as SERIAL;
+use Colzak\PortfolioBundle\Document\Portfolio;
 
 /**
  * @MongoDB\Document(repositoryClass="Colzak\UserBundle\Repository\ProfileRepository")
@@ -114,7 +115,7 @@ class Profile
     protected $coordinates;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Colzak\PortfolioBundle\Document\Portfolio", mappedBy="profile")
+     * @MongoDB\EmbedOne(targetDocument="Colzak\PortfolioBundle\Document\Portfolio")
      * @SERIAL\Type("Colzak\PortfolioBundle\Document\Portfolio")
      */
     protected $portfolio;
@@ -148,6 +149,7 @@ class Profile
 
     public function __construct()
     {
+        $this->portfolio = new Portfolio();
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->events = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -156,7 +158,6 @@ class Profile
      * @MongoDB\PrePersist()
      */
     public function prePersist() {
-        $this->username = $this->getUser()->getUsername();
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
     }

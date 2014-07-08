@@ -12,26 +12,10 @@ use JMS\Serializer\Annotation as SERIAL;
 class Influence
 {
     /**
-     * @MongoDB\Id(strategy="auto")
-     * @SERIAL\Type("string")
-     */
-    protected $id;
-
-    /**
      * @MongoDB\String
      * @SERIAL\Type("string")
      */
     protected $name;
-
-    /**
-     * Get id
-     *
-     * @return id $id
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set name

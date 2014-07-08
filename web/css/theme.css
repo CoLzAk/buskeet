@@ -49,14 +49,14 @@ COLORS:
     background: #16a085;
 }
 .bg-belize-hole {
-    background: #2980b9;
+    background-color: #2980b9 !important;
 }
 .bg-nephritis {
     background: #27ae60;
 }
 
 .bg-blue {
-    background: #00c0ef;
+    background-color: #00c0ef !important;
 }
 .bg-blue-pastel {
     background: #0073b7;
@@ -105,6 +105,14 @@ COLORS:
     border-color: #2c3e50 !important;
 }
 
+.text-carrot {
+    color: #e67e22;
+}
+
+.text-cyan {
+    color: #6aaca2;
+}
+
 /* PANEL */
 .panel {
     border-radius: 0;
@@ -130,13 +138,12 @@ COLORS:
 
 /* PROGRESS */
 .progress {
-    border: 3px solid #444444;
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 2px solid #444;
     border-radius: 0;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
-    height: 20px;
+    height: 10px;
     margin-bottom: 0;
     overflow: hidden;
-    background: none;
 }
 
 /* MODAL */
@@ -176,11 +183,11 @@ COLORS:
     background: none !important;
 }
 .list-group-item:hover {
-    background: #e67e22;
+    background: #555 !important;
 }
 
 .list-group-item.active {
-    background: #d35400;
+    background: #555 !important;
 }
 
 /* THUMBNAIL */
@@ -200,8 +207,8 @@ input {
     border-radius: 0 !important;
 }
 select {
-    background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50px' height='50px'><polyline points='46.139,15.518 25.166,36.49 4.193,15.519'/></svg>");
-    background-color:#3498DB;
+    background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50px' height='50px'><polyline points='46.139,15.518 25.166,36.49 4.193,15.519' style='fill:white;stroke:white;'/></svg>");
+    background-color:#222;
     background-repeat:no-repeat;
     background-position: right 10px top 15px;
     background-size: 16px 16px;
@@ -218,17 +225,18 @@ select {
     -moz-appearance: window;
     border:0;
     outline:0;
-    -webkit-transition:0.3s ease all;
-    -moz-transition:0.3s ease all;
-    -ms-transition:0.3s ease all;
-    -o-transition:0.3s ease all;
-    transition:0.3s ease all;
     width: 100%;
+    border-bottom: 1px #555 solid;
+    border-radius: 0;
+}
+
+.clzk-moz-select:hover, select:hover {
+    border-color: #CCC;
 }
 
 .clzk-moz-select {
-    background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50px' height='50px'><polyline points='46.139,15.518 25.166,36.49 4.193,15.519'/></svg>");
-    background-color:#3498DB;
+    background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50px' height='50px'><polyline points='46.139,15.518 25.166,36.49 4.193,15.519' style='fill:white;stroke:white;'/></svg>");
+    background-color:#222;
     background-repeat:no-repeat;
     background-position: right 10px top 15px;
     background-size: 16px 16px;
@@ -243,7 +251,6 @@ select {
     border-radius:0;
     text-indent: 0.01px;
     text-overflow: '';
-    -webkit-appearance: none;
     border:0;
     outline:0;
     -webkit-transition:0.3s ease all;
@@ -252,6 +259,11 @@ select {
     -o-transition:0.3s ease all;
     transition:0.3s ease all;
     width: 100%;
+    border-bottom: 1px #555 solid;
+    border-radius: 0;
+}
+.clzk-blue-select {
+    background-color: #3498db !important;
 }
 
 .clzk-form-control, .clzk-input-group-addon {
@@ -313,7 +325,7 @@ select {
 
 /* on checked */
 [type="checkbox"]:checked + label:before {
-  background:#6aaca2; 
+  background:#3498db; 
   border: none;
 }
 [type="checkbox"]:checked + label:after {

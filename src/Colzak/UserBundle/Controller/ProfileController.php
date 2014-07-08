@@ -12,18 +12,21 @@ use Colzak\EventBundle\Document\Event;
 
 class ProfileController extends Controller
 {
-    public function indexAction($username)
+    public function indexAction($username, $slug1, $slug2)
     {
+        if ('' !== $slug1) {
+            return new RedirectResponse($this->container->get('router')->generate('colzak_user_homepage', array('username' => $username)));
+        }
         $dm = $this->get('doctrine_mongodb')->getManager();
         $user = $dm->getRepository('ColzakUserBundle:User')->findOneByUsername($username);
 
         //First time only
-        if (null === $user->getProfile()->getPortfolio()) {
-            $portfolio = new Portfolio();
-            $portfolio->setProfile($user->getProfile());
-            $dm->persist($portfolio);
-            $dm->flush();
-        }
+        // if (null === $user->getProfile()->getPortfolio()) {
+        //     $portfolio = new Portfolio();
+        //     $portfolio->setProfile($user->getProfile());
+        //     $dm->persist($portfolio);
+        //     $dm->flush();
+        // }
 
         $profilePicture = $user->getProfile()->getPhotos()[0];
 

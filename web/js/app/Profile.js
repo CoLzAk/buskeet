@@ -31,8 +31,9 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
             modalContentRegion: "#clzk-modal-content-region"
         },
         onDomRefresh: function() {
-            $('#clzk-modal').on('hide.bs.modal', function(e) {
-                Backbone.history.navigate(UserModule.targetUserUsername, true);
+            $('#clzk-modal').on('hidden.bs.modal', function(e) {
+                // $('#clzk-modal').modal('hide');
+                Backbone.history.navigate(UserModule.targetUserUsername, { trigger: false });
             });
         }
     });
@@ -75,7 +76,7 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
         UserModule.profileMenuLayout.actionsRegion.show(new ProfileMenuView({ model: UserModule.targetUserProfile }));
         UserModule.profileLayout.profilePhotosRegion.show(new ProfilePhotosView({ collection: UserModule.targetUserPhotos }));
         UserModule.profileLayout.profileInformationsRegion.show(new ProfileInformationsView({ model: UserModule.targetUserProfile }));
-        UserModule.profileLayout.profilePortfolioRegion.show(new ProfilePortfolioView({ model: UserModule.targetUserProfilePortfolio }));
+        UserModule.profileLayout.profilePortfolioRegion.show(new ProfilePortfolioView({ model: UserModule.targetUserProfile }));
         UserModule.profileLayout.profileEventsRegion.show(new ProfileEventsView({ collection: UserModule.targetUserEvents }));
             // App.menuRegion.show(UserModule.profileMenuLayout);
             // App.mainRegion.show(UserModule.profileLayout);
@@ -97,7 +98,7 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
             UserModule.profileEditLayout.profileEditRegion.show(new ProfilePhotosFormView({ collection: UserModule.targetUserPhotos }));
         }
         if (formName == 'portfolio') {
-            UserModule.profileEditLayout.profileEditRegion.show(new ProfilePortfolioFormView({ model: UserModule.targetUserProfilePortfolio }));
+            UserModule.profileEditLayout.profileEditRegion.show(new ProfilePortfolioFormView({ model: UserModule.targetUserProfile }));
         }
         if (formName == 'events') {
             UserModule.profileEditLayout.profileEditRegion.show(new ProfileEventsFormView({ collection: UserModule.targetUserEvents }));

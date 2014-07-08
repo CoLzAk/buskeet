@@ -98,8 +98,20 @@ $(document).ready(function() {
         }
     });
 
+    $("#clzk-search-input").bind("keypress", function(event) {
+        if(event.which == 13) {
+            event.preventDefault();
+            // alert('tesjklmfdjs');
+            submitSearchForm();
+        }
+    });
+
     $('.clzk-search-form-submit-btn').on('click', function(e) {
         e.preventDefault();
+        submitSearchForm();
+    });
+
+    function submitSearchForm() {
         var localization = ''
 
         if (addressNumber.val() !== '') localization += addressNumber.val() + '-';
@@ -114,5 +126,5 @@ $(document).ready(function() {
         }
 
         window.location.href = Routing.generate('colzak_search_result', { localization: localization });
-    });
+    }
 });

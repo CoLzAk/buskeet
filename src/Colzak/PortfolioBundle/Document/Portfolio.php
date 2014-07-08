@@ -7,24 +7,10 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as SERIAL;
 
 /**
- * @MongoDB\Document
- * @SERIAL\ExclusionPolicy("none")
- * @MongoDB\HasLifecycleCallbacks
+ * @MongoDB\EmbeddedDocument
  */
 class Portfolio
 {
-    /**
-     * @MongoDB\Id(strategy="auto")
-     * @SERIAL\Type("string")
-     */
-    protected $id;
-
-    /**
-     * @MongoDB\ReferenceOne(targetDocument="Colzak\UserBundle\Document\Profile", inversedBy="portfolio")
-     * @SERIAL\Type("Colzak\UserBundle\Document\Profile")
-     */
-    protected $profile;
-
     /**
      * @MongoDB\EmbedMany(targetDocument="Colzak\PortfolioBundle\Document\PortfolioInstrument")
      * @SERIAL\Type("ArrayCollection<Colzak\PortfolioBundle\Document\PortfolioInstrument>")
@@ -49,16 +35,6 @@ class Portfolio
         $this->portfolioInstruments = new \Doctrine\Common\Collections\ArrayCollection();
         $this->musicStyles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->influences = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Get id
-     *
-     * @return id $id
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -111,28 +87,6 @@ class Portfolio
     public function getPortfolioInstruments()
     {
         return $this->portfolioInstruments;
-    }
-
-    /**
-     * Set profile
-     *
-     * @param Colzak\UserBundle\Document\Profile $profile
-     * @return self
-     */
-    public function setProfile(\Colzak\UserBundle\Document\Profile $profile)
-    {
-        $this->profile = $profile;
-        return $this;
-    }
-
-    /**
-     * Get profile
-     *
-     * @return Colzak\UserBundle\Document\Profile $profile
-     */
-    public function getProfile()
-    {
-        return $this->profile;
     }
 
     /**

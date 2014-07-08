@@ -1,8 +1,8 @@
 <script type="text/template" id="clzk-profile-photos-template">
     <div class="clzk-profile-photos-container">
-        <% if (typeof profile_picture !== 'undefined') { %>
+        <% if (typeof profile_picture !== 'undefined' && typeof profile_picture.id !== 'undefined') { %>
             <a data-toggle="modal" id="image-modal" href="#">
-                <img src="<%= profile_picture.path %>" alt="..." class="img-responsive clzk-profile-picture">
+                <img src="<%= profile_picture.path %>" class="img-responsive clzk-profile-picture">
             </a>
         <% } else { %>
             <img src="/img/user_256.png" alt="..." class="img-responsive clzk-profile-picture">
@@ -43,7 +43,7 @@
                     <a href="#" class="btn btn-block btn-default">Photo de profil</a>
                 </div>
                 <div class="col-md-4">
-                    <a href="#" class="btn btn-block btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                    <a href="#" class="btn btn-block btn-danger" id="delete-picture-button"><span class="glyphicon glyphicon-trash"></span></a>
                 </div>
             </div>
         </div>

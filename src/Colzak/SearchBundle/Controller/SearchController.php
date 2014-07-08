@@ -57,6 +57,7 @@ class SearchController extends BaseController
         (!$request->get('age') ?: $searchParams['age'] = $request->get('age'));
         (!$request->get('gender') ?: $searchParams['gender'] = $request->get('gender'));
         (!$request->get('category') ?: $searchParams['category'] = $request->get('category'));
+        (!$request->get('experience') ?: $searchParams['experience'] = $request->get('experience'));
         return $searchParams;
     }
 }

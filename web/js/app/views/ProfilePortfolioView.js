@@ -7,7 +7,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         },
         serializeData: function() {
             return {
-                portfolio: this.model.toJSON()
+                profile: this.model.toJSON()
             };
         }
     });
@@ -44,7 +44,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 if ($('#clzk-portfolio-portfolio-instruments').val() == '') {
                     return;
                 }
-                items = this.model.get('portfolio_instruments');
+                items = this.model.get('portfolio').portfolio_instruments;
 
                 // console.log(this.instrumentsList);
                 var instrument = _.findWhere(this.instrumentsList, { id: $('#clzk-portfolio-portfolio-instruments').val() });
@@ -97,9 +97,10 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         },
         serializeData: function() {
             return {
-                portfolio_instruments: this.model.get('portfolio_instruments'),
-                music_styles: this.model.get('music_styles'),
-                influences: this.model.get('influences')
+                profile: this.model.toJSON()
+                // portfolio_instruments: this.model.get('portfolio_instruments'),
+                // music_styles: this.model.get('music_styles'),
+                // influences: this.model.get('influences')
             };
         }
     });

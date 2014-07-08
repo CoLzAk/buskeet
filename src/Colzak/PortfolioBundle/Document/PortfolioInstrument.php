@@ -16,12 +16,6 @@ class PortfolioInstrument
     const LEVEL_PROFESSIONAL = 'PROFESSIONAL';
 
     /**
-     * @MongoDB\Id(strategy="auto")
-     * @SERIAL\Type("string")
-     */
-    protected $id;
-
-    /**
      * @MongoDB\String
      * @SERIAL\Type("string")
      */
@@ -46,16 +40,6 @@ class PortfolioInstrument
             self::LEVEL_AMATEUR => 'Amateur',
             self::LEVEL_PROFESSIONAL => 'Professionnel'
         );
-    }
-
-    /**
-     * Get id
-     *
-     * @return id $id
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

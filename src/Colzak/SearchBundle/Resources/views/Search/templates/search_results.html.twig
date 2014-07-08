@@ -1,33 +1,37 @@
 <script type="text/template" id="clzk-search-result-template">
     <div class="clzk-search-profile-container">
-        <div class="clzk-search-profile-content-upper">
-            <div class="row">
-                <div class="col-md-4">
-                    <img src="<%= profile_picture_path %>" class="img-responsive">
-                </div>
-                <div class="col-md-8">
-                    <h2 class="mt1"><%= profile.firstname %>&nbsp;<%= profile.lastname %></h2>
-                    <p><%= profile.locality %></p>
-                    <% for (var i in profile.portfolio.portfolio_instruments) { %>
-                        <% if (i < 3) { %>
-                            <div class="clzk-search-user-instruments">
-                                <img src="/img/instruments/<%= profile.portfolio.portfolio_instruments[i].category %>.png" class="img-responsive">
-                            </div>
-                        <% } %>
-                    <% } %>
-                </div>
-                <div class="view-profile-btn-container">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                </div>
-            </div>
+        <div class="clzk-search-photo-container">
+            <% if (typeof profile_picture_path !== 'undefined') { %>
+                <img src="<%= profile_picture_path %>" class="img-responsive">
+            <% } else { %>
+                <img src="/img/user_256.png" alt="..." class="img-responsive clzk-profile-picture">
+            <% } %>
+        </div>
+        <div class="pull-left">
+            <h2 class="mt1"><%= profile.firstname %>&nbsp;<%= profile.lastname %></h2>
+            <p><%= moment(profile.birthdate).fromNow(true) %>, <%= profile.locality %></p>
+            <% for (var i in profile.portfolio.portfolio_instruments) { %>
+                <% if (i < 3) { %>
+                    <div class="clzk-search-user-instruments">
+                        <img src="/img/instruments/<%= profile.portfolio.portfolio_instruments[i].category %>.png" class="img-responsive">
+                        <p class="text-center mb0"><%= profile.portfolio.portfolio_instruments[i].name %></p>
+                    </div>
+                <% } %>
+            <% } %>
+        </div>
+        <div class="distance-container">
+            <p><%= Math.round(profile.distance * 10) / 10 %> km</p>
+        </div>
+        <div class="view-profile-btn-container">
+            <span class="glyphicon glyphicon-chevron-right"></span>
         </div>
         <div class="clearfix"></div>
     </div>
-    <hr class="mt1 mb1">
+    <!-- <hr class="mt1 mb1"> -->
 </script>
 
 <script type="text/template" id="clzk-search-result-empty-template">
-    <p class="text-center"><i>Aucun résultat.</i></p>
+    <p class="text-center">Veuillez élargir votre recherche</p>
 </script>
 
 <script type="text/template" id="clzk-search-results-template">

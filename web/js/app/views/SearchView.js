@@ -71,10 +71,6 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
                     }
                 }
             });
-            // $('#filter-radius').on('slide', function(e, val) {
-            //     $('#filter-radius-value').html(val);
-            // });
-
             for (var i in categories) {
                 $('#' + categories[i] + '-category').prop('checked', true);
             }
@@ -104,23 +100,36 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             var markers = '';
             var mapWidth = $('#map').width();
             var mapUrl = '';
+            var zoom = 11;
 
-            for (var i in profiles.models) {
-                if (typeof profiles.models[i].coordinates.y !== 'undefined' || profiles.models[i].coordinates.y !== null && typeof profiles.models[i].coordinates.x !== 'undefined' || profiles.models[i].coordinates.x !== null) {
-                    markers += '&markers=color:red|' + profiles.models[i].coordinates.y + ',' + profiles.models[i].coordinates.x;
+            if (typeof this.model.get('params').radius !== 'undefined') {
+                if (this.model.get('params').radius < 8) zoom = 12;
+                if (this.model.get('params').radius < 5) zoom = 13;
+                if (this.model.get('params').radius <= 1) zoom = 14;
+            }
+
+            for (var i in profiles) {
+                if (typeof profiles[i].coordinates.y !== 'undefined' || profiles[i].coordinates.y !== null && typeof profiles[i].coordinates.x !== 'undefined' || profiles[i].coordinates.x !== null) {
+                    markers += '&markers=color:red|' + profiles[i].coordinates.y + ',' + profiles[i].coordinates.x;
                 }
             }
-            mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center='+ this.model.queryUrl.searchParams['lat'] +','+ this.model.queryUrl.searchParams['lng'] +'&zoom=12&size='+mapWidth+'x180&maptype=roadmap&sensor=false' + markers;
+            mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center='+ this.model.queryUrl.searchParams['lat'] +','+ this.model.queryUrl.searchParams['lng'] +'&zoom='+ zoom +'&size='+mapWidth+'x180&maptype=roadmap&sensor=false' + markers;
             $('#map').html('<img src="'+ mapUrl +'">');
-        },
-        initialize: function(model) {
-            // this.queryUrl = model.queryUrl;
-            // console.log(this.model);
 
-            // this.currentSearchCoordinates = {
-            //     lat: SearchModule.queryUrl.filters['lat'],
-            //     lng: SearchModule.queryUrl.filters['lng']
-            // };
+            //Dynamic map
+
+            // var map = new google.maps.Map(document.getElementById('map'));
+            // //  Make an array of the LatLng's of the markers you want to show
+            // var LatLngList = new Array(new google.maps.LatLng (52.537,-2.061), new google.maps.LatLng (52.564,-2.017));
+            // //  Create a new viewpoint bound
+            // var bounds = new google.maps.LatLngBounds();
+            // //  Go through each...
+            // for (var i = 0, LtLgLen = LatLngList.length; i < LtLgLen; i++) {
+            //   //  And increase the bounds to take this point
+            //   bounds.extend(LatLngList[i]);
+            // }
+            // //  Fit these bounds to the map
+            // map.fitBounds(bounds);
         },
         onRender: function() {
             this.stickit();
@@ -134,7 +143,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             var profile_picture = _.findWhere(this.model.get('photos'), { is_profile_picture: true });
 
             return {
-                profile_picture_path: profile_picture.thumb_path,
+                profile_picture_path: (typeof profile_picture !== 'undefined' ? profile_picture.thumb_path : undefined),
                 profile: this.model.toJSON()
             };
         },

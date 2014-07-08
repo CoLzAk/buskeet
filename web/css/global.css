@@ -3,6 +3,7 @@ html, body {
     margin: 0;
     color: #F7F7F7;
     background: url(/img/navy_blue.png) repeat #222;
+    font-size: 15px;
 }
 
 .pac-container {
@@ -29,6 +30,9 @@ html, body {
 }
 .mt2 {
     margin-top: 20px;
+}
+.mt3 {
+    margin-top: 30px;
 }
 .mt6 {
     margin-top: 60px;
