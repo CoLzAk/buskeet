@@ -9,6 +9,7 @@ use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Route;
+use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,7 +57,7 @@ class EventsController extends BaseController {
     } // "post_users_files"   [POST] /users/{id}/files
 
     /**
-     * POST Route annotation.
+     * PUT Route annotation.
      * @Put("/users/{userId}/events/{id}")
      */
     public function putUserEventsAction($userId, $id) {
@@ -71,11 +72,25 @@ class EventsController extends BaseController {
 
         $updatedEvent->setProfile($user->getProfile());
         $event = $dm->merge($updatedEvent);
-        // $dm->persist($event);
         $dm->flush();
 
         $data = $event;
 
         return $this->handleView($this->view($data, 200));
+    }
+
+    /**
+     * DELETE Route annotation.
+     * @Delete("/users/{userId}/events/{id}")
+     */
+    public function deleteUserEventsAction($userId, $id) {
+        $dm = $this->container->get('doctrine_mongodb')->getManager();
+        $user = $dm->getRepository('ColzakUserBundle:User')->find($userId);
+        $event = $dm->getRepository('ColzakEventBundle:Event')->find($id);
+
+        $dm->remove($event);
+        $dm->flush();
+
+        return $this->handleView($this->view($user->getProfile()->getEvents(), 200));
     }
 }

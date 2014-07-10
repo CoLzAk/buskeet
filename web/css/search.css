@@ -64,3 +64,27 @@
     float: left;
     margin-right: 2px;
 }
+.clzk-search-switch-container {
+	height: 40px;
+	width: 100%;
+}
+.switch {
+	padding: 7px;
+	width: 50%;
+	float: left;
+	border: 1px #555 solid;
+	background-image: -webkit-linear-gradient(top, #fff 0%, #e0e0e0 100%);
+	background-image:         linear-gradient(to bottom, #fff 0%, #e0e0e0 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe0e0e0', GradientType=0);
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+	background-repeat: repeat-x;
+	color: #333;
+	cursor: pointer;
+}
+.active {
+	background: #3498db;
+	color: #FFF;
+	font-weight: bold;
+	cursor: default;
+	opacity: 0.8;
+}

@@ -33,6 +33,11 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             //     });
 
             // return map;
+        },
+        serializeData: function() {
+            return {
+                profile: this.model.toJSON()
+            };
         }
     });
 
@@ -42,7 +47,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             '#clzk-profile-birthdate': 'birthdate',
             '#clzk-profile-street-number': 'street_number',
             '#clzk-profile-route': 'route',
-            '#clzk-profile-locality': 'locality',
+            '#clzk-profile-city': 'locality',
             '#clzk-profile-sublocality': 'sublocality',
             '#clzk-profile-administrative-area-level-1': 'administrative_area_level_1',
             '#clzk-profile-administrative-area-level-2': 'administrative_area_level_2',
@@ -53,17 +58,17 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             '#clzk-profile-description': 'description'
         },
         events: {
-            'click .save-button': 'save',
             'click .cancel-button': 'cancel',
-            'change .birthdate-selector': 'setBirthdate'
+            'change .birthdate-selector': 'setBirthdate',
+            'change #clzk-profile-description': 'save'
         },
-        save: function(e) {
+        save: function() {
             NProgress.start();
-            e.preventDefault();
+            var that = this;
             this.model.save({}, {
                 success: function(model, response) {
-                    UserModule.closeFormView();
-                    Backbone.history.navigate(UserModule.targetUserUsername, { trigger: true });
+                    that.render();
+                    NProgress.done();
                 }
             });
         },
@@ -78,7 +83,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         },
         onDomRefresh: function() {
             var that = this;
-            var birthdate = moment(this.model.get('birthdate'), "YYYY-MM-DD\\THH:mm:ssZZ").format("DD/MM/YYYY").split('/');
+            var birthdate = moment(this.model.get('birthdate'), "YYYY-MM-DD").format("DD/MM/YYYY").split('/');
             $('#birthdate-day-selector').val(birthdate[0]);
             $('#birthdate-month-selector').val(parseInt(birthdate[1]));
             $('#birthdate-year-selector').val(birthdate[2]);
@@ -99,7 +104,8 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 yearSelected = $('#birthdate-year-selector').val();
 
             birthdate = daySelected + '/0' + monthSelected + '/' + yearSelected;
-            this.model.set('birthdate', moment(birthdate, "DD/MM/YYYY").format("YYYY-MM-DD\\THH:mm:ssZZ"));
+            this.model.set('birthdate', moment(birthdate, "DD/MM/YYYY").format("YYYY-MM-DD"));
+            this.save();
         },
         getDays: function() {
             return ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
@@ -131,10 +137,10 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
 
             // fill the address if user has defined it
             if ($('#clzk-profile-street-number').val() !== '') completeAddress += $('#clzk-profile-street-number').val() + ' ';
-            if ($('#clzk-profile-route').val() !== '') completeAddress += $('#clzk-profile-route').val().replace(/-/g, ' ') + ', ';
+            if ($('#clzk-profile-route').val() !== '') completeAddress += $('#clzk-profile-route').val() + ', ';
             if ($('#clzk-profile-postal-code').val() !== '') completeAddress += $('#clzk-profile-postal-code').val() + ', ';
-            if ($('#clzk-profile-sublocality').val() !== '') completeAddress += $('#clzk-profile-sublocality').val().replace(/-/g, ' ') + ', ';
-            if ($('#clzk-profile-locality').val() !== '') completeAddress += $('#clzk-profile-locality').val().replace(/-/g, ' ') + ', ';
+            if ($('#clzk-profile-sublocality').val() !== '') completeAddress += $('#clzk-profile-sublocality').val() + ', ';
+            if ($('#clzk-profile-city').val() !== '') completeAddress += $('#clzk-profile-city').val() + ', ';
             if ($('#clzk-profile-country').val() !== '') completeAddress += $('#clzk-profile-country').val();
 
             if (completeAddress != '') {
@@ -148,10 +154,27 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
 
             //Bind the input with autocomplete function
             google.maps.event.addListener(autocomplete, 'place_changed', function() {
+                NProgress.start();
+                $('#clzk-profile-street-number').val('').trigger('change');
+                $('#clzk-profile-route').val('').trigger('change');
+                $('#clzk-profile-city').val('').trigger('change');
+                $('#clzk-profile-sublocality').val('').trigger('change');
+                $('#clzk-profile-postal-code').val('').trigger('change');
+                $('#clzk-profile-administrative-area-level-1').val('').trigger('change');
+                $('#clzk-profile-administrative-area-level-2').val('').trigger('change');
+                $('#clzk-profile-country').val('').trigger('change');
+                $('#clzk-profile-lat').val('').trigger('change');
+                $('#clzk-profile-lon').val('').trigger('change');
+                // $('#profile-coordinates-addressCoordinates_latitude').val('').trigger('change');
+                // $('#profile-coordinates-addressAccuracy').val('').trigger('change');
+                // infowindow.close();
+                // marker.setVisible(false);
+
                 place = autocomplete.getPlace();
                 if (!place.geometry) {
                     // Inform the user that the place was not found and return.
                     console.log('place not found');
+                    NProgress.done();
                     return;
                 } else {
                     if (place.address_components) {
@@ -170,7 +193,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                                 $('#clzk-profile-route').val(place.address_components[i].long_name).trigger('change');
                             }
                             if (place.address_components[i].types.indexOf("locality") > -1) {
-                                $('#clzk-profile-locality').val(place.address_components[i].long_name).trigger('change');
+                                $('#clzk-profile-city').val(place.address_components[i].long_name).trigger('change');
                             }
                             if (place.address_components[i].types.indexOf("administrative_area_level_2") > -1) {
                                 $('#clzk-profile-administrative-area-level-2').val(place.address_components[i].long_name).trigger('change');
@@ -194,9 +217,16 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                         mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center='+ place.geometry.location.lat() +','+ place.geometry.location.lng() +'&zoom=14&size='+mapWidth+'x250&maptype=roadmap&markers=color:red|'+ place.geometry.location.lat() +','+ place.geometry.location.lng() +'&sensor=false';
 
                         $('#map').html('<img src="'+ mapUrl +'">');
+
+                        // console.log(that.model);
+                        that.model.save({}, {
+                            success: function() {
+                                NProgress.done();
+                            }
+                        });
                     }
                 }
             });
-        },
+        }
     });
 });

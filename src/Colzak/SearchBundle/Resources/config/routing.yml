@@ -1,5 +1,5 @@
 colzak_search_result:
-    pattern:  /s/{localization}
+    pattern:  /s/{localization}/{direction}
     defaults: { _controller: ColzakSearchBundle:Search:index, localization: 'FR' }
     methods: GET
     options:

@@ -1,7 +1,7 @@
 <?php
-// src/Colzak/GeoBundle/Document/Coordinate.php
+// src/Colzak/EventBundle/Document/Coordinate.php
 
-namespace Colzak\GeoBundle\Document;
+namespace Colzak\EventBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as SERIAL;

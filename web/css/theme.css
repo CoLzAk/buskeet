@@ -65,7 +65,7 @@ COLORS:
     background: #39cccc;
 }
 .bg-cyan-pastel {
-    background: #6aaca2;
+    background-color: #6aaca2 !important;
 }
 .bg-green {
     background: #5CB85C;
@@ -77,7 +77,7 @@ COLORS:
     background: #f39c12;
 }
 .bg-yellow-pastel {
-    background: #dfcca4;
+    background-color: #dfcca4 !important;
 }
 .bg-red {
     background: #f56954;
@@ -93,6 +93,8 @@ COLORS:
 }
 .bg-dark {
     background: #222;
+    border-radius: 5px;
+    position: relative;
 }
 
 .border-green-sea {
@@ -210,10 +212,10 @@ select {
     background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50px' height='50px'><polyline points='46.139,15.518 25.166,36.49 4.193,15.519' style='fill:white;stroke:white;'/></svg>");
     background-color:#222;
     background-repeat:no-repeat;
-    background-position: right 10px top 15px;
+    background-position: right 10px top 10px;
     background-size: 16px 16px;
     color:white;
-    padding:12px;
+    padding:7px;
     width:auto;
     font-family:arial,tahoma;
     font-size:16px;
@@ -238,12 +240,13 @@ select {
     background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50px' height='50px'><polyline points='46.139,15.518 25.166,36.49 4.193,15.519' style='fill:white;stroke:white;'/></svg>");
     background-color:#222;
     background-repeat:no-repeat;
-    background-position: right 10px top 15px;
+    background-position: right 10px top 10px;
     background-size: 16px 16px;
     color:white;
     width:auto;
     font-family:arial,tahoma;
     font-size:16px;
+    /*padding:7px;*/
     font-weight:bold;
     color:#fff;
     text-align:center;
@@ -264,6 +267,8 @@ select {
 }
 .clzk-blue-select {
     background-color: #3498db !important;
+    border-bottom: none;
+    padding: 5px;
 }
 
 .clzk-form-control, .clzk-input-group-addon {

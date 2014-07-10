@@ -7,6 +7,8 @@ colzak_user_homepage:
 colzak_user_homepage:
     pattern: /profile/{username}/{slug1}/{slug2}
     defaults: { _controller: ColzakUserBundle:Profile:index, username: 'me', slug1: '', slug2: '' }
+    options:
+        expose: true
 
 colzak_user_test_portfolio:
     pattern: /test

@@ -66,7 +66,7 @@ class PhotosController extends BaseController {
     } // "post_users_files"   [POST] /users/{id}/files
 
     /**
-     * POST Route annotation.
+     * DELETE Route annotation.
      * @Delete("/users/{userId}/photos/{photoId}")
      */
     public function deleteUserPhotosAction($userId, $photoId) {
@@ -77,6 +77,38 @@ class PhotosController extends BaseController {
 
         $dm->remove($photo);
         $dm->flush();
+
+        return $this->handleView($this->view($photos, 200));
+        // $user = $dm->getRepository('ColzakUserBundle:User')->find($userId);
+    }
+
+    /**
+     * PUT Route annotation.
+     * @Put("/users/{userId}/photos/{photoId}")
+     */
+    public function putUserPhotosAction($userId, $photoId) {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $user = $dm->getRepository('ColzakUserBundle:User')->find($userId);
+        $targetPhoto = $dm->getRepository('ColzakMediaBundle:Photo')->find($photoId);
+
+        $photos = $user->getProfile()->getPhotos();
+
+        foreach ($photos as $photo) {
+            $photo->setIsProfilePicture(false);
+        }
+
+        $request = $this->getRequest();
+
+        if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
+            $request = $this->getRequest();
+            $serializer = $this->get('jms_serializer');
+            $updatedPhoto = $serializer->deserialize($request->getContent(), 'Colzak\MediaBundle\Document\Photo', 'json');
+        }
+
+        $updatedPhoto->setProfile($user->getProfile());
+        $targetPhoto = $dm->merge($updatedPhoto);
+        $dm->flush();
+        $data = $updatedPhoto;
 
         return $this->handleView($this->view($photos, 200));
         // $user = $dm->getRepository('ColzakUserBundle:User')->find($userId);

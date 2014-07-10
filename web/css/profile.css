@@ -34,20 +34,114 @@
 .clzk-portfolio-instruments-container {
 	margin: 20px auto;
 }
-.clzk-edit-header {
-    height: 60px !important;
-    padding-top: 10px;
-    position: fixed;
-    top: 50px;
-    width: 82%;
-    z-index: 10;
-    background: url(/img/navy_blue.png) repeat #222
+.add-portfolio-item-button {
+    font-size: 24px;
+    color: #FFF;
 }
-.clzk-edit-header hr {
-	background: none repeat scroll 0 0 #555555;
-    border: medium none;
-    height: 1px;
+
+.add-portfolio-item-button:hover {
+    color: #8aa876;
 }
-.clzk-edit-header h1 {
+.clzk-portfolio-item-line {
+    height: 60px;
+}
+.clzk-portfolio-item-line img {
+    max-height: 60px;
+}
+.clzk-portfolio-item-line .clzk-center {
+    line-height: 45px;
+}
+
+.delete-portfolio-item-button, .delete-event-button {
+    font-size: 24px;
+    color: #FFF;
+}
+.delete-portfolio-item-button:hover, .delete-event-button:hover {
+    color: #e74c3c;
+}
+.delete-event-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 2;
+}
+.clzk-breadcrumb {
+    height: 60px;
+    font-size: 30px;
     color: #DDD;
+    background: none !important;
+}
+.clzk-breadcrumb > li + li:before {
+    content: " > ";
+}
+.clzk-breadcrumb a {
+    color: #FFF !important;
+}
+.add-photos-button, .show-add-event-form-button {
+    font-size: 20px;
+    color: #FFF;
+}
+.add-photos-button:hover, .show-add-event-form-button:hover {
+    color: #8aa876;
+    text-decoration: none;
+}
+.add-event-button {
+    color: #FFF;
+    margin-left: 20px;
+}
+.add-event-button:hover {
+    color: #8aa876;
+    text-decoration: none;
+}
+.cancel-event-button {
+    color: #FFF;
+}
+.cancel-event-button:hover {
+    color: #e74c3c;
+    text-decoration: none;
+}
+.event-container {
+    padding: 5px;
+}
+.event-title-container {
+    border-bottom: 1px #444 solid;
+    /*margin-bottom: 2px;*/
+}
+.calendar-container {
+    margin-top: 5px;
+    width: 100%;
+    border-radius: 3px;
+    background: #F7F7F7;
+    color: #333;
+    margin-bottom: 2px;
+}
+.calendar-month-container {
+    background: #be413b;
+    color: #FFF;
+    border-radius: 3px 3px 0 0;
+    font-weight: bold;
+}
+.calendar-day-container {
+    font-size: 25px;
+    font-weight: bold;
+}
+.calendar-year-container {
+    font-size: 12px;
+    font-weight: bold;
+}
+.time-container {
+    width: 100%;
+    border-radius: 3px;
+    background: #F7F7F7;
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.event-place-container {
+    margin-top: 5px;
+    border-top: 1px #444 solid;
+}
+.event-description-container {
+    text-align: justify;
 }

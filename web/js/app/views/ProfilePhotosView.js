@@ -57,33 +57,32 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
 
         events: {
             'click .profile-picture-button': 'setAsProfilePicture',
-            'click #delete-picture-button': 'deletePicture'
+            'click .delete-picture-button': 'deletePicture'
         },
 
         setAsProfilePicture: function(e) {
+            NProgress.start();
             e.preventDefault();
             var that = this;
-            for (var i in this.model.collection.models) {
-                if (this.model.collection.models[i].get('profile_picture') === true) {
-                    this.model.collection.models[i].set('profile_picture', false);
-                }
-            }
-            this.model.set('profile_picture', true);
+            this.model.set('is_profile_picture', true);
             this.model.save({}, {
-                success: function(response, model) {
+                success: function(response, data) {
                     $('.profile-picture-button').removeClass('disabled');
-                    $(e.currentTarget).addClass('disabled');
+                    UserModule.targetUserProfile.set('photos', data);
+                    NGProgress.done();
                 }
             });
         },
 
         deletePicture: function(e) {
+            NProgress.start();
             e.preventDefault();
             var profile = UserModule.targetUserProfile.toJSON();
             var photo = this.model;
             this.model.destroy({
                 success: function(response, data) {
                     UserModule.targetUserProfile.set('photos', data);
+                    NGProgress.done();
                 }
             });
             this.render();
@@ -92,6 +91,9 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             return {
                 photo: this.model.toJSON()
             };
+        },
+        initialize: function(options) {
+            this.collectionView = options.collectionView;
         }
     });
 
@@ -135,13 +137,13 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
 
             $('#fileUpload').fileupload({
                 dataType: 'json',
-                autoUpload: false,
+                autoUpload: true,
                 url: that.collection.url(),
                 add: function(e, data) {
-                    that.previewImage(data.files[0]);
-                    $('.upload-photos-button').on('click', function(e) {
+                    // that.previewImage(data.files[0]);
+                    // $('.upload-photos-button').on('click', function(e) {
                         data.submit();
-                    });
+                    // });
                 },
                 done: function(e, data) {
                     var photo = new Photo({
@@ -151,7 +153,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                         path: data.result.path,
                         thumb_path: data.result.thumb_path
                     }, { userId: UserModule.userId });
-                    that.collection.add(photo.toJSON());
+                    that.collection.add(photo);
                     UserModule.targetUserProfile.get('photos').push(photo);
                     return that.render();
                 }

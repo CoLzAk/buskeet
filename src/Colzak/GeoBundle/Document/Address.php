@@ -4,185 +4,132 @@
 namespace Colzak\GeoBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use JMS\Serializer\Annotation as SERIAL;
 
 /**
- * @MongoDB\Document
+ * @MongoDB\EmbeddedDocument
+ * @SERIAL\ExclusionPolicy("none")
  */
 class Address
 {
     /**
-     * @MongoDB\Id(strategy="auto")
+     * @MongoDB\String
+     * @SERIAL\Type("string")
      */
-    protected $id;
+    protected $streetNumber;
 
     /**
      * @MongoDB\String
+     * @SERIAL\Type("string")
      */
-    protected $number;
+    protected $route;
 
     /**
      * @MongoDB\String
+     * @SERIAL\Type("string")
      */
-    protected $street;
+    protected $locality;
 
     /**
      * @MongoDB\String
-     */
-    protected $complement;
-
-    /**
-     * @MongoDB\String
-     */
-    protected $zipcode;
-
-    /**
-     * @MongoDB\String
-     */
-    protected $city;
-
-    /**
-     * @MongoDB\String
+     * @SERIAL\Type("string")
      */
     protected $sublocality;
 
     /**
      * @MongoDB\String
+     * @SERIAL\Type("string")
      */
-    protected $department;
+    protected $postalCode;
 
     /**
      * @MongoDB\String
+     * @SERIAL\Type("string")
      */
-    protected $region;
+    protected $administrativeAreaLevel2;
 
     /**
      * @MongoDB\String
+     * @SERIAL\Type("string")
+     */
+    protected $administrativeAreaLevel1;
+
+    /**
+     * @MongoDB\String
+     * @SERIAL\Type("string")
      */
     protected $country;
 
     /**
-     * @MongoDB\EmbedOne(targetDocument="Coordinate")
+     * @MongoDB\EmbedOne(targetDocument="Colzak\GeoBundle\Document\Coordinate")
+     * @SERIAL\Type("Colzak\GeoBundle\Document\Coordinate")
      */
-    protected $coordinate;
+    protected $coordinates;
 
     /**
-     * Get id
+     * Set streetNumber
      *
-     * @return id $id
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set number
-     *
-     * @param string $number
+     * @param string $streetNumber
      * @return self
      */
-    public function setNumber($number)
+    public function setStreetNumber($streetNumber)
     {
-        $this->number = $number;
+        $this->streetNumber = $streetNumber;
         return $this;
     }
 
     /**
-     * Get number
+     * Get streetNumber
      *
-     * @return string $number
+     * @return string $streetNumber
      */
-    public function getNumber()
+    public function getStreetNumber()
     {
-        return $this->number;
+        return $this->streetNumber;
     }
 
     /**
-     * Set street
+     * Set route
      *
-     * @param string $street
+     * @param string $route
      * @return self
      */
-    public function setStreet($street)
+    public function setRoute($route)
     {
-        $this->street = $street;
+        $this->route = $route;
         return $this;
     }
 
     /**
-     * Get street
+     * Get route
      *
-     * @return string $street
+     * @return string $route
      */
-    public function getStreet()
+    public function getRoute()
     {
-        return $this->street;
+        return $this->route;
     }
 
     /**
-     * Set complement
+     * Set locality
      *
-     * @param string $complement
+     * @param string $locality
      * @return self
      */
-    public function setComplement($complement)
+    public function setLocality($locality)
     {
-        $this->complement = $complement;
+        $this->locality = $locality;
         return $this;
     }
 
     /**
-     * Get complement
+     * Get locality
      *
-     * @return string $complement
+     * @return string $locality
      */
-    public function getComplement()
+    public function getLocality()
     {
-        return $this->complement;
-    }
-
-    /**
-     * Set zipcode
-     *
-     * @param string $zipcode
-     * @return self
-     */
-    public function setZipcode($zipcode)
-    {
-        $this->zipcode = $zipcode;
-        return $this;
-    }
-
-    /**
-     * Get zipcode
-     *
-     * @return string $zipcode
-     */
-    public function getZipcode()
-    {
-        return $this->zipcode;
-    }
-
-    /**
-     * Set city
-     *
-     * @param string $city
-     * @return self
-     */
-    public function setCity($city)
-    {
-        $this->city = $city;
-        return $this;
-    }
-
-    /**
-     * Get city
-     *
-     * @return string $city
-     */
-    public function getCity()
-    {
-        return $this->city;
+        return $this->locality;
     }
 
     /**
@@ -208,47 +155,69 @@ class Address
     }
 
     /**
-     * Set department
+     * Set postalCode
      *
-     * @param string $department
+     * @param string $postalCode
      * @return self
      */
-    public function setDepartment($department)
+    public function setPostalCode($postalCode)
     {
-        $this->department = $department;
+        $this->postalCode = $postalCode;
         return $this;
     }
 
     /**
-     * Get department
+     * Get postalCode
      *
-     * @return string $department
+     * @return string $postalCode
      */
-    public function getDepartment()
+    public function getPostalCode()
     {
-        return $this->department;
+        return $this->postalCode;
     }
 
     /**
-     * Set region
+     * Set administrativeAreaLevel2
      *
-     * @param string $region
+     * @param string $administrativeAreaLevel2
      * @return self
      */
-    public function setRegion($region)
+    public function setAdministrativeAreaLevel2($administrativeAreaLevel2)
     {
-        $this->region = $region;
+        $this->administrativeAreaLevel2 = $administrativeAreaLevel2;
         return $this;
     }
 
     /**
-     * Get region
+     * Get administrativeAreaLevel2
      *
-     * @return string $region
+     * @return string $administrativeAreaLevel2
      */
-    public function getRegion()
+    public function getAdministrativeAreaLevel2()
     {
-        return $this->region;
+        return $this->administrativeAreaLevel2;
+    }
+
+    /**
+     * Set administrativeAreaLevel1
+     *
+     * @param string $administrativeAreaLevel1
+     * @return self
+     */
+    public function setAdministrativeAreaLevel1($administrativeAreaLevel1)
+    {
+        $this->administrativeAreaLevel1 = $administrativeAreaLevel1;
+        return $this;
+    }
+
+    /**
+     * Get administrativeAreaLevel1
+     *
+     * @return string $administrativeAreaLevel1
+     */
+    public function getAdministrativeAreaLevel1()
+    {
+        return $this->administrativeAreaLevel1;
     }
 
     /**
@@ -274,24 +243,24 @@ class Address
     }
 
     /**
-     * Set coordinate
+     * Set coordinates
      *
-     * @param Colzak\GeoBundle\Document\Coordinate $coordinate
+     * @param Colzak\GeoBundle\Document\Coordinate $coordinates
      * @return self
      */
-    public function setCoordinate(\Colzak\GeoBundle\Document\Coordinate $coordinate)
+    public function setCoordinates(\Colzak\GeoBundle\Document\Coordinate $coordinates)
     {
-        $this->coordinate = $coordinate;
+        $this->coordinates = $coordinates;
         return $this;
     }
 
     /**
-     * Get coordinate
+     * Get coordinates
      *
-     * @return Colzak\GeoBundle\Document\Coordinate $coordinate
+     * @return Colzak\GeoBundle\Document\Coordinate $coordinates
      */
-    public function getCoordinate()
+    public function getCoordinates()
     {
-        return $this->coordinate;
+        return $this->coordinates;
     }
 }

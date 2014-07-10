@@ -16,16 +16,19 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         template: '#clzk-profile-portfolio-form-template',
         events: {
             'click .add-portfolio-item-button': 'addPortfolioItem',
-            'click .save-button': 'save',
+            'click .delete-portfolio-item-button': 'deletePortfolioItem',
+            // 'click .save-button': 'save',
             'click .cancel-button': 'cancel'
         },
-        save: function(e) {
+        save: function() {
+            var that = this;
             NProgress.start();
-            e.preventDefault();
             this.model.save({}, {
                 success: function(model, response) {
-                    UserModule.closeFormView();
-                    Backbone.history.navigate(UserModule.targetUserUsername, { trigger: true });
+                    that.render();
+                    NProgress.done();
+                    // UserModule.closeFormView();
+                    // Backbone.history.navigate(UserModule.targetUserUsername, { trigger: true });
                 }
             });
         },
@@ -38,7 +41,8 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         addPortfolioItem: function(e) {
             e.preventDefault();
             var itemType = $(e.currentTarget).data('item'),
-                items;
+                items
+                that = this;
 
             if (itemType == 'portfolio-instrument') {
                 if ($('#clzk-portfolio-portfolio-instruments').val() == '') {
@@ -46,9 +50,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 }
                 items = this.model.get('portfolio').portfolio_instruments;
 
-                // console.log(this.instrumentsList);
-                var instrument = _.findWhere(this.instrumentsList, { id: $('#clzk-portfolio-portfolio-instruments').val() });
-                // console.log(instrument);
+                var instrument = _.findWhere(UserModule.instrumentsList, { id: $('#clzk-portfolio-portfolio-instruments').val() });
                 items.push({
                     level: $('#clzk-portfolio-portfolio-instruments-level').val(),
                     name: instrument.name,
@@ -58,7 +60,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             }
 
             if (itemType == 'music-style') {
-                items = this.model.get('music_styles');
+                items = this.model.get('portfolio').music_styles;
                 items.push({
                     name: $('#clzk-portfolio-music-style').val()
                 });
@@ -66,31 +68,59 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             }
 
             if (itemType == 'influence') {
-                items = this.model.get('influences');
+                items = this.model.get('portfolio').influences;
                 items.push({
                     name: $('#clzk-portfolio-influence').val()
                 });
                 this.model.set('influences', items);
             }
-            // console.log(this.model);
-            this.render();
+
+            this.save();
+        },
+        deletePortfolioItem: function(e) {
+            e.preventDefault();
+
+            var item = $(e.currentTarget).data('item'),
+                itemIndex = $(e.currentTarget).data('index'),
+                that = this;
+            
+            if (item == 'portfolio-instrument') {
+                console.log(this.model.get('portfolio').portfolio_instruments);
+                delete this.model.get('portfolio').portfolio_instruments[itemIndex];
+            }
+
+            if (item == 'music-style') {
+                delete this.model.get('portfolio').music_styles[itemIndex];
+            }
+
+            if (item == 'influence') {
+                delete this.model.get('portfolio').influence[itemIndex];
+            }
+
+            this.save();
         },
         onDomRefresh: function() {
-            console.log(this.model);
             var that = this;
-            $.ajax({
-                type: 'GET',
-                url: Routing.generate('instruments_get_all_instruments'),
-                success: function(data) {
-                    that.instrumentsList = data;
-                    $.each(data, function(i, el) {
-                        $('#clzk-portfolio-portfolio-instruments').append('<option value="'+ el.id +'">'+ el.name +'</option>');
-                    });
 
-                    $("#clzk-portfolio-portfolio-instruments").select2();
-                }
+            if (typeof UserModule.instrumentsList !== 'undefined') {
+                this.loadInstrumentList(UserModule.instrumentsList);
+            } else {
+                $.ajax({
+                    type: 'GET',
+                    url: Routing.generate('instruments_get_all_instruments'),
+                    success: function(data) {
+                        UserModule.instrumentsList = data;
+                        that.loadInstrumentList(data);
+                    }
+                });
+            }
+        },
+        loadInstrumentList: function(data) {
+            $.each(data, function(i, el) {
+                $('#clzk-portfolio-portfolio-instruments').append('<option value="'+ el.id +'">'+ el.name +'</option>');
             });
-            
+
+            $("#clzk-portfolio-portfolio-instruments").select2();
         },
         onRender: function() {
             this.stickit();
@@ -98,9 +128,6 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         serializeData: function() {
             return {
                 profile: this.model.toJSON()
-                // portfolio_instruments: this.model.get('portfolio_instruments'),
-                // music_styles: this.model.get('music_styles'),
-                // influences: this.model.get('influences')
             };
         }
     });

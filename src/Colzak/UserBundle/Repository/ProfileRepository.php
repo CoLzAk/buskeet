@@ -34,7 +34,7 @@ class ProfileRepository extends DocumentRepository
         // \Doctrine\Common\Util\Debug::dump($portfolio->getQuery()->execute());
 
         $profile = array();
-        $q = $this->createQueryBuilder()->eagerCursor(true);
+        $q = $this->createQueryBuilder();
         $q->field('coordinates')->geoNear((float)$parameters['lat'], (float)$parameters['lng'])->spherical(true)->distanceMultiplier(6378.137)->maxDistance((isset($parameters['radius']) ? $parameters['radius'] : 20)/6371);
         if (array_key_exists('gender', $searchParams)) {
         	$q->field('gender')->equals($parameters['gender']);

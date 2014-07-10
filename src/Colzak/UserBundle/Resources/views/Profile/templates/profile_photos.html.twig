@@ -40,10 +40,10 @@
         <div class="caption">
             <div class="row">
                 <div class="col-md-8">
-                    <a href="#" class="btn btn-block btn-default">Photo de profil</a>
+                    <a href="#" class="profile-picture-button btn btn-block btn-default<% if (photo.is_profile_picture) { %> disabled <% } %>">Photo de profil</a>
                 </div>
                 <div class="col-md-4">
-                    <a href="#" class="btn btn-block btn-danger" id="delete-picture-button"><span class="glyphicon glyphicon-trash"></span></a>
+                    <a href="#" class="btn btn-block btn-danger delete-picture-button"><span class="glyphicon glyphicon-trash"></span></a>
                 </div>
             </div>
         </div>
@@ -51,23 +51,14 @@
 </script>
 
 <script type="text/template" id="clzk-profile-photos-form-template">
-    <div class="row clzk-edit-header">
-        <div class="col-md-6">
-            <h1 class="text-left mt0 mb1">Mes photos</h1>
-        </div>
-        <div class="col-md-6">
-            <div class="btn-group pull-right">
-                <a class="btn btn-default cancel-button" href="#">Retour</a>
-                <a class="btn btn-primary add-photos-button" href="#"><span class="glyphicon glyphicon-plus"></span>&nbsp;Ajouter des photos</a>
-                <a class="btn btn-primary upload-photos-button disabled" href="#"><span class="glyphicon glyphicon-upload"></span>&nbsp;Envoyer vers le serveur</a>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-        <hr class="mt0">
-    </div>
-
-    <div class="mt6"></div>
+    <ul class="breadcrumb clzk-breadcrumb mb0">
+        <li><a href="#" class="cancel-button">Mon profil</a></li>
+        <li>Mes photos</li>
+    </ul>
     
+    <div class="mt3 mb2">
+        <a class="add-photos-button" href="#"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Ajouter des photos</a>
+    </div>
     <div class="clzk-file-input btn-block hidden">
         <input id="fileUpload" name="photos" type="file" multiple>
     </div>
