@@ -3,7 +3,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         initialize: function(model, options) {
             this.queryUrl = options.queryUrl;
             var i = 0;
-            this.baseUrl = Routing.generate('search_get_search', { localization: this.queryUrl.localization });
+            this.baseUrl = Routing.generate('search_get_search', { localization: this.queryUrl.localization, direction: this.queryUrl.direction });
             for (var param in this.queryUrl.searchParams) {
                 if (i === 0) this.baseUrl += '?';
                 this.baseUrl += param + '=' + this.queryUrl.searchParams[param] + '&';
@@ -14,6 +14,20 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
 
         url: function(){
             return this.baseUrl;
+        }
+    });
+
+    SearchEvent = Backbone.Model.extend({
+        urlRoot: function(){
+            return Routing.generate('events_get_events');
+        }
+    });
+
+    SearchEvents = Backbone.Collection.extend({
+        model: SearchEvent,
+
+        url: function(){
+            return Routing.generate('events_get_events');
         }
     });
 });

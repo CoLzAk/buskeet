@@ -297,8 +297,8 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                                 $('#clzk-new-event-sublocality').val(place.address_components[i].long_name);
                             }
                         }
-                        $('#clzk-new-event-lat').val(place.geometry.location.lng());
-                        $('#clzk-new-event-lon').val(place.geometry.location.lat());
+                        $('#clzk-new-event-lon').val(place.geometry.location.lng());
+                        $('#clzk-new-event-lat').val(place.geometry.location.lat());
 
                         mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center='+ place.geometry.location.lat() +','+ place.geometry.location.lng() +'&zoom=14&size='+mapWidth+'x150&maptype=roadmap&markers=color:red|'+ place.geometry.location.lat() +','+ place.geometry.location.lng() +'&sensor=false';
 

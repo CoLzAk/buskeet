@@ -1,0 +1,43 @@
+{% extends 'ColzakUserBundle::layout.html.twig' %}
+
+{#% block extra_stylesheets %}
+    {% stylesheets
+        "css/search.css"
+        "css/jquery.nouislider.css"
+        filter="cssrewrite"
+    %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
+{% endblock %#}
+
+{% block body %}
+    {{ event.id }}
+{% endblock %}
+
+{% block extra_javascripts %}
+    {#% javascripts
+        "js/jquery/ui-widgets/jquery.ui.datepicker.min.js"
+        "js/jquery/jquery.nouislider.min.js"
+        "js/vendor/underscore-1.4.4.min.js"
+        "js/vendor/backbone-1.0.0.min.js"
+        "js/vendor/backbone-deepmodel-min.js"
+        "js/vendor/backbone.marionette-1.0.1.min.js"
+        "js/vendor/backbone.stickit.min.js"
+        "js/vendor/backbone-memento.min.js"
+        "js/vendor/moment-2.0.0.min.js"
+        "js/vendor/moment.lang.fr.min.js"
+        "js/app/App.js"
+        "js/app/Search.js"
+        "js/app/models/Search.js"
+        "js/app/models/Profile.js"
+        "js/app/views/SearchView.js"
+    %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %#}
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+        
+    });
+    </script>
+{% endblock %}

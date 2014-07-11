@@ -1,6 +1,7 @@
 .clzk-search-menu-region-container {
 	background: #222;
 	border-right: 1px solid #555;
+	min-height: 100%;
 }
 
 .clzk-search-menu-map {
@@ -17,7 +18,7 @@
     padding: 5px;
 }
 
-.clzk-search-profile-container {
+.clzk-search-profile-container, .event-container {
     /*border-bottom: 1px #ddd solid;*/
     margin-bottom: 5px;
     width: 100%;
@@ -25,12 +26,12 @@
     background: #333;
     position: relative;
 }
-.clzk-search-profile-container:hover {
+.clzk-search-profile-container:hover, .event-container:hover {
 	background: #444;
 	cursor: pointer;
 	/*border-left: 3px #2980b9 solid;*/
 }
-.clzk-search-profile-container:hover .view-profile-btn-container {
+.clzk-search-profile-container:hover .view-btn-container, .event-container:hover .view-btn-container {
 	display: block;
 }
 .clzk-search-photo-container {
@@ -45,7 +46,7 @@
 @media (max-width: 360px) {
 	.clzk-search-photo-container img { width: 280px; }
 }
-.view-profile-btn-container {
+.view-btn-container {
 	position: absolute;
 	right: 10px;
 	top: 35%;
@@ -64,27 +65,22 @@
     float: left;
     margin-right: 2px;
 }
-.clzk-search-switch-container {
-	height: 40px;
+.search-switch-container {
 	width: 100%;
 }
-.switch {
-	padding: 7px;
+.search-switch {
 	width: 50%;
-	float: left;
-	border: 1px #555 solid;
-	background-image: -webkit-linear-gradient(top, #fff 0%, #e0e0e0 100%);
-	background-image:         linear-gradient(to bottom, #fff 0%, #e0e0e0 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe0e0e0', GradientType=0);
-	filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-	background-repeat: repeat-x;
-	color: #333;
-	cursor: pointer;
 }
-.active {
-	background: #3498db;
-	color: #FFF;
-	font-weight: bold;
-	cursor: default;
-	opacity: 0.8;
+.clzk-preview-container {
+	display: none;
+}
+.preview-map-container {
+	width: 500px;
+}
+.rendering {
+	background: #444;
+	cursor: default !important;
+}
+.rendering .view-btn-container {
+	display: block;
 }

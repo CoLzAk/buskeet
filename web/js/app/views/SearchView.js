@@ -18,7 +18,24 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             '#filter-experience': 'params.experience'
         },
         events: {
-            'change .search-filter': 'updateResults'
+            'change .search-filter': 'updateResults',
+            'click .search-switch': 'changeDirection'
+        },
+        changeDirection: function(e) {
+            e.preventDefault();
+            var direction = $(e.currentTarget).data('direction'),
+                params = this.model.queryUrl.searchParams,
+                paramsToRemove = ['gender', 'age', 'category', 'experience'];
+
+            this.model.queryUrl.direction = direction;
+            this.model.queryUrl.searchParams['page'] = 1;
+
+            for (var param in params) {
+                if (paramsToRemove.indexOf(param) > -1) {
+                    delete params[param];
+                }
+            }
+            Backbone.history.navigate(this.objectToUrl(this.model.queryUrl), { trigger: true });
         },
         updateResults: function(e) {
             var value = $(e.currentTarget).val();
@@ -36,7 +53,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             Backbone.history.navigate(this.objectToUrl(this.model.queryUrl), { trigger: true });
         },
         objectToUrl: function(queryUrl) {
-            var url = queryUrl.localization;
+            var url = queryUrl.localization + '/' + queryUrl.direction;
             var i = 0;
             for (var param in queryUrl.searchParams) {
                 if (param != 'lat' && param != 'lng' && param != 'page') {
@@ -50,6 +67,18 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         },
         onDomRefresh: function() {
             var categories = (typeof this.model.get('params').category !== 'undefined' ? this.model.get('params').category.split(',') : []);
+
+            if (this.model.queryUrl.direction == 'profiles') {
+                $('.profile-filter').show();
+                $('#events-direction').removeClass('btn-primary disabled').addClass('btn-default');
+                $('#profiles-direction').addClass('btn-primary disabled');
+            }
+
+            if (this.model.queryUrl.direction == 'events') {
+                $('.profile-filter').hide();
+                $('#profiles-direction').removeClass('btn-primary disabled').addClass('btn-default');
+                $('#events-direction').addClass('btn-primary disabled');
+            }
 
             this.initMap();
             $('#filter-radius').noUiSlider({
@@ -169,6 +198,85 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             return {
                 results: this.collection.toJSON()
             };
+        }
+    });
+
+    SearchEventView = Backbone.Marionette.ItemView.extend({
+        template: '#clzk-search-event-template',
+        tagName: 'div',
+        className: 'bg-dark mb1',
+        serializeData: function() {
+            var completeAddress = '';
+            if (this.model.get('street_number') !== '') completeAddress += this.model.get('street_number') + ' ';
+            if (this.model.get('route') !== '') completeAddress += this.model.get('route') + ', ';
+            // if (this.model.get('postal_code') !== '') completeAddress += this.model.get('postal_code') + ', ';
+            if (this.model.get('sublocality') !== '') completeAddress += this.model.get('sublocality') + ', ';
+            if (this.model.get('locality') !== '') completeAddress += this.model.get('locality') + ', ';
+            if (this.model.get('country') !== '') completeAddress += this.model.get('country');
+            return {
+                userEvent: this.model.toJSON(),
+                completeAddress: completeAddress
+            };
+        },
+        onDomRefresh: function() {
+            var that = this;
+            $('#event-'+this.model.get('id')).on('click', function(e) {
+                e.preventDefault();
+                $('.event-container').addClass('hidden');
+                $(e.currentTarget).removeClass('hidden').addClass('rendering');
+
+                Backbone.history.navigate(SearchModule.queryUrl.localization+'/'+SearchModule.queryUrl.direction+'/preview/'+that.model.get('id'), { trigger: true });
+                // SearchModule.displayPreview('events', that.model.get('id'));
+                // window.location.href = Routing.generate('colzak_event', { eventId: that.model.get('id') });
+            });
+        }
+    });
+
+    SearchEventEmptyView = Backbone.Marionette.ItemView.extend({
+        template: '#clzk-search-event-empty-template'
+    });
+
+    SearchEventsView = Backbone.Marionette.CompositeView.extend({
+        template: '#clzk-search-events-template',
+        itemView: SearchEventView,
+        emptyView: SearchEventEmptyView,
+        itemViewContainer: '#clzk-search-event-container',
+        serializeData: function() {
+            return {
+                results: this.collection.toJSON()
+            };
+        }
+    });
+
+    SearchEventPreviewView = Backbone.Marionette.ItemView.extend({
+        template: '#clzk-search-event-preview-template',
+        onDomRefresh: function() {
+            this.initMap();
+            // window.addEventListener('popstate', function(event) {
+            //     event.preventDefault();
+            //     console.log('atchoum');
+            // });
+        },
+        serializeData: function() {
+            var completeAddress = '';
+            if (this.model.get('street_number') !== '') completeAddress += this.model.get('street_number') + ' ';
+            if (this.model.get('route') !== '') completeAddress += this.model.get('route') + ', ';
+            // if (this.model.get('postal_code') !== '') completeAddress += this.model.get('postal_code') + ', ';
+            if (this.model.get('sublocality') !== '') completeAddress += this.model.get('sublocality') + ', ';
+            if (this.model.get('locality') !== '') completeAddress += this.model.get('locality') + ', ';
+            if (this.model.get('country') !== '') completeAddress += this.model.get('country');
+            return {
+                userEvent: this.model.toJSON(),
+                completeAddress: completeAddress
+            };
+        },
+        initMap: function() {
+            var mapWidth = $('.preview-map-container').width();
+            var mapUrl = '';
+            var zoom = 14;
+
+            mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center='+ this.model.get('coordinates').y +','+ this.model.get('coordinates').x +'&zoom='+ zoom +'&size='+ mapWidth +'x180&maptype=roadmap&sensor=false&markers=color:red|' + this.model.get('coordinates').y + ',' + this.model.get('coordinates').x;
+            $('#event-preview-map').html('<img src="'+ mapUrl +'">');
         }
     });
 });

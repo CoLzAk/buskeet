@@ -1,3 +1,5 @@
-# colzak_event_homepage:
-#     pattern:  /hello/{name}
-#     defaults: { _controller: ColzakEventBundle:Default:index }
+colzak_event:
+    pattern:  /event/{eventId}
+    defaults: { _controller: ColzakEventBundle:Events:view }
+    options:
+        expose: true

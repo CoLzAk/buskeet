@@ -7,9 +7,10 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as SERIAL;
 
 /**
- * @MongoDB\Document
+ * @MongoDB\Document(repositoryClass="Colzak\EventBundle\Repository\EventRepository")
  * @SERIAL\ExclusionPolicy("none")
  * @MongoDB\HasLifecycleCallbacks
+ * @MongoDB\Index(keys={"coordinates"="2d"})
  */
 class Event
 {
@@ -102,6 +103,15 @@ class Event
      * @SERIAL\Type("Colzak\UserBundle\Document\Coordinate")
      */
     protected $coordinates;
+
+    /**
+     * @MongoDB\ReferenceMany(targetDocument="Colzak\UserBundle\Document\Profile")
+     * @SERIAL\Type("ArrayCollection<Colzak\UserBundle\Document\Profile>")
+     */
+    protected $participants = array();
+
+    /** @MongoDB\Distance */
+    public $distance;
 
     public function __construct() {
     }
@@ -422,5 +432,57 @@ class Event
     public function getTime()
     {
         return $this->time;
+    }
+
+    /**
+     * Set distance
+     *
+     * @param string $distance
+     * @return self
+     */
+    public function setDistance($distance)
+    {
+        $this->distance = $distance;
+        return $this;
+    }
+
+    /**
+     * Get distance
+     *
+     * @return string $distance
+     */
+    public function getDistance()
+    {
+        return $this->distance;
+    }
+
+    /**
+     * Add participant
+     *
+     * @param Colzak\UserBundle\Document\Profile $participant
+     */
+    public function addParticipant(\Colzak\UserBundle\Document\Profile $participant)
+    {
+        $this->participants[] = $participant;
+    }
+
+    /**
+     * Remove participant
+     *
+     * @param Colzak\UserBundle\Document\Profile $participant
+     */
+    public function removeParticipant(\Colzak\UserBundle\Document\Profile $participant)
+    {
+        $this->participants->removeElement($participant);
+    }
+
+    /**
+     * Get participants
+     *
+     * @return Doctrine\Common\Collections\Collection $participants
+     */
+    public function getParticipants()
+    {
+        return $this->participants;
     }
 }

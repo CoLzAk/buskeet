@@ -125,6 +125,6 @@ $(document).ready(function() {
             localization = $('#clzk-search-input').val().replace(/,/g, '-').replace(/ /g, '-');
         }
 
-        window.location.href = Routing.generate('colzak_search_result', { localization: localization });
+        window.location.href = Routing.generate('colzak_search_result', { localization: localization, direction: 'profiles' });
     }
 });

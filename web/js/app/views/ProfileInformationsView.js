@@ -211,6 +211,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                                 $('#clzk-profile-sublocality').val(place.address_components[i].long_name).trigger('change');
                             }
                         }
+                        console.log(place.geometry.location.lat());
                         $('#clzk-profile-lon').val(place.geometry.location.lng()).trigger('change');
                         $('#clzk-profile-lat').val(place.geometry.location.lat()).trigger('change');
 

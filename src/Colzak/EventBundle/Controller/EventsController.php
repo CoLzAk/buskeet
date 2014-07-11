@@ -16,6 +16,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 class EventsController extends BaseController {
 
+
+    public function viewAction($eventId) {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $event = $dm->getRepository('ColzakEventBundle:Event')->find($eventId);
+
+        return $this->render('ColzakEventBundle:Event:view.html.twig', array(
+            'event' => $event
+        ));
+    }
+
 	/**
      * GET Route annotation.
      * @Get("/users/{userId}/events")
@@ -30,7 +40,18 @@ class EventsController extends BaseController {
         $data = $q->getQuery()->execute();
 
         return $this->handleView($this->view($data, 200));
-    } // "get_users_files"   [GET] /users/{userId}/files
+    } // "get_users_files"   [GET] /users/{userId}/events
+
+    /**
+     * GET Route annotation.
+     * @Get("/events")
+     */
+    public function getEventsAction()
+    {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $q = $dm->getRepository('ColzakEventBundle:Event')->findAll();
+        return $this->handleView($this->view($data, 200));
+    } // "get_users_files"   [GET] /users/{userId}/events
 
     /**
      * POST Route annotation.

@@ -6,18 +6,9 @@
         <div class="form-horizontal" role="form">
 
             <div class="form-group">
-                <div class="clzk-search-switch-container">
-                    <div class="switch active">
-                        <p class="text-center mb0">
-                            Profils
-                        </p>
-                    </div>
-                    <div class="switch">
-                        <p class="text-center mb0">
-                            Jam session
-                        </p>
-                    </div>
-                    <div class="clearfix"></div>
+                <div class="btn-group search-switch-container">
+                    <button type="button" class="search-switch btn btn-primary disabled" id="profiles-direction" data-direction="profiles">Profils</button>
+                    <button type="button" class="search-switch btn btn-default" id="events-direction" data-direction="events">Jam session</button>
                 </div>
             </div>
 
@@ -33,7 +24,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group profile-filter">
                 <label for="filter-gender" class="control-label mb1">Profil</label>
                 <div class="clzk-moz-select clzk-blue-select">
                     <select class="search-filter clzk-blue-select" id="filter-gender" data-filter="gender">
@@ -44,7 +35,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group profile-filter">
                 <label for="filter-age" class="control-label mb1">Tranche d'age</label>
                 <div class="clzk-moz-select clzk-blue-select">
                     <select class="search-filter clzk-blue-select" id="filter-age" data-filter="age">
@@ -57,7 +48,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group profile-filter">
                 <label for="filter-category" class="control-label mb1">Type d'instruments</label>
                 <input type="hidden" class="search-filter" id="filter-category" data-filter="category">
                 <p>
@@ -80,7 +71,7 @@
                 </p>
             </div>
 
-            <div class="form-group">
+            <div class="form-group profile-filter">
                 <label for="filter-experience" class="control-label mb1">Expérience</label>
                 <div class="clzk-moz-select clzk-blue-select">
                     <select class="search-filter clzk-blue-select" id="filter-experience" data-filter="experience">

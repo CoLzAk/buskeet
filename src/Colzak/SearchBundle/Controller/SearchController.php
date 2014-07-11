@@ -17,10 +17,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SearchController extends BaseController
 {
-    public function indexAction($localization, Request $request) {
+    public function indexAction($localization, $direction, Request $request) {
+        // die($direction);
         $searchParams = $this->getSearchParams($request);
 
         $queryUrl = array(
+            'direction' => $direction,
             'localization' => $localization,
             'searchParams' => $searchParams
         );
@@ -30,14 +32,20 @@ class SearchController extends BaseController
 
     /**
      * GET Route annotation.
-     * @Get("/search/{localization}")
+     * @Get("/search/{localization}/{direction}")
      */
-    public function getSearchAction($localization, Request $request) {
+    public function getSearchAction($localization, $direction, Request $request) {
         $dm    = $this->get('doctrine_mongodb')->getManager();
 
         $searchParams = $this->getSearchParams($request);
 
-        $data = $dm->getRepository('ColzakUserBundle:Profile')->profileFilteredSearch($searchParams);
+        if ($direction == 'profiles') {
+            $data = $dm->getRepository('ColzakUserBundle:Profile')->profileFilteredSearch($searchParams);
+        }
+
+        if ($direction == 'events') {
+            $data = $dm->getRepository('ColzakEventBundle:Event')->eventFilteredSearch($searchParams);
+        }
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(

@@ -5,8 +5,11 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         template: "#clzk-search-layout",
         regions: {
             searchMenuRegion: '#clzk-search-menu-region',
-            searchResultsRegion: '#clzk-search-results-region'
-        }
+            searchResultsRegion: '#clzk-search-results-region',
+            searchPreviewRegion: '#clzk-search-preview-region'
+        },
+        tagName: 'div',
+        className: 'full-height'
     });
 
     ModalLayout = Backbone.Marionette.Layout.extend({
@@ -17,7 +20,6 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
     });
 
     SearchModule.search = function(localization, filters) {
-        console.log(SearchModule.queryUrl);
         if (typeof SearchModule.resultsCollection === 'undefined') {
             $.ajax({
                 url: 'http://maps.googleapis.com/maps/api/geocode/json?address='+ localization.replace(/--/g, '+').replace(/-/g, '+') +'&sensor=true&language=fr&region=fr',
@@ -32,7 +34,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
                         success: function(resultsCollection) {
                             SearchModule.resultsCollection = resultsCollection;
                             $('#clzk-search-input').val(data.results[0].formatted_address);
-                            SearchModule.displayViews(resultsCollection, localization, filters);
+                            SearchModule.displayViews(resultsCollection, localization, SearchModule.queryUrl.direction, filters);
                         }
                     });
                 },
@@ -46,17 +48,44 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
 
             results.fetch({
                 success: function(resultsCollection) {
-                    SearchModule.displayViews(resultsCollection, localization, filters);
+                    SearchModule.displayViews(resultsCollection, localization, SearchModule.queryUrl.direction, filters);
                 }
             });
         }
     };
 
-    SearchModule.displayViews = function(resultsCollection, localization, filters) {
-        SearchModule.profiles = new Profiles(resultsCollection.get('items'));
+    SearchModule.displayViews = function(resultsCollection, localization, direction, filters) {
+        if ($('.clzk-preview-container').is(':visible')) {
+            $('.clzk-preview-container').hide();
+            $('.clzk-search-menu-region-container').animate({
+                'margin-left': '0'
+            }, 200);
+        }
         SearchModule.searchLayout.searchMenuRegion.show(new SearchMenuView({ model: resultsCollection }));
-        SearchModule.searchLayout.searchResultsRegion.show(new SearchResultsView({ collection: SearchModule.profiles }));
+        if (direction == 'profiles') {
+            SearchModule.profiles = new Profiles(resultsCollection.get('items'));
+            SearchModule.searchLayout.searchResultsRegion.show(new SearchResultsView({ collection: SearchModule.profiles }));
+        }
+        if (direction == 'events') {
+            SearchModule.usersEvents = new SearchEvents(resultsCollection.get('items'));
+            SearchModule.searchLayout.searchResultsRegion.show(new SearchEventsView({ collection: SearchModule.usersEvents }));
+        }
     };
+
+    SearchModule.displayPreview = function(localization, direction, itemId) {
+        $('.clzk-search-menu-region-container').animate({
+            'margin-left': '-1000px'
+        }, 500, function() {
+            $('.event-container').addClass('disabled');
+            $('.clzk-preview-container').fadeIn();
+        });
+        if (direction == 'events') {
+            SearchModule.searchLayout.searchPreviewRegion.show(new SearchEventPreviewView({ model: SearchModule.usersEvents.get(itemId) }));
+        }
+        if (direction == 'profiles') {
+            SearchModule.searchLayout.searchPreviewRegion.show(new SearchProfilePreviewView({ model: SearchModule.profiles.get(itemId) }));
+        }
+    }
 
     SearchModule.addInitializer(function(options){
         SearchModule.queryUrl = options.queryUrl;

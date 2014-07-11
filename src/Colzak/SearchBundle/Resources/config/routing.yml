@@ -1,6 +1,6 @@
 colzak_search_result:
-    pattern:  /s/{localization}
-    defaults: { _controller: ColzakSearchBundle:Search:index, localization: 'FR' }
+    pattern:  /s/{localization}/{direction}
+    defaults: { _controller: ColzakSearchBundle:Search:index, localization: 'FR', direction: '' }
     methods: GET
     options:
         expose: true

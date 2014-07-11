@@ -4,6 +4,9 @@ body {
 .clzk-pre-body {
     min-height: 400px;
     border-bottom: 3px #ccc solid;
+    background: url(/img/cover.png);
+    background-size:100%;
+    background-repeat: no-repeat;
 }
 .clzk-home-container {
     position: relative;

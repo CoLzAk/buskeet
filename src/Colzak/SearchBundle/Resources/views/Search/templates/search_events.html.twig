@@ -1,5 +1,45 @@
 <script type="text/template" id="clzk-search-event-template">
-    test
+    <div class="event-container" id="event-<%= userEvent.id %>">
+        <% if (typeof userEvent.title !== 'undefined') { %>
+            <div class="event-title-container">
+                <h4><%= userEvent.title %></h4>
+            </div>
+        <% } %>
+        <div class="col-md-2">
+            <div class="calendar-container">
+                <div class="calendar-month-container">
+                    <p class="text-center mb0"><%= moment(userEvent.date).format('MMMM') %></p>
+                </div>
+                <div class="calendar-day-container">
+                    <p class="text-center mb0"><%= moment(userEvent.date).format('DD') %></p>
+                </div>
+                <div class="calendar-year-container">
+                    <p class="text-center mb0"><%= moment(userEvent.date).format('YYYY') %></p>
+                </div>
+            </div>
+            <div class="time-container">
+                <p class="text-center mb0"><%= userEvent.time %></p>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="event-description-container">
+                <p>
+                    <% if (userEvent.content.length > 200) { %>
+                        <%= userEvent.content.substring(0,200) %>...
+                    <% } else { %>
+                        <%= userEvent.content %>
+                    <% } %>
+                </p>
+            </div>
+        </div>
+        <div class="view-btn-container">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </div>
+        <div class="clearfix"></div>
+        <div class="event-place-container">
+            <p class="mt1"><span class="glyphicon glyphicon-map-marker"></span> <%= completeAddress %> (<%= Math.round(userEvent.distance * 10) / 10 %> km)</p>
+        </div>
+    </div>
 </script>
 
 <script type="text/template" id="clzk-search-event-empty-template">
@@ -8,4 +48,25 @@
 
 <script type="text/template" id="clzk-search-events-template">
     <div id="clzk-search-event-container" class="clzk-events-container"></div>
+</script>
+
+<script type="text/template" id="clzk-search-event-preview-template">
+    <% if (typeof userEvent.title !== 'undefined') { %>
+        <!-- <div class="event-title-container"> -->
+            <h4><%= userEvent.title %></h4>
+        <!-- </div> -->
+    <% } %>
+
+    <!-- <div class="event-description-container"> -->
+        <p><%= userEvent.content %></p>
+    <!-- </div> -->
+
+    <!-- <div class="event-place-container"> -->
+        <p class="mt1"><span class="glyphicon glyphicon-map-marker"></span> <%= completeAddress %> (<%= Math.round(userEvent.distance * 10) / 10 %> km)</p>
+    <!-- </div> -->
+    <div class="preview-map-container"></div>
+    <div id="event-preview-map"></div>
+
+    <div class="event-participants-container">
+    </div>
 </script>

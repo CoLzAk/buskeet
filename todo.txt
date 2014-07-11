@@ -6,11 +6,13 @@ Global:
 Profil:
 	ajout évènement (concert etc.)
 		type: public / perso (ou 2 documents ?)
+	bouton share
 	
 Evenement
 	ajouter nb participants max (si > nbParticipants on affiche plus)
 	ajouter private / public (pour affichage)
 	bouton participer (uniquement si ami si private et tout le monde si public et < nbMaxParticipants)
+	Bouton share (reseaux sociaux)
 
 Photo:
 	loader
@@ -23,6 +25,8 @@ Recherche:
 		relancer la recherche en passant un param pour chercher soit les jam session soit les profils
 
 Faire une page dédiée event (cf Evenement)
+
+Contact
 
 News Feed
 	Autour de moi (A tours : Festival terre du son ce weekend)
