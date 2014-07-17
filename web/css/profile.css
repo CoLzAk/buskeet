@@ -1,5 +1,7 @@
 #clzk-profile-photos-region {
     min-height: 240px;
+    max-height: 350px;
+    overflow: hidden;
 }
 #clzk-profile-informations-region {
     min-height: 220px;

@@ -101,7 +101,6 @@ $(document).ready(function() {
     $("#clzk-search-input").bind("keypress", function(event) {
         if(event.which == 13) {
             event.preventDefault();
-            // alert('tesjklmfdjs');
             submitSearchForm();
         }
     });
@@ -125,6 +124,10 @@ $(document).ready(function() {
             localization = $('#clzk-search-input').val().replace(/,/g, '-').replace(/ /g, '-');
         }
 
-        window.location.href = Routing.generate('colzak_search_result', { localization: localization, direction: 'profiles' });
+        if (localization === '' || localization.length === 0) {
+            alert('Veuillez renseigner un lieu');
+        } else {
+            window.location.href = Routing.generate('colzak_search_result', { localization: localization, direction: 'profiles' });
+        }
     }
 });

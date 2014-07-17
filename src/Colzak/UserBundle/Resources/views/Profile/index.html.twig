@@ -55,8 +55,8 @@
                 <li class="list-group-item edit-button" data-form="portfolio"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-music"></span>&nbsp;&nbsp;Mon portfolio</a></li>
                 <li class="list-group-item edit-button" data-form="events"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;Jam session</a></li>
             <% } else { %>
-                <li class="list-group-item"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Suivre</a></li>
-                <li class="list-group-item"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-envelope"></span>&nbsp;&nbsp;Contacter</a></li>
+                <!-- <li class="list-group-item"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Suivre</a></li> -->
+                <li class="list-group-item contact-button"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-envelope"></span>&nbsp;&nbsp;Contacter</a></li>
             <% } %>
         </ul>
     </script>
@@ -136,6 +136,9 @@
     {#} Profile events {#}
     {% include 'ColzakUserBundle:Profile:templates/profile_events.html.twig' %}
 
+    {#} Contact {#}
+    {% include 'ColzakUserBundle:Profile:templates/contact.html.twig' %}
+
 
     {#} EDIT {#}
     <div id="clzk-form-region" class="clzk-profile-edit-region hidden"></div>
@@ -205,6 +208,8 @@
         "js/app/models/Portfolio.js"
         "js/app/models/Photo.js"
         "js/app/models/ProfileEvent.js"
+        "js/app/models/Message.js"
+        "js/app/views/ContactView.js"
     %}
         <script src="{{ asset_url }}" type="text/javascript"></script>
 

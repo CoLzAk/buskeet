@@ -4,6 +4,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         template: '#clzk-profile-menu-template',
         events: {
             'click .edit-button': 'showEditView',
+            'click .contact-button': 'showContactView'
         },
         showEditView: function(e) {
             var form = $(e.currentTarget).data('form');
@@ -16,6 +17,10 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 $(e.currentTarget).addClass('active');
                 Backbone.history.navigate(UserModule.targetUserUsername + '/edit/' + form, { trigger: true });
             }
+        },
+        showContactView: function(e) {
+            e.preventDefault();
+            Backbone.history.navigate(UserModule.targetUserUsername + '/contact', { trigger: true });
         },
         serializeData: function() {
             return {

@@ -246,3 +246,15 @@ html, body {
 .event-description-container {
     text-align: justify;
 }
+.clzk-notif-bubble {
+    color: #3498db;
+    position: relative;
+    font-size: 12px;
+    top: 5px;
+}
+.clzk-navbar-profile-picture-container {
+    position:relative;
+    top: -8px;
+    margin-right:8px;
+    max-height: 35px;
+}

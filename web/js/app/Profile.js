@@ -118,6 +118,14 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
         $('#clzk-modal').modal('show');
     };
 
+    UserModule.contact = function() {
+        UserModule.modalLayout = new ModalLayout();
+        App.modalRegion.show(UserModule.modalLayout);
+        UserModule.modalLayout.modalContentRegion.show(new ContactView({ model: UserModule.targetUserProfile }));
+
+        $('#clzk-modal').modal('show');
+    };
+
     UserModule.addInitializer(function(options){
         UserModule.firstRender = true;
         UserModule.userId = options.userId;
