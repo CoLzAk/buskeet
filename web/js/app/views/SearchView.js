@@ -168,6 +168,17 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
     SearchResultView = Backbone.Marionette.ItemView.extend({
         template: '#clzk-search-result-template',
         tagName: 'div',
+        events: {
+            'click .clzk-search-profile-container': 'showProfilePreview'
+        },
+        showProfilePreview: function(e) {
+            e.preventDefault();
+            $('.clzk-results-number-container').addClass('hidden');
+            $('.clzk-search-profile-container').addClass('hidden');
+            $(e.currentTarget).removeClass('hidden').addClass('rendering');
+            $('#share-profile-'+this.model.get('id')).removeClass('hidden');
+            Backbone.history.navigate(SearchModule.queryUrl.localization+'/'+SearchModule.queryUrl.direction+'/preview/'+this.model.get('id'), { trigger: true });
+        },
         serializeData: function() {
             var profile_picture = _.findWhere(this.model.get('photos'), { is_profile_picture: true });
 
@@ -177,11 +188,11 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             };
         },
         onDomRefresh: function() {
-            var that = this;
-            $('.clzk-search-profile-container').on('click', function(e) {
-                e.preventDefault();
-                window.location.href = Routing.generate('colzak_user_homepage', { username: that.model.get('username') });
-            });
+            // var that = this;
+            // $('.clzk-search-profile-container').on('click', function(e) {
+            //     e.preventDefault();
+            //     window.location.href = Routing.generate('colzak_user_homepage', { username: that.model.get('username') });
+            // });
         }
     });
 
@@ -205,11 +216,23 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         template: '#clzk-search-event-template',
         tagName: 'div',
         className: 'bg-dark mb1',
+        events: {
+            'click .event-container': 'showEventPreview'
+        },
+        showEventPreview: function(e) {
+            e.preventDefault();
+            $('.clzk-results-number-container').addClass('hidden');
+            $('.share-action-button-container').addClass('hidden');
+            $('.event-container').addClass('hidden');
+            $(e.currentTarget).removeClass('hidden').addClass('rendering');
+            $('#share-event-'+this.model.get('id')).removeClass('hidden');
+
+            Backbone.history.navigate(SearchModule.queryUrl.localization+'/'+SearchModule.queryUrl.direction+'/preview/'+this.model.get('id'), { trigger: true });
+        },
         serializeData: function() {
             var completeAddress = '';
             if (this.model.get('street_number') !== '') completeAddress += this.model.get('street_number') + ' ';
             if (this.model.get('route') !== '') completeAddress += this.model.get('route') + ', ';
-            // if (this.model.get('postal_code') !== '') completeAddress += this.model.get('postal_code') + ', ';
             if (this.model.get('sublocality') !== '') completeAddress += this.model.get('sublocality') + ', ';
             if (this.model.get('locality') !== '') completeAddress += this.model.get('locality') + ', ';
             if (this.model.get('country') !== '') completeAddress += this.model.get('country');
@@ -220,14 +243,9 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         },
         onDomRefresh: function() {
             var that = this;
-            $('#event-'+this.model.get('id')).on('click', function(e) {
+            $('#share-event-'+this.model.get('id')).on('click', function(e) {
                 e.preventDefault();
-                $('.event-container').addClass('hidden');
-                $(e.currentTarget).removeClass('hidden').addClass('rendering');
-
-                Backbone.history.navigate(SearchModule.queryUrl.localization+'/'+SearchModule.queryUrl.direction+'/preview/'+that.model.get('id'), { trigger: true });
-                // SearchModule.displayPreview('events', that.model.get('id'));
-                // window.location.href = Routing.generate('colzak_event', { eventId: that.model.get('id') });
+                console.log('share it my friend');
             });
         }
     });
@@ -250,33 +268,111 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
 
     SearchEventPreviewView = Backbone.Marionette.ItemView.extend({
         template: '#clzk-search-event-preview-template',
+        events: {
+            'click .participate-button': 'toggleParticipate',
+            'click .back-to-results': 'navigateBack'
+        },
+        navigateBack: function(e) {
+            e.preventDefault();
+            window.history.back();
+        },
+        toggleParticipate: function(e) {
+            var that = this;
+            NProgress.start();
+            e.preventDefault();
+            $.ajax(Routing.generate('events_post_events_user_participate', { id: this.model.get('id'), userId: SearchModule.authUser.id }), {
+                type: "POST",
+                dataType: 'json',
+                success: function(data) {
+                    if (!that.isParticipating) {
+                        that.model.get('participants').push(SearchModule.authUser.profile);
+                        that.isParticipating = true;
+                    } else {
+                        delete that.model.get('participants')[that.participationIndex];
+                        that.isParticipating = false;
+                    }
+                    NProgress.done();
+                    that.render();
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                }
+            });
+        },
         onDomRefresh: function() {
             this.initMap();
-            // window.addEventListener('popstate', function(event) {
-            //     event.preventDefault();
-            //     console.log('atchoum');
-            // });
         },
         serializeData: function() {
-            var completeAddress = '';
+            var completeAddress = '',
+                isAuthenticated = (typeof SearchModule.authUser !== null),
+                isHimself = (isAuthenticated ? SearchModule.authUser.profile.id === this.model.get('profile').id : false);
+
             if (this.model.get('street_number') !== '') completeAddress += this.model.get('street_number') + ' ';
             if (this.model.get('route') !== '') completeAddress += this.model.get('route') + ', ';
-            // if (this.model.get('postal_code') !== '') completeAddress += this.model.get('postal_code') + ', ';
             if (this.model.get('sublocality') !== '') completeAddress += this.model.get('sublocality') + ', ';
             if (this.model.get('locality') !== '') completeAddress += this.model.get('locality') + ', ';
             if (this.model.get('country') !== '') completeAddress += this.model.get('country');
             return {
                 userEvent: this.model.toJSON(),
-                completeAddress: completeAddress
+                completeAddress: completeAddress,
+                isParticipating: this.isParticipating,
+                isAuthenticated: isAuthenticated,
+                isHimself: isHimself
             };
+        },
+        initialize: function() {
+            this.isParticipating = false;
+            var participants = this.model.get('participants');
+            for (var i in participants) {
+                if (participants[i].id === SearchModule.authUser.profile.id) {
+                    this.participationIndex = i;
+                    this.isParticipating = true;
+                    break;
+                }
+            }
         },
         initMap: function() {
             var mapWidth = $('.preview-map-container').width();
             var mapUrl = '';
-            var zoom = 14;
+            var zoom = 16;
 
             mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center='+ this.model.get('coordinates').y +','+ this.model.get('coordinates').x +'&zoom='+ zoom +'&size='+ mapWidth +'x180&maptype=roadmap&sensor=false&markers=color:red|' + this.model.get('coordinates').y + ',' + this.model.get('coordinates').x;
             $('#event-preview-map').html('<img src="'+ mapUrl +'">');
+        }
+    });
+
+    SearchProfilePreviewView = Backbone.Marionette.ItemView.extend({
+        template: '#clzk-search-profile-preview-template',
+        events: {
+            'click #send-message-button': 'sendMessage',
+            'click .back-to-results': 'navigateBack'
+        },
+        navigateBack: function(e) {
+            e.preventDefault();
+            window.history.back();
+        },
+        sendMessage: function(e) {
+            e.preventDefault();
+            var messageContent = $('#message-content').val();
+            var message = new Message({ message: messageContent }, { recipientId: this.model.get('id') });
+
+            message.save({}, {
+                success: function(response, model) {
+                    // flashbag
+                },
+                error: function(response) {
+                    // flashbag
+                }
+            });
+        },
+        serializeData: function() {
+            var isAuthenticated = (typeof SearchModule.authUser !== null),
+                isHimself = (isAuthenticated ? SearchModule.authUser.profile.id === this.model.get('id') : false);
+            return {
+                profile: this.model.toJSON(),
+                isAuthenticated: isAuthenticated,
+                isHimself: isHimself
+            };
         }
     });
 });

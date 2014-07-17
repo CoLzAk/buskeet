@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Colzak\MediaBundle\ColzakMediaBundle(),
             new Colzak\EventBundle\ColzakEventBundle(),
+            new Colzak\MessageBundle\ColzakMessageBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

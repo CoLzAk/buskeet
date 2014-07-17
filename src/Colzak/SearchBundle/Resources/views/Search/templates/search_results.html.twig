@@ -27,7 +27,6 @@
         </div>
         <div class="clearfix"></div>
     </div>
-    <!-- <hr class="mt1 mb1"> -->
 </script>
 
 <script type="text/template" id="clzk-search-result-empty-template">
@@ -39,4 +38,69 @@
         <p class="text-center"><%= results.length %><% if (results.length > 1) { %> résultats <% } else { %> résultat <% } %></p>
     </div>
     <div id="clzk-search-result-container" class="clzk-results-container"></div>
+</script>
+
+<script type="text/template" id="clzk-search-profile-preview-template">
+    <div class="back-to-results">
+        <p class="text-center"><a href="#"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;Retour à la liste de résultat</a></p>
+    </div>
+    <h5 class="text-cyan mt2 mb0">A propos de moi</h5>
+    <p><%= profile.description %></p>
+    <div class="clearfix"></div>
+
+    <h5 class="text-cyan mt2 mb1">Mes instruments</h5>
+    <% for (var i in profile.portfolio.portfolio_instruments) { %>
+        <div class="clzk-search-user-instruments">
+            <img src="/img/instruments/<%= profile.portfolio.portfolio_instruments[i].category %>.png" class="img-responsive">
+            <p class="text-center mb0"><%= profile.portfolio.portfolio_instruments[i].name %></p>
+            <div class="progress">
+                <% if (profile.portfolio.portfolio_instruments[i].level == 'BEGINNER') { %>
+                    <div class="progress-bar progress-bar-success" style="width: 33%"></div>
+                <% } %>
+                <% if (profile.portfolio.portfolio_instruments[i].level == 'AMATEUR') { %>
+                    <div class="progress-bar progress-bar-success" style="width: 33%"></div>
+                    <div class="progress-bar progress-bar-success" style="width: 33%"></div>
+                <% } %>
+                <% if (profile.portfolio.portfolio_instruments[i].level == 'PROFESSIONAL') { %>
+                    <div class="progress-bar progress-bar-success" style="width: 33%"></div>
+                    <div class="progress-bar progress-bar-success" style="width: 33%"></div>
+                    <div class="progress-bar progress-bar-success" style="width: 34%"></div>
+                <% } %>
+            </div>
+        </div>
+    <% } %>
+    <div class="clearfix"></div>
+
+    <% if (profile.portfolio.music_styles.length > 0) { %>
+        <h5 class="text-cyan mt2 mb1">Mes styles</h5>
+        <ul class="list-inline">
+            <% for (var i in profile.portfolio.music_styles) { %>
+                <li><%= profile.portfolio.music_styles[i].name %></li>
+            <% } %>
+        </ul>
+    <% } %>
+    <div class="clearfix"></div>
+
+    <% if (profile.portfolio.influences.length > 0) { %>
+        <h5 class="text-cyan mt2 mb1">Mes influences</h5>
+        <ul class="list-inline">
+            <% for (var i in profile.portfolio.influences) { %>
+                <li><%= profile.portfolio.influences[i].name %></li>
+            <% } %>
+        </ul>
+    <% } %>
+    <div class="clearfix"></div>
+
+    <% if (!isHimself) { %>
+        <h5 class="text-cyan mt2 mb1">Envoyer un message</h5>
+        <% if (isAuthenticated) { %>
+            <textarea id="message-content" class="form-control clzk-form-control" rows="5" placeholder="Ecrivez votre message"></textarea>
+            <div class="pull-right mt1">
+                <a href="#" class="btn btn-primary" id="send-message-button">Envoyer</a>
+            </div>
+        <% } else { %>
+            <p><i>Vous devez vous identifier afin de contacter l'utilisateur</i></p>
+        <% } %>
+        <div class="clearfix"></div>
+    <% } %>
 </script>

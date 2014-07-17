@@ -54,6 +54,60 @@ class EventsController extends BaseController {
     } // "get_users_files"   [GET] /users/{userId}/events
 
     /**
+     * PUT Route annotation.
+     * @Put("/events/{id}")
+     */
+    public function putEventsAction($id) {
+        $dm = $this->container->get('doctrine_mongodb')->getManager();
+        $event = $dm->getRepository('ColzakEventBundle:Event')->find($id);
+
+        $request = $this->getRequest(); 
+        if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
+            $serializer = $this->get('jms_serializer');
+            var_dump($request->getContent());
+            $updatedEvent = $serializer->deserialize($request->getContent(), 'Colzak\EventBundle\Document\Event', 'json');
+        }
+        $event = $dm->merge($updatedEvent);
+        $dm->flush();
+
+        $data = $event;
+
+        return $this->handleView($this->view($data, 200));
+    }
+
+    /**
+     * PUT Route annotation.
+     * @Post("/events/{id}/participate/{userId}")
+     */
+    public function postEventsUserParticipateAction($id, $userId) {
+        $dm = $this->container->get('doctrine_mongodb')->getManager();
+        $event = $dm->getRepository('ColzakEventBundle:Event')->find($id);
+        $participants = $event->getParticipants();
+        $user = $dm->getRepository('ColzakUserBundle:User')->find($userId);
+
+        //Hack: wtf ? dunno...
+        $user->getProfile()->setDistance(0);
+
+        if (count($participants) > 0) {
+            foreach ($participants as $participant) {
+                if ($participant->getId() === $user->getProfile()->getId()) {
+                    $event->removeParticipant($participant);
+                    break;
+                } else {
+                    $event->addParticipant($user->getProfile());
+                }
+            }
+        } else {
+            $event->addParticipant($user->getProfile());
+        }
+
+        $dm->persist($event);
+        $dm->flush();
+
+        return $this->handleView($this->view($event, 200));
+    }
+
+    /**
      * POST Route annotation.
      * @Post("/users/{userId}/events")
      */

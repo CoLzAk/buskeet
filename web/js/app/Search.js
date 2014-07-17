@@ -88,6 +88,8 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
     }
 
     SearchModule.addInitializer(function(options){
+        SearchModule.authUser = options.authUser;
+        console.log(options.authUser);
         SearchModule.queryUrl = options.queryUrl;
         SearchModule.searchLayout = new SearchLayout();
         App.mainRegion.show(SearchModule.searchLayout);

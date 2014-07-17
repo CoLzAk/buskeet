@@ -1,0 +1,4 @@
+colzak_messages:
+    type:     rest
+    resource: Colzak\MessageBundle\Controller\MessagesController
+    name_prefix:  messages_

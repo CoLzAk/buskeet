@@ -3,26 +3,13 @@
 {% form_theme form 'ColzakUserBundle:Form:fields.html.twig' %}
 
 {% block body %}
-<div class="clzk-register-container">
-    <p class="text-left clzk-dropdown-title">Je crée mon compte</p>
-    <hr>
-    <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register" role="form">
-        {{ form_widget(form.profile.firstname) }}
-        {{ form_widget(form.profile.lastname) }}
-        {{ form_widget(form.email) }}
-        {{ form_widget(form.plainPassword.first) }}
-        {{ form_widget(form.plainPassword.second) }}
+<div class="row">
+    <div class="col-md-6">
+        {{ render(controller('ColzakUserBundle:Registration:embeddedRegister')) }}
+    </div>
 
-        <hr>
-        <label class="control-label">{{ form_label(form.profile.birthdate) }}</label>
-        {{ form_widget(form.profile.birthdate) }}
-
-        <hr>
-        <label class="control-label">{{ form_label(form.profile.gender) }}</label>
-        {{ form_widget(form.profile.gender) }}
-        <br />
-        {{ form_rest(form) }}
-        <button type="submit" id="_submit" name="_submit" class="btn btn-default btn-block">Je m'inscris</button>
-    </form>
+    <div class="col-md-6">
+        {{ render(controller('ColzakUserBundle:Security:embeddedLogin')) }}
+    </div>
 </div>
 {% endblock %}

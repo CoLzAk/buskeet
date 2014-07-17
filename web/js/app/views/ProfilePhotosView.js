@@ -69,7 +69,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 success: function(response, data) {
                     $('.profile-picture-button').removeClass('disabled');
                     UserModule.targetUserProfile.set('photos', data);
-                    NGProgress.done();
+                    NProgress.done();
                 }
             });
         },
@@ -82,7 +82,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             this.model.destroy({
                 success: function(response, data) {
                     UserModule.targetUserProfile.set('photos', data);
-                    NGProgress.done();
+                    NProgress.done();
                 }
             });
             this.render();

@@ -110,10 +110,14 @@ class Event
      */
     protected $participants = array();
 
-    /** @MongoDB\Distance */
+    /** 
+     * @MongoDB\Distance 
+     * @SERIAL\Type("double")
+     */
     public $distance;
 
     public function __construct() {
+        $this->participants = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

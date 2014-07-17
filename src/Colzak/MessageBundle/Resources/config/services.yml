@@ -1,0 +1,7 @@
+parameters:
+#    colzak_message.example.class: Colzak\MessageBundle\Example
+
+services:
+#    colzak_message.example:
+#        class: %colzak_message.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

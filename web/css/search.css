@@ -18,6 +18,20 @@
     padding: 5px;
 }
 
+.back-to-results {
+	background: none repeat scroll 0 0 #6aaca2;
+    border-radius: 0 !important;
+    font-size: 18px;
+    height: 35px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.back-to-results a, .back-to-results a:hover, .back-to-results a:focus, .back-to-results a:visited {
+	color: #FFF;
+	text-decoration: none;
+}
+
 .clzk-search-profile-container, .event-container {
     /*border-bottom: 1px #ddd solid;*/
     margin-bottom: 5px;
@@ -37,10 +51,12 @@
 .clzk-search-photo-container {
 	float: left;
 	margin-right: 20px;
+	width: 220px;
+	height: 163px;
+	overflow: hidden;
 }
 .clzk-search-photo-container img {
-	width: 220px;
-	height: auto;
+	width: 100%;
 	overflow: hidden;
 }
 @media (max-width: 360px) {
@@ -83,4 +99,19 @@
 }
 .rendering .view-btn-container {
 	display: block;
+}
+.share-action-button-container {
+	font-size: 20px;
+    position: absolute;
+    right: 5px;
+    top: 10px;
+    cursor: pointer;
+    z-index: 1;
+}
+.share-action-button-container:hover {
+	color: #6aaca2;
+}
+.participate-button {
+	font-size: 20px;
+	padding-left: 0;
 }

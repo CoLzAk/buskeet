@@ -119,7 +119,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             this.model.destroy({
                 success: function(response, data) {
                     UserModule.targetUserProfile.set('events', data);
-                    NGProgress.done();
+                    NProgress.done();
                 }
             });
         },

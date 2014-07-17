@@ -144,7 +144,10 @@ class Profile
      */
     protected $updatedAt;
 
-    /** @MongoDB\Distance */
+    /** 
+     * @MongoDB\Distance 
+     * @SERIAL\Type("double")
+     */
     public $distance;
 
     public function __construct()

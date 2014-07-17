@@ -30,4 +30,13 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             return Routing.generate('events_get_events');
         }
     });
+
+    Message = Backbone.Model.extend({
+        initialize: function(model, options) {
+            this.recipientId = options.recipientId;
+        },
+        url: function() {
+            return Routing.generate('messages_post_messages', { recipientId: this.recipientId });
+        }
+    })
 });

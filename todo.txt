@@ -2,38 +2,38 @@ TODO:
 
 Global:
 	Rédaction CGU et politique de confidentialité
+	Ajouter des flash messages
+	Ajouter une boite a idée / bugs
 
 Profil:
-	ajout évènement (concert etc.)
+	ajout évènement (concert etc.) (feature)
 		type: public / perso (ou 2 documents ?)
 	bouton share
 	
 Evenement
-	ajouter nb participants max (si > nbParticipants on affiche plus)
-	ajouter private / public (pour affichage)
-	bouton participer (uniquement si ami si private et tout le monde si public et < nbMaxParticipants)
+	ajouter nb participants max (si > nbParticipants on affiche plus) (feature)
+	ajouter private / public (pour affichage) (feature)
+	bouton participer (uniquement si ami si private et tout le monde si public et < nbMaxParticipants (feature)) 
 	Bouton share (reseaux sociaux)
 
 Photo:
 	loader
 
 Recherche:
+	ajouter loader
 	evenements (comme des liens sponsorisés) avec code couleur flashy (concerts, street perf)
 	autoriser radius + grand
-	switch dans le menu profil / jam session
-		au click changer les parametres (enlever tout sauf radius pour jam session + rajouter date ?)
-		relancer la recherche en passant un param pour chercher soit les jam session soit les profils
 
 Faire une page dédiée event (cf Evenement)
 
-Contact
+Ajouter messagerie
 
-News Feed
+News Feed (feature)
 	Autour de moi (A tours : Festival terre du son ce weekend)
 	Ce que font les "amis" (Jean pierre va jouer au connemara ce soir, Augustine va jouer dans la rue demain apres midi)
 	les jam sessions en cours
 
-Ajouter/supprimer amis
+Ajouter/supprimer amis (feature)
 
 Creer groupe (feature)
 	nom
@@ -52,5 +52,36 @@ Type d'instrument:
 	- Bois
 	- Voix
 	- Electronique
+
+Thread
+	id
+	createdAt
+	messages
+	participants
+
+Message: 
+	id
+	thread
+	message
+	sender
+	recipient
+	sentAt
+
+Nouveau message :
+
+	message: new Message()
+	message.sender: sender
+	message.recipient: recipient
+	thread: findByParticipants(sender, recipient)
+	IF thread IS NOT NULL 
+		message.setThread(thread) (ou thread.addMessage(message) ?)
+	ELSE 
+		thread: new Thread()
+		thread.addParticipant(sender)
+		thread.addParticipant(recipient)
+
+	save()
+
+
 
 

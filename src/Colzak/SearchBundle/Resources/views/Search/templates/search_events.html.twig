@@ -1,5 +1,8 @@
 <script type="text/template" id="clzk-search-event-template">
-    <div class="event-container" id="event-<%= userEvent.id %>">
+    <div class="share-action-button-container pull-right" id="share-event-<%= userEvent.id %>">
+        <span class="glyphicon glyphicon-share"></span>
+    </div>
+    <div class="event-container">
         <% if (typeof userEvent.title !== 'undefined') { %>
             <div class="event-title-container">
                 <h4><%= userEvent.title %></h4>
@@ -37,7 +40,16 @@
         </div>
         <div class="clearfix"></div>
         <div class="event-place-container">
-            <p class="mt1"><span class="glyphicon glyphicon-map-marker"></span> <%= completeAddress %> (<%= Math.round(userEvent.distance * 10) / 10 %> km)</p>
+            <div class="row">
+                <div class="col-md-9">
+                    <p class="mt1"><span class="glyphicon glyphicon-map-marker"></span> <%= completeAddress %> (<%= Math.round(userEvent.distance * 10) / 10 %> km)</p>
+                </div>
+                <div class="col-md-3">
+                    <% if (typeof userEvent.participants !== 'undefined') { %>
+                        <p class="mt1"><%= userEvent.participants.length %> participants</p>
+                    <% } %>
+                </div>
+            </div>
         </div>
     </div>
 </script>
@@ -47,26 +59,78 @@
 </script>
 
 <script type="text/template" id="clzk-search-events-template">
+    <div class="clzk-results-number-container">
+        <p class="text-center"><%= results.length %><% if (results.length > 1) { %> résultats <% } else { %> résultat <% } %></p>
+    </div>
     <div id="clzk-search-event-container" class="clzk-events-container"></div>
 </script>
 
 <script type="text/template" id="clzk-search-event-preview-template">
-    <% if (typeof userEvent.title !== 'undefined') { %>
-        <!-- <div class="event-title-container"> -->
-            <h4><%= userEvent.title %></h4>
-        <!-- </div> -->
+    <div class="back-to-results">
+        <p class="text-center"><a href="#"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;Retour à la liste de résultat</a></p>
+    </div>
+
+    <% console.log(isHimself) %>
+    <% if (isAuthenticated && !isHimself) { %>
+        <% if (isParticipating) { %>
+            <div class="btn participate-button"><span class="glyphicon glyphicon-remove"></span> Je ne souhaite plus participer</div>
+        <% } else { %>
+            <div class="btn participate-button"><span class="glyphicon glyphicon-plus"></span> Je souhaite participer</div>
+        <% } %>
     <% } %>
 
-    <!-- <div class="event-description-container"> -->
-        <p><%= userEvent.content %></p>
-    <!-- </div> -->
-
-    <!-- <div class="event-place-container"> -->
-        <p class="mt1"><span class="glyphicon glyphicon-map-marker"></span> <%= completeAddress %> (<%= Math.round(userEvent.distance * 10) / 10 %> km)</p>
-    <!-- </div> -->
+    <h5 class="text-cyan mt2 mb0">Détail</h5>
+    <p><%= userEvent.content %></p>
+    
+    <h5 class="text-cyan mt2 mb0">Lieu</h5>
+    <p><%= completeAddress %> ( <%= Math.round(userEvent.distance * 10) / 10 %> km )</p>
     <div class="preview-map-container"></div>
     <div id="event-preview-map"></div>
 
+    <h5 class="text-cyan mt2 mb1">
+        Proposé par 
+        <% if (isHimself) { %>
+            vous
+        <% } else { %>
+            <%= userEvent.profile.firstname %> <%= userEvent.profile.lastname %>
+        <% } %>
+    </h5>
     <div class="event-participants-container">
+        <div class="row">
+            <div class="col-md-2">
+                <a href="<%= Routing.generate('colzak_user_homepage', { 'username': userEvent.profile.username }) %>">
+                <% if (userEvent.profile.photos.length > 0) { %>
+                    <% for (var k in userEvent.profile.photos) { %>
+                        <% if (userEvent.profile.photos[k].is_profile_picture) { %>
+                            <img src="<%= userEvent.profile.photos[k].thumb_path %>" alt="..." class="img-responsive">
+                        <% } %>
+                    <% } %>
+                <% } else { %>
+                    <img src="/img/user_256.png" alt="..." class="img-responsive">
+                <% } %>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <h5 class="text-cyan mt2 mb1">Participants</h5>
+    <div class="event-participants-container">
+        <div class="row">
+            <% for (var i in userEvent.participants) { %>
+                <div class="col-md-2">
+                    <a href="<%= Routing.generate('colzak_user_homepage', { 'username': userEvent.participants[i].username }) %>">
+                        <% if (userEvent.participants[i].photos.length > 0) { %>
+                            <% for (var j in userEvent.participants[i].photos) { %>
+                                <% if (userEvent.participants[i].photos[j].is_profile_picture) { %>
+                                    <img src="<%= userEvent.participants[i].photos[j].thumb_path %>" alt="..." class="img-responsive">
+                                <% } %>
+                            <% } %>
+                        <% } else { %>
+                            <img src="/img/user_256.png" alt="..." class="img-responsive">
+                        <% } %>
+                    </a>
+                </div>
+            <% } %>
+        </div>
     </div>
 </script>

@@ -65,7 +65,8 @@
         var options = {
                 module: 'search',
                 queryUrl: {{ queryUrl|serialize|raw }},
-                path: "{{ path(app.request.attributes.get('_route')) }}"
+                path: "{{ path(app.request.attributes.get('_route')) }}",
+                authUser: {{ app.user|serialize|raw }}
         };
         App.start(options);
     });
