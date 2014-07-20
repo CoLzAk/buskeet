@@ -26,9 +26,19 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             this.model.save({}, {
                 success: function(model, response) {
                     that.render();
+                    $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-ok-sign');
+                    $('.message-text').html('Les modifications ont étés enregistrées !')
+                    $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-success');
+                    $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
                     NProgress.done();
-                    // UserModule.closeFormView();
-                    // Backbone.history.navigate(UserModule.targetUserUsername, { trigger: true });
+                },
+                error: function(response) {
+                    that.render();
+                    $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-remove-sign');
+                    $('.message-text').html('Une erreur est survenue. Veuillez réesayer ultérieurement ou contacter le support')
+                    $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-danger');
+                    $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
+                    NProgress.done();
                 }
             });
         },
@@ -85,7 +95,6 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 that = this;
             
             if (item == 'portfolio-instrument') {
-                console.log(this.model.get('portfolio').portfolio_instruments);
                 delete this.model.get('portfolio').portfolio_instruments[itemIndex];
             }
 

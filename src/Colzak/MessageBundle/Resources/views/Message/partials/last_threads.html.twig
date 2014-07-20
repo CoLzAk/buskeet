@@ -1,0 +1,5 @@
+{% if threads is not null %}
+	{% for thread in threads %}
+		<li><a href="#">{{ thread.id }}</a></li>
+	{% endfor %}
+{% endif %}

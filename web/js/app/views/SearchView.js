@@ -304,8 +304,13 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         },
         serializeData: function() {
             var completeAddress = '',
-                isAuthenticated = (typeof SearchModule.authUser !== null),
-                isHimself = (isAuthenticated ? SearchModule.authUser.profile.id === this.model.get('profile').id : false);
+                isHimself = false;
+
+            if (this.isAuthenticated) {
+                if (SearchModule.authUser.profile.id === this.model.get('profile').id) {
+                    isHimself = true;
+                }
+            }
 
             if (this.model.get('street_number') !== '') completeAddress += this.model.get('street_number') + ' ';
             if (this.model.get('route') !== '') completeAddress += this.model.get('route') + ', ';
@@ -316,18 +321,23 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
                 userEvent: this.model.toJSON(),
                 completeAddress: completeAddress,
                 isParticipating: this.isParticipating,
-                isAuthenticated: isAuthenticated,
+                isAuthenticated: this.isAuthenticated,
                 isHimself: isHimself
             };
         },
         initialize: function() {
             this.isParticipating = false;
+            this.isAuthenticated = false;
+            if (SearchModule.authUser !== null) this.isAuthenticated = true;
             var participants = this.model.get('participants');
-            for (var i in participants) {
-                if (participants[i].id === SearchModule.authUser.profile.id) {
-                    this.participationIndex = i;
-                    this.isParticipating = true;
-                    break;
+
+            if (this.isAuthenticated) {
+                for (var i in participants) {
+                    if (participants[i].id === SearchModule.authUser.profile.id) {
+                        this.participationIndex = i;
+                        this.isParticipating = true;
+                        break;
+                    }
                 }
             }
         },
@@ -366,7 +376,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             });
         },
         serializeData: function() {
-            var isAuthenticated = (typeof SearchModule.authUser !== null),
+            var isAuthenticated = (SearchModule.authUser !== null),
                 isHimself = (isAuthenticated ? SearchModule.authUser.profile.id === this.model.get('id') : false);
             return {
                 profile: this.model.toJSON(),

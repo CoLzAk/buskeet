@@ -38,5 +38,5 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         url: function() {
             return Routing.generate('messages_post_messages', { recipientId: this.recipientId });
         }
-    })
+    });
 });

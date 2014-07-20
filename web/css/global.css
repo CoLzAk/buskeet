@@ -258,3 +258,16 @@ html, body {
     margin-right:8px;
     max-height: 35px;
 }
+.clzk-flash-messages-container {
+    border-radius: 5px;
+    padding: 10px;
+    position: absolute;
+    right: 30px;
+    top: 70px;
+    width: 300px;
+    display: none;
+    z-index: 1;
+}
+.sign-container {
+    font-size: 30px;
+}

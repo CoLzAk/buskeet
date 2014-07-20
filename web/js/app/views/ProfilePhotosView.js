@@ -69,6 +69,17 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 success: function(response, data) {
                     $('.profile-picture-button').removeClass('disabled');
                     UserModule.targetUserProfile.set('photos', data);
+                    $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-ok-sign');
+                    $('.message-text').html('Les modifications ont étés enregistrées !')
+                    $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-success');
+                    $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
+                    NProgress.done();
+                },
+                error: function(response) {
+                    $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-remove-sign');
+                    $('.message-text').html('Une erreur est survenue. Veuillez réesayer ultérieurement ou contacter le support')
+                    $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-danger');
+                    $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
                     NProgress.done();
                 }
             });
@@ -82,6 +93,17 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             this.model.destroy({
                 success: function(response, data) {
                     UserModule.targetUserProfile.set('photos', data);
+                    $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-ok-sign');
+                    $('.message-text').html('Les modifications ont étés enregistrées !')
+                    $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-success');
+                    $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
+                    NProgress.done();
+                },
+                error: function(response) {
+                    $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-remove-sign');
+                    $('.message-text').html('Une erreur est survenue. Veuillez réesayer ultérieurement ou contacter le support')
+                    $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-danger');
+                    $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
                     NProgress.done();
                 }
             });
@@ -142,6 +164,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 add: function(e, data) {
                     // that.previewImage(data.files[0]);
                     // $('.upload-photos-button').on('click', function(e) {
+                        $('#loading-photo-container').removeClass('hidden');
                         data.submit();
                     // });
                 },

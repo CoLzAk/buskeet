@@ -118,7 +118,22 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             NProgress.start();
             this.model.destroy({
                 success: function(response, data) {
+                    // UserModule.closeFormView();
+                    // Backbone.history.navigate(UserModule.targetUserUsername, { trigger: true });
                     UserModule.targetUserProfile.set('events', data);
+                    // that.render();
+                    $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-ok-sign');
+                    $('.message-text').html('Les modifications ont étés enregistrées !')
+                    $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-success');
+                    $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
+                    NProgress.done();
+                },
+                error: function(response) {
+                    // that.render();
+                    $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-remove-sign');
+                    $('.message-text').html('Une erreur est survenue. Veuillez réesayer ultérieurement ou contacter le support')
+                    $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-danger');
+                    $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
                     NProgress.done();
                 }
             });
@@ -166,9 +181,21 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                             // Backbone.history.navigate(UserModule.targetUserUsername, { trigger: true });
                             UserModule.targetUserProfile.set('events', that.collection.toJSON());
                             that.render();
+                            $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-ok-sign');
+                            $('.message-text').html('Les modifications ont étés enregistrées !')
+                            $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-success');
+                            $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
+                            NProgress.done();
+                        },
+                        error: function(response) {
+                            that.render();
+                            $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-remove-sign');
+                            $('.message-text').html('Une erreur est survenue. Veuillez réesayer ultérieurement ou contacter le support')
+                            $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-danger');
+                            $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
                             NProgress.done();
                         }
-                    })
+                    });
                 } else {
                     model.save();
                 }
@@ -260,7 +287,11 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 place = autocomplete.getPlace();
                 if (!place.geometry) {
                     // Inform the user that the place was not found and return.
-                    console.log('place not found');
+                    $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-question-sign');
+                    $('.message-text').html('Aucune adresse trouvée. Veuillez réessayer')
+                    $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-info');
+                    $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
+                    NProgress.done();
                     return;
                 } else {
                     if (place.address_components) {

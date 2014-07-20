@@ -83,8 +83,8 @@
     font-size: 20px;
     color: #FFF;
 }
-.add-photos-button:hover, .show-add-event-form-button:hover {
-    color: #8aa876;
+.add-photos-button:hover, .show-add-event-form-button:hover, .add-photos-button:focus, .show-add-event-form-button:focus {
+    color: #8aa876 !important;
     text-decoration: none;
 }
 .add-event-button {
@@ -101,4 +101,7 @@
 .cancel-event-button:hover {
     color: #e74c3c;
     text-decoration: none;
+}
+.clzk-profile-picture-form-img {
+    max-height: 170px;
 }

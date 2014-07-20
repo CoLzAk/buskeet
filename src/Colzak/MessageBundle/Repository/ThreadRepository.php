@@ -17,6 +17,20 @@ class ThreadRepository extends DocumentRepository
 		$q->field('participants')->includesReferenceTo($sender);
 		$q->field('participants')->includesReferenceTo($recipient);
 
-		return $q->getQuery()->execute()->toArray(false);;
+		return $q->getQuery()->execute()->toArray(false);
+	}
+
+	public function getLastThreads($profile, $limit) {
+		$id = $profile->getId();
+		$q = $this->createQueryBuilder();
+		$q->where('function() { 
+			for (var i in this.participants) {
+				if (this.participants[i].id == "53be4ae269032d8620000000") return true;
+			}
+		 }');
+		// $q->field('participants.$ref')->references($profile);
+		// (NULL === $limit ?: $q->limit($limit));
+
+		return $q->getQuery()->execute()->toArray(false);
 	}
 }

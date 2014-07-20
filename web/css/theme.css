@@ -255,7 +255,6 @@ select {
     text-indent: 0.01px;
     text-overflow: '';
     border:0;
-    outline:0;
     -webkit-transition:0.3s ease all;
     -moz-transition:0.3s ease all;
     -ms-transition:0.3s ease all;
@@ -264,6 +263,7 @@ select {
     width: 100%;
     border-bottom: 1px #555 solid;
     border-radius: 0;
+    outline: none;
 }
 .clzk-blue-select {
     background-color: #3498db !important;
@@ -383,4 +383,9 @@ select {
     background: #3498db;
     border-color: #3498db;
     border-color: #3498db;
+}
+
+/* GENERAL */
+.btn, .btn:focus, a, a:focus, select, select:focus, input, input:focus {
+    outline: none;
 }

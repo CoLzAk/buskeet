@@ -67,7 +67,19 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             var that = this;
             this.model.save({}, {
                 success: function(model, response) {
-                    that.render();
+                    // that.render();
+                    $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-ok-sign');
+                    $('.message-text').html('Les modifications ont étés enregistrées !')
+                    $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-success');
+                    $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
+                    NProgress.done();
+                },
+                error: function(response) {
+                    // that.render();
+                    $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-remove-sign');
+                    $('.message-text').html('Une erreur est survenue. Veuillez réesayer ultérieurement ou contacter le support')
+                    $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-danger');
+                    $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
                     NProgress.done();
                 }
             });
@@ -173,7 +185,10 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 place = autocomplete.getPlace();
                 if (!place.geometry) {
                     // Inform the user that the place was not found and return.
-                    console.log('place not found');
+                    $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-question-sign');
+                    $('.message-text').html('Aucune adresse trouvée. Veuillez réessayer')
+                    $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-info');
+                    $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
                     NProgress.done();
                     return;
                 } else {
@@ -211,7 +226,6 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                                 $('#clzk-profile-sublocality').val(place.address_components[i].long_name).trigger('change');
                             }
                         }
-                        console.log(place.geometry.location.lat());
                         $('#clzk-profile-lon').val(place.geometry.location.lng()).trigger('change');
                         $('#clzk-profile-lat').val(place.geometry.location.lat()).trigger('change');
 
@@ -219,9 +233,19 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
 
                         $('#map').html('<img src="'+ mapUrl +'">');
 
-                        // console.log(that.model);
                         that.model.save({}, {
-                            success: function() {
+                            success: function(model, response) {
+                                $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-ok-sign');
+                                $('.message-text').html('Les modifications ont étés enregistrées !')
+                                $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-success');
+                                $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
+                                NProgress.done();
+                            },
+                            error: function(response) {
+                                $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-remove-sign');
+                                $('.message-text').html('Une erreur est survenue. Veuillez réesayer ultérieurement ou contacter le support')
+                                $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-danger');
+                                $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
                                 NProgress.done();
                             }
                         });
