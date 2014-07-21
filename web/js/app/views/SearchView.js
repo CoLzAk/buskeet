@@ -173,6 +173,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         },
         showProfilePreview: function(e) {
             e.preventDefault();
+            NProgress.start();
             $('.clzk-results-number-container').addClass('hidden');
             $('.clzk-search-profile-container').addClass('hidden');
             $(e.currentTarget).removeClass('hidden').addClass('rendering');
@@ -221,6 +222,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         },
         showEventPreview: function(e) {
             e.preventDefault();
+            NProgress.start();
             $('.clzk-results-number-container').addClass('hidden');
             $('.share-action-button-container').addClass('hidden');
             $('.event-container').addClass('hidden');
@@ -274,6 +276,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         },
         navigateBack: function(e) {
             e.preventDefault();
+            NProgress.start();
             window.history.back();
         },
         toggleParticipate: function(e) {
@@ -300,6 +303,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             });
         },
         onDomRefresh: function() {
+            NProgress.done();
             this.initMap();
         },
         serializeData: function() {
@@ -359,6 +363,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         },
         navigateBack: function(e) {
             e.preventDefault();
+            NProgress.start();
             window.history.back();
         },
         sendMessage: function(e) {
@@ -384,6 +389,9 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
                     NProgress.done();
                 }
             });
+        },
+        onDomRefresh: function() {
+            NProgress.done();
         },
         serializeData: function() {
             var isAuthenticated = (SearchModule.authUser !== null),

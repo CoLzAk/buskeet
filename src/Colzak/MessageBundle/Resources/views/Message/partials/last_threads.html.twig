@@ -2,7 +2,7 @@
 	{% for thread in threads %}
 		{% for message in thread.messages %}
 			{% if loop.last %}
-				<li><a href="#">{{ message.message }}</a></li>
+				<li><a href="{{ path('colzak_user_thread', { threadId: thread.id }) }}">{{ message.message }}</a></li>
 			{% endif %}
 		{% endfor %}
 	{% endfor %}

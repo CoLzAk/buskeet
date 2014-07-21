@@ -8,6 +8,8 @@ use JMS\Serializer\Annotation as SERIAL;
 
 /**
  * @MongoDB\EmbeddedDocument
+ * @SERIAL\ExclusionPolicy("none")
+ * @MongoDB\HasLifecycleCallbacks
  */
 class Message
 {
@@ -40,6 +42,13 @@ class Message
      * @SERIAL\Type("DateTime")
      */
     protected $sendAt;
+
+    /**
+     * @MongoDB\PrePersist()
+     */
+    public function prePersist() {
+        $this->sendAt = new \DateTime();
+    }
 
     /**
      * Set sender

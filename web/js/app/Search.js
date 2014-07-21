@@ -20,6 +20,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
     });
 
     SearchModule.search = function(localization, filters) {
+        NProgress.start();
         if (typeof SearchModule.resultsCollection === 'undefined') {
             $.ajax({
                 url: 'http://maps.googleapis.com/maps/api/geocode/json?address='+ localization.replace(/--/g, '+').replace(/-/g, '+') +'&sensor=true&language=fr&region=fr',
@@ -70,6 +71,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             SearchModule.usersEvents = new SearchEvents(resultsCollection.get('items'));
             SearchModule.searchLayout.searchResultsRegion.show(new SearchEventsView({ collection: SearchModule.usersEvents }));
         }
+        NProgress.done();
     };
 
     SearchModule.displayPreview = function(localization, direction, itemId) {

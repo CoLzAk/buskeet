@@ -74,4 +74,29 @@ class MessagesController extends BaseController
 
         return $this->handleView($this->view($threads, 200)); 
     }
+
+    /**
+     * GET Route annotation.
+     * @Post("/thread/{threadId}/messages")
+     */
+    public function postThreadMessageAction($threadId) {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $sender = $user->getProfile();
+        $data = json_decode($this->container->get('request')->getContent());
+        $recipient = $dm->getRepository('ColzakUserBundle:Profile')->find($data->recipientId);
+        $thread = $dm->getRepository('ColzakMessageBundle:Thread')->find($threadId);
+
+        $message = new Message();
+        $message->setMessage($data->message);
+        $message->setSender($sender);
+        $message->setRecipient($recipient);
+
+        $thread->addMessage($message);
+
+        $dm->persist($thread);
+        $dm->flush();
+        
+        return $this->handleView($this->view($message, 200));
+    }
 }
