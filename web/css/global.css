@@ -261,7 +261,7 @@ html, body {
 .clzk-flash-messages-container {
     border-radius: 5px;
     padding: 10px;
-    position: absolute;
+    position: fixed;
     right: 30px;
     top: 70px;
     width: 300px;
