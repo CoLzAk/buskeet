@@ -1,0 +1,54 @@
+<script type="text/template" id="clzk-message-template">
+    <div class="message-container">
+        <div class="row">
+            <% if (currentUser.id === message.sender.id) { %>
+                <div class="col-md-2">
+                    <div class="message-photo-container">
+                        <% if (currentUser.photos.length > 0) { %>
+                            <% for (var i in currentUser.photos) { %>
+                                <% if (currentUser.photos[i].is_profile_picture) { %>
+                                    <img class="img-responsive" src="<%= currentUser.photos[i].thumb_path %>">
+                                <% } %>
+                            <% } %>
+                        <% } else { %>
+                            <img src="/img/user_128.png" alt="..." class="img-responsive">
+                        <% } %>
+                        {#<p class="text-center">&lt; moi &gt;</p>#}
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <p class="text-left"><%= message.message %></p>
+                    <p class="message-datetime text-left"><small>Le <%= moment(message.send_at, "YYYY-MM-DD\\THH:mm:ssZZ").format('DD/MM/YYYY à HH:mm') %></small></p>
+                </div>
+            <% } else { %>
+                <div class="col-md-10">
+                    <p class="text-right"><%= message.message %></p>
+                    <p class="message-datetime text-right"><small>Le <%= moment(message.send_at, "YYYY-MM-DD\\THH:mm:ssZZ").format('DD/MM/YYYY à HH:mm') %></small></p>
+                </div>
+                <div class="col-md-2">
+                    <div class="message-photo-container">
+                        <% if (recipient.photos.length > 0) { %>
+                            <% for (var i in recipient.photos) { %>
+                                <% if (recipient.photos[i].is_profile_picture) { %>
+                                    <img class="img-responsive" src="<%= recipient.photos[i].thumb_path %>">
+                                <% } %>
+                            <% } %>
+                        <% } else { %>
+                            <img src="/img/user_128.png" alt="..." class="img-responsive">
+                        <% } %>
+                        {#<p class="text-center">&lt; <%= recipient.firstname %> &gt; </p>#}
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="clzk-message-empty-template">
+    none
+</script>
+
+<script type="text/template" id="clzk-messages-template">
+    <h3>Conversation avec <%= recipient.firstname %></h3>
+    <div id="clzk-message-container"></div>
+</script>

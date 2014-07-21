@@ -1,29 +1,31 @@
-{% extends 'ColzakSearchBundle::layout.html.twig' %}
+{% extends 'ColzakMessageBundle::layout.html.twig' %}
 
 {% block extra_stylesheets %}
     {% stylesheets
-        "css/search.css"
-        "css/jquery.nouislider.css"
+        "css/message.css"
         filter="cssrewrite"
     %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
     {% endstylesheets %}
 {% endblock %}
 
-{% block body %}
+{% block menu_region %}
+    {#} MENU TEMPLATES {#}
+    <div id="clzk-menu-region"></div>
+    <script type="text/template" id="clzk-message-menu-layout">
+        <div id="clzk-message-menu-region"></div>
+    </script>
+    {% include 'ColzakMessageBundle:Message:templates/message_menu.html.twig' %}
+{% endblock %}
+
+{% block content_region %}
     <div id="clzk-main-region" class="full-height"></div>
 
     {#} Search Layout {#}
-    <script type="text/template" id="clzk-search-layout">
+    <script type="text/template" id="clzk-message-layout">
         <div class="row">
-            <div class="col-md-3 clzk-search-menu-region-container">
-                <div id="clzk-search-menu-region"></div>
-            </div>
-            <div class="col-md-6">
-                <div id="clzk-search-results-region"></div>
-            </div>
-            <div class="col-md-6 clzk-preview-container">
-                <div id="clzk-search-preview-region"></div>
+            <div class="col-md-8">
+                <div id="clzk-message-thread-region"></div>
             </div>
         </div>
     </script>
@@ -33,9 +35,7 @@
         <div id="clzk-modal-content-region"></div>
     </script>
 
-    {% include 'ColzakSearchBundle:Search:templates/search_menu.html.twig' %}
-    {% include 'ColzakSearchBundle:Search:templates/search_results.html.twig' %}
-    {% include 'ColzakSearchBundle:Search:templates/search_events.html.twig' %}
+    {% include 'ColzakMessageBundle:Message:templates/message_thread.html.twig' %}
 {% endblock %}
 
 {% block extra_javascripts %}
@@ -51,10 +51,11 @@
         "js/vendor/moment-2.0.0.min.js"
         "js/vendor/moment.lang.fr.min.js"
         "js/app/App.js"
-        "js/app/Search.js"
-        "js/app/models/Search.js"
-        "js/app/models/Profile.js"
-        "js/app/views/SearchView.js"
+        "js/app/Message.js"
+        "js/app/models/Messages.js"
+        "js/app/models/Thread.js"
+        "js/app/views/MessageView.js"
+        "js/app/views/ThreadView.js"
     %}
         <script src="{{ asset_url }}" type="text/javascript"></script>
     {% endjavascripts %}
@@ -63,10 +64,11 @@
     $(document).ready(function() {
         moment.lang('fr');
         var options = {
-                module: 'search',
-                queryUrl: {{ queryUrl|serialize|raw }},
+                module: 'message',
                 path: "{{ path(app.request.attributes.get('_route')) }}",
-                authUser: {{ app.user|serialize|raw }}
+                user: {{ app.user|serialize|raw }},
+                userId: "{{ app.user.id }}",
+                threadId: "{{ threadId }}"
         };
         App.start(options);
     });

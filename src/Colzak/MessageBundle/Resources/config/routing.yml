@@ -1,3 +1,7 @@
-# colzak_message_homepage:
-#     path:     /hello/{name}
-#     defaults: { _controller: ColzakMessageBundle:Default:index }
+colzak_user_inbox:
+    path:     /messages
+    defaults: { _controller: ColzakMessageBundle:Message:inbox }
+
+colzak_user_thread:
+    path:     /messages/{threadId}
+    defaults: { _controller: ColzakMessageBundle:Message:thread, threadId: '' }

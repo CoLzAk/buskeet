@@ -1,5 +1,9 @@
 {% if threads is not null %}
 	{% for thread in threads %}
-		<li><a href="#">{{ thread.id }}</a></li>
+		{% for message in thread.messages %}
+			{% if loop.last %}
+				<li><a href="#">{{ message.message }}</a></li>
+			{% endif %}
+		{% endfor %}
 	{% endfor %}
 {% endif %}

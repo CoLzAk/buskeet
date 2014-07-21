@@ -17,6 +17,12 @@ App.SearchRouter = Backbone.Marionette.AppRouter.extend({
         // ':localization/:category?:slug' : "search"
     }
 });
+
+App.MessageRouter = Backbone.Marionette.AppRouter.extend({
+    appRoutes: {
+        ':threadId': 'showThread'
+    }
+});
 // Custom region transition
 var MainRegion = Backbone.Marionette.Region.extend({
     el: '#clzk-main-region',
@@ -131,13 +137,19 @@ App.on('start', function(options){
         mod.start(options);
     });
 
-    if(options.module == "search") {
+    if (options.module == "user") {
+        App.router = new App.Router({
+            controller: App.UserModule
+        });
+    }
+    if (options.module == "search") {
         App.searchRouter = new App.SearchRouter({
             controller: App.SearchModule
         });
-    } else {
-        App.router = new App.Router({
-            controller: App.UserModule
+    }
+    if (options.module == "message") {
+        App.messageRouter = new App.MessageRouter({
+            controller: App.MessageModule
         });
     }
 

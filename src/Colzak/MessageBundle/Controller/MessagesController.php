@@ -17,25 +17,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class MessagesController extends BaseController
 {
-    public function lastThreadAction() {
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $user = $this->get('security.context')->getToken()->getUser();
-        $profile = $user->getProfile();
-        $test = $dm->getRepository('ColzakUserBundle:Profile')->find('53c68ff369032d280c000000');
-        $limit = 5;
-
-        // $threads = 'test';
-        $threads = $dm->getRepository('ColzakMessageBundle:Thread')->getLastThreads($profile, $limit);
-        // $threads = $dm->getRepository('ColzakMessageBundle:Thread')->getByParticipants($profile, $test);
-        \Doctrine\Common\Util\Debug::dump($threads);
-
-        return $this->render('ColzakMessageBundle:Message:partials/last_threads.html.twig', array('threads' => $threads));
-    }
-
-    public function threadAction($threadId) {
-        //
-    }
-
     /**
      * POST Route annotation.
      * @Post("/messages/{recipientId}")
@@ -71,4 +52,26 @@ class MessagesController extends BaseController
     	
         return $this->handleView($this->view($thread, 200));
     } // "post_users_files"   [POST] /users/{id}/files
+
+    /**
+     * GET Route annotation.
+     * @Get("/thread/{threadId}/messages")
+     */
+    public function getThreadMessagesAction($threadId) {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $thread = $dm->getRepository('ColzakMessageBundle:Thread')->find($threadId);
+        return $this->handleView($this->view($thread->getMessages(), 200));
+    }
+
+    /**
+     * GET Route annotation.
+     * @Get("/users/{userId}/threads")
+     */
+    public function getThreadsAction($userId) {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $threads = $dm->getRepository('ColzakMessageBundle:Thread')->getLastThreads($user->getProfile(), 10);
+
+        return $this->handleView($this->view($threads, 200)); 
+    }
 }

@@ -1,4 +1,3 @@
-
 App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
     Message = Backbone.Model.extend({
         initialize: function(model, options) {

@@ -219,6 +219,7 @@
         NProgress.start();
         moment.lang('fr');
         var options = {
+                module: "user",
                 userId: "{{ userId }}",
                 visitorId: "{{ visitorId }}",
                 path: "{{ path(app.request.attributes.get('_route')) }}"

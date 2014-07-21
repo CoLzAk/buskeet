@@ -1,0 +1,28 @@
+<script type="text/template" id="clzk-thread-template">
+    <div class="thread-container">
+        <div class="clzk-thread-photo-container">
+            <% if (recipient.photos.length > 0) { %>
+                <% for (var i in recipient.photos) { %>
+                    <% if (recipient.photos[i].is_profile_picture) { %>
+                        <img src="<%= recipient.photos[i].thumb_path %>" alt="..." class="img-responsive">
+                    <% } %>
+                <% } %>
+            <% } else { %>
+                <img src="/img/user_128.png" alt="..." class="img-responsive">
+            <% } %>
+        </div>
+        <div class="pull-left">
+            <%= recipient.firstname %> <%= recipient.lastname %>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</script>
+
+<script type="text/template" id="clzk-thread-empty-template">
+    none
+</script>
+
+<script type="text/template" id="clzk-threads-template">
+    <h3>Tous les messages</h3>
+    <div id="clzk-thread-container"></div>
+</script>

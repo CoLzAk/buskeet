@@ -36,6 +36,12 @@ class Message
     protected $isReadByRecipient = FALSE;
 
     /**
+     * @MongoDB\Date(nullable=true)
+     * @SERIAL\Type("DateTime")
+     */
+    protected $sendAt;
+
+    /**
      * Set sender
      *
      * @param Colzak\UserBundle\Document\Profile $sender
@@ -121,5 +127,27 @@ class Message
     public function getIsReadByRecipient()
     {
         return $this->isReadByRecipient;
+    }
+
+    /**
+     * Set sendAt
+     *
+     * @param date $sendAt
+     * @return self
+     */
+    public function setSendAt($sendAt)
+    {
+        $this->sendAt = $sendAt;
+        return $this;
+    }
+
+    /**
+     * Get sendAt
+     *
+     * @return date $sendAt
+     */
+    public function getSendAt()
+    {
+        return $this->sendAt;
     }
 }

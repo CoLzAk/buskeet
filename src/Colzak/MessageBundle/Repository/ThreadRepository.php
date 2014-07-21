@@ -21,15 +21,14 @@ class ThreadRepository extends DocumentRepository
 	}
 
 	public function getLastThreads($profile, $limit) {
-		$id = $profile->getId();
 		$q = $this->createQueryBuilder();
-		$q->where('function() { 
-			for (var i in this.participants) {
-				if (this.participants[i].id == "53be4ae269032d8620000000") return true;
-			}
-		 }');
-		// $q->field('participants.$ref')->references($profile);
-		// (NULL === $limit ?: $q->limit($limit));
+		// $q->where('function() { 
+		// 	for (var i in this.participants) {
+		// 		if (this.participants[i].id == "53be4ae269032d8620000000") return true;
+		// 	}
+		//  }');
+		$q->field('participants')->includesReferenceTo($profile);
+		(NULL === $limit ?: $q->limit($limit));
 
 		return $q->getQuery()->execute()->toArray(false);
 	}
