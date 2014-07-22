@@ -14,6 +14,7 @@ use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class SearchController extends BaseController
 {
@@ -28,6 +29,18 @@ class SearchController extends BaseController
         );
 
         return $this->render('ColzakSearchBundle:Search:index.html.twig', array('queryUrl' => $queryUrl));
+    }
+
+    public function redirectAction($localization, $direction, $itemId, Request $request) {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        if ($direction == 'profiles') {
+            $profile = $dm->getRepository('ColzakUserBundle:Profile')->find($itemId);
+            return new RedirectResponse($this->get('router')->generate('colzak_user_homepage', array('username' => $profile->getUsername())));
+        }
+        if ($direction == 'events') {
+            // $event = $dm->getRepository('ColzakEventBundle:Event')->find($itemId);
+            return new RedirectResponse($this->get('router')->generate('colzak_event', array('eventId' => $itemId)));
+        }
     }
 
     /**

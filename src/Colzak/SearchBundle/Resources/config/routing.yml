@@ -4,3 +4,10 @@ colzak_search_result:
     methods: GET
     options:
         expose: true
+
+colzak_search_result_preview:
+    pattern:  /s/{localization}/{direction}/preview/{itemId}
+    defaults: { _controller: ColzakSearchBundle:Search:redirect, localization: 'FR' }
+    methods: GET
+    options:
+        expose: true
