@@ -24,6 +24,12 @@ class User extends BaseUser
      */
     protected $profile;
 
+    /**
+     * @MongoDB\Boolean
+     * @SERIAL\Type("boolean")
+     */
+    protected $deleted = FALSE;
+
     public function __construct()
     {
         parent::__construct();
@@ -60,5 +66,27 @@ class User extends BaseUser
     public function getProfile()
     {
         return $this->profile;
+    }
+
+    /**
+     * Set deleted
+     *
+     * @param boolean $deleted
+     * @return self
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+        return $this;
+    }
+
+    /**
+     * Get deleted
+     *
+     * @return boolean $deleted
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
     }
 }

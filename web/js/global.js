@@ -21,6 +21,10 @@ $(document).ready(function() {
         $('#register-form').submit();
     });
 
+    if ($('.clzk-php-flash-messages-container').is(':visible')) {
+        $('.clzk-php-flash-messages-container').delay(3000).fadeOut( 400 );
+    }
+
     //Init googlePlaceAutocomplete on cn-search-form-localization input
     var input = document.getElementById('clzk-search-input'),
         autocomplete = new google.maps.places.Autocomplete(input),

@@ -1,3 +1,15 @@
 colzak_static_homepage:
     pattern:  /
     defaults: { _controller: ColzakStaticBundle:Home:index }
+
+colzak_static_about:
+    pattern:  /about
+    defaults: { _controller: ColzakStaticBundle:Home:about }
+
+colzak_static_cgu:
+    pattern:  /cgu
+    defaults: { _controller: ColzakStaticBundle:Home:cgu }
+
+colzak_static_privacy:
+    pattern:  /privacy
+    defaults: { _controller: ColzakStaticBundle:Home:privacy }

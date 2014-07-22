@@ -10,9 +10,10 @@ colzak_user_homepage:
     options:
         expose: true
 
-# colzak_user_test_portfolio:
-#     pattern: /test
-#     defaults: { _controller: ColzakUserBundle:Profile:test }
-# colzak_user_know_me:
-#     pattern: /whoami
-#     defaults: { _controller: ColzakUserBundle:Profile:knowMe }
+colzak_user_account:
+    pattern: /account
+    defaults: { _controller: ColzakUserBundle:Profile:account }
+
+colzak_user_change_email:
+    pattern: /account/change-email
+    defaults: { _controller: ColzakUserBundle:Profile:changeEmail }

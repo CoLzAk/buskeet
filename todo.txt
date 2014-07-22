@@ -1,13 +1,23 @@
 TODO:
 
+Compte:
+	Supprimer compte
+	Reinitialiser mdp
+
+Messagerie
+	Supprimer message
+	Supprimer thread
+	Message lu
+
 Global:
 	Rédaction CGU et politique de confidentialité
 	Ajouter des flash messages
 	Ajouter une boite a idée / bugs
+	Responsiveness
+	Acheter icones
 
 Profil:
-	ajout évènement (concert etc.) (feature)
-		type: public / perso (ou 2 documents ?)
+	ajout évènement public (concert etc.) (feature)
 	bouton share
 	
 Evenement
@@ -20,13 +30,8 @@ Photo:
 	loader
 
 Recherche:
-	ajouter loader
-	evenements (comme des liens sponsorisés) avec code couleur flashy (concerts, street perf)
+	evenements publics (comme des liens sponsorisés) avec code couleur flashy (concerts)
 	autoriser radius + grand
-
-Faire une page dédiée event (cf Evenement)
-
-Ajouter messagerie
 
 News Feed (feature)
 	Autour de moi (A tours : Festival terre du son ce weekend)
@@ -45,42 +50,17 @@ Bandeau de gauche:
 	Pub
 
 Type d'instrument:
-	- Percussions
-	- Cuivres
-	- Cordes
-	- Claviers
-	- Bois
-	- Voix
 	- Electronique
 
-Thread
-	id
-	createdAt
-	messages
-	participants
+Footer:
+	- a propos
+	- CGU
+	- Confidentialité
+	- Inviter des amis
 
-Message: 
-	id
-	thread
-	message
-	sender
-	recipient
-	sentAt
+	Liens réseaux sociaux
 
-Nouveau message :
 
-	message: new Message()
-	message.sender: sender
-	message.recipient: recipient
-	thread: findByParticipants(sender, recipient)
-	IF thread IS NOT NULL 
-		message.setThread(thread) (ou thread.addMessage(message) ?)
-	ELSE 
-		thread: new Thread()
-		thread.addParticipant(sender)
-		thread.addParticipant(recipient)
-
-	save()
 
 
 

@@ -9,6 +9,7 @@ use Colzak\PortfolioBundle\Document\Portfolio;
 use Colzak\PortfolioBundle\Document\PortfolioInstrument;
 use Colzak\PortfolioBundle\Form\Type\PortfolioInstrumentFormType;
 use Colzak\EventBundle\Document\Event;
+use Colzak\UserBundle\Form\Type\EmailFormType;
 
 class ProfileController extends Controller
 {
@@ -45,8 +46,38 @@ class ProfileController extends Controller
         $q->limit(12);
         $users = $q->getQuery()->execute()->toArray();
 
-        return $this->container->get('templating')->renderResponse('ColzakUserBundle:Profile:partials/last_users.html.twig', array(
+        return $this->render('ColzakUserBundle:Profile:partials/last_users.html.twig', array(
             'users' => $users
         ));
+    }
+
+    public function accountAction() {
+        return $this->render('ColzakUserBundle:Profile:account.html.twig');
+    }
+
+    public function changeEmailAction() {
+        $dm = $this->container->get('doctrine_mongodb')->getManager();
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $form = $this->container->get('form.factory')->create(new EmailFormType(), $user);
+
+        if ($this->container->get('request')->isMethod('POST')) {
+            $form->bind($this->container->get('request'));
+
+            if ($form->isValid()) {
+                if (count($dm->getRepository('ColzakUserBundle:User')->findOneByEmail($user->getEmail())) > 0) {
+                    $this->container->get('session')->getFlashBag()->add(
+                        'error',
+                        'l\'adresse "'.$user->getEmail().'" est déjà présente en base, vous ne pouvez donc pas l\'utiliser'
+                    );
+
+                    return new RedirectResponse($this->container->get('router')->generate('colzak_user_account'));
+                }
+                $dm->persist($user);
+                $dm->flush();
+            }
+            return new RedirectResponse($this->container->get('router')->generate('colzak_user_account'));
+        }
+
+        return $this->render('ColzakUserBundle:Profile:partials/change_email.html.twig', array('form' => $form->createView()));
     }
 }

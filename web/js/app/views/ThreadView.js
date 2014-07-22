@@ -10,10 +10,10 @@ App.module("MessageModule", function(MessageModule, App, Backbone, Marionette, $
         	};
         },
         initialize: function() {
-        	var participants = this.model.get('participants'), recipient;
+        	var participants = this.model.get('participants');
 
         	for (var i in participants) {
-        		if (participants.id !== MessageModule.user.profile.id) {
+        		if (participants[i].id !== MessageModule.user.profile.id) {
         			this.recipient = participants[i];
         		}
         	}

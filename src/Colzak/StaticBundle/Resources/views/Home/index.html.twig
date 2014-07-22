@@ -20,24 +20,38 @@
                         <!-- <div class="col-md-6"> -->
                             <ul class="nav navbar-nav navbar-right">
                                 {% if is_granted('ROLE_USER') %}
-                                    <li><a href="#">
+                                    <!-- Notif (feature) -->
+                                    {#<li><a href="#">
                                         <span class="glyphicon glyphicon-info-sign"></span>
                                         <span class="label label-danger">4</span>
-                                    </a></li>
-                                    <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
-                                    <li><a href="#"><span class="glyphicon glyphicon-off"></span></a></li>
+                                    </a></li>#}
+                                    <li>
+                                        <a href="{{ path('colzak_user_homepage', { username: app.user.username }) }}">
+                                            <div class="pull-left clzk-navbar-profile-picture-container">
+                                                {% if app.user.profile.photos|length > 0 %}
+                                                    {% for photo in app.user.profile.photos %}
+                                                        {% if photo.isProfilePicture %}
+                                                            <img src="{{ photo.thumbPath }}" class="img-responsive" width="50">
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% else %}
+                                                    <img src="/img/user_256.png" alt="..." class="img-responsive clzk-navbar-profile-picture" width="50">
+                                                {% endif %}
+                                            </div>
+                                            <div class="pull-left">
+                                                {{ app.user.profile.firstname }}
+                                            </div>
+                                        </a>
+                                    </li>
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ [app.user.profile.firstname, app.user.profile.lastname]|join(' ') }} <b class="caret"></b></a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-envelope"></span> <b class="caret"></b></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="#">Action</a></li>
-                                            <li><a href="#">Another action</a></li>
-                                            <li><a href="#">Something else here</a></li>
+                                            {{ render(controller('ColzakMessageBundle:Message:lastThread')) }}
                                             <li class="divider"></li>
-                                            <li><a href="#">Separated link</a></li>
-                                            <li class="divider"></li>
-                                            <li><a href="#">One more separated link</a></li>
+                                            <li><a href="{{ path('colzak_user_inbox') }}">Messagerie</a></li>
                                         </ul>
                                     </li>
+                                    <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off"></span></a></li>
                                 {% else %}
                                     <li><a href="#" data-toggle="modal" data-target="#login-modal">Connexion</a></li>
                                     <li><a href="#" data-toggle="modal" data-target="#register-modal">Inscription</a></li>
@@ -79,12 +93,26 @@
                         </div>
                     </div>
                 </div>
+                <div class="clearfix"></div>
             </div>
         </div>
     </div>
+    <div class="clearfix"></div>
 
     <h1>Les derniers participants sur buskeet.com</h1>
 
     {{ render(controller('ColzakUserBundle:Profile:getLastRegisteredUsers')) }}
-    
+
+    <footer class="clzk-footer row">
+        <nav class="navbar navbar-inverse mb0" role="navigation">
+            <div class="col-md-12 text-center">
+                <ul class="list-inline">
+                    <li><a href="{{ path('colzak_static_about') }}">A propos</a></li>
+                    <li><a href="{{ path('colzak_static_cgu') }}">Conditions générales d'utilisation</a></li>
+                    <li><a href="{{ path('colzak_static_privacy') }}">Confidentialité</a></li>
+                    <!-- <li><a href="#"></a></li> -->
+                </ul>
+            </div>
+        </nav>
+    </footer>
 {% endblock %}

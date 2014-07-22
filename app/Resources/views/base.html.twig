@@ -46,8 +46,8 @@
                                                     <span class="glyphicon glyphicon-info-sign"></span>
                                                     <span class="label label-danger">4</span>
                                                 </a></li>#}
-                                                <li>
-                                                    <a href="{{ path('colzak_user_homepage', { username: app.user.username }) }}">
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                                         <div class="pull-left clzk-navbar-profile-picture-container">
                                                             {% if app.user.profile.photos|length > 0 %}
                                                                 {% for photo in app.user.profile.photos %}
@@ -62,17 +62,24 @@
                                                         <div class="pull-left">
                                                             {{ app.user.profile.firstname }}
                                                         </div>
+                                                        <b class="caret"></b>
                                                     </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="{{ path('colzak_user_homepage', { username: app.user.username }) }}"><span class="glyphicon glyphicon-user"></span> Mon profil</a></li>
+                                                        <li class="divider"></li>
+                                                        <li><a href="{{ path('colzak_user_account') }}"><span class="glyphicon glyphicon-cog"></span> Mon compte</a></li>
+                                                        <li class="divider"></li>
+                                                        <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off"></span> Déconnexion</a></li>
+                                                    </ul>
                                                 </li>
                                                 <li class="dropdown">
                                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-envelope"></span> <b class="caret"></b></a>
                                                     <ul class="dropdown-menu">
                                                         {{ render(controller('ColzakMessageBundle:Message:lastThread')) }}
                                                         <li class="divider"></li>
-                                                        <li><a href="{{ path('colzak_user_inbox') }}">Messagerie</a></li>
+                                                        <li><a href="{{ path('colzak_user_inbox') }}"><span class="glyphicon glyphicon-envelope"></span> Messagerie</a></li>
                                                     </ul>
                                                 </li>
-                                                <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off"></span></a></li>
                                             {% else %}
                                                 <li><a href="#" data-toggle="modal" data-target="#login-modal">Connexion</a></li>
                                                 <li><a href="#" data-toggle="modal" data-target="#register-modal">Inscription</a></li>
@@ -103,6 +110,32 @@
         </header>
 
         <div class="container-fluid clzk-global-container">
+            {% for flashMessage in app.session.flashbag.get('notice') %}
+                <div class="clzk-php-flash-messages-container alert alert-warning">
+                    <div class="row">
+                        <div class="col-md-2 sign-container">
+                            <span class="glyphicon glyphicon-info-sign"></span>
+                        </div>
+                        <div class="col-md-8">
+                            <p class="message-text">{{ flashMessage }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+            {% for flashMessage in app.session.flashbag.get('error') %}
+                <div class="clzk-php-flash-messages-container alert alert-danger">
+                    <div class="row">
+                        <div class="col-md-2 sign-container">
+                            <span class="glyphicon glyphicon-remove-sign"></span>
+                        </div>
+                        <div class="col-md-8">
+                            <p class="message-text">{{ flashMessage }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
             <div class="clzk-flash-messages-container alert">
                 <div class="row">
                     <div class="col-md-2 sign-container">
@@ -114,21 +147,24 @@
                 </div>
             </div>
             {% block body %}
-                <div class="row">
-                    <div class="col-md-2 clzk-left-region">
-                        {% block menu_region %}{% endblock %}
-                    </div>
-                    <div class="col-md-10 clzk-right-region">
-                        <div class="clzk-scrolling-content row">
-                            <div class="col-md-12">
-                                {% block content_region %}{% endblock %}
+                    <div class="row full-height">
+                        <div class="col-md-2 clzk-left-region">
+                            {% block menu_region %}{% endblock %}
+                        </div>
+                        <div class="col-md-10 clzk-right-region">
+                            <div class="clzk-scrolling-content row">
+                                <div class="col-md-12">
+                                    {% block content_region %}{% endblock %}
+                                </div>
+                                <div class="clearfix"></div>
                             </div>
                         </div>
                     </div>
-                </div>
             {% endblock %}
             <div class="clzk-help-container"></div>
         </div>
+
+        <div class="clearfix"></div>
 
         {#} modal {#}
         <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-label" aria-hidden="true">

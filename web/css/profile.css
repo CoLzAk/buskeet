@@ -67,18 +67,6 @@
     right: 15px;
     z-index: 2;
 }
-.clzk-breadcrumb {
-    height: 60px;
-    font-size: 30px;
-    color: #DDD;
-    background: none !important;
-}
-.clzk-breadcrumb > li + li:before {
-    content: " > ";
-}
-.clzk-breadcrumb a {
-    color: #FFF !important;
-}
 .add-photos-button, .show-add-event-form-button {
     font-size: 20px;
     color: #FFF;
