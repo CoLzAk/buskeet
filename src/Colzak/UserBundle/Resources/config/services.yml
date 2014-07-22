@@ -16,6 +16,11 @@ services:
         class: Colzak\UserBundle\Form\EventListener\RegistrationSubscriber
         arguments: ["@doctrine_mongodb.odm.document_manager"]
 
+    colzak.twig.colzak_extension:
+        class: Colzak\UserBundle\Twig\ColzakExtension
+        tags:
+            - { name: twig.extension }
+
     # colzak_user.registration.form.eventlistener:
     #     class: Colzak\UserBundle\Form\EventListener\RegistrationSubscriber
     #     arguments: ["@doctrine.orm.entity_manager"]

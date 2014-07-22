@@ -1,8 +1,6 @@
 {% form_theme form 'ColzakUserBundle:Form:fields.html.twig' %}
 <div class="clzk-register-container">
-    <p class="text-left clzk-dropdown-title">Je crée mon compte</p>
-    <hr>
-    <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register" role="form">
+    <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register" role="form" id="register-form">
         {{ form_widget(form.profile.firstname) }}
         {{ form_widget(form.profile.lastname) }}
         {{ form_widget(form.email) }}
@@ -18,6 +16,6 @@
         {{ form_widget(form.profile.gender) }}
         <br />
         {{ form_rest(form) }}
-        <button type="submit" id="_submit" name="_submit" class="btn btn-default btn-block">Je m'inscris</button>
+        <button type="submit" id="_submit" name="_submit" class="btn btn-default btn-block hidden">Je m'inscris</button>
     </form>
 </div>

@@ -21,11 +21,24 @@ body {
     padding-top: 15px;
     padding-bottom: 15px;
     background: #222;
+    color: #FFF !important;
+}
+.clzk-home-last-member-photo-container {
+    max-height: 125px;
+    overflow: hidden;
+}
+.clzk-home-last-member-photo-container img {
+    width: 100%;
+    overflow: hidden;
 }
 .clzk-home-user-instruments {
     width: 32%;
     float: left;
     margin-right: 2px;
+}
+.clzk-home-last-member:hover {
+    background: #444;
+    cursor: pointer;
 }
 .glyphicon {
     top: 0;

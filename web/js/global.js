@@ -9,6 +9,18 @@ $(document).ready(function() {
         $('#login-form').submit();
     });
 
+    $('#register-button').on('click', function(e) {
+        $('#register-form').submit();
+    });
+
+    $('#login-modal-button').on('click', function(e) {
+        $('#login-form').submit();
+    });
+
+    $('#register-modal-button').on('click', function(e) {
+        $('#register-form').submit();
+    });
+
     //Init googlePlaceAutocomplete on cn-search-form-localization input
     var input = document.getElementById('clzk-search-input'),
         autocomplete = new google.maps.places.Autocomplete(input),

@@ -1,20 +1,22 @@
 <div class="row">
     {% for user in users %}
         <div class="col-md-4 col-sm-4 col-xs-6">
-            <div class="clzk-home-last-member row">
-                <div class="col-md-6">
-                    {% if user.photos|length > 0 %}
-                        {% for photo in user.photos if photo.isProfilePicture %}
-                            <img src="{{ photo.thumbPath }}" alt="..." class="img-thumbnail">
-                        {% endfor %}
-                    {% else %}
-                        <img src="/img/user_128.png" alt="..." class="img-thumbnail">
-                    {% endif %}
-                </div>
-                <div class="col-md-6">
-                    <h4 class="text-right">{{ [user.firstname, user.lastname]|join(' ') }}</h4>
-                    <p class="text-right">age, {{ user.locality }}</p>
-                    <p class="text-center">
+            <a href="{{ path('colzak_user_homepage', { username: user.username }) }}">
+                <div class="clzk-home-last-member row">
+                    <div class="col-md-6">
+                        <div class="clzk-home-last-member-photo-container">
+                            {% if user.photos|length > 0 %}
+                                {% for photo in user.photos if photo.isProfilePicture %}
+                                    <img src="{{ photo.thumbPath }}" alt="..." class="img-responsive">
+                                {% endfor %}
+                            {% else %}
+                                <img src="/img/user_128.png" alt="..." class="img-responsive">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="text-right mt0 mb0">{{ [user.firstname, user.lastname]|join(' ') }}</h4>
+                        <p class="text-right mb0">{{ user.birthdate|date('Y-m-d')|age }} ans, {{ user.locality }}</p>
                         {% for item in user.portfolio.portfolioInstruments %}
                             {% if loop.index <= 3 %}
                                 <div class="clzk-home-user-instruments">
@@ -24,9 +26,9 @@
                             {% endif %}
                         {% endfor %}
                         <div class="clearfix"></div>
-                    </p>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
     {% endfor %}
     <div class="clearfix"></div>

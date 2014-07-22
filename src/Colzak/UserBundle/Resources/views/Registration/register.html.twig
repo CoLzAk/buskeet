@@ -4,12 +4,22 @@
 
 {% block body %}
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-5">
+    	<h2>Inscription</h2>
+        <hr>
         {{ render(controller('ColzakUserBundle:Registration:embeddedRegister')) }}
+        <hr>
+        <button type="button" class="btn btn-primary pull-right" id="register-button">Inscription</button>
     </div>
-
-    <div class="col-md-6">
+    <div class="col-md-2">
+    	<h2 class="text-center">ou</h2>
+    </div>
+    <div class="col-md-5">
+    	<h2>Connexion</h2>
+        <hr>
         {{ render(controller('ColzakUserBundle:Security:embeddedLogin')) }}
+        <hr>
+        <button type="button" class="btn btn-primary pull-right" id="login-button">Connexion</button>
     </div>
 </div>
 {% endblock %}
