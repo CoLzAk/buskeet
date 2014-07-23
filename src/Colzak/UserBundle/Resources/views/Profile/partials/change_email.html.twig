@@ -1,9 +1,9 @@
 {% form_theme form 'ColzakUserBundle:Form:fields.html.twig' %}
 
 <form action="{{ path('colzak_user_change_email') }}" method="post" {{ form_enctype(form) }} novalidate>
-    <div class="col-md-9">
+    <div class="col-md-12">
         {{ form_widget(form.email, { 'attr': {'class' : 'form-control clzk-form-control'}}) }}
         {{ form_rest(form) }}
     </div>
-    <div class="col-md-3"><button type="submit" class="btn btn-primary pull-right">Valider</button></div>
+    <div class="col-md-12"><button type="submit" class="btn btn-primary pull-right">Valider</button></div>
 </form>

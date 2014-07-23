@@ -12,6 +12,14 @@ use Doctrine\ODM\MongoDB\DocumentRepository;
  */
 class ProfileRepository extends DocumentRepository
 {
+    public function getLastRegisteredProfiles() {
+        $q = $this->createQueryBuilder();
+        $q->field('enabled')->equals(true);
+        $q->sort('createdAt', 'desc');
+        $q->limit(12);
+        return $q->getQuery()->execute()->toArray(false);
+    }
+
     public function profileFilteredSearch($searchParams) {
     	$parameters = array();
     	foreach ($searchParams as $key => $value) {
@@ -27,14 +35,8 @@ class ProfileRepository extends DocumentRepository
             }
         }
 
-		//For instance I have to do geoNear(lat, lng) instead of geoNear(lng, lat) to have good distance calculation ? wtf ?
-        // $portfolio = $this->getDocumentManager('ColzakPortfolioBundle:PortfolioInstrument');
-        // $portfolio->createQueryBuilder()->eagerCursor(true);
-        // $portfolio->field('level')->equals('PROFESSIONAL');
-        // \Doctrine\Common\Util\Debug::dump($portfolio->getQuery()->execute());
-
-        $profile = array();
         $q = $this->createQueryBuilder();
+        $q->field('enabled')->equals(true);
         $q->field('coordinates')->geoNear((float)$parameters['lat'], (float)$parameters['lng'])->spherical(true)->distanceMultiplier(6378.137)->maxDistance((isset($parameters['radius']) ? $parameters['radius'] : 20)/6371);
         if (array_key_exists('gender', $searchParams)) {
         	$q->field('gender')->equals($parameters['gender']);

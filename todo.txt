@@ -2,7 +2,7 @@ TODO:
 
 Compte:
 	Supprimer compte
-	Reinitialiser mdp
+	Ajouter flash success
 
 Messagerie
 	Supprimer message
@@ -25,6 +25,7 @@ Evenement
 	ajouter private / public (pour affichage) (feature)
 	bouton participer (uniquement si ami si private et tout le monde si public et < nbMaxParticipants (feature)) 
 	Bouton share (reseaux sociaux)
+	Commentaires
 
 Photo:
 	loader

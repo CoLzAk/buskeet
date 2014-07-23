@@ -150,6 +150,12 @@ class Profile
      */
     public $distance;
 
+    /**
+     * @MongoDB\Boolean
+     * @SERIAL\Type("boolean")
+     */
+    protected $enabled = TRUE;
+
     public function __construct()
     {
         $this->portfolio = new Portfolio();
@@ -658,5 +664,71 @@ class Profile
     public function getUsername()
     {
         return $this->username;
+    }
+
+    /**
+     * Set deleted
+     *
+     * @param boolean $deleted
+     * @return self
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+        return $this;
+    }
+
+    /**
+     * Get deleted
+     *
+     * @return boolean $deleted
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * Set blacklisted
+     *
+     * @param boolean $blacklisted
+     * @return self
+     */
+    public function setBlacklisted($blacklisted)
+    {
+        $this->blacklisted = $blacklisted;
+        return $this;
+    }
+
+    /**
+     * Get blacklisted
+     *
+     * @return boolean $blacklisted
+     */
+    public function getBlacklisted()
+    {
+        return $this->blacklisted;
+    }
+
+    /**
+     * Set enabled
+     *
+     * @param boolean $enabled
+     * @return self
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+        return $this;
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return boolean $enabled
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
     }
 }

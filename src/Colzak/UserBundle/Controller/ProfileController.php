@@ -40,11 +40,8 @@ class ProfileController extends Controller
 
     public function getLastRegisteredUsersAction() {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        
-        $q = $dm->createQueryBuilder('ColzakUserBundle:Profile');
-        $q->sort('createdAt', 'desc');
-        $q->limit(12);
-        $users = $q->getQuery()->execute()->toArray();
+
+        $users = $dm->getRepository('ColzakUserBundle:Profile')->getLastRegisteredProfiles();
 
         return $this->render('ColzakUserBundle:Profile:partials/last_users.html.twig', array(
             'users' => $users
@@ -79,5 +76,18 @@ class ProfileController extends Controller
         }
 
         return $this->render('ColzakUserBundle:Profile:partials/change_email.html.twig', array('form' => $form->createView()));
+    }
+
+    public function deleteAccountAction() {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $user->getProfile()->setEnabled(false);
+        $user->setDeleted(true);
+        $user->setDeletedAt(new \Datetime());
+        $user->setLocked(true);
+        $dm->persist($user);
+        $dm->flush();
+
+        return new RedirectResponse($this->container->get('router')->generate('fos_user_security_logout'));
     }
 }

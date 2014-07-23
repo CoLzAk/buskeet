@@ -17,3 +17,8 @@ colzak_user_account:
 colzak_user_change_email:
     pattern: /account/change-email
     defaults: { _controller: ColzakUserBundle:Profile:changeEmail }
+
+colzak_user_delete:
+    pattern: /account/delete
+    defaults: { _controller: ColzakUserBundle:Profile:deleteAccount }
+

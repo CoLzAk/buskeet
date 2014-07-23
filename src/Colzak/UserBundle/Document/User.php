@@ -24,11 +24,23 @@ class User extends BaseUser
      */
     protected $profile;
 
-    /**
+        /**
      * @MongoDB\Boolean
      * @SERIAL\Type("boolean")
      */
     protected $deleted = FALSE;
+
+    /**
+     * @MongoDB\Boolean
+     * @SERIAL\Type("boolean")
+     */
+    protected $blacklisted = FALSE;
+
+    /**
+     * @MongoDB\Date(nullable=true)
+     * @SERIAL\Type("DateTime")
+     */
+    protected $deletedAt;
 
     public function __construct()
     {
@@ -88,5 +100,49 @@ class User extends BaseUser
     public function getDeleted()
     {
         return $this->deleted;
+    }
+
+    /**
+     * Set blacklisted
+     *
+     * @param boolean $blacklisted
+     * @return self
+     */
+    public function setBlacklisted($blacklisted)
+    {
+        $this->blacklisted = $blacklisted;
+        return $this;
+    }
+
+    /**
+     * Get blacklisted
+     *
+     * @return boolean $blacklisted
+     */
+    public function getBlacklisted()
+    {
+        return $this->blacklisted;
+    }
+
+    /**
+     * Set deletedAt
+     *
+     * @param date $deletedAt
+     * @return self
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+        return $this;
+    }
+
+    /**
+     * Get deletedAt
+     *
+     * @return date $deletedAt
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 }

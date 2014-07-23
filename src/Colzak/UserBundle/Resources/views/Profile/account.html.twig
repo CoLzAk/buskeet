@@ -29,4 +29,25 @@
         </div>
     </div>
     <div class="clearfix"></div>
+
+    <div class="col-md-7">
+        {#} Description {#}
+        <div class="form-horizontal mt2">
+            <h4 class="text-cyan">Modifier mon mot de passe</h4>
+            <div class="col-md-12 bg-dark">
+                <div class="input-group col-md-12 mt1 mb1">
+                    {{ render(controller('FOSUserBundle:ChangePassword:changePassword')) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="col-md-7">
+    	<h4 class="text-cyan">Zone de danger</h4>
+    	<div class="alert alert-danger">
+    		<p>Vous êtes sur le point de supprimer votre compte. Cette action est irréversible. Tout votre contenu sera supprimé.</p>
+    		<a href="{{ path('colzak_user_delete') }}" class="btn btn-danger btn-block mt1">Supprimer mon compte</a>
+    	</div>
+    </div>
 {% endblock %}
