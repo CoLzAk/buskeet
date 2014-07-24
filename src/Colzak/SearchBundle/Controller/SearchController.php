@@ -64,7 +64,7 @@ class SearchController extends BaseController
         $pagination = $paginator->paginate(
             $data,
             $this->get('request')->query->get('page', 1)/*page number*/,
-            25 //number of elements per page
+            1 //number of elements per page
         );
 
         return $this->handleView($this->view($pagination, 200));
@@ -72,6 +72,7 @@ class SearchController extends BaseController
 
     protected function getSearchParams(Request $request) {
         $searchParams = array();
+        (!$request->get('page') ?: $searchParams['page'] = $request->get('page'));
         (!$request->get('lat') ?: $searchParams['lat'] = $request->get('lat'));
         (!$request->get('lng') ?: $searchParams['lng'] = $request->get('lng'));
         (!$request->get('radius') ?: $searchParams['radius'] = $request->get('radius'));

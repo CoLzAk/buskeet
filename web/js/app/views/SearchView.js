@@ -28,7 +28,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
                 paramsToRemove = ['gender', 'age', 'category', 'experience'];
 
             this.model.queryUrl.direction = direction;
-            this.model.queryUrl.searchParams['page'] = 1;
+            // this.model.queryUrl.searchParams['page'] = 1;
 
             for (var param in params) {
                 if (paramsToRemove.indexOf(param) > -1) {
@@ -56,7 +56,8 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             var url = queryUrl.localization + '/' + queryUrl.direction;
             var i = 0;
             for (var param in queryUrl.searchParams) {
-                if (param != 'lat' && param != 'lng' && param != 'page') {
+                // if (param != 'lat' && param != 'lng' && param != 'page') {
+                if (param != 'lat' && param != 'lng') {
                     if (i === 0) url += '?';
                     url += param + '=' + queryUrl.searchParams[param] + '&';
                     i++;
@@ -162,6 +163,13 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         },
         onRender: function() {
             this.stickit();
+        }
+    });
+
+    SearchPaginationView = Backbone.Marionette.ItemView.extend({
+        template: '#clzk-search-pagination-template',
+        initialize: function() {
+            console.log(this.model);
         }
     });
 

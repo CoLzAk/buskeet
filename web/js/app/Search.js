@@ -6,6 +6,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         regions: {
             searchMenuRegion: '#clzk-search-menu-region',
             searchResultsRegion: '#clzk-search-results-region',
+            searchPaginationRegion: '#clzk-search-pagination-region',
             searchPreviewRegion: '#clzk-search-preview-region'
         },
         tagName: 'div',
@@ -27,7 +28,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
                 success: function(data) {
                     SearchModule.queryUrl.searchParams['lat'] = data.results[0].geometry.location.lat;
                     SearchModule.queryUrl.searchParams['lng'] = data.results[0].geometry.location.lng;
-                    SearchModule.queryUrl.searchParams['page'] = 1;
+                    // SearchModule.queryUrl.searchParams['page'] = 1;
 
                     var results = new Search({}, { queryUrl: SearchModule.queryUrl });
 
@@ -44,7 +45,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
                 }
             });
         } else {
-            SearchModule.queryUrl.searchParams['page'] = 1;
+            // SearchModule.queryUrl.searchParams['page'] = 1;
             var results = new Search({}, { queryUrl: SearchModule.queryUrl });
 
             results.fetch({
@@ -63,6 +64,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             }, 200);
         }
         SearchModule.searchLayout.searchMenuRegion.show(new SearchMenuView({ model: resultsCollection }));
+        SearchModule.searchLayout.searchPaginationRegion.show(new SearchPaginationView({ model: resultsCollection }));
         if (direction == 'profiles') {
             SearchModule.profiles = new Profiles(resultsCollection.get('items'));
             SearchModule.searchLayout.searchResultsRegion.show(new SearchResultsView({ collection: SearchModule.profiles }));

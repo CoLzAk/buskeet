@@ -18,6 +18,7 @@ Global:
 Profil:
 	ajout évènement public (concert etc.) (feature)
 	bouton share
+	Les evenements auxquels je participe (feature)
 	
 Evenement
 	viewAction (avec bouton delete si owner)
@@ -33,7 +34,10 @@ Photo:
 Recherche:
 	evenements publics (comme des liens sponsorisés) avec code couleur flashy (concerts)
 	autoriser radius + grand
-	infinite scroll
+	infinite scroll + pagination
+	pagination:
+		total pages = total_count / num_items_per_page
+		current page = current_page_number
 
 News Feed (feature)
 	Autour de moi (A tours : Festival terre du son ce weekend)
