@@ -1,3 +1,9 @@
+colzak_event_participate:
+    pattern:  /event/participate/{eventId}
+    defaults: { _controller: ColzakEventBundle:Events:toggleParticipate }
+    options:
+        expose: true
+
 colzak_event:
     pattern:  /event/{eventId}
     defaults: { _controller: ColzakEventBundle:Events:view }

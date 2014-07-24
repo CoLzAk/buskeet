@@ -1,43 +1,100 @@
 {% extends 'ColzakUserBundle::layout.html.twig' %}
 
-{#% block extra_stylesheets %}
-    {% stylesheets
-        "css/search.css"
-        "css/jquery.nouislider.css"
-        filter="cssrewrite"
-    %}
-        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
-    {% endstylesheets %}
-{% endblock %#}
+{% block menu_region %}
+ <div class="calendar-container">
+    <div class="calendar-month-container">
+        <p class="text-center pt1 pb1">{{ event.date|date('M') }}</p>
+    </div>
+    <div class="calendar-day-container">
+        <p class="text-center mb1 mt1">{{ event.date|date('d') }}</p>
+    </div>
+    <div class="calendar-year-container">
+        <p class="text-center mb0">{{ event.date|date('Y') }}</p>
+    </div>
+</div>
+<div class="time-container">
+    <p class="text-center pb1 pt1">{{ event.time }}</p>
+</div>
 
-{% block body %}
-    {{ event.id }}
+{% if is_granted('ROLE_USER') and app.user.profile.id != event.profile.id  %}
+    {% if isParticipating %}
+        <div class="btn participate-button"><a href="{{ path('colzak_event_participate', { eventId: event.id }) }}"><span class="glyphicon glyphicon-remove"></span> Je ne souhaite plus participer</a></div>
+    {% else %}
+        <div class="btn participate-button"><a href="{{ path('colzak_event_participate', { eventId: event.id }) }}"><span class="glyphicon glyphicon-plus"></span> Je souhaite participer</a></div>
+    {% endif %}
+{% endif %}
+{% endblock %}
+
+{% block content_region %}
+<div class="col-md-7">
+    <h2>{{ event.title }}</h2>
+
+    <h5 class="text-cyan mt2 mb0">Détail</h5>
+    <p>{{ event.content }}</p>
+    
+    <h5 class="text-cyan mt2 mb0">Lieu</h5>
+    <p>{{ event.locality }}</p>
+    <div class="preview-map-container"></div>
+    <div id="event-preview-map"></div>
+
+    <h5 class="text-cyan mt2 mb1">
+        Proposé par 
+        {% if is_granted('ROLE_USER') and app.user.profile.id != event.profile.id  %}
+            vous
+        {% else %}
+            {{ event.profile.firstname }}
+        {% endif %}
+    </h5>
+    <div class="event-participants-container">
+        <div class="row">
+            <div class="col-md-2">
+                <a href="{{ path('colzak_user_homepage', { username: event.profile.username }) }}">
+                    {% if event.profile.photos|length > 0 %}
+                        {% for photo in event.profile.photos %}
+                            {% if photo.isProfilePicture %}
+                                <img src="{{ photo.thumbPath }}" alt="..." class="img-responsive">
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <img src="/img/user_256.png" alt="..." class="img-responsive">
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <h5 class="text-cyan mt2 mb1">Participants</h5>
+    <div class="event-participants-container">
+        <div class="row">
+            {% for participant in event.participants %}
+                <div class="col-md-2">
+                    <a href="{{ path('colzak_user_homepage', { username: participant.username }) }}">
+                        {% if participant.photos|length > 0 %}
+                            {% for photo in participant.photos %}
+                                {% if photo.isProfilePicture %}
+                                    <img src="{{ photo.thumbPath }}" alt="..." class="img-responsive">
+                                {% endif %}
+                           {% endfor %}
+                        {% else %}
+                        <img src="/img/user_256.png" alt="..." class="img-responsive">
+                    {% endif %}
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block extra_javascripts %}
-    {#% javascripts
-        "js/jquery/ui-widgets/jquery.ui.datepicker.min.js"
-        "js/jquery/jquery.nouislider.min.js"
-        "js/vendor/underscore-1.4.4.min.js"
-        "js/vendor/backbone-1.0.0.min.js"
-        "js/vendor/backbone-deepmodel-min.js"
-        "js/vendor/backbone.marionette-1.0.1.min.js"
-        "js/vendor/backbone.stickit.min.js"
-        "js/vendor/backbone-memento.min.js"
-        "js/vendor/moment-2.0.0.min.js"
-        "js/vendor/moment.lang.fr.min.js"
-        "js/app/App.js"
-        "js/app/Search.js"
-        "js/app/models/Search.js"
-        "js/app/models/Profile.js"
-        "js/app/views/SearchView.js"
-    %}
-        <script src="{{ asset_url }}" type="text/javascript"></script>
-    {% endjavascripts %#}
-
-    <script type="text/javascript">
+<script type="text/javascript">
     $(document).ready(function() {
-        
+        var mapWidth = $('.preview-map-container').width();
+        var mapUrl = '';
+        var zoom = 16;
+
+        mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center={{ event.coordinates.y }},{{ event.coordinates.x }}&zoom='+ zoom +'&size='+ mapWidth +'x180&maptype=roadmap&sensor=false&markers=color:red|{{ event.coordinates.y }},{{ event.coordinates.x }}';
+        $('#event-preview-map').html('<img src="'+ mapUrl +'">');
     });
-    </script>
+</script>
 {% endblock %}

@@ -70,7 +70,6 @@
         <p class="text-center"><a href="#"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;Retour à la liste de résultat</a></p>
     </div>
 
-    <% console.log(isHimself) %>
     <% if (isAuthenticated && !isHimself) { %>
         <% if (isParticipating) { %>
             <div class="btn participate-button"><span class="glyphicon glyphicon-remove"></span> Je ne souhaite plus participer</div>
@@ -92,7 +91,7 @@
         <% if (isHimself) { %>
             vous
         <% } else { %>
-            <%= userEvent.profile.firstname %> <%= userEvent.profile.lastname %>
+            <%= userEvent.profile.firstname %>
         <% } %>
     </h5>
     <div class="event-participants-container">

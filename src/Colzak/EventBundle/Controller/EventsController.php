@@ -19,10 +19,53 @@ class EventsController extends BaseController {
 
     public function viewAction($eventId) {
         $dm = $this->get('doctrine_mongodb')->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
         $event = $dm->getRepository('ColzakEventBundle:Event')->find($eventId);
+        $isParticipating = FALSE;
+
+        foreach ($event->getParticipants() as $participant) {
+            if ($participant->getId() === $user->getProfile()->getId()) {
+                $isParticipating = TRUE;
+            }
+        }
 
         return $this->render('ColzakEventBundle:Event:view.html.twig', array(
-            'event' => $event
+            'event' => $event,
+            'isParticipating' => $isParticipating
+        ));
+    }
+
+    public function toggleParticipateAction($eventId) {
+        $dm = $this->container->get('doctrine_mongodb')->getManager();
+        $event = $dm->getRepository('ColzakEventBundle:Event')->find($eventId);
+        $participants = $event->getParticipants();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $isParticipating = FALSE;
+
+        //Hack: wtf ? dunno...
+        $user->getProfile()->setDistance(0);
+
+        if (count($participants) > 0) {
+            foreach ($participants as $participant) {
+                if ($participant->getId() === $user->getProfile()->getId()) {
+                    $event->removeParticipant($participant);
+                    break;
+                } else {
+                    $event->addParticipant($user->getProfile());
+                    $isParticipating = TRUE;
+                }
+            }
+        } else {
+            $event->addParticipant($user->getProfile());
+            $isParticipating = TRUE;
+        }
+
+        $dm->persist($event);
+        $dm->flush();
+
+        return $this->render('ColzakEventBundle:Event:view.html.twig', array(
+            'event' => $event,
+            'isParticipating' => $isParticipating
         ));
     }
 

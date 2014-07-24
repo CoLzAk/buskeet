@@ -1,7 +1,6 @@
 TODO:
 
 Compte:
-	Supprimer compte
 	Ajouter flash success
 
 Messagerie
@@ -21,6 +20,7 @@ Profil:
 	bouton share
 	
 Evenement
+	viewAction (avec bouton delete si owner)
 	ajouter nb participants max (si > nbParticipants on affiche plus) (feature)
 	ajouter private / public (pour affichage) (feature)
 	bouton participer (uniquement si ami si private et tout le monde si public et < nbMaxParticipants (feature)) 
@@ -33,6 +33,7 @@ Photo:
 Recherche:
 	evenements publics (comme des liens sponsorisés) avec code couleur flashy (concerts)
 	autoriser radius + grand
+	infinite scroll
 
 News Feed (feature)
 	Autour de moi (A tours : Festival terre du son ce weekend)
