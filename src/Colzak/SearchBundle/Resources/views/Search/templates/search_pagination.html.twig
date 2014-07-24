@@ -1,11 +1,17 @@
 <script type="text/template" id="clzk-search-pagination-template">
     <ul class="pagination">
-        <li><a href="#">&laquo;</a></li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">&raquo;</a></li>
+        <% if (previousPage === null) { %>
+            <li class="disabled">&laquo;</li>
+        <% } else { %>
+            <li><a href="#" data-page="<%= previousPage %>" class="paginator-page">&laquo;</li>
+        <% } %>
+        <% for (var i = 1; i <= totalPages; i++) { %>
+            <li><a href="#" data-page="<%= i %>" class="paginator-page"><%= i %></a></li>
+        <% } %>
+        <% if (nextPage === null) { %>
+            <li class="disabled">&raquo;</li>
+        <% } else { %>
+            <li><a href="#" data-page="<%= nextPage %>" class="paginator-page">&raquo;</li>
+        <% } %>
     </ul>
 </script>

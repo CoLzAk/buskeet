@@ -168,8 +168,41 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
 
     SearchPaginationView = Backbone.Marionette.ItemView.extend({
         template: '#clzk-search-pagination-template',
-        initialize: function() {
-            console.log(this.model);
+        events: {
+            'click .paginator-page': 'paginate'
+        },
+        paginate: function(e) {
+            e.preventDefault();
+            this.model.queryUrl.searchParams['page'] = parseInt($(e.currentTarget).data('page'));
+            Backbone.history.navigate(this.objectToUrl(this.model.queryUrl), { trigger: true });
+        },
+        serializeData: function() {
+            var currentPage = parseInt(this.model.get('current_page_number'), 10),
+                totalPages = Math.round(parseInt(this.model.get('total_count'), 10) / parseInt(this.model.get('num_items_per_page'), 10)),
+                previousPage = (currentPage > 1 ? currentPage - 1 : null),
+                nextPage = (currentPage < totalPages ? currentPage + 1 : null );
+
+            return {
+                currentPage: currentPage,
+                totalPages: totalPages,
+                previousPage: previousPage,
+                nextPage: nextPage,
+                results: this.model.toJSON()
+            };
+        },
+        objectToUrl: function(queryUrl) {
+            var url = queryUrl.localization + '/' + queryUrl.direction;
+            var i = 0;
+            for (var param in queryUrl.searchParams) {
+                // if (param != 'lat' && param != 'lng' && param != 'page') {
+                if (param != 'lat' && param != 'lng') {
+                    if (i === 0) url += '?';
+                    url += param + '=' + queryUrl.searchParams[param] + '&';
+                    i++;
+                }
+            }
+            if (url.slice(-1) == '&') url = url.substring(0, url.length - 1);
+            return url;
         }
     });
 
