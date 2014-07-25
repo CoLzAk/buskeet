@@ -371,6 +371,7 @@ select {
 .btn-primary {
     background: #2980b9;
     border-color: #2980b9;
+    color: #FFF !important;
 }
 .btn-primary:hover,
 .btn-primary:focus {
@@ -388,4 +389,31 @@ select {
 /* GENERAL */
 .btn, .btn:focus, a, a:focus, select, select:focus, input, input:focus {
     outline: none;
+}
+
+a {
+    color: #FFF;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+/* PAGINATION */
+.pagination > li > a, .pagination > li > span {
+    background-color: #333;
+    border-color: #444;
+    color: #fff;
+}
+
+.pagination > li > a:hover, .pagination > li > span:hover {
+    background-color: #444;
+    border-color: #444;
+    color: #fff;
+}
+
+.pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus {
+    background-color: #444;
+    border-color: #444;
 }

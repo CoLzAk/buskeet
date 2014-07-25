@@ -1,43 +1,36 @@
 TODO:
 
-Compte:
-	Ajouter flash success
-
-Messagerie
+Messagerie:
 	Supprimer message
 	Supprimer thread
 	Message lu
 
+Photo:
+	Supprimer les thumbs lors de la suppression
+
 Global:
-	Rédaction CGU et politique de confidentialité
 	Ajouter des flash messages
 	Ajouter une boite a idée / bugs
 	Responsiveness
 	Acheter icones
+	Facebook Login
 
 Profil:
-	ajout évènement public (concert etc.) (feature)
 	bouton share
+	ajout évènement public (concert etc.) (feature)
 	Les evenements auxquels je participe (feature)
 	
 Evenement
-	viewAction (avec bouton delete si owner)
+	Bouton share (reseaux sociaux)
 	ajouter nb participants max (si > nbParticipants on affiche plus) (feature)
 	ajouter private / public (pour affichage) (feature)
 	bouton participer (uniquement si ami si private et tout le monde si public et < nbMaxParticipants (feature)) 
-	Bouton share (reseaux sociaux)
-	Commentaires
-
-Photo:
-	loader
+	Commentaires (feature)
 
 Recherche:
-	evenements publics (comme des liens sponsorisés) avec code couleur flashy (concerts)
-	autoriser radius + grand
-	infinite scroll + pagination
-	pagination:
-		total pages = total_count / num_items_per_page
-		current page = current_page_number
+	evenements publics (comme des liens sponsorisés) avec code couleur flashy (concerts) (feature)
+	autoriser radius + grand (feature)
+	infinite scroll on mobile (feature)
 
 News Feed (feature)
 	Autour de moi (A tours : Festival terre du son ce weekend)

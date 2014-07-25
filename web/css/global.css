@@ -93,9 +93,15 @@ html, body {
 @media (min-width: 769px) {
     .clzk-search-navbar { margin: 10px auto; width: 365px; }
 }
-.clzk-search-form-submit-btn:hover, .clzk-search-form-geolocation-btn:hover {
+.clzk-search-form-submit-btn:hover {
     color: #00c0ef;
     cursor: pointer;
+}
+.clzk-search-form-geolocation-btn {
+    cursor: pointer;
+}
+.clzk-search-form-geolocation-btn:hover {
+    color: #f56954 !important;
 }
 .label-danger {
     background: #f56954;
@@ -299,4 +305,56 @@ html, body {
 .participate-button {
     font-size: 20px;
     padding-left: 0;
+}
+.clzk-home-container {
+    width: 800px;
+    margin: auto;
+}
+.clzk-search-container {
+    position: relative;
+    top: 150px;
+}
+.clzk-home-description-container {
+    margin: 40px auto;
+    padding: 15px;
+    background-color: #6aaca2
+}
+.clzk-home-description-container p {
+    font-size: 16px;
+}
+.clzk-home-social-actions-container {
+    background-color: #222;
+    padding: 15px;
+    margin: 40px auto;
+}
+.clzk-home-last-member-container {
+    width: 33%;
+    float: left;
+    margin: 0;
+}
+.clzk-home-last-member {
+    height: 155px;
+    margin: 15px auto;
+    border: 1px #ccc solid;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background: #222;
+    color: #FFF !important;
+}
+.clzk-home-last-member-photo-container {
+    max-height: 125px;
+    overflow: hidden;
+}
+.clzk-home-last-member-photo-container img {
+    width: 100%;
+    overflow: hidden;
+}
+.clzk-home-user-instruments {
+    width: 32%;
+    float: left;
+    margin-right: 2px;
+}
+.clzk-home-last-member:hover {
+    background: #444;
+    cursor: pointer;
 }

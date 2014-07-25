@@ -4,7 +4,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top clzk-navbar" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header col-md-3 col-sm-3 col-xs-3">
-                <a class="navbar-brand" href="{{ path('colzak_static_homepage') }}"><span class="hidden-xs">buskeet.com</span><span class="visible-xs">b</span></a>
+                <a class="navbar-brand" href="{{ path('colzak_static_homepage') }}"><span class="hidden-xs">buskeet</span><span class="visible-xs">b</span></a>
             </div>
             <div class="nav navbar-nav navbar-right col-md-9 col-sm-9 col-xs-9 pull-right">
                 <div class="pull-right">
@@ -45,7 +45,6 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li><a href="{{ path('colzak_user_homepage', { username: app.user.username }) }}"><span class="glyphicon glyphicon-user"></span> Mon profil</a></li>
-                                            <li class="divider"></li>
                                             <li><a href="{{ path('colzak_user_account') }}"><span class="glyphicon glyphicon-cog"></span> Mon compte</a></li>
                                             <li class="divider"></li>
                                             <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off"></span> Déconnexion</a></li>
@@ -76,15 +75,16 @@
 {% block body %}
     <div class="clzk-pre-body">
         <div class="container">
-            <div class="clzk-home-container">
-                <div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+            <div class="clzk-home-container clzk-search-container">
+                <div class="clzk-search-home-container">
                     <blockquote class="pull-right">
                         <p>La musique commence ici.</p>
                         <!-- <small>Someone famous in <cite title="Source Title">Source Title</cite></small> -->
                     </blockquote>
+                    <div class="clearfix"></div>
                 </div>
 
-                <div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+                <div class="clzk-search-home-container">
                     <div class="form-horizontal" role="form">
                         <div class="col-md-12 col-sm-12 col-xs-12 input-group">
                             <input type="text" class="form-control input-lg" id="clzk-search-input" placeholder="Ou êtes-vous ?">
@@ -106,16 +106,34 @@
     </div>
     <div class="clearfix"></div>
 
-    <h1>Les derniers participants sur buskeet.com</h1>
+    <div class="clzk-home-container clzk-home-description-container">
+        <h3 class="text-center mt1">Vivez au rythme de la musique</h3>
+        <p class="text-center">
+            Avec une communauté grandissante de street performers, buskeet est l'endroit idéal pour faire de nouvelles rencontres musicales. Partagez et faites vibrer votre public quelque soit l'heure, quelque soit le lieu. Désormais, vous n'êtes plus seul.
+        </p>
+    </div>
 
-    {{ render(controller('ColzakUserBundle:Profile:getLastRegisteredUsers')) }}
+    <div class="clzk-home-container">
+        <h3 class="text-cyan">Les derniers musiciens sur buskeet</h3>
+        {{ render(controller('ColzakUserBundle:Profile:getLastRegisteredUsers')) }}
+    </div>
+
+    <div class="clzk-home-container clzk-home-social-actions-container">
+        <h3 class="text-center mt1">Retrouvez également la communauté sur</h3>
+        <div class="text-center">
+            <ul class="list-inline">
+                <li><img class="social-logo" src="/img/social/fb_white_29.png" width="30"></li>
+                <li><img class="social-logo" src="/img/social/twitter_white.png" width="30"></li>
+            </ul>
+        </div>
+    </div>
 
     <footer class="clzk-footer row">
         <nav class="navbar navbar-inverse mb0" role="navigation">
             <div class="col-md-12 text-center">
-                <ul class="list-inline">
+                <ul class="list-inline pt1">
                     <li><a href="{{ path('colzak_static_about') }}">A propos</a></li>
-                    <li><a href="{{ path('colzak_static_cgu') }}">Conditions générales d'utilisation</a></li>
+                    <li><a href="{{ path('colzak_static_cgu') }}">CGU</a></li>
                     <li><a href="{{ path('colzak_static_privacy') }}">Confidentialité</a></li>
                     <!-- <li><a href="#"></a></li> -->
                 </ul>

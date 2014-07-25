@@ -194,7 +194,6 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             var url = queryUrl.localization + '/' + queryUrl.direction;
             var i = 0;
             for (var param in queryUrl.searchParams) {
-                // if (param != 'lat' && param != 'lng' && param != 'page') {
                 if (param != 'lat' && param != 'lng') {
                     if (i === 0) url += '?';
                     url += param + '=' + queryUrl.searchParams[param] + '&';
@@ -217,6 +216,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             NProgress.start();
             $('.clzk-results-number-container').addClass('hidden');
             $('.clzk-search-profile-container').addClass('hidden');
+            $('.pagination-container').addClass('hidden');
             $(e.currentTarget).removeClass('hidden').addClass('rendering');
             $('#share-profile-'+this.model.get('id')).removeClass('hidden');
             Backbone.history.navigate(SearchModule.queryUrl.localization+'/'+SearchModule.queryUrl.direction+'/preview/'+this.model.get('id'), { trigger: true });
@@ -267,6 +267,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             $('.clzk-results-number-container').addClass('hidden');
             $('.share-action-button-container').addClass('hidden');
             $('.event-container').addClass('hidden');
+            $('.pagination-container').addClass('hidden');
             $(e.currentTarget).removeClass('hidden').addClass('rendering');
             $('#share-event-'+this.model.get('id')).removeClass('hidden');
 
