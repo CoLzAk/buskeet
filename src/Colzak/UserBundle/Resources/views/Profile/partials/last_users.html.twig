@@ -1,35 +1,33 @@
-<div class="row">
-    {% for user in users %}
-        <div class="clzk-home-last-member-container">
-            <a href="{{ path('colzak_user_homepage', { username: user.username }) }}">
-                <div class="clzk-home-last-member row">
-                    <div class="col-md-6">
-                        <div class="clzk-home-last-member-photo-container">
-                            {% if user.photos|length > 0 %}
-                                {% for photo in user.photos if photo.isProfilePicture %}
-                                    <img src="{{ photo.thumbPath }}" alt="..." class="img-responsive">
-                                {% endfor %}
-                            {% else %}
-                                <img src="/img/user_128.png" alt="..." class="img-responsive">
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <h4 class="text-right mt0 mb0">{{ [user.firstname, user.lastname]|join(' ') }}</h4>
-                        <p class="text-right mb0">{{ user.birthdate|date('Y-m-d')|age }} ans, {{ user.locality }}</p>
-                        {% for item in user.portfolio.portfolioInstruments %}
-                            {% if loop.index <= 3 %}
-                                <div class="clzk-home-user-instruments">
-                                    <img src="/img/instruments/{{ item.category }}.png" class="img-responsive">
-                                    <p class="text-center">{{ item.name }}</p>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                        <div class="clearfix"></div>
+{% for user in users %}
+    <div class="clzk-home-last-member-container">
+        <a href="{{ path('colzak_user_homepage', { username: user.username }) }}">
+            <div class="clzk-home-last-member">
+                <div class="col-md-6">
+                    <div class="clzk-home-last-member-photo-container">
+                        {% if user.photos|length > 0 %}
+                            {% for photo in user.photos if photo.isProfilePicture %}
+                                <img src="{{ photo.thumbPath }}" alt="..." class="img-responsive">
+                            {% endfor %}
+                        {% else %}
+                            <img src="/img/user_128.png" alt="..." class="img-responsive">
+                        {% endif %}
                     </div>
                 </div>
-            </a>
-        </div>
-    {% endfor %}
-    <div class="clearfix"></div>
-</div>
+                <div class="col-md-6">
+                    <h4 class="text-right mt0 mb0">{{ [user.firstname, user.lastname]|join(' ') }}</h4>
+                    <p class="text-right mb1"><small>{{ user.birthdate|date('Y-m-d')|age }} ans, {{ user.locality }}</small></p>
+                    {% for item in user.portfolio.portfolioInstruments %}
+                        {% if loop.index <= 2 %}
+                            <div class="clzk-home-user-instruments">
+                                <img src="/img/instruments/{{ item.category }}.png" class="img-responsive">
+                                <p class="text-center">{{ item.name }}</p>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </a>
+    </div>
+{% endfor %}
+<div class="clearfix"></div>

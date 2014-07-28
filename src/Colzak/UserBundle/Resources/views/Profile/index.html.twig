@@ -1,5 +1,11 @@
 {% extends 'ColzakUserBundle::layout.html.twig' %}
 
+{% block title %}buskeet | {{ [profile.firstname, profile.lastname]|join(' ') }}{% endblock %}
+
+{% block meta %}
+    <meta name="description" content="{{ [profile.firstname, profile.lastname]|join(' ') }}, musicien de {{ profile.birthdate|date('Y-m-d')|age }} ans, à {{ profile.locality }}">
+{% endblock %}
+
 {% block extra_stylesheets %}
     {% stylesheets
         "css/jquery.timepicker.css"

@@ -42,6 +42,18 @@ class User extends BaseUser
      */
     protected $deletedAt;
 
+    /**
+     * @MongoDB\String
+     * @SERIAL\Type("string")
+     */
+    protected $facebookId;
+
+    /**
+     * @MongoDB\String
+     * @SERIAL\Type("string")
+     */
+    protected $facebookAccessToken;
+
     public function __construct()
     {
         parent::__construct();
@@ -144,5 +156,49 @@ class User extends BaseUser
     public function getDeletedAt()
     {
         return $this->deletedAt;
+    }
+
+    /**
+     * Set facebookId
+     *
+     * @param string $facebookId
+     * @return self
+     */
+    public function setFacebookId($facebookId)
+    {
+        $this->facebookId = $facebookId;
+        return $this;
+    }
+
+    /**
+     * Get facebookId
+     *
+     * @return string $facebookId
+     */
+    public function getFacebookId()
+    {
+        return $this->facebookId;
+    }
+
+    /**
+     * Set facebookAccessToken
+     *
+     * @param string $facebookAccessToken
+     * @return self
+     */
+    public function setFacebookAccessToken($facebookAccessToken)
+    {
+        $this->facebookAccessToken = $facebookAccessToken;
+        return $this;
+    }
+
+    /**
+     * Get facebookAccessToken
+     *
+     * @return string $facebookAccessToken
+     */
+    public function getFacebookAccessToken()
+    {
+        return $this->facebookAccessToken;
     }
 }

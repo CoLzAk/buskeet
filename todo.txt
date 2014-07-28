@@ -10,10 +10,15 @@ Photo:
 
 Global:
 	Ajouter des flash messages
-	Ajouter une boite a idée / bugs
 	Responsiveness
 	Acheter icones
 	Facebook Login
+	Favicon
+	Sitemap
+	Robots.txt
+	Retirer app_dev.php
+	Minify/Uglify JS + CSS
+	Optimiser images
 
 Profil:
 	bouton share
@@ -22,10 +27,12 @@ Profil:
 	
 Evenement
 	Bouton share (reseaux sociaux)
+	Auto hide (lorsque la date est dépassée) (feature)
 	ajouter nb participants max (si > nbParticipants on affiche plus) (feature)
 	ajouter private / public (pour affichage) (feature)
 	bouton participer (uniquement si ami si private et tout le monde si public et < nbMaxParticipants (feature)) 
 	Commentaires (feature)
+	Feedback (photos + vidéos) de l'évènement (feature)
 
 Recherche:
 	evenements publics (comme des liens sponsorisés) avec code couleur flashy (concerts) (feature)
@@ -55,9 +62,15 @@ Footer:
 	- a propos
 	- CGU
 	- Confidentialité
-	- Inviter des amis
+	- Inviter des amis (mail)
 
 	Liens réseaux sociaux
+
+Page facebook : 
+	- parler du concept
+	- demander idées + bug
+
+
 
 
 

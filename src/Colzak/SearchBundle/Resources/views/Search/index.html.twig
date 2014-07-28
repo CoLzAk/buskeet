@@ -1,5 +1,15 @@
 {% extends 'ColzakSearchBundle::layout.html.twig' %}
 
+{% block title %}buskeet | recherche{% endblock %}
+
+{% block meta %}
+    {% if queryUrl.direction == 'events' %}
+        <meta name="description" content="Retrouvez tous les jam session autour de {{ queryUrl.localization|replace('--', ', ') }}">
+    {% else %}
+        <meta name="description" content="Retrouvez tous les musiciens autour de {{ queryUrl.localization|replace('--', ', ') }}">
+    {% endif %}
+{% endblock %}
+
 {% block extra_stylesheets %}
     {% stylesheets
         "css/search.css"

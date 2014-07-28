@@ -30,7 +30,8 @@
         "friendsofsymfony/facebook-bundle":     "dev-master",
         "friendsofsymfony/jsrouting-bundle":    "~1.1",
         "knplabs/knp-paginator-bundle": "~2.3@dev",
-        "knplabs/knp-components": "~1.2@dev"
+        "knplabs/knp-components": "~1.2@dev",
+        "hwi/oauth-bundle": "0.4.*@dev"
     },
     "scripts": {
         "post-install-cmd": [

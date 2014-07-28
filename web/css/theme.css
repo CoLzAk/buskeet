@@ -417,3 +417,11 @@ a:hover {
     background-color: #444;
     border-color: #444;
 }
+
+.dropdown-menu {
+    background-color: #444;
+}
+
+.dropdown-menu > li > a {
+    color: #FFF;
+}

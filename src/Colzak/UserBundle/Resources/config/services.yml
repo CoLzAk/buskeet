@@ -21,6 +21,11 @@ services:
         tags:
             - { name: twig.extension }
 
+    my_user_provider:
+        class: Colzak\UserBundle\Security\Core\User\FOSUBUserProvider
+        #this is the place where the properties are passed to the UserProvider - see config.yml
+        arguments: [@fos_user.user_manager,{facebook: facebook_id}]
+
     # colzak_user.registration.form.eventlistener:
     #     class: Colzak\UserBundle\Form\EventListener\RegistrationSubscriber
     #     arguments: ["@doctrine.orm.entity_manager"]

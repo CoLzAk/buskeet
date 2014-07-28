@@ -333,13 +333,13 @@ html, body {
     margin: 0;
 }
 .clzk-home-last-member {
+    background: none repeat scroll 0 0 #222;
+    border: 1px solid #333;
+    color: #fff !important;
     height: 155px;
     margin: 15px auto;
-    border: 1px #ccc solid;
-    padding-top: 15px;
     padding-bottom: 15px;
-    background: #222;
-    color: #FFF !important;
+    padding-top: 15px;
 }
 .clzk-home-last-member-photo-container {
     max-height: 125px;
@@ -350,9 +350,9 @@ html, body {
     overflow: hidden;
 }
 .clzk-home-user-instruments {
-    width: 32%;
+    width: 40%;
     float: left;
-    margin-right: 2px;
+    margin-right: 5px;
 }
 .clzk-home-last-member:hover {
     background: #444;
