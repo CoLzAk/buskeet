@@ -19,6 +19,7 @@ Global:
 	Retirer app_dev.php
 	Minify/Uglify JS + CSS
 	Optimiser images
+	Transformer notifications en service (recherche transform notif dans le code)
 
 Profil:
 	bouton share

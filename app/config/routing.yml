@@ -1,3 +1,7 @@
+colzak_notification:
+    resource: "@ColzakNotificationBundle/Resources/config/routing.yml"
+    prefix:   /
+
 colzak_message_api:
     resource: "@ColzakMessageBundle/Resources/config/routing_api.yml"
     prefix:   /api

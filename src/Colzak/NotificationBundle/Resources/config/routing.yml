@@ -1,0 +1,3 @@
+# colzak_notification_homepage:
+#     path:     /hello/{name}
+#     defaults: { _controller: ColzakNotificationBundle:Default:index }

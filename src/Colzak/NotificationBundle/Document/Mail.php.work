@@ -1,0 +1,53 @@
+<?php
+// src/Colzak/NotificationBundle/Document/Mail.php
+
+namespace Colzak\NotificationBundle\Document;
+
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use JMS\Serializer\Annotation as SERIAL;
+
+/**
+ * @MongoDB\Document
+ * @SERIAL\ExclusionPolicy("none")
+ * @MongoDB\HasLifecycleCallbacks
+ */
+class Mail
+{
+    /**
+     * @MongoDB\Id(strategy="auto")
+     * @SERIAL\Type("string")
+     */
+    protected $id;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Colzak\UserBundle\Document\User")
+     * @SERIAL\Type("Colzak\UserBundle\Document\User")
+     */
+    protected $from;
+
+    /**
+     * @MongoDB\String
+     * @SERIAL\Type("string")
+     */
+    protected $fromName;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Colzak\UserBundle\Document\User")
+     * @SERIAL\Type("Colzak\UserBundle\Document\User")
+     */
+    protected $to;
+
+    protected $action;
+
+    /**
+     * @MongoDB\Date(nullable=true)
+     * @SERIAL\Type("DateTime")
+     */
+    protected $sendAt;
+
+    /**
+     * @MongoDB\String
+     * @SERIAL\Type("string")
+     */
+    protected $status;
+}

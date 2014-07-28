@@ -14,6 +14,7 @@ use Colzak\MessageBundle\Document\Message;
 use Colzak\MessageBundle\Document\Thread;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Colzak\NotificationBundle\Document\Notification;
 
 class MessagesController extends BaseController
 {
@@ -48,8 +49,36 @@ class MessagesController extends BaseController
     	$thread->addMessage($message);
 
     	$dm->persist($thread);
-    	$dm->flush();
-    	
+
+        //Notify user about that (transform notif)
+        $senderEmail = $user->getEmail();
+        $recipientUser = $dm->getRepository('ColzakUserBundle:User')->findOneByUsername($recipient->getUsername());
+        $recipientEmail = $recipientUser->getEmail();
+        $notification = new Notification();
+        $notification->setFrom($senderEmail);
+        $notification->setFromName('notify@buskeet.com');
+        $notification->setTo($recipientEmail);
+        $notification->setSubject($sender->getFirstname().' vous à envoyé un message');
+        $notification->setContent($this->render('ColzakNotificationBundle:Mail:new_mail.html.twig', array('recipient' => $recipientUser)));
+
+        $dm->persist($notification);
+
+        $dm->flush();
+
+        // $subject = $sender->getFirstname().' vous à envoyé un message';
+        // $recipientUser = 
+        // $message = \Swift_Message::newInstance()
+        //     ->setSubject($subject)
+        //     ->setFrom('notify@buskeet.com')
+        //     ->setTo($updatedUser->getEmail())
+        //     ->setBody(
+        //         $this->renderView(
+        //             'CaribooCNUserBundle:Users:email_status_online.html.twig',
+        //             array('user' => $user)
+        //         ), "text/html"
+        // );
+        // $this->get('mailer')->send($message);
+
         return $this->handleView($this->view($thread, 200));
     } // "post_users_files"   [POST] /users/{id}/files
 
@@ -95,6 +124,22 @@ class MessagesController extends BaseController
         $thread->addMessage($message);
 
         $dm->persist($thread);
+
+        //Notify user about that (transform notif)
+        $senderEmail = $user->getEmail();
+        $recipientUser = $dm->getRepository('ColzakUserBundle:User')->findOneByUsername($recipient->getUsername());
+        // \Doctrine\Common\Util\Debug::dump($recipient);
+        // \Doctrine\Common\Util\Debug::dump($recipientUser);
+        $recipientEmail = $recipientUser->getEmail();
+        $notification = new Notification();
+        $notification->setFrom($senderEmail);
+        $notification->setFromName('notify@buskeet.com');
+        $notification->setTo($recipientEmail);
+        $notification->setSubject($sender->getFirstname().' vous à envoyé un message');
+        $notification->setContent($this->render('ColzakNotificationBundle:Mail:new_mail.html.twig', array('recipient' => $recipientUser)));
+
+        $dm->persist($notification);
+
         $dm->flush();
         
         return $this->handleView($this->view($message, 200));

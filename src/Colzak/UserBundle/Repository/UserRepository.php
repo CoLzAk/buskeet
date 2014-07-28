@@ -12,6 +12,12 @@ use Doctrine\ODM\MongoDB\DocumentRepository;
  */
 class UserRepository extends DocumentRepository
 {
+    public function getByProfile($profile) {
+        return $this->createQueryBuilder()
+            ->field('profile')->references($profile)
+            ->getQuery()->execute()->toArray();
+    }
+
     public function generateUniqueUsername($data) {
 
         if (!$data['username']) {

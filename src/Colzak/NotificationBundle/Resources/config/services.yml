@@ -1,0 +1,7 @@
+# parameters:
+#    colzak_notification.push.class: Colzak\NotificationBundle\Notifcation
+
+# services:
+#    colzak_notification.push:
+#        class: %colzak_notification.push.class%
+#        arguments: []
