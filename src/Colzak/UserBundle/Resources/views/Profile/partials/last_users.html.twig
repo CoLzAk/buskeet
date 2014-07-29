@@ -2,7 +2,7 @@
     <div class="clzk-home-last-member-container">
         <a href="{{ path('colzak_user_homepage', { username: user.username }) }}">
             <div class="clzk-home-last-member">
-                <div class="col-md-6">
+                <div class="col-md-6 col-sm-6 col-xs-6">
                     <div class="clzk-home-last-member-photo-container">
                         {% if user.photos|length > 0 %}
                             {% for photo in user.photos if photo.isProfilePicture %}
@@ -13,7 +13,7 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col-sm-6 col-xs-6">
                     <h4 class="text-right mt0 mb0">{{ [user.firstname, user.lastname]|join(' ') }}</h4>
                     <p class="text-right mb1"><small>{{ user.birthdate|date('Y-m-d')|age }} ans, {{ user.locality }}</small></p>
                     {% for item in user.portfolio.portfolioInstruments %}

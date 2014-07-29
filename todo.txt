@@ -9,7 +9,6 @@ Photo:
 	Supprimer les thumbs lors de la suppression
 
 Global:
-	Ajouter phrase CGU + privacy au moment de l'inscription
 	Ajouter des flash messages
 	Responsiveness
 	Acheter icones
