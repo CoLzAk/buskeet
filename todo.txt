@@ -9,6 +9,7 @@ Photo:
 	Supprimer les thumbs lors de la suppression
 
 Global:
+	Ajouter phrase CGU + privacy au moment de l'inscription
 	Ajouter des flash messages
 	Responsiveness
 	Acheter icones
@@ -70,6 +71,11 @@ Footer:
 Page facebook : 
 	- parler du concept
 	- demander idées + bug
+
+Cron pour envoyer les mails
+	php app/console swiftmailer:spool:send --message-limit=10 --env=prod //limit msg
+	php app/console swiftmailer:spool:send --time-limit=10 --env=prod //limit temps
+	php app/console swiftmailer:spool:send --message-limit=10 --time-limit=10 --env=prod //les deux ? a tester
 
 
 

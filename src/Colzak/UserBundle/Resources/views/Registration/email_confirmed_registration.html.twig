@@ -1,0 +1,43 @@
+{% extends '::base_mail.html.twig' %}
+
+{% block subject %}Confirmation de votre inscription{% endblock %}
+
+{% block mail_content %}
+    <table class="row">
+        <tr>
+            <td class="wrapper last">
+
+                <table class="twelve columns">
+                    <tr>
+                        <td>
+                            <h5>Bonjour {{ user.profile.firstname }},</h5><br/>
+                            {% if date(user.createdAt) > date('-15minutes') %}
+                                <p>Nous vous confirmons la création de votre compte Buskeet. -- Add more stuff here --</p>
+                            {% endif %}
+                        </td>
+                        <td class="expander"></td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+    <table class="row">
+        <tr>
+            <td class="wrapper last">
+
+                <table class="twelve columns">
+                    <tr>
+                        <td>
+                            <p>Nous espérons que nos services répondront à toutes vos attentes et vous aideront dans vos recherches.</p>
+                        </td>
+                        <td class="expander"></td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+{% endblock %}
+

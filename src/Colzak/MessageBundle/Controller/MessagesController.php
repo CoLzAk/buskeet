@@ -65,20 +65,6 @@ class MessagesController extends BaseController
 
         $dm->flush();
 
-        // $subject = $sender->getFirstname().' vous à envoyé un message';
-        // $recipientUser = 
-        // $message = \Swift_Message::newInstance()
-        //     ->setSubject($subject)
-        //     ->setFrom('notify@buskeet.com')
-        //     ->setTo($updatedUser->getEmail())
-        //     ->setBody(
-        //         $this->renderView(
-        //             'CaribooCNUserBundle:Users:email_status_online.html.twig',
-        //             array('user' => $user)
-        //         ), "text/html"
-        // );
-        // $this->get('mailer')->send($message);
-
         return $this->handleView($this->view($thread, 200));
     } // "post_users_files"   [POST] /users/{id}/files
 

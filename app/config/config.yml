@@ -30,30 +30,8 @@ assetic:
     debug:          %kernel.debug%
     use_controller: false
     bundles:        [ ColzakUserBundle, ColzakSearchBundle, ColzakMessageBundle ]
-    #java: /usr/bin/java
     filters:
         cssrewrite: ~
-        #closure:
-        #    jar: %kernel.root_dir%/Resources/java/compiler.jar
-        #yui_css:
-        #    jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar
-
-# Doctrine Configuration
-# doctrine:
-#     dbal:
-#         driver:   %database_driver%
-#         host:     %database_host%
-#         port:     %database_port%
-#         dbname:   %database_name%
-#         user:     %database_user%
-#         password: %database_password%
-#         charset:  UTF8
-        # if using pdo_sqlite as your database driver, add the path in parameters.yml
-        # e.g. database_path: %kernel.root_dir%/data/data.db3
-        # path:     %database_path%
-    # orm:
-    #     auto_generate_proxy_classes: %kernel.debug%
-    #     auto_mapping: true
 
 doctrine_mongodb:
     connections:
@@ -71,7 +49,10 @@ swiftmailer:
     host:      %mailer_host%
     username:  %mailer_user%
     password:  %mailer_password%
-    spool:     { type: memory }
+    port:      %mailer_port%
+    spool:     
+        type: file
+        path: "%kernel.cache_dir%/swiftmailer/spool"
 
 jms_serializer:
     metadata:
@@ -85,10 +66,24 @@ fos_user:
     db_driver: mongodb
     firewall_name: main
     user_class: Colzak\UserBundle\Document\User
+    service:
+        mailer: fos_user.mailer.twig_swift
     registration:
         form:
             type: colzak_user_registration
             validation_groups:  [Registration]
+        confirmation: 
+            from_email: 
+                address: no.reply@buskeet.com
+                sender_name: Buskeet Inscription
+            enabled: true
+            template: ColzakUserBundle:Registration:email_confirmed_registration.html.twig
+    resetting:
+        email:
+            from_email:
+                address: no.reply@buskeet.com
+                sender_name: Buskeet
+            template: ColzakUserBundle:ChangePassword:email_resetting_password.html.twig
 
 fos_rest:
     routing_loader:

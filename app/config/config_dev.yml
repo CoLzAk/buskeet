@@ -30,5 +30,5 @@ assetic:
 parameters:
     router.request_context.base_url: "/app_dev.php"
 
-#swiftmailer:
-#    delivery_address: me@example.com
+swiftmailer:
+   delivery_address: joel.lauret@gmail.com

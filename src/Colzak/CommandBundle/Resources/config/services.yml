@@ -1,0 +1,7 @@
+parameters:
+#    colzak_command.example.class: Colzak\CommandBundle\Example
+
+services:
+#    colzak_command.example:
+#        class: %colzak_command.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

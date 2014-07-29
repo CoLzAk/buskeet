@@ -1,0 +1,3 @@
+# colzak_command_homepage:
+#     path:     /hello/{name}
+#     defaults: { _controller: ColzakCommandBundle:Default:index }
