@@ -32,6 +32,8 @@ assetic:
     bundles:        [ ColzakUserBundle, ColzakSearchBundle, ColzakMessageBundle ]
     filters:
         cssrewrite: ~
+        uglifyjs2:
+            bin: /usr/local/bin/uglifyjs
 
 doctrine_mongodb:
     connections:
