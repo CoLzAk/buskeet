@@ -1,6 +1,6 @@
 <?php
 
-// src/Colzak/CommandBundle/Command/SendNotificationMailCommand.php
+// src/Colzak/CommandBundle/Command/ClearFailedSpoolCommand.php
 namespace Colzak\CommandBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -8,9 +8,8 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Colzak\NotificationBundle\Document\Notification;
 
-class SendNotificationMailCommand extends ContainerAwareCommand
+class ClearFailedSpoolCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
