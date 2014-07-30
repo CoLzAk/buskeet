@@ -224,20 +224,23 @@
                 "bootstrap/js/bootstrap.min.js"
                 "js/vendor/nprogress.js"
                 "js/global.js"
+                filter="uglifyjs2"
             %}
                 <script src="{{ asset_url }}" type="text/javascript"></script>
             {% endjavascripts %}
             {% if app.debug %}
                 {% javascripts
                     "js/fos_js_routes.dev.js"
+                    filter="uglifyjs2"
                 %}
                     <script src="{{ asset_url }}"></script>
                 {% endjavascripts %}
             {% else %}
                 {% javascripts
                     "js/fos_js_routes.prod.js"
+                    filter="uglifyjs2"
                 %}
-                    <script src="{{ asset_url }}" filter="uglifyjs2"></script>
+                    <script src="{{ asset_url }}"></script>
                 {% endjavascripts %}
             {% endif %}
 
