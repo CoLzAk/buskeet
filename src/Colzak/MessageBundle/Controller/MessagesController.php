@@ -55,6 +55,7 @@ class MessagesController extends BaseController
         $recipientUser = $dm->getRepository('ColzakUserBundle:User')->findOneByUsername($recipient->getUsername());
         $recipientEmail = $recipientUser->getEmail();
         $notification = new Notification();
+        $notification->setStatus(Notification::STATUS_PENDING);
         $notification->setFrom($senderEmail);
         $notification->setFromName('notify@buskeet.com');
         $notification->setTo($recipientEmail);
@@ -114,10 +115,9 @@ class MessagesController extends BaseController
         //Notify user about that (transform notif)
         $senderEmail = $user->getEmail();
         $recipientUser = $dm->getRepository('ColzakUserBundle:User')->findOneByUsername($recipient->getUsername());
-        // \Doctrine\Common\Util\Debug::dump($recipient);
-        // \Doctrine\Common\Util\Debug::dump($recipientUser);
         $recipientEmail = $recipientUser->getEmail();
         $notification = new Notification();
+        $notification->setStatus(Notification::STATUS_PENDING);
         $notification->setFrom($senderEmail);
         $notification->setFromName('notify@buskeet.com');
         $notification->setTo($recipientEmail);

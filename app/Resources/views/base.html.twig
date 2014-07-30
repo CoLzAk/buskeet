@@ -10,6 +10,7 @@
         {% block stylesheets %}
             {% stylesheets
                 "bootstrap/css/bootstrap.min.css"
+                "css/jquery.mmenu.css"
                 "css/nprogress.css"
                 "css/global.css"
                 "css/theme.css"
@@ -28,80 +29,70 @@
             {% block header %}
                 <nav class="navbar navbar-inverse navbar-fixed-top clzk-navbar" role="navigation">
                     <div class="container-fluid">
-                        <div class="navbar-header col-md-3 col-sm-3 col-xs-3">
+                        <div class="row">
+                        <div class="navbar-header col-md-3 col-sm-3 col-xs-4">
+                            <!-- Menu button for x-screen -->
+                            <a href="#right-menu" class="xs-screen-menu-link xs-screen-menu-link-menu visible-xs"><span class="glyphicon glyphicon-th-list"></span></a>
                             <a class="navbar-brand" href="{{ path('colzak_static_homepage') }}">
                                 <img src="/img/buskeet.svg" width="105">
-                                <span class="visible-xs">b</span>
                             </a>
                         </div>
                         <div class="nav navbar-nav navbar-right col-md-9 col-sm-9 col-xs-9 pull-right">
-                            <div class="pull-right">
-                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
-                                    <span class="sr-only">Toggle navigation</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-
-                                <!-- Collect the nav links, forms, and other content for toggling -->
-                                <div class="collapse navbar-collapse" id="navbar-collapse">
-                                    <!-- <div class="col-md-6"> -->
-                                        <ul class="nav navbar-nav navbar-right">
-                                            {% if is_granted('ROLE_USER') %}
-                                                <!-- Notif (feature) -->
-                                                {#<li><a href="#">
-                                                    <span class="glyphicon glyphicon-info-sign"></span>
-                                                    <span class="label label-danger">4</span>
-                                                </a></li>#}
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                        <div class="pull-left clzk-navbar-profile-picture-container">
-                                                            {% if app.user.profile.photos|length > 0 %}
-                                                                {% for photo in app.user.profile.photos %}
-                                                                    {% if photo.isProfilePicture %}
-                                                                        <img src="{{ photo.thumbPath }}" class="img-responsive" width="50">
-                                                                    {% endif %}
-                                                                {% endfor %}
-                                                            {% else %}
-                                                                <img src="/img/user_256.png" alt="..." class="img-responsive clzk-navbar-profile-picture" width="50">
+                            <div class="pull-right" id="right-menu">
+                                <ul class="nav navbar-nav navbar-right">
+                                    {% if is_granted('ROLE_USER') %}
+                                        <!-- Notif (feature) -->
+                                        {#<li><a href="#">
+                                            <span class="glyphicon glyphicon-info-sign"></span>
+                                            <span class="label label-danger">4</span>
+                                        </a></li>#}
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                <div class="pull-left clzk-navbar-profile-picture-container">
+                                                    {% if app.user.profile.photos|length > 0 %}
+                                                        {% for photo in app.user.profile.photos %}
+                                                            {% if photo.isProfilePicture %}
+                                                                <img src="{{ photo.thumbPath }}" class="img-responsive" width="50">
                                                             {% endif %}
-                                                        </div>
-                                                        <div class="pull-left">
-                                                            {{ app.user.profile.firstname }}
-                                                        </div>
-                                                        <b class="caret"></b>
-                                                    </a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a href="{{ path('colzak_user_homepage', { username: app.user.username }) }}"><span class="glyphicon glyphicon-user"></span> Mon profil</a></li>
-                                                        <li><a href="{{ path('colzak_user_account') }}"><span class="glyphicon glyphicon-cog"></span> Mon compte</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off"></span> Déconnexion</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-envelope"></span> <b class="caret"></b></a>
-                                                    <ul class="dropdown-menu">
-                                                        {{ render(controller('ColzakMessageBundle:Message:lastThread')) }}
-                                                        <li class="divider"></li>
-                                                        <li><a href="{{ path('colzak_user_inbox') }}"><span class="glyphicon glyphicon-envelope"></span> Messagerie</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-question-sign"></span> <b class="caret"></b></a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a href="{{ path('colzak_static_about') }}">A propos</a></li>
-                                                        <li><a href="{{ path('colzak_static_cgu') }}">CGU</a></li>
-                                                        <li><a href="{{ path('colzak_static_privacy') }}">Confidentialité</a></li>
-                                                    </ul>
-                                                </li>
-                                            {% else %}
-                                                <li><a href="#" data-toggle="modal" data-target="#login-modal">Connexion</a></li>
-                                                <li><a href="#" data-toggle="modal" data-target="#register-modal">Inscription</a></li>
-                                            {% endif %}
-                                            <!-- <li><a href="#">Ajouter un évènement</a></li> -->
-                                        </ul>
-                                    <!-- </div> -->
-                                </div><!-- /.navbar-collapse -->
+                                                        {% endfor %}
+                                                    {% else %}
+                                                        <img src="/img/user_256.png" alt="..." class="img-responsive clzk-navbar-profile-picture" width="50">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="pull-left">
+                                                    {{ app.user.profile.firstname }}
+                                                </div>
+                                                <b class="caret"></b>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="{{ path('colzak_user_homepage', { username: app.user.username }) }}"><span class="glyphicon glyphicon-user"></span> Mon profil</a></li>
+                                                <li><a href="{{ path('colzak_user_account') }}"><span class="glyphicon glyphicon-cog"></span> Mon compte</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off"></span> Déconnexion</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-envelope"></span> <b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                {{ render(controller('ColzakMessageBundle:Message:lastThread')) }}
+                                                <li class="divider"></li>
+                                                <li><a href="{{ path('colzak_user_inbox') }}"><span class="glyphicon glyphicon-envelope"></span> Messagerie</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-question-sign"></span> <b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="{{ path('colzak_static_about') }}">A propos</a></li>
+                                                <li><a href="{{ path('colzak_static_cgu') }}">CGU</a></li>
+                                                <li><a href="{{ path('colzak_static_privacy') }}">Confidentialité</a></li>
+                                            </ul>
+                                        </li>
+                                    {% else %}
+                                        <li><a href="#" data-toggle="modal" data-target="#login-modal">Connexion</a></li>
+                                        <li><a href="#" data-toggle="modal" data-target="#register-modal">Inscription</a></li>
+                                    {% endif %}
+                                        <!-- <li><a href="#">Ajouter un évènement</a></li> -->
+                                </ul>
                             </div>
                             <div class="pull-right clzk-search-navbar">
                                 <div class="input-group">
@@ -117,6 +108,7 @@
                                     <input type="hidden" id="clzk-search-addressSublocality" name="clzk-search-addressSublocality">
                                 </div>
                             </div>
+                        </div>
                         </div>
                     </div><!-- /.container-fluid -->
                 </nav>
@@ -225,9 +217,10 @@
         {% block javascripts %}
             {% javascripts
                 "bundles/fosjsrouting/js/router.js"
-                "js/jquery/jquery-2.0.2.min.js"
+                "js/jquery/jquery.min.js"
                 "js/jquery/ui-widgets/jquery.ui.widget.min.js"
                 "js/jquery/jquery.ui.core.min.js"
+                "js/jquery/jquery.mmenu.min.js"
                 "bootstrap/js/bootstrap.min.js"
                 "js/vendor/nprogress.js"
                 "js/global.js"

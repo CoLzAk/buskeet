@@ -23,7 +23,7 @@ class SendNotificationMailCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        echo "Récupération des mails ... \n";
+        echo "Retrieving mails ... \n";
         $time = array();
         $dm = $this->getContainer()->get('doctrine_mongodb')->getManager();
 
@@ -32,11 +32,11 @@ class SendNotificationMailCommand extends ContainerAwareCommand
             $notifications = $dm->getRepository('ColzakNotificationBundle:Notification')->findByStatus(strtoupper($status));
             $time['get_notifications'] = $this->microtime_float();
         } else {
-            $notifications = $dm->getRepository('ColzakNotificationBundle:Notification')->findByStatus('PENDING');
+            $notifications = $dm->getRepository('ColzakNotificationBundle:Notification')->findByStatus(Notification::STATUS_PENDING);
             $time['get_notifications'] = $this->microtime_float();
         }
 
-        echo count($notifications)." mails à envoyer...\n";
+        echo count($notifications)." mails to send...\n";
         $i = 0;
         foreach ($notifications as $notification) {
             echo $notification->getId()."\n";
@@ -47,12 +47,16 @@ class SendNotificationMailCommand extends ContainerAwareCommand
                 ->setTo($notification->getTo())
                 ->setBody($notification->getContent(), "text/html");
             $this->getContainer()->get('mailer')->send($message);
+            $notification->setStatus(Notification::STATUS_SENT);
+            $dm->persist($notification);
             $i++;
-            echo $i." mail(s) envoyé(s) !\n";
+            echo $i." mail(s) sent !\n";
             if ($i === count($notifications)) {
                 $time['mail_sent'] = $this->microtime_float();
             }
         }
+
+        $dm->flush();
 
         $output->writeln($this->dump($time, $output));
     }
@@ -70,6 +74,6 @@ class SendNotificationMailCommand extends ContainerAwareCommand
         }
         $first = reset($a);
         $end   = end($a);
-        $output->writeln("\033[32mCommande executée avec succes en : " . round($end - $first,5) . " sec.\033[37m\r\n");
+        $output->writeln("\033[32mCommand successfully executed in : " . round($end - $first,5) . " sec.\033[37m\r\n");
     }
 }

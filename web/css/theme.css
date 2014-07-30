@@ -136,6 +136,8 @@ COLORS:
 }
 .navbar-brand {
     padding-left: 0;
+    float: left !important;
+    width: 0;
 }
 
 /* PROGRESS */
@@ -424,4 +426,14 @@ a:hover {
 
 .dropdown-menu > li > a {
     color: #FFF;
+}
+.input-group-addon {
+    padding: 6px 3px;
+}
+.mm-menu > .nav > li > a:hover, .nav > li > a:focus {
+    background: #444;
+}
+/* TO REMOVE LATER (test for little logo) */
+.navbar-header {
+    overflow: hidden;
 }

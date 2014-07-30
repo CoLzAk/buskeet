@@ -13,6 +13,9 @@ use JMS\Serializer\Annotation as SERIAL;
  */
 class Notification
 {
+    const STATUS_PENDING = 'PENDING';
+    const STATUS_SENT = 'SENT';
+    const STATUS_ERROR = 'ERROR';
     /**
      * @MongoDB\Id(strategy="auto")
      * @SERIAL\Type("string")

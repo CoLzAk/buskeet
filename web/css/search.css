@@ -2,8 +2,11 @@
 	background: #222;
 	border-right: 1px solid #555;
 	min-height: 100%;
+	padding-top: 15px;
 }
-
+.clzk-search-results-region-container {
+	padding-top: 15px;
+}
 .clzk-search-menu-map {
 	height: 180px;
 	margin-bottom: 20px;
@@ -89,6 +92,7 @@
 }
 .clzk-preview-container {
 	display: none;
+	padding-top: 15px;
 }
 .preview-map-container {
 	width: 500px;

@@ -1,10 +1,34 @@
 $(document).ready(function() {
+    // Nprogress
     NProgress.configure({ 
         showSpinner: false,
         ease: 'ease',
         speed: 1000
     });
 
+    // Mmenu
+    //Init Mmenus for mobile
+    $("#right-menu").mmenu({
+        // options object
+        position: "left",
+        isMenu: true
+    }, {
+       // configuration object
+       selectedClass: "active-menu"
+    })
+   .on(
+      "opened.mm",
+      function()
+      {
+      }
+   ).on(
+      "closed.mm",
+      function()
+      {
+      }
+   );
+
+    // Bind login and register buttons for modal
     $('#login-button').on('click', function(e) {
         $('#login-form').submit();
     });
@@ -21,6 +45,7 @@ $(document).ready(function() {
         $('#register-form').submit();
     });
 
+    // Hide flash messages if opened
     if ($('.clzk-php-flash-messages-container').is(':visible')) {
         $('.clzk-php-flash-messages-container').delay(3000).fadeOut( 400 );
     }
@@ -34,21 +59,6 @@ $(document).ready(function() {
         addressCountry = $('#clzk-search-addressCountry'),
         addressZipcode = $('#clzk-search-addressZipcode'),
         addressSublocality = $('#clzk-search-addressSublocality');
-
-    // $(input).on('click', function(e) {
-    //     $(input).val('');
-    // });
-
-    // if (navigator.geolocation) {
-    //     $.get("http://ipinfo.io", function(response) {
-    //         addressCity.val(response.city);
-    //         addressCountry.val(response.country);
-    //         $('#clzk-search-input').val(response.city);
-    //     }, "jsonp").done(function() { 
-    //         $('.clzk-geoloader').addClass('hidden');
-    //     });
-        
-    // }
 
     $('.clzk-search-form-geolocation-btn').on('click', function(e) {
         e.preventDefault();
@@ -76,12 +86,6 @@ $(document).ready(function() {
             addressCountry.val('');
             addressZipcode.val('');
             addressSublocality.val('');
-
-        // if (!place.geometry) {
-        //     // Inform the user that the place was not found and return.
-        //     input.className = 'notfound';
-        //     return;
-        // }
 
         var address = '';
         if (place.address_components) {

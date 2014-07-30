@@ -14,6 +14,7 @@ html, body {
     background: none repeat scroll 0 0 #333;
     color: #fff;
     z-index: 1030;
+    min-width: 170px;
 }
 .pac-item-query {
     color: #FFF !important;
@@ -85,13 +86,13 @@ html, body {
     background: #222;
 }
 @media (max-width: 360px) {
-    .clzk-search-navbar { margin: 10px auto; width: 175px; }
+    .clzk-search-navbar { width: 160px; }
 }
 @media (min-width: 361px) and (max-width: 768px) {
-    .clzk-search-navbar { margin: 10px auto; width: 325px; }
+    .clzk-search-navbar { margin: 10px auto 0 auto; width: 325px; }
 }
 @media (min-width: 769px) {
-    .clzk-search-navbar { margin: 10px auto; width: 365px; }
+    .clzk-search-navbar { margin: 10px auto 0 auto; width: 365px; }
 }
 .clzk-search-form-submit-btn:hover {
     color: #00c0ef;
@@ -102,6 +103,14 @@ html, body {
 }
 .clzk-search-form-geolocation-btn:hover {
     color: #f56954 !important;
+}
+.xs-screen-menu-link {
+    float: left !important;
+    font-size: 25px;
+    left: -10px;
+    margin: 0;
+    position: relative;
+    top: 12px;
 }
 .label-danger {
     background: #f56954;
@@ -129,6 +138,7 @@ html, body {
     background: #222;
     border-right: 1px #555 solid;
     color: #FFF;
+    padding-top: 15px;
 }
 .clzk-scrolling-content {
     height: 100%;
@@ -378,4 +388,7 @@ html, body {
 .clzk-home-last-member:hover {
     background: #444;
     cursor: pointer;
+}
+.mm-page {
+    height: 100% !important;
 }
