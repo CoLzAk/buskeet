@@ -217,7 +217,7 @@
         "js/app/models/Message.js"
         "js/app/views/ContactView.js"
     %}
-        <script src="{{ asset_url }}" type="text/javascript"></script>
+        <script src="{{ asset_url }}" type="text/javascript" filter="uglifyjs"></script>
 
     {% endjavascripts %}
     <script type="text/javascript">
