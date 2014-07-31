@@ -20,6 +20,7 @@ Global:
 	Minify/Uglify JS + CSS
 	Optimiser images
 	Transformer notifications en service (recherche transform notif dans le code)
+	Supprimer popup inscription et connexion et rediriger vers une page ou l'autre (pas les deux en meme temps (cf googlemail))
 
 Profil:
 	bouton share

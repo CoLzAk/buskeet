@@ -62,8 +62,14 @@
                                         </ul>
                                     </li>
                                 {% else %}
-                                    <li><a href="#" data-toggle="modal" data-target="#login-modal">Connexion</a></li>
-                                    <li><a href="#" data-toggle="modal" data-target="#register-modal">Inscription</a></li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Connexion</a>
+                                        <div class="dropdown-menu login-dropdown">
+                                            {{ render(controller('ColzakUserBundle:Security:embeddedLogin')) }}
+                                        </div>
+                                    </li>
+                                    <li><a href="{{ path('fos_user_registration_register') }}">Inscription</a>
+                                    </li>
                                 {% endif %}
                                 <!-- <li><a href="#">Ajouter un évènement</a></li> -->
                             </ul>
@@ -80,10 +86,7 @@
         <div class="container">
             <div class="clzk-home-container clzk-search-container">
                 <div class="clzk-search-home-container">
-                    <blockquote class="pull-right">
-                        <p>La musique commence ici.</p>
-                        <!-- <small>Someone famous in <cite title="Source Title">Source Title</cite></small> -->
-                    </blockquote>
+                    <p class="pull-right">La musique commence ici.</p>
                     <div class="clearfix"></div>
                 </div>
 
@@ -92,8 +95,8 @@
                         <div class="col-md-12 col-sm-12 col-xs-12 input-group">
                             <input type="text" class="form-control input-lg" id="clzk-search-input" placeholder="Ou êtes-vous ?">
                             <span class="input-group-addon clzk-geoloader hidden"><img src="/img/ajax-loader.gif" class="img-responsive" width="20"></span>
-                            <span class="input-group-addon clzk-search-form-geolocation-btn"><span class="glyphicon glyphicon-map-marker"></span></span>
-                            <span class="input-group-addon clzk-search-form-submit-btn btn-primary"><span class="glyphicon glyphicon-search"></span> Rechercher</span>
+                            <span class="input-group-addon clzk-search-form-geolocation-home-btn"><span class="glyphicon glyphicon-map-marker"></span></span>
+                            <span class="input-group-addon clzk-search-form-submit-home-btn btn-primary"><span class="glyphicon glyphicon-search"></span> Rechercher</span>
                             <input type="hidden" id="clzk-search-addressNumber" name="clzk-search-addressNumber">
                             <input type="hidden" id="clzk-search-addressStreet" name="clzk-search-addressStreet">
                             <input type="hidden" id="clzk-search-addressCity" name="clzk-search-addressCity">
@@ -109,16 +112,33 @@
     </div>
     <div class="clearfix"></div>
 
-    <div class="clzk-home-container clzk-home-description-container">
-        <h3 class="text-center mt1">Vivez au rythme de la musique</h3>
-        <p class="text-center">
-            Avec une communauté grandissante de street performers, buskeet est l'endroit idéal pour faire de nouvelles rencontres musicales. Partagez et faites vibrer votre public quelque soit l'heure, quelque soit le lieu. Désormais, vous n'êtes plus seul.
-        </p>
+    <div class="row what-is-buskeet">
+        <div class="clzk-home-container">
+            <h1 class="text-left">Buskeet, c'est quoi ?</h1>
+            <blockquote>
+                <p>To busk (verb): Play music in the street or other public place for voluntary donations</p>
+                <small><cite title="Source Title">Oxford Dictionaries</cite></small>
+            </blockquote>
+            <div class="clearfix"></div>
+            <p class="mt2">A l'origine de ce nom, un terme et plus précisément un verbe anglophone. Dans la langue de Molière, on parlera plus communément de "boeuf" ou "jam session". Vous l'aurez compris, Buskeet est une plateforme qui met en avant les musiciens de rue, qui souhaitent se produire dans les lieux publics.</p>
+            <h2>Avec Buskeet </h2>
+            <ul class="list-unstyled do-it-with-buskeet mb2">
+                <li class="mt1"><span class="glyphicon glyphicon-chevron-right"></span> Faites de nouvelles rencontres musicales</li>
+                <li class="mt1"><span class="glyphicon glyphicon-chevron-right"></span>Créez et partagez des évènements autour de la musique de rue</li>
+            </ul>
+        </div>
     </div>
 
     <div class="clzk-home-container">
-        <h3 class="text-cyan">Les derniers musiciens sur buskeet</h3>
+        <h1 class="text-cyan">Les derniers musiciens inscrits sur Buskeet</h1>
         {{ render(controller('ColzakUserBundle:Profile:getLastRegisteredUsers')) }}
+    </div>
+
+    <div class="clzk-home-container clzk-home-description-container">
+        <h1 class="text-center mt1">Vivez au rythme de la musique</h1>
+        <p class="text-center">
+            Avec une communauté grandissante de street performers, Buskeet est l'endroit idéal pour faire de nouvelles rencontres musicales. Partagez et faites vibrer votre public quelque soit l'heure, quelque soit le lieu. Désormais, vous n'êtes plus seul.
+        </p>
     </div>
 
     <div class="clzk-home-container clzk-home-social-actions-container">

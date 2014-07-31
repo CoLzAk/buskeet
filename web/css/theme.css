@@ -112,7 +112,7 @@ COLORS:
 }
 
 .text-cyan {
-    color: #6aaca2;
+    color: #6aaca2 !important;
 }
 
 /* PANEL */
@@ -419,7 +419,9 @@ a:hover {
     background-color: #444;
     border-color: #444;
 }
-
+..dropdown {
+    top: -1px !important;
+}
 .dropdown-menu {
     background-color: #444;
 }
@@ -436,4 +438,10 @@ a:hover {
 /* TO REMOVE LATER (test for little logo) */
 .navbar-header {
     overflow: hidden;
+}
+blockquote {
+    font-size: 15px;
+}
+cite {
+    color: #BBB;
 }

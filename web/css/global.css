@@ -94,15 +94,29 @@ html, body {
 @media (min-width: 769px) {
     .clzk-search-navbar { margin: 10px auto 0 auto; width: 365px; }
 }
+#clzk-search-input {
+    border: none;
+}
 .clzk-search-form-submit-btn:hover {
     color: #00c0ef;
     cursor: pointer;
 }
 .clzk-search-form-geolocation-btn {
     cursor: pointer;
+    border: none;
+    background: #FFF;
+}
+.clzk-search-form-geolocation-home-btn {
+    cursor: pointer;
+    width: 45px;
+    border: none;
+    background: #FFF;
 }
 .clzk-search-form-geolocation-btn:hover {
     color: #f56954 !important;
+}
+.clzk-search-form-submit-home-btn {
+    width: 140px;
 }
 .xs-screen-menu-link {
     float: left !important;
@@ -319,6 +333,19 @@ html, body {
 .clzk-home-container {
     margin: auto;
     width: 100%;
+    font-size: 17px;
+}
+.clzk-login-register-container {
+    margin: auto;
+    width: 500px;
+}
+.fb-login-button-container {
+    width: 125px;
+    margin: auto;
+}
+.clzk-home-container h1{
+    font-size: 42px;
+    color: #DDD;
 }
 @media (min-width: 769px) {
     .clzk-home-container {
@@ -326,16 +353,14 @@ html, body {
     }
 }
 .clzk-search-container {
-    position: relative;
-    top: 150px;
+    position: absolute;
+    top: 35%;
+    left: 18%;
 }
 .clzk-home-description-container {
     margin: 40px auto;
     padding: 15px;
     background-color: #6aaca2
-}
-.clzk-home-description-container p {
-    font-size: 16px;
 }
 .clzk-home-social-actions-container {
     background-color: #222;
@@ -391,4 +416,9 @@ html, body {
 }
 .mm-page {
     height: 100% !important;
+}
+.login-dropdown {
+    background-color: #222 !important;
+    padding: 15px;
+    width: 500px;
 }

@@ -27,6 +27,8 @@ monolog:
 assetic:
     use_controller: true
     filters:
+        uglifycss:
+            bin: /usr/bin/uglifycss
         uglifyjs2:
             bin: /usr/bin/uglifyjs
 

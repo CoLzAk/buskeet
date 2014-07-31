@@ -4,6 +4,7 @@
 {% block extra_stylesheets %}
     {% stylesheets
         "css/message.css"
+        filter="uglifycss"
         filter="cssrewrite"
     %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />

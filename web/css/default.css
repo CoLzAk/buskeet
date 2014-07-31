@@ -1,13 +1,21 @@
 body {
     padding-top: 45px;
 }
+.what-is-buskeet {
+    background-color: #2980b9;
+}
+.do-it-with-buskeet .glyphicon {
+    margin-right: 30px;
+    font-size: 20px;
+    vertical-align: middle;
+}
 .clzk-pre-body {
-    height: 400px;
+    height: 90%;
     border-bottom: 3px #ccc solid;
     background: url(/img/cover1.png);
     background-size:100%;
     background-repeat: no-repeat;
-    margin: -10px -15px auto -15px;
+    margin: -50px -15px auto -15px;
     background-position: 50%;
 }
 .glyphicon {

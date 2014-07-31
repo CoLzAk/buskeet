@@ -1,26 +1,31 @@
 {% form_theme form 'ColzakUserBundle:Form:fields.html.twig' %}
 <div class="clzk-register-container">
     <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register" role="form" id="register-form">
-        {{ form_widget(form.profile.firstname) }}
-        {{ form_widget(form.profile.lastname) }}
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_widget(form.profile.firstname) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_widget(form.profile.lastname) }}
+            </div>
+        </div>
         {{ form_widget(form.email) }}
         {{ form_widget(form.plainPassword.first) }}
         {{ form_widget(form.plainPassword.second) }}
 
-        <hr>
-        <label class="control-label">{{ form_label(form.profile.birthdate) }}</label>
-        {{ form_widget(form.profile.birthdate) }}
-
-        <hr>
-        <label class="control-label">{{ form_label(form.profile.gender) }}</label>
-        {{ form_widget(form.profile.gender) }}
-        <br />
+        <hr class="mb1 mt1">
+        <div class="form-group row">
+            <label class="control-label col-md-4">{{ form_label(form.profile.birthdate) }}</label>
+            <div class="col-md-8">{{ form_widget(form.profile.birthdate) }}</div>
+        </div>
+        <hr class="mb1 mt1">
+        <div class="form-group row">
+            <label class="control-label col-md-4">{{ form_label(form.profile.gender) }}</label>
+            <div class="col-md-8">{{ form_widget(form.profile.gender) }}</div>
+        </div>
         {{ form_rest(form) }}
         <button type="submit" id="_submit" name="_submit" class="btn btn-default btn-block hidden">Je m'inscris</button>
     </form>
     <div class="clearfix"></div>
-    <p>En créant mon compte, je confirme que j' accepte les <a href="{{ path('colzak_static_cgu') }}" target="_blank"><strong>Conditions Générales d'Utilisation</strong></a> et la <a href="{{ path('colzak_static_privacy') }}" target="_blank"><strong>Politique de confidentialité</strong></a>.</p>
-    <a href="#" onclick="fb_login();">
-        <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" data-></div>
-    </a>
+    <p class="text-left"><small>En créant mon compte, je confirme que j' accepte les <a href="{{ path('colzak_static_cgu') }}" target="_blank"><strong>Conditions Générales d'Utilisation</strong></a> et la <a href="{{ path('colzak_static_privacy') }}" target="_blank"><strong>Politique de confidentialité</strong></a>.</small></p>
 </div>

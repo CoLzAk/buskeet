@@ -64,7 +64,7 @@ class SearchController extends BaseController
         $pagination = $paginator->paginate(
             $data,
             $this->get('request')->query->get('page', 1)/*page number*/,
-            1 //number of elements per page
+            15 //number of elements per page
         );
 
         return $this->handleView($this->view($pagination, 200));
