@@ -42,7 +42,7 @@
         <div class="event-place-container">
             <div class="row">
                 <div class="col-md-9">
-                    <p class="mt1"><span class="glyphicon glyphicon-map-marker"></span> <%= completeAddress %> (<%= Math.round(userEvent.distance * 10) / 10 %> km)</p>
+                    <p class="mt1"><span class="glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;&nbsp;<%= completeAddress %> (<%= Math.round(userEvent.distance * 10) / 10 %> km)</p>
                 </div>
                 <div class="col-md-3">
                     <% if (typeof userEvent.participants !== 'undefined') { %>
@@ -50,6 +50,27 @@
                     <% } %>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="clzk-result-actions-container hidden" id="clzk-result-actions-container-<%= userEvent.id %>">
+        <div class="row">
+            <div class="col-md-6">
+                <a href="http://www.facebook.com/sharer.php?u=<%= encodeURIComponent('http://www.buskeet.com' + Routing.generate('colzak_event', {'eventId': userEvent.id})) %>&t=<%= userEvent.title %>" rel="nofollow" target="_blank">
+                    <img class="social-logo" src="/img/social/fb_white_29.png" width="20">
+                    &nbsp;&nbsp;<span>Partager sur Facebook</span>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a href="https://twitter.com/intent/tweet?url=<%= encodeURIComponent('http://www.buskeet.com' + Routing.generate('colzak_event', {'eventId': userEvent.id})) %>&text=<%= userEvent.title %>&hashtags=buskeet,jamsession" rel="nofollow" target="_blank">
+                    <img class="social-logo" src="/img/social/twitter_white.png" width="25">
+                    &nbsp;&nbsp;<span>Partager sur Twitter</span>
+                </a>
+            </div>
+            {#<div class="col-md-4">
+
+                <img class="social-logo" src="/img/social/test.png" width="20">
+                &nbsp;&nbsp;<span>Partager sur Google+</span>
+            </div>#}
         </div>
     </div>
 </script>
@@ -70,30 +91,34 @@
         <p class="text-center"><a href="#"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;Retour à la liste de résultat</a></p>
     </div>
 
-    <% if (isAuthenticated && !isHimself) { %>
-        <% if (isParticipating) { %>
-            <div class="btn participate-button"><span class="glyphicon glyphicon-remove"></span> Je ne souhaite plus participer</div>
-        <% } else { %>
-            <div class="btn participate-button"><span class="glyphicon glyphicon-plus"></span> Je souhaite participer</div>
+    <div class="participate-button-container">
+        <% if (isAuthenticated && !isHimself) { %>
+            <% if (isParticipating) { %>
+                <div class="btn participate-button"><span class="glyphicon glyphicon-remove"></span> Je ne souhaite plus participer</div>
+            <% } else { %>
+                <div class="btn participate-button"><span class="glyphicon glyphicon-plus"></span> Je souhaite participer</div>
+            <% } %>
         <% } %>
-    <% } %>
+    </div>
 
-    <h5 class="text-cyan mt2 mb0">Détail</h5>
-    <p><%= userEvent.content %></p>
+    <h3 class="text-cyan mt2 mb0">Détail</h3>
+    <div class="bg-dark p1">
+        <p><%= userEvent.content %></p>
+    </div>
     
-    <h5 class="text-cyan mt2 mb0">Lieu</h5>
+    <h3 class="text-cyan mt2 mb0">Lieu</h3>
     <p><%= completeAddress %> ( <%= Math.round(userEvent.distance * 10) / 10 %> km )</p>
     <div class="preview-map-container"></div>
     <div id="event-preview-map"></div>
 
-    <h5 class="text-cyan mt2 mb1">
+    <h3 class="text-cyan mt2 mb1">
         Proposé par 
         <% if (isHimself) { %>
             vous
         <% } else { %>
             <%= userEvent.profile.firstname %>
         <% } %>
-    </h5>
+    </h3>
     <div class="event-participants-container">
         <div class="row">
             <div class="col-md-2">
@@ -112,9 +137,12 @@
         </div>
     </div>
 
-    <h5 class="text-cyan mt2 mb1">Participants</h5>
+    <h3 class="text-cyan mt2 mb1">Participants</h3>
     <div class="event-participants-container">
         <div class="row">
+            <% if (userEvent.participants.length === 0) { %>
+                <p class="text-left col-md-12"><i>Aucun participant pour le moment</i></p>
+            <% } %>
             <% for (var i in userEvent.participants) { %>
                 <div class="col-md-2">
                     <a href="<%= Routing.generate('colzak_user_homepage', { 'username': userEvent.participants[i].username }) %>">

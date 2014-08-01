@@ -54,6 +54,9 @@ html, body {
 .p0 {
     padding: 0;
 }
+.p1 {
+    padding: 10px;
+}
 .pt0 {
     padding-top: 0 !important;
 }
@@ -112,11 +115,12 @@ html, body {
     border: none;
     background: #FFF;
 }
-.clzk-search-form-geolocation-btn:hover {
+.clzk-search-form-geolocation-btn:hover, .clzk-search-form-geolocation-home-btn:hover {
     color: #f56954 !important;
 }
 .clzk-search-form-submit-home-btn {
     width: 140px;
+    cursor: pointer;
 }
 .xs-screen-menu-link {
     float: left !important;

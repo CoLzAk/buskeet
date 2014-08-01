@@ -20,6 +20,10 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         },
         showContactView: function(e) {
             e.preventDefault();
+            if (UserModule.visitorId === null || UserModule.visitorId == '') {
+                window.location.replace(Routing.generate('fos_user_security_login'));
+                return;
+            }
             Backbone.history.navigate(UserModule.targetUserUsername + '/contact', { trigger: true });
         },
         serializeData: function() {

@@ -6,16 +6,5 @@
 {% block body %}
 <div class="clzk-login-register-container">
     {{ render(controller('ColzakUserBundle:Security:embeddedLogin')) }}
-    <hr>
-    <p class="text-center"><button type="button" class="btn btn-primary btn-lg" id="login-button">Connexion</button></p>
-    <p class="text-center">ou</p>
-    <p class="text-center">
-        <span>Connexion avec facebook</span>
-        <div class="fb-login-button-container">
-            <a href="#" onclick="fb_login();">
-                <div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true"></div>
-            </a>
-        </div>
-    </p>
 </div>
 {% endblock %}

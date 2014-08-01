@@ -196,8 +196,8 @@ COLORS:
 
 /* THUMBNAIL */
 .thumbnail {
-    background-color: #FFFFFF;
-    border: 1px solid #DDDDDD;
+    background-color: #000;
+    border: 1px solid #333;
     border-radius: 0;
     display: block;
     line-height: 1.42857;

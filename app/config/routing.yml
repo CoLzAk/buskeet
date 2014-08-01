@@ -82,6 +82,8 @@ colzak_user_api:
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    options:
+        expose: true
 
 fos_user_profile:
     resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
@@ -105,15 +107,15 @@ fos_js_routing:
 #HWIOAuthBundle routes
 hwi_oauth_security:
     resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
-    prefix: /login
+    prefix: /hwi/login
 
 hwi_oauth_connect:
     resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
-    prefix: /login
+    prefix: /hwi/login
 
 hwi_oauth_redirect:
     resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
-    prefix:   /login
+    prefix:   /hwi/login
 
 facebook_login:
     pattern: /login/check-facebook

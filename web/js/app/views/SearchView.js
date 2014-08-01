@@ -270,11 +270,20 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             $('.pagination-container').addClass('hidden');
             $(e.currentTarget).removeClass('hidden').addClass('rendering');
             $('#share-event-'+this.model.get('id')).removeClass('hidden');
+            $('#clzk-result-actions-container-'+this.model.get('id')).removeClass('hidden');
 
             Backbone.history.navigate(SearchModule.queryUrl.localization+'/'+SearchModule.queryUrl.direction+'/preview/'+this.model.get('id'), { trigger: true });
         },
         serializeData: function() {
-            var completeAddress = '';
+            var completeAddress = '',
+                isHimself = false;
+
+            if (this.isAuthenticated) {
+                if (SearchModule.authUser.profile.id === this.model.get('profile').id) {
+                    isHimself = true;
+                }
+            }
+
             if (this.model.get('street_number') !== '') completeAddress += this.model.get('street_number') + ' ';
             if (this.model.get('route') !== '') completeAddress += this.model.get('route') + ', ';
             if (this.model.get('sublocality') !== '') completeAddress += this.model.get('sublocality') + ', ';
@@ -282,7 +291,10 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             if (this.model.get('country') !== '') completeAddress += this.model.get('country');
             return {
                 userEvent: this.model.toJSON(),
-                completeAddress: completeAddress
+                completeAddress: completeAddress,
+                isParticipating: this.isParticipating,
+                isAuthenticated: this.isAuthenticated,
+                isHimself: isHimself
             };
         },
         onDomRefresh: function() {
@@ -291,7 +303,23 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
                 e.preventDefault();
                 console.log('share it my friend');
             });
-        }
+        },
+        initialize: function() {
+            this.isParticipating = false;
+            this.isAuthenticated = false;
+            if (SearchModule.authUser !== null) this.isAuthenticated = true;
+            var participants = this.model.get('participants');
+
+            if (this.isAuthenticated) {
+                for (var i in participants) {
+                    if (participants[i].id === SearchModule.authUser.profile.id) {
+                        this.participationIndex = i;
+                        this.isParticipating = true;
+                        break;
+                    }
+                }
+            }
+        },
     });
 
     SearchEventEmptyView = Backbone.Marionette.ItemView.extend({
