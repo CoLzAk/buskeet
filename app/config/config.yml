@@ -76,12 +76,12 @@ fos_user:
         form:
             type: colzak_user_registration
             validation_groups:  [Registration]
-        confirmation: 
-            from_email: 
-                address: no.reply@buskeet.com
-                sender_name: Buskeet Inscription
-            enabled: true
-            template: ColzakUserBundle:Registration:email_confirmed_registration.html.twig
+        # confirmation: 
+        #     from_email: 
+        #         address: no.reply@buskeet.com
+        #         sender_name: Buskeet Inscription
+        #     enabled: true
+        #     template: ColzakUserBundle:Registration:email_confirmed_registration.html.twig
     resetting:
         email:
             from_email:

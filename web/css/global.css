@@ -387,7 +387,7 @@ html, body {
 }
 @media (min-width: 769px) {
     .clzk-home-last-member-container {
-        width: 33%;
+        width: 33.33%;
         float: left;
         margin: 0;
     }
@@ -396,7 +396,7 @@ html, body {
     background: none repeat scroll 0 0 #222;
     border: 1px solid #333;
     color: #fff !important;
-    margin: 15px auto;
+    margin: 0 auto;
     padding-bottom: 15px;
     padding-top: 15px;
     height: 155px;

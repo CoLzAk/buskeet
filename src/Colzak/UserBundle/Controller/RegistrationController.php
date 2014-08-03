@@ -17,6 +17,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
 use Colzak\UserBundle\Document\Profile;
+use Colzak\NotificationBundle\Document\Notification;
 
 class RegistrationController extends BaseController
 {
@@ -107,6 +108,18 @@ class RegistrationController extends BaseController
                 $profile = $user->getProfile();
                 $profile->setUsername($user->getUsername());
                 $dm->persist($profile);
+
+                //Send notif
+                $notification = new Notification();
+                $notification->setStatus(Notification::STATUS_PENDING);
+                $notification->setFrom('no.reply@buskeet.com');
+                $notification->setFromName('notify@buskeet.com');
+                $notification->setTo($user->getEmail());
+                $notification->setSubject('Buskeet Inscription');
+                $notification->setContent($this->container->get('templating')->render('ColzakNotificationBundle:Mail:email_confirmed_registration.html.twig', array('user' => $user)));
+
+                $dm->persist($notification);
+
                 $dm->flush();
 
                 $userManager->updateUser($user);
@@ -161,6 +174,19 @@ class RegistrationController extends BaseController
                 $profile = $user->getProfile();
                 $profile->setUsername($user->getUsername());
                 $dm->persist($profile);
+
+                //Send notif
+                $notification = new Notification();
+                $notification->setStatus(Notification::STATUS_PENDING);
+                $notification->setFrom('no.reply@buskeet.com');
+                $notification->setFromName('notify@buskeet.com');
+                $notification->setTo($user->getEmail());
+                $notification->setSubject('Buskeet Inscription');
+                $notification->setContent($this->container->get('templating')->render('ColzakNotificationBundle:Mail:email_confirmed_registration.html.twig', array('user' => $user)));
+
+                $dm->persist($notification);
+
+
                 $dm->flush();
 
                 $userManager->updateUser($user);

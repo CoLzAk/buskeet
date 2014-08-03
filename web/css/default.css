@@ -2,7 +2,8 @@ body {
     padding-top: 45px;
 }
 .what-is-buskeet {
-    background-color: #2980b9;
+    background-color: #34495e;
+    border-bottom: 3px solid #ccc;
 }
 .do-it-with-buskeet .glyphicon {
     margin-right: 30px;
