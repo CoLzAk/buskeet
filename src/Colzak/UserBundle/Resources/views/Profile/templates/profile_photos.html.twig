@@ -1,11 +1,15 @@
 <script type="text/template" id="clzk-profile-photos-template">
-    <div class="clzk-profile-photos-container">
+    <div class="clzk-profile-photos-container text-center">
         <% if (typeof profile_picture !== 'undefined' && typeof profile_picture.id !== 'undefined') { %>
             <a data-toggle="modal" id="image-modal" href="#">
                 <img src="<%= profile_picture.path %>" class="img-responsive clzk-profile-picture">
             </a>
         <% } else { %>
-            <img src="/img/user_256.png" alt="..." class="img-responsive clzk-profile-picture">
+            <% if (profile_gender == 'MALE') { %>
+                <img src="/img/male.png" alt="..." class="clzk-profile-picture">
+            <% } else { %>
+                <img src="/img/female.png" alt="..." class="clzk-profile-picture">
+            <% } %>
         <% } %>
     </div>
 </script>

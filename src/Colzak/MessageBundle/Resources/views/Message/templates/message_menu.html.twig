@@ -8,11 +8,15 @@
                     <% } %>
                 <% } %>
             <% } else { %>
-                <img src="/img/user_128.png" alt="..." class="img-responsive">
+                <% if (recipient.gender == 'MALE') { %>
+                    <img src="/img/male.png" alt="..." class="img-responsive">
+                <% } else { %>
+                    <img src="/img/female.png" alt="..." class="img-responsive">
+                <% } %>
             <% } %>
         </div>
         <div class="pull-left">
-            <%= recipient.firstname %> <%= recipient.lastname %>
+            <%= recipient.firstname %>&nbsp;&nbsp;<%= recipient.lastname %>
         </div>
         <div class="clearfix"></div>
     </div>

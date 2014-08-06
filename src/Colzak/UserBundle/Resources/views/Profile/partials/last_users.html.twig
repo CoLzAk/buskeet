@@ -9,7 +9,11 @@
                                 <img src="{{ photo.thumbPath }}" alt="..." class="img-responsive">
                             {% endfor %}
                         {% else %}
-                            <img src="/img/user_128.png" alt="..." class="img-responsive">
+                            {% if user.gender == 'MALE' %}
+                                <img src="/img/male.png" alt="..." class="img-responsive">
+                            {% else %}
+                                <img src="/img/female.png" alt="..." class="img-responsive">
+                            {% endif %}
                         {% endif %}
                     </div>
                 </div>
@@ -20,7 +24,6 @@
                         {% if loop.index <= 2 %}
                             <div class="clzk-home-user-instruments">
                                 <img src="/img/instruments/{{ item.category }}.png" class="img-responsive">
-                                {#<p class="text-center">{{ item.name }}</p>#}
                             </div>
                         {% endif %}
                     {% endfor %}

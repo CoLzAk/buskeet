@@ -16,6 +16,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 profilePicture = (this.collection.length > 0 ? photos[0] : undefined);
             }
             return {
+                profile_gender: UserModule.targetUserProfile.get('gender'),
                 profile_picture: profilePicture
             };
         },

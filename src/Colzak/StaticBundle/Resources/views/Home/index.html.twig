@@ -1,6 +1,9 @@
 {% extends 'ColzakStaticBundle::layout.html.twig' %}
 
 {% block title %}Buskeet{% endblock %}
+{% block meta %}
+    <meta name="description" content="Vivez et partagez des expériences musicales uniques quelque soit le moment, quelque soit le lieu">
+{% endblock %}
 {% block header %}
     <nav class="navbar navbar-inverse navbar-fixed-top clzk-navbar" role="navigation">
         <div class="container-fluid">
@@ -38,7 +41,11 @@
                                                         {% endif %}
                                                     {% endfor %}
                                                 {% else %}
-                                                    <img src="/img/user_256.png" alt="..." class="img-responsive clzk-navbar-profile-picture" width="50">
+                                                    {% if app.user.profile.gender == 'MALE' %}
+                                                        <img src="/img/male.png" alt="..." class="img-responsive clzk-navbar-profile-picture" width="50">
+                                                    {% else %}
+                                                        <img src="/img/female.png" alt="..." class="img-responsive clzk-navbar-profile-picture" width="50">
+                                                    {% endif %}
                                                 {% endif %}
                                             </div>
                                             <div class="pull-left">
@@ -115,17 +122,27 @@
     <div class="row what-is-buskeet">
         <div class="clzk-home-container">
             <h1 class="text-left">Buskeet, c'est quoi ?</h1>
-            <blockquote>
+            <!--blockquote>
                 <p>To busk (verb): Play music in the street or other public place for voluntary donations</p>
                 <small><cite title="Source Title">Oxford Dictionaries</cite></small>
-            </blockquote>
+            </blockquote-->
             <div class="clearfix"></div>
-            <p class="mt2">A l'origine de ce nom, un terme et plus précisément un verbe anglophone. Dans la langue de Molière, on parlera plus communément de "boeuf" ou "jam session". Vous l'aurez compris, Buskeet est une plateforme qui met en avant les musiciens de rue, qui souhaitent se produire dans les lieux publics.</p>
+            <p class="mt2">
+                La musique est votre passion. <br>
+                Vous souhaiteriez faire parti d'un groupe, mais vos connaissances musicales sont restreintes ?<br>
+                Buskeet est la solution ! <br>
+                Trouver des personnes proches physiquement, qui ont les mêmes goûts et les mêmes centres d'intérêts que vous n'a jamais été aussi simple.
+            </p>
+
+            <p class="mt2">Buskeet est une plateforme communautaire destinée aux musiciens amateurs qui souhaitent faire de nouvelles rencontres et découvrir de nouvelles sensations. </p>
+
             <h2>Avec Buskeet </h2>
             <ul class="list-unstyled do-it-with-buskeet mb2">
                 <li class="mt1"><span class="glyphicon glyphicon-chevron-right"></span> Faites de nouvelles rencontres musicales</li>
                 <li class="mt1"><span class="glyphicon glyphicon-chevron-right"></span>Créez et partagez des évènements autour de la musique de rue</li>
             </ul>
+
+            <p class="mt2">Désormais, vous n'êtes plus seul</p>
         </div>
     </div>
 
@@ -137,7 +154,7 @@
     <div class="clzk-home-container clzk-home-description-container">
         <h1 class="text-center mt1">Vivez au rythme de la musique</h1>
         <p class="text-center">
-            Avec une communauté grandissante de street performers, Buskeet est l'endroit idéal pour faire de nouvelles rencontres musicales. Partagez et faites vibrer votre public quelque soit l'heure, quelque soit le lieu. Désormais, vous n'êtes plus seul.
+            Avec une communauté grandissante de street performers, Buskeet est l'endroit idéal pour faire de nouvelles rencontres musicales. Partagez et faites vibrer votre public quelque soit l'heure, quelque soit le lieu.
         </p>
     </div>
 

@@ -4,7 +4,11 @@
             <% if (typeof profile_picture_path !== 'undefined') { %>
                 <img src="<%= profile_picture_path %>" class="img-responsive">
             <% } else { %>
-                <img src="/img/user_256.png" alt="..." class="img-responsive clzk-profile-picture">
+                <% if (profile.gender == 'MALE') { %>
+                    <img src="/img/male.png" alt="..." class="img-responsive">
+                <% } else { %>
+                    <img src="/img/female.png" alt="..." class="img-responsive">
+                <% } %>
             <% } %>
         </div>
         <div class="pull-left">

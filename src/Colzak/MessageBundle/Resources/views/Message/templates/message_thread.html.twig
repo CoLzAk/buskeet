@@ -11,9 +11,12 @@
                                 <% } %>
                             <% } %>
                         <% } else { %>
-                            <img src="/img/user_128.png" alt="..." class="img-responsive">
+                            <% if (currentUser.gender == 'MALE') { %>
+                                <img src="/img/male.png" alt="..." class="img-responsive">
+                            <% } else { %>
+                                <img src="/img/female.png" alt="..." class="img-responsive">
+                            <% } %>
                         <% } %>
-                        {#<p class="text-center">&lt; moi &gt;</p>#}
                     </div>
                 </div>
                 <div class="col-md-10">
@@ -34,7 +37,11 @@
                                 <% } %>
                             <% } %>
                         <% } else { %>
-                            <img src="/img/user_128.png" alt="..." class="img-responsive">
+                            <% if (recipient.gender == 'MALE') { %>
+                                <img src="/img/male.png" alt="..." class="img-responsive">
+                            <% } else { %>
+                                <img src="/img/female.png" alt="..." class="img-responsive">
+                            <% } %>
                         <% } %>
                         {#<p class="text-center">&lt; <%= recipient.firstname %> &gt; </p>#}
                     </div>
