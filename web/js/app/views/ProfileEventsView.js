@@ -43,6 +43,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             this.stickit();
         },
         serializeData: function() {
+            console.log(this.model);
             var completeAddress = '';
             if (this.model.get('street_number') !== '') completeAddress += this.model.get('street_number') + ' ';
             if (this.model.get('route') !== '') completeAddress += this.model.get('route') + ', ';

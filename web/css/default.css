@@ -68,3 +68,7 @@ body {
 .clzk-footer a, .clzk-footer a:hover {
     color: #FFF !important;
 }
+.clzk-home-geoloader {
+    background: #FFF !important;
+    border: none !important;
+}

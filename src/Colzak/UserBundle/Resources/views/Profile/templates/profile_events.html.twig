@@ -28,7 +28,16 @@
         </div>
         <div class="clearfix"></div>
         <div class="event-place-container">
-            <p class="mt1"><span class="glyphicon glyphicon-map-marker"></span> <%= completeAddress %></p>
+            <div class="row">
+                <div class="col-md-9">
+                    <p class="mt1"><span class="glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;&nbsp;<%= completeAddress %></p>
+                </div>
+                <div class="col-md-3">
+                    <p class="mt1 text-right">
+                        <a href="<%= Routing.generate('colzak_event', { 'eventId': userEvent.id }) %>">Voir</a>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </script>

@@ -78,6 +78,24 @@ $(document).ready(function() {
         }
     });
 
+    $('.clzk-search-form-geolocation-home-btn').on('click', function(e) {
+        e.preventDefault();
+        $('.clzk-home-geoloader').removeClass('hidden');
+        //Check if browser supports W3C Geolocation API
+        if (navigator.geolocation) {
+            $.get("http://ipinfo.io", function(response) {
+                addressCity.val(response.city);
+                addressCountry.val(response.country);
+                $('#clzk-search-input').val(response.city);
+            }, "jsonp").done(function() { 
+                $('.clzk-home-geoloader').addClass('hidden');
+            });
+            
+        } else {
+            alert('Your browser does not support geolocation');
+        }
+    });
+
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
         var place = autocomplete.getPlace();
             addressNumber.val('');
