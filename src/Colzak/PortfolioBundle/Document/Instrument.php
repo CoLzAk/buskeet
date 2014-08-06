@@ -12,13 +12,13 @@ use JMS\Serializer\Annotation as SERIAL;
  */
 class Instrument
 {
-    const WOODWINDS = 'WOODWINDS';
-    const BRASS = 'BRASS';
-    const STRINGS = 'STRINGS';
-    const PERCUSSIONS = 'PERCUSSIONS';
-    const KEYBOARDS = 'KEYBOARDS';
-    const VOCALS = 'VOCALS';
-    const ELECTRONICS = 'ELECTRONICS';
+    const WOODWINDS = 'woodwinds';
+    const BRASS = 'brass';
+    const STRINGS = 'strings';
+    const PERCUSSIONS = 'percussions';
+    const KEYBOARDS = 'keyboards';
+    const VOCALS = 'vocals';
+    const ELECTRONICS = 'electronics';
 
     /**
      * @MongoDB\Id(strategy="auto")
