@@ -7,7 +7,7 @@
                         <% for (var i in profile.portfolio.portfolio_instruments) { %>
                             <div class="col-md-4 mb1">
                                 <img src="/img/instruments/<%= profile.portfolio.portfolio_instruments[i].category %>.png" class="img-responsive">
-                                <p class="text-center"><%= profile.portfolio.portfolio_instruments[i].name %></p>
+                                <p class="text-center"><%= translate(profile.portfolio.portfolio_instruments[i].name) %></p>
                                 <div class="progress">
                                     <% if (profile.portfolio.portfolio_instruments[i].level == 'BEGINNER') { %>
                                         <div class="progress-bar progress-bar-success" style="width: 33%"></div>
@@ -108,10 +108,10 @@
                                                 <img src="/img/instruments/<%= profile.portfolio.portfolio_instruments[i].category %>.png" class="img-responsive">
                                             </div>
                                             <div class="col-md-4">
-                                                <p class="clzk-center text-center"><%= profile.portfolio.portfolio_instruments[i].name %></p>
+                                                <p class="clzk-center text-center"><%= translate(profile.portfolio.portfolio_instruments[i].name) %></p>
                                             </div>
                                             <div class="col-md-4">
-                                                <p class="clzk-center text-center"><%= profile.portfolio.portfolio_instruments[i].level %></p>
+                                                <p class="clzk-center text-center"><%= translate(profile.portfolio.portfolio_instruments[i].level) %></p>
                                             </div>
                                             <div class="col-md-2">
                                                 <p class="clzk-center">
