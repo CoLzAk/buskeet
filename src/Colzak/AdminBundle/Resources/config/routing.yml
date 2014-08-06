@@ -19,5 +19,5 @@ colzak_admin_instruments_add:
     defaults: { _controller: ColzakAdminBundle:Admin:addInstruments }
 
 colzak_admin_instruments_delete:
-    path:     /instruments/delete
+    path:     /instruments/delete/{id}
     defaults: { _controller: ColzakAdminBundle:Admin:deleteInstruments }
