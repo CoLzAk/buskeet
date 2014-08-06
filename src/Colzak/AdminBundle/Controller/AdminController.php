@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Colzak\PortfolioBundle\Document\Instrument;
 use Colzak\PortfolioBundle\Form\Type\InstrumentFormType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class AdminController extends Controller
 {
@@ -44,9 +45,23 @@ class AdminController extends Controller
     		if ($form->isValid()) {
     			$dm->persist($instrument);
     			$dm->flush();
+
+                return new RedirectResponse($this->get('router')->generate('colzak_admin_instruments'));
     		}
     	}
 
     	return $this->render('ColzakAdminBundle:Admin:add_instruments.html.twig', array('form' => $form->createView()));
+    }
+
+    public function deleteInstrumentsAction($id) {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $instrument = $dm->getRepository('ColzakPortfolioBundle:Instrument')->find($id);
+
+        if (NULL !== $instrument) {
+            $dm->remove($instrument);
+            $dm->flush();
+        }
+
+        return new RedirectResponse($this->get('router')->generate('colzak_admin_instruments'));
     }
 }

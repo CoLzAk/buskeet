@@ -9,16 +9,16 @@ Photo:
 	Supprimer les thumbs lors de la suppression
 
 Global:
-	Ajouter des flash messages
+	Ajouter des flash messages (compte (chgt mdp etc.))
 	Responsiveness
-	Acheter icones
 	Facebook Login
 	Favicon
-	Sitemap
+	Sitemap (command)
 	Robots.txt
 	Retirer app_dev.php
 	Optimiser images
 	Transformer notifications en service (recherche transform notif dans le code)
+	Liste instruments
 
 Profil:
 	bouton share

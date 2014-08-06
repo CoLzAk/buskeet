@@ -148,6 +148,11 @@ $(document).ready(function() {
         submitSearchForm();
     });
 
+    $('.clzk-search-form-submit-home-btn').on('click', function(e) {
+        e.preventDefault();
+        submitSearchForm();
+    });
+
     function submitSearchForm() {
         var localization = ''
 

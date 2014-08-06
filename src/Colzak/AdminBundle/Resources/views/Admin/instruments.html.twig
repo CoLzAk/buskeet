@@ -10,6 +10,7 @@
                     <th>Name</th>
                     <th>Category</th>
                     <th>Icon Path</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,6 +27,11 @@
                         </td>
                         <td>
                             {{ instrument.iconPath }}
+                        </td>
+                        <td>
+                            <a href="{{ path('colzak_admin_instruments_delete', { id: instrument.id }) }}" class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove"></span> Supprimer
+                            </a>
                         </td>
                     </tr>
                 {% endfor %}
