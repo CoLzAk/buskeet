@@ -1,6 +1,10 @@
 body {
     padding-top: 45px;
 }
+.buskeet_logo {
+    position: relative;
+    top: -26px;
+}
 .what-is-buskeet {
     background-color: #34495e;
     border-bottom: 3px solid #ccc;
