@@ -1,10 +1,6 @@
-colzak_command:
-    resource: "@ColzakCommandBundle/Resources/config/routing.yml"
-    prefix:   /
-
-colzak_notification:
-    resource: "@ColzakNotificationBundle/Resources/config/routing.yml"
-    prefix:   /
+colzak_admin:
+    resource: "@ColzakAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
 
 colzak_message_api:
     resource: "@ColzakMessageBundle/Resources/config/routing_api.yml"
@@ -28,9 +24,9 @@ colzak_event:
     resource: "@ColzakEventBundle/Resources/config/routing.yml"
     prefix:   /
 
-colzak_media:
-    resource: "@ColzakMediaBundle/Resources/config/routing.yml"
-    prefix:   /
+# colzak_media:
+#     resource: "@ColzakMediaBundle/Resources/config/routing.yml"
+#     prefix:   /
 
 colzak_media_api:
     resource: "@ColzakMediaBundle/Resources/config/routing_api.yml"
@@ -50,9 +46,9 @@ colzak_search_api:
     options:
         expose: true
 
-colzak_portfolio:
-    resource: "@ColzakPortfolioBundle/Resources/config/routing.yml"
-    prefix:   /portfolio
+# colzak_portfolio:
+#     resource: "@ColzakPortfolioBundle/Resources/config/routing.yml"
+#     prefix:   /portfolio
 
 colzak_portfolio_api:
     resource: "@ColzakPortfolioBundle/Resources/config/routing_api.yml"
@@ -65,9 +61,9 @@ colzak_static:
     resource: "@ColzakStaticBundle/Resources/config/routing.yml"
     prefix:   /
 
-colzak_geo:
-    resource: "@ColzakGeoBundle/Resources/config/routing.yml"
-    prefix:   /geo
+# colzak_geo:
+#     resource: "@ColzakGeoBundle/Resources/config/routing.yml"
+#     prefix:   /geo
 
 colzak_user:
     resource: "@ColzakUserBundle/Resources/config/routing.yml"

@@ -5,6 +5,9 @@
 
 {% block body %}
 <div class="clzk-login-register-container">
+	{% if error %}
+        <div class="alert alert-danger clzk-php-flash-messages-container"><p class="text-center">Nom d'utilisateur ou mot de passe incorrect</p></div>
+    {% endif %}
     {{ render(controller('ColzakUserBundle:Security:embeddedLogin')) }}
 </div>
 {% endblock %}

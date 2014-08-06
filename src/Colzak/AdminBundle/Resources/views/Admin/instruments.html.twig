@@ -1,0 +1,35 @@
+{% extends 'ColzakAdminBundle::layout.html.twig' %}
+
+{% block body %}
+    <a href="{{ path('colzak_admin_instruments_add') }}"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add Instrument</a>
+    <div class="table-responsive">
+        <table class="table-hover table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Icon Path</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for instrument in instruments %}
+                	<tr>
+                        <td>
+                            {{ instrument.id }}
+                        </td>
+                        <td>
+                            <img src="/img/instruments/{{ instrument.category }}.png" width="40"> - {{ instrument.name }}
+                        </td>
+                        <td>
+                            {{ instrument.category }}
+                        </td>
+                        <td>
+                            {{ instrument.iconPath }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

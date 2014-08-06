@@ -1,0 +1,19 @@
+colzak_admin_homepage:
+    path:     /
+    defaults: { _controller: ColzakAdminBundle:Admin:index }
+
+colzak_admin_users:
+    path:     /users
+    defaults: { _controller: ColzakAdminBundle:Admin:users }
+
+colzak_admin_events:
+    path:     /events
+    defaults: { _controller: ColzakAdminBundle:Admin:events }
+
+colzak_admin_instruments:
+    path:     /instruments
+    defaults: { _controller: ColzakAdminBundle:Admin:instruments }
+
+colzak_admin_instruments_add:
+    path:     /instruments/add
+    defaults: { _controller: ColzakAdminBundle:Admin:addInstruments }

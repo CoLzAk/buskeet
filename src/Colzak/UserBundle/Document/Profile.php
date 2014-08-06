@@ -196,7 +196,7 @@ class Profile
      */
     public function setFirstname($firstname)
     {
-        $this->firstname = $firstname;
+        $this->firstname = ucfirst(strtolower($firstname));;
         return $this;
     }
 
@@ -218,7 +218,7 @@ class Profile
      */
     public function setLastname($lastname)
     {
-        $this->lastname = $lastname;
+        $this->lastname = ucfirst(strtolower($lastname));
         return $this;
     }
 

@@ -1,5 +1,9 @@
-{% extends '::base.html.twig' %}
+{% extends 'ColzakUserBundle::layout.html.twig' %}
+
+{% block title "Réinitialisation du mot de passe - Buskeet" %}
 
 {% block body %}
-{% include "FOSUserBundle:Resetting:reset_content.html.twig" %}
+<div class="clzk-login-register-container">
+	{% include "ColzakUserBundle:Resetting:reset_content.html.twig" %}
+</div>
 {% endblock body %}

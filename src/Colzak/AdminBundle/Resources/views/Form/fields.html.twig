@@ -1,0 +1,104 @@
+{% block form_placeholder %}
+{% spaceless %}
+    {{ label|trans({}, translation_domain) }}
+{% endspaceless %}
+{% endblock form_placeholder %}
+
+{% block form_label %}
+{% spaceless %}
+    {% if label is not sameas(false) %}
+        {% if not compound %}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {% endif %}
+        {% if required %}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required col-md-3 control-label')|trim}) %}
+        {% endif %}
+        {% if label is empty %}
+            {% set label = name|humanize %}
+        {% endif %}
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %} class="col-md-3 control-label">{{ label|trans({}, translation_domain) }}</label>
+    {% endif %}
+{% endspaceless %}
+{% endblock form_label %}
+
+{% block form_widget_simple %}
+{% spaceless %}
+    {% set type = type|default('text') %}
+    <div class="col-md-9">
+    	<input type="{{ type }}" {{ block('widget_attributes') }} placeholder="{{ block('form_placeholder') }}" class="form-control" {% if value is not empty %}value="{{ value }}" {% endif %}>
+    </div>
+    <div class="clearfix"></div>
+{% endspaceless %}
+{% endblock form_widget_simple %}
+
+{% block date_widget %}
+{% spaceless %}
+    {% if widget == 'single_text' %}
+        {{ block('form_widget_simple') }}
+    {% else %}
+        <div {{ block('widget_container_attributes') }}>
+            {{ date_pattern|replace({
+                '{{ year }}': ['<div class="col-md-3">', form_widget(form.year, {'attr' : {'class': 'form-control'}}), '</div>']|join,
+                '{{ month }}': ['<div class="col-md-3">', form_widget(form.month, {'attr' : {'class': 'form-control'}}), '</div>']|join,
+                '{{ day }}': ['<div class="col-md-3">', form_widget(form.day, {'attr' : {'class': 'form-control'}}), '</div>']|join,
+            })|raw }}
+        </div>
+        <div class="clearfix"></div>
+    {% endif %}
+{% endspaceless %}
+{% endblock date_widget %}
+
+{% block choice_widget_expanded %}
+{% spaceless %}
+    <div {{ block('widget_container_attributes') }}>
+        {% for child in form %}
+            <div class="radio-inline">
+                <label for="{{ id }}_{{ loop.index-1 }}">
+                    {{ form_widget(child) }}{{ form_label(child) }}
+                </label>
+            </div>
+        {% endfor %}
+    </div>
+{% endspaceless %}
+{% endblock choice_widget_expanded %}
+
+{% block choice_widget_collapsed %}
+{% spaceless %}
+    {% if required and empty_value is none and not empty_value_in_choices %}
+        {% set required = false %}
+    {% endif %}
+    <div class="col-md-9">
+	    <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %} class="form-control">
+	        {% if empty_value is not none %}
+	            <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ empty_value|trans({}, translation_domain) }}</option>
+	        {% endif %}
+	        {% if preferred_choices|length > 0 %}
+	            {% set options = preferred_choices %}
+	            {{ block('choice_widget_options') }}
+	            {% if choices|length > 0 and separator is not none %}
+	                <option disabled="disabled">{{ separator }}</option>
+	            {% endif %}
+	        {% endif %}
+	        {% set options = choices %}
+	        {{ block('choice_widget_options') }}
+	    </select>
+	</div>
+	<div class="clearfix"></div>
+{% endspaceless %}
+{% endblock choice_widget_collapsed %}
+
+{% block form_row %}
+{% spaceless %}
+    <div class="form-group">
+        {{ form_label(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+    </div>
+{% endspaceless %}
+{% endblock form_row %}
+
+{% block textarea_widget %}
+{% spaceless %}
+    <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
+{% endspaceless %}
+{% endblock textarea_widget %}

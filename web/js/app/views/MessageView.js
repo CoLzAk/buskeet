@@ -42,6 +42,7 @@ App.module("MessageModule", function(MessageModule, App, Backbone, Marionette, $
                     $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-success');
                     $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
                     that.collection.add(model);
+                    $('#clzk-modal').modal('hide');
                     NProgress.done();
                 },
                 error: function(response) {

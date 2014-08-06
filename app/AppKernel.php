@@ -33,6 +33,7 @@ class AppKernel extends Kernel
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new Colzak\NotificationBundle\ColzakNotificationBundle(),
             new Colzak\CommandBundle\ColzakCommandBundle(),
+            new Colzak\AdminBundle\ColzakAdminBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

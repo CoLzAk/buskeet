@@ -1,0 +1,40 @@
+{% extends 'ColzakAdminBundle::layout.html.twig' %}
+
+{% block body %}
+    <div class="table-responsive">
+        <table class="table-hover table table-bordered">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            	<tr>
+                    <th>Membres</th>
+                    <td>
+                        <a href="{{ path('colzak_admin_users') }}" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-th-list"></span> Liste
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Evènements</th>
+                    <td>
+                        <a href="{{ path('colzak_admin_events') }}" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-th-list"></span> Liste
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Instruments</th>
+                    <td>
+                        <a href="{{ path('colzak_admin_instruments') }}" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-th-list"></span> Liste
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

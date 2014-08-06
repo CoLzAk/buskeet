@@ -1,8 +1,8 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-<h2 class="text-cyan">Demande de réinitialisation effectuée</h2><br />
-<p>
-	{{ 'resetting.check_email'|trans({'%email%': email}, 'FOSUserBundle') }}
-</p>
+<div class="clzk-login-register-container">
+	<h2 class="text-cyan">Demande de réinitialisation effectuée</h2><br />
+	<p>La procédure de réinitialisation de votre mot de passe vient de vous être envoyé à votre adresse email. Veuillez vérifier que celle-ci n'a pas été marqué comme spam.</p>
+</div>
 {% endblock %}

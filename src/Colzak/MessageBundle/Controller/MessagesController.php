@@ -60,7 +60,7 @@ class MessagesController extends BaseController
         $notification->setFromName('notify@buskeet.com');
         $notification->setTo($recipientEmail);
         $notification->setSubject($sender->getFirstname().' vous à envoyé un message');
-        $notification->setContent($this->render('ColzakNotificationBundle:Mail:new_mail.html.twig', array('recipient' => $recipientUser)));
+        $notification->setContent($this->container->get('templating')->render('ColzakNotificationBundle:Mail:new_mail.html.twig', array('recipient' => $recipientUser)));
 
         $dm->persist($notification);
 
@@ -122,7 +122,7 @@ class MessagesController extends BaseController
         $notification->setFromName('notify@buskeet.com');
         $notification->setTo($recipientEmail);
         $notification->setSubject($sender->getFirstname().' vous à envoyé un message');
-        $notification->setContent($this->render('ColzakNotificationBundle:Mail:new_mail.html.twig', array('recipient' => $recipientUser)));
+        $notification->setContent($this->container->get('templating')->render('ColzakNotificationBundle:Mail:new_mail.html.twig', array('recipient' => $recipientUser)));
 
         $dm->persist($notification);
 

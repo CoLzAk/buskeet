@@ -40,6 +40,11 @@ security:
                     service: my_user_provider
             logout:       true
             anonymous:    true
+            remember_me:
+                key:      "%secret%"
+                lifetime: 31536000 # 365 days in seconds
+                path:     /
+                domain:   ~ # Defaults to the current domain from $_SERVER
 
         login:
             pattern:  ^/login$
@@ -55,6 +60,6 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/admin/, role: ROLE_SUPER_ADMIN }
         - { path: ^/messages/, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/account, role: IS_AUTHENTICATED_FULLY }

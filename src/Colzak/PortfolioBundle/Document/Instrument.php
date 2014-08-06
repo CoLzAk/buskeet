@@ -12,12 +12,13 @@ use JMS\Serializer\Annotation as SERIAL;
  */
 class Instrument
 {
-    const WOODWINDS = 'Vents';
-    const BRASS = 'Cuivres';
-    const STRINGS = 'Cordes';
-    const PERCUSSIONS = 'Percussions';
-    const KEYBOARDS = 'Claviers';
-    const VOICES = 'Voix';
+    const WOODWINDS = 'WOODWINDS';
+    const BRASS = 'BRASS';
+    const STRINGS = 'STRINGS';
+    const PERCUSSIONS = 'PERCUSSIONS';
+    const KEYBOARDS = 'KEYBOARDS';
+    const VOCALS = 'VOCALS';
+    const ELECTRONICS = 'ELECTRONICS';
 
     /**
      * @MongoDB\Id(strategy="auto")
@@ -145,5 +146,17 @@ class Instrument
     public function getIconPath()
     {
         return $this->iconPath;
+    }
+
+    public static function getCategoryList() {
+        return array(
+            self::WOODWINDS => 'woodwinds',
+            self::BRASS => 'brass',
+            self::KEYBOARDS => 'keyboards',
+            self::STRINGS => 'strings',
+            self::VOCALS => 'vocals',
+            self::ELECTRONICS => 'electronics',
+            self::PERCUSSIONS => 'percussions'
+        );
     }
 }

@@ -5,15 +5,19 @@ namespace Colzak\PortfolioBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Colzak\PortfolioBundle\Form\Type\InstrumentTypeFormType;
+use Colzak\PortfolioBundle\Document\Instrument;
 
 class InstrumentFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'string', array('label' => 'Nom'))
-            ->add(new InstrumentTypeFormType())
+            ->add('name', 'text', array('label' => 'name'))
+            ->add('category', 'choice', array(
+                    'label' => 'category',
+                    'choices' => Instrument::getCategoryList()
+                ))
+            ->add('iconPath', 'text', array('label' => 'icon path'))
         ;
     }
 
