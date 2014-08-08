@@ -243,6 +243,7 @@ html, body {
 }
 .event-title-container {
     border-bottom: 1px #444 solid;
+    padding-left: 10px;
     /*margin-bottom: 2px;*/
 }
 .calendar-container {
@@ -279,6 +280,7 @@ html, body {
 .event-place-container {
     margin-top: 5px;
     border-top: 1px #444 solid;
+    padding: 0 10px;
 }
 .event-description-container {
     text-align: justify;

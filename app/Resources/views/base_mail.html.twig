@@ -20,6 +20,7 @@
               -ms-text-size-adjust:100%; 
               margin:0; 
               padding:0;
+              background-color: #F7F7F7;
             }
             .ExternalClass { 
               width:100%;
@@ -347,24 +348,19 @@
             }
 
             a {
-              color: #FF8A20;
-			text-decoration:none;			  
-            }
-			.cn-link {
-              font-size:130%;
-              text-decoration: underline;
-
+              color: #333;
+			        text-decoration:none;			  
             }
             a:hover { 
-              color: #FF8A20 !important;
+              color: #333 !important;
             }
 
             a:active { 
-              color: #FF8A20 !important;
+              color: #333 !important;
             }
 
             a:visited { 
-              color: #FF8A20 !important;
+              color: #333 !important;
             }
 
             h1 a, 
@@ -429,7 +425,7 @@
               display: block;
               width: auto !important;
               text-align: center;
-              background: #2ba6cb;
+              background: #2980b9;
               border: 1px solid #2284a1;
               color: #ffffff;
               padding: 8px 0;
@@ -483,7 +479,7 @@
             table.button:hover td,
             table.button:visited td,
             table.button:active td {
-              background: #2795b6 !important;
+              background: #3498db !important;
             }
 
             table.button:hover td a,
@@ -497,7 +493,7 @@
             table.small-button:hover td,
             table.medium-button:hover td,
             table.large-button:hover td {
-              background: #2795b6 !important;
+              background: #3498db !important;
             }
 
             table.button:hover td a,
@@ -674,24 +670,30 @@
                 display: inherit !important;
               }
             }
-        </style>
-        <style type="text/css">
-            .header, .footer {
-                background: #49494A;
-                color: #FFF!important;
+            .header {
+              background-color: #333;
             }
-			
-			.header p, .footer p{
-                color: #FFF!important;
+            .footer-container {
+              background-color: #34495e;
             }
-			
-            .callout .wrapper {
-                padding-bottom: 20px;
+            .body-container {
+              border: 1px #ddd solid;
+              background-color: #FFF;
             }
-
-            .callout .panel {
-                background: #FFD6B0;
-                border-color: #FF8A20;
+            .body-container .row{
+              margin: 10px;
+            }
+            .footer-container .footer {
+              margin: auto 20px;
+            }
+            .footer-container p {
+              color: #FFF !important;
+            }
+            .logo-fb {
+              width: 30px;
+            }
+            .logo-twitter {
+              width: 35px;
             }
         </style>
     </head>
@@ -730,53 +732,78 @@
                         </table>
 
                         <br>
+                        <table class="twelve columns">
+                        <tr>
+                          <td class="center">
+                            <center>
 
-                        <!-- Body -->
-                        <table class="row">
-                            <tr>
-                                <td class="wrapper">
+                              <a href="http://www.buskeet.com">www.buskeet.com</a>
 
-                                    <table class="container">
-                                        <tr>
-                                            <td>
-                                                <!-- Email Content -->
-                                                {% block mail_content %}{% endblock %}
-                                            </td>
-                                        </tr>
-                                    </table>
+                            </center>
+                          </td>
+                          <td class="expander"></td>
+                        </tr>
+                      </table>
 
-                                </td>
-                            </tr>
-                        </table>
+                        <table class="body-container">
+                          <tr>
+                            <td>
+                            <!-- Body -->
+                            <table class="row">
+                                <tr>
+                                    <td class="wrapper">
 
-                        <br />
+                                        <table class="container">
+                                            <tr>
+                                                <td>
+                                                    <!-- Email Content -->
+                                                    {% block mail_content %}{% endblock %}
+                                                </td>
+                                            </tr>
+                                        </table>
 
-                        <!-- Footer -->
-                        <table class="row">
-                            <tr>
-                                <td class="wrapper">
+                                    </td>
+                                </tr>
+                            </table>
 
-                                    <table class="container">
-                                        <tr>
-                                            <td class="wrapper last">
+                            <br />
 
-                                                <table class="twelve columns">
-                                                    <tr>
-                                                        <td>
-                                                            <p>L'équipe <strong>Buskeet</strong>.</p>
-                                                        </td>
-                                                        <td class="expander"></td>
-                                                    </tr>
-                                                </table>
+                            <!-- Footer -->
+                            <table class="row">
+                                <tr>
+                                    <td class="wrapper">
 
-                                            </td>
-                                        </tr>
-                                    </table>
+                                        <table class="container">
+                                            <tr>
+                                                <td class="wrapper last">
 
-                                </td>
-                            </tr>
-                        </table>
+                                                    <table class="twelve columns">
+                                                        <tr>
+                                                            <td>
+                                                                <td align="center">
+                                                                  <center>
+                                                                      <p style="text-align:center;"><a href="http://www.buskeet.com">L'équipe Buskeet</a></p>
+                                                                  </center>
+                                                              </td>
+                                                            </td>
+                                                            <td class="expander"></td>
+                                                        </tr>
+                                                    </table>
 
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                    </td>
+                                </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+
+                      <table class="footer-container">
+                        <tr>
+                          <td>
                         <table class="footer">
                             <tr>
                                 <td class="wrapper">
@@ -787,12 +814,15 @@
 
                                                 <table class="twelve columns">
                                                     <tr>
-                                                        <td align="center">
-                                                            <center>
-                                                                <p style="text-align:center;">&copy; <a href="http://www.buskeet.com">Buskeet</a> 2014</p>
-                                                            </center>
+                                                        <td><p>Retrouvez-nous sur</p></td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td align="right"><table><tr>
+                                                        <td><a href="#"><img class="social-logo logo-fb" src="/img/social/fb_white_29.png"></a>&nbsp;&nbsp;
                                                         </td>
-                                                        <td class="expander"></td>
+                                                        <td><a href="#"><img class="social-logo logo-twitter" src="/img/social/twitter_white.png"></a>
+                                                          </td>
+                                                        </tr></table></td>
                                                     </tr>
                                                 </table>
 
@@ -803,6 +833,9 @@
                                 </td>
                             </tr>
                         </table>
+                      </td>
+                    </tr>
+                  </table>
 
                     </center>
                 </td>

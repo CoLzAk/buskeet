@@ -22,9 +22,9 @@ class UserRepository extends DocumentRepository
 
         if (!$data['username']) {
             if ( isset($data['first_name']) || isset($data['last_name']) ) {
-                $basename = $this->removeAccents(strtolower($data['first_name'] . '.' . $data['last_name']));
+                $basename = $this->removeAccentsAndSpaces(strtolower($data['first_name'] . '.' . $data['last_name']));
             } else {
-                $basename = $this->removeAccents(strtolower($data['profile']['firstname'] . '.' . $data['profile']['lastname']));
+                $basename = $this->removeAccentsAndSpaces(strtolower($data['profile']['firstname'] . '.' . $data['profile']['lastname']));
             }
             
         } else {
@@ -59,19 +59,19 @@ class UserRepository extends DocumentRepository
         return $data['username'];
     }
 
-    private function removeAccents($str)
+    private function removeAccentsAndSpaces($str)
     { 
         $from = array(
             "á", "à", "â", "ã", "ä", "é", "è", "ê", "ë", "í", "ì", "î", "ï", 
             "ó", "ò", "ô", "õ", "ö", "ú", "ù", "û", "ü", "ç", "Á", "À", "Â", 
             "Ã", "Ä", "É", "È", "Ê", "Ë", "Í", "Ì", "Î", "Ï", "Ó", "Ò", "Ô", 
-            "Õ", "Ö", "Ú", "Ù", "Û", "Ü", "Ç"
+            "Õ", "Ö", "Ú", "Ù", "Û", "Ü", "Ç", " "
         ); 
         $to = array(
             "a", "a", "a", "a", "a", "e", "e", "e", "e", "i", "i", "i", "i", 
             "o", "o", "o", "o", "o", "u", "u", "u", "u", "c", "A", "A", "A", 
             "A", "A", "E", "E", "E", "E", "I", "I", "I", "I", "O", "O", "O", 
-            "O", "O", "U", "U", "U", "U", "C"
+            "O", "O", "U", "U", "U", "U", "C", "-"
         );
         return str_replace($from, $to, $str); 
     }

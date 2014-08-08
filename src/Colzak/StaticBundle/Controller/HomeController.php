@@ -22,4 +22,8 @@ class HomeController extends Controller
     public function privacyAction() {
     	return $this->render('ColzakStaticBundle:Home:privacy.html.twig');
     }
+
+    public function testAction() {
+        return $this->render('ColzakStaticBundle:Home:test.html.twig');
+    }
 }

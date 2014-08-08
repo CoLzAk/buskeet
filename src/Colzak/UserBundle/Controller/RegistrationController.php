@@ -113,9 +113,9 @@ class RegistrationController extends BaseController
                 $notification = new Notification();
                 $notification->setStatus(Notification::STATUS_PENDING);
                 $notification->setFrom('no.reply@buskeet.com');
-                $notification->setFromName('notify@buskeet.com');
+                $notification->setFromName('Buskeet');
                 $notification->setTo($user->getEmail());
-                $notification->setSubject('Buskeet Inscription');
+                $notification->setSubject('Inscription');
                 $notification->setContent($this->container->get('templating')->render('ColzakNotificationBundle:Mail:email_confirmed_registration.html.twig', array('user' => $user)));
 
                 $dm->persist($notification);
@@ -179,9 +179,9 @@ class RegistrationController extends BaseController
                 $notification = new Notification();
                 $notification->setStatus(Notification::STATUS_PENDING);
                 $notification->setFrom('no.reply@buskeet.com');
-                $notification->setFromName('notify@buskeet.com');
+                $notification->setFromName('Buskeet');
                 $notification->setTo($user->getEmail());
-                $notification->setSubject('Buskeet Inscription');
+                $notification->setSubject('Inscription');
                 $notification->setContent($this->container->get('templating')->render('ColzakNotificationBundle:Mail:email_confirmed_registration.html.twig', array('user' => $user)));
 
                 $dm->persist($notification);

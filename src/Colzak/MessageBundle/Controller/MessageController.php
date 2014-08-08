@@ -41,8 +41,13 @@ class MessageController extends Controller
 	    $dm = $this->get('doctrine_mongodb')->getManager();
 	    $limit = 1;
 	    $threads = $dm->getRepository('ColzakMessageBundle:Thread')->getLastThreads($profile, $limit);
-	    $thread = $threads[0];
-	    return new RedirectResponse($this->get('router')->generate('colzak_user_thread', array('threadId' => $thread->getId())));
+
+	    if (count($threads) > 0) {
+	    	$thread = $threads[0];
+	    	return new RedirectResponse($this->get('router')->generate('colzak_user_thread', array('threadId' => $thread->getId())));
+	    } else {
+	    	return $this->render('ColzakMessageBundle:Message:thread.html.twig', array('threadId' => null));
+	    }
 	}
 }
 

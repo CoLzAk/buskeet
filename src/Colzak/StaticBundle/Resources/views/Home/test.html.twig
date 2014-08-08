@@ -1,7 +1,5 @@
 {% extends '::base_mail.html.twig' %}
 
-{% block subject %}Confirmation de votre inscription{% endblock %}
-
 {% block mail_content %}
 <table class="row">
     <tr>
@@ -10,7 +8,7 @@
             <table class="twelve columns">
                 <tr>
                     <td>
-                        <h5>Bonjour {{ user.profile.firstname }},</h5><br/>
+                        <h5>Bonjour Joel,</h5><br/>
                         <p>Nous vous confirmons la création de votre compte Buskeet et nous vous en remerçions.</p>
                         <p>N'hésitez pas à compléter votre profil au maximum afin de mettre en avant toutes vos qualités !</p>
                     </td>
@@ -29,17 +27,17 @@
             <table class="twelve columns">
                 <tr>
                     <td>
-                        <table class="four column offset-by-four">
-                            <tr><td>
-                            <table class="button">
-                              <tr>
-                                <td>
-                                  <a href="http://www.buskeet.com/profile/{{user.username}}">Consulter mon profil</a>
-                                </td>
-                              </tr>
-                            </table>
-                        </td></tr>
-                        </table>
+                    	<table class="four column offset-by-four">
+                    		<tr><td>
+	                        <table class="button">
+							  <tr>
+							    <td>
+							      <a href="#">Consulter mon profil</a>
+							    </td>
+							  </tr>
+							</table>
+						</td></tr>
+						</table>
                     </td>
                     <td class="expander"></td>
                 </tr>
@@ -48,6 +46,4 @@
         </td>
     </tr>
 </table>
-
 {% endblock %}
-

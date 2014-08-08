@@ -69,7 +69,11 @@
                                                             {% endif %}
                                                         {% endfor %}
                                                     {% else %}
-                                                        <img src="/img/user_256.png" alt="..." class="img-responsive clzk-navbar-profile-picture" width="50">
+                                                        {% if app.user.profile.gender == 'MALE' %}
+                                                            <img src="/img/male.png" alt="..." class="img-responsive clzk-navbar-profile-picture" width="50">
+                                                        {% else %}
+                                                            <img src="/img/female.png" alt="..." class="img-responsive clzk-navbar-profile-picture" width="50">
+                                                        {% endif %}
                                                     {% endif %}
                                                 </div>
                                                 <div class="pull-left">
@@ -88,8 +92,6 @@
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-envelope"></span> <b class="caret"></b></a>
                                             <ul class="dropdown-menu">
                                                 {{ render(controller('ColzakMessageBundle:Message:lastThread')) }}
-                                                <li class="divider"></li>
-                                                <li><a href="{{ path('colzak_user_inbox') }}"><span class="glyphicon glyphicon-envelope"></span> Messagerie</a></li>
                                             </ul>
                                         </li>
                                         <li class="dropdown">

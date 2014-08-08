@@ -1,4 +1,4 @@
-{% if threads is not null %}
+{% if threads|length > 0 %}
 	{% for thread in threads %}
 		{% for message in thread.messages %}
 			{% if loop.last %}
@@ -6,4 +6,8 @@
 			{% endif %}
 		{% endfor %}
 	{% endfor %}
+{% else %}
+	<li><a>Aucun message</a></li>
 {% endif %}
+<li class="divider"></li>
+<li><a href="{{ path('colzak_user_inbox') }}"><span class="glyphicon glyphicon-envelope"></span> Messagerie</a></li>

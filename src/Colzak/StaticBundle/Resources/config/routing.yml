@@ -13,3 +13,7 @@ colzak_static_cgu:
 colzak_static_privacy:
     pattern:  /privacy
     defaults: { _controller: ColzakStaticBundle:Home:privacy }
+
+colzak_test:
+    pattern:  /test
+    defaults: { _controller: ColzakStaticBundle:Home:test }
