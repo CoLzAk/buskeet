@@ -103,15 +103,15 @@ fos_js_routing:
 #HWIOAuthBundle routes
 hwi_oauth_security:
     resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
-    prefix: /hwi/login
+    prefix: /login
 
 hwi_oauth_connect:
     resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
-    prefix: /hwi/login
+    prefix: /login
 
 hwi_oauth_redirect:
     resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
-    prefix:   /hwi/login
+    prefix:   /login
 
 facebook_login:
     pattern: /login/check-facebook

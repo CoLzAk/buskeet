@@ -17,8 +17,23 @@ class AdminController extends Controller
 
     public function usersAction() {
     	$dm = $this->get('doctrine_mongodb')->getManager();
+        // knp paginator to implement
     	$users = $dm->getRepository('ColzakUserBundle:User')->findAll();
     	return $this->render('ColzakAdminBundle:Admin:users.html.twig', array('users' => $users));
+    }
+
+    public function viewUserAction($id) {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $user = $dm->getRepository('ColzakUserBundle:User')->find($id);
+
+    }
+
+    public function deleteUserAction($id) {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $user = $dm->getRepository('ColzakUserBundle:User')->find($id);
+
+
+        //Replace user / profile / photo / event / thread by lambda (like facebook's "Facebook User")
     }
 
     public function eventsAction() {

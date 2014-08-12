@@ -8,7 +8,9 @@
                     <th>Id</th>
                     <th>Username</th>
                     <th>Email</th>
+                    <th>Roles</th>
                     <th>Status</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,7 +26,20 @@
                             {{ user.email }}
                         </td>
                         <td>
+                            {% for role in user.roles %}
+                                <p>- {{ role }}</p>
+                            {% endfor %}
+                        </td>
+                        <td>
                             {{ user.status }}
+                        </td>
+                        <td>
+                            <a href="{{ path('colzak_admin_user_view', { id: user.id }) }}" class="btn btn-default btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span> Voir
+                            </a>
+                            <a href="{{ path('colzak_admin_user_delete', { id: user.id }) }}" class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove"></span> Supprimer
+                            </a>
                         </td>
                     </tr>
                 {% endfor %}
