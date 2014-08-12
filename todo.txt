@@ -19,6 +19,7 @@ Global:
 	Optimiser images
 	Transformer notifications en service (recherche transform notif dans le code)
 	Liste instruments
+	Proteger les urls du csrf (ajax)
 
 Profil:
 	bouton share

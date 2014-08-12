@@ -57,7 +57,7 @@ class MessagesController extends BaseController
         $notification = new Notification();
         $notification->setStatus(Notification::STATUS_PENDING);
         $notification->setFrom($senderEmail);
-        $notification->setFromName('notify@buskeet.com');
+        $notification->setFromName('Buskeet Notification');
         $notification->setTo($recipientEmail);
         $notification->setSubject($sender->getFirstname().' vous à envoyé un message');
         $notification->setContent($this->container->get('templating')->render('ColzakNotificationBundle:Mail:new_mail.html.twig', array('recipient' => $recipientUser, 'sender' => $sender, 'threadId' => $thread->getId())));
@@ -119,7 +119,7 @@ class MessagesController extends BaseController
         $notification = new Notification();
         $notification->setStatus(Notification::STATUS_PENDING);
         $notification->setFrom($senderEmail);
-        $notification->setFromName('notify@buskeet.com');
+        $notification->setFromName('Buskeet Notification');
         $notification->setTo($recipientEmail);
         $notification->setSubject($sender->getFirstname().' vous à envoyé un message');
         $notification->setContent($this->container->get('templating')->render('ColzakNotificationBundle:Mail:new_mail.html.twig', array('recipient' => $recipientUser, 'sender' => $sender, 'threadId' => $thread->getId())));

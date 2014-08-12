@@ -44,6 +44,7 @@ class FOSUBUserProvider extends BaseClass
     {
         $username = $response->getUsername();
         $user = $this->userManager->findUserBy(array($this->getProperty($response) => $username));
+        $fbData = $response->getResponse();
         //when the user is registrating
         if (null === $user) {
             $service = $response->getResourceOwner()->getName();
@@ -54,13 +55,43 @@ class FOSUBUserProvider extends BaseClass
             $user = $this->userManager->createUser();
             $user->$setter_id($username);
             $user->$setter_token($response->getAccessToken());
+
+
             //I have set all requested data with the user's username
             //modify here with relevant data
-            $user->setUsername($username);
-            $user->setEmail($username);
-            $user->setPassword($username);
+            $user->addRole('ROLE_FACEBOOK');
+            $user->setUsername($this->entityManager->getRepository('CaribooCNUserBundle:User')->generateUniqueUsername($fbData));
+            $user->setEmail($fbData['email']);
+
+            $rdPassword = $this->randomPassword();
+            $user->setPlainPassword($rdPassword);
             $user->setEnabled(true);
+
+            $profile = new Profile();
+            $profile->setUsername($user->getUsername());
+            if (isset($fbData['last_name'])) {
+                $profile->setLastname($fbData['last_name']);
+            }
+            if (isset($fbData['first_name'])) {
+                $profile->setFirstname($fbData['first_name']);
+            }
+            if (isset($fbData['birthday'])) {
+                $profile->setBirthdate(new \Datetime($fbData['birthday']));
+            }
+            if (isset($fbData['location'])) {
+                $profile->setLocality($fbData['location']['name']);
+            }
+            if (isset($fbData['gender'])) {
+                if ($fbData['gender'] == 'male')
+                    $profile->setGender(Profile::GENDER_MALE);
+                else
+                    $profile->setGender(Profile::GENDER_FEMALE);
+            }
+            $user->setProfile($profile);
             $this->userManager->updateUser($user);
+
+            //Envoyer mail avec le mdp + expliquer qu'il faut choisir le type de profil en allant sur son profil.
+
             return $user;
         }
  
@@ -74,6 +105,17 @@ class FOSUBUserProvider extends BaseClass
         $user->$setter($response->getAccessToken());
  
         return $user;
+    }
+
+    private function randomPassword() {
+        $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+        $pass = array(); //remember to declare $pass as an array
+        $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+        for ($i = 0; $i < 8; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+        return implode($pass); //turn the array into a string
     }
  
 }
