@@ -4,9 +4,39 @@ namespace Colzak\UserBundle\Security\Core\User;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider as BaseClass;
 use Symfony\Component\Security\Core\User\UserInterface;
+use FOS\UserBundle\Model\UserManagerInterface;
+use Doctrine\ODM\MongoDB\DocumentManager;
+use Colzak\UserBundle\Document\Profile;
  
 class FOSUBUserProvider extends BaseClass
 {
+    /**
+     * @var UserManagerInterface
+     */
+    protected $userManager;
+
+    /**
+     * @var DocumentManager
+     */
+    protected $documentManager;
+
+    /**
+     * @var array
+     */
+    protected $properties;
+
+    /**
+     * Constructor.
+     *
+     * @param UserManagerInterface $userManager FOSUB user provider.
+     * @param array                $properties  Property mapping.
+     */
+    public function __construct(UserManagerInterface $userManager, DocumentManager $documentManager, array $properties)
+    {
+        $this->userManager = $userManager;
+        $this->properties  = $properties;
+        $this->documentManager = $documentManager;
+    }
  
     /**
      * {@inheritDoc}
@@ -42,15 +72,21 @@ class FOSUBUserProvider extends BaseClass
      */
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
+        // $dm = $this->get('doctrine_mongodb')->getManager();
         $username = $response->getUsername();
-        $user = $this->userManager->findUserBy(array($this->getProperty($response) => $username));
+        // $user = $this->userManager->findUserBy(array($this->getProperty($response) => $username));
         $fbData = $response->getResponse();
+        $user = $this->documentManager->getRepository('ColzakUserBundle:User')->findBy(array('facebookId' => $fbData['id']));
+        var_dump($fbData);
+        // die();
         //when the user is registrating
         if (null === $user) {
             $service = $response->getResourceOwner()->getName();
             $setter = 'set'.ucfirst($service);
             $setter_id = $setter.'Id';
             $setter_token = $setter.'AccessToken';
+
+
             // create new user here
             $user = $this->userManager->createUser();
             $user->$setter_id($username);
@@ -60,7 +96,7 @@ class FOSUBUserProvider extends BaseClass
             //I have set all requested data with the user's username
             //modify here with relevant data
             $user->addRole('ROLE_FACEBOOK');
-            $user->setUsername($this->entityManager->getRepository('CaribooCNUserBundle:User')->generateUniqueUsername($fbData));
+            $user->setUsername($this->documentManager->getRepository('ColzakUserBundle:User')->generateUniqueUsername($fbData));
             $user->setEmail($fbData['email']);
 
             $rdPassword = $this->randomPassword();
@@ -94,6 +130,9 @@ class FOSUBUserProvider extends BaseClass
 
             return $user;
         }
+
+        
+        \Doctrine\Common\Util\Debug::dump($user); die();
  
         //if user exists - go with the HWIOAuth way
         $user = parent::loadUserByOAuthUserResponse($response);
@@ -104,6 +143,7 @@ class FOSUBUserProvider extends BaseClass
         //update access token
         $user->$setter($response->getAccessToken());
  
+        \Doctrine\Common\Util\Debug::dump($user); die();
         return $user;
     }
 
