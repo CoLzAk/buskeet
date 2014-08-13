@@ -143,7 +143,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
                     markers += '&markers=color:red|' + profiles[i].coordinates.y + ',' + profiles[i].coordinates.x;
                 }
             }
-            mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center='+ this.model.queryUrl.searchParams['lat'] +','+ this.model.queryUrl.searchParams['lng'] +'&zoom='+ zoom +'&size='+mapWidth+'x180&maptype=roadmap&sensor=false' + markers;
+            mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyB3nP1qZvWfWiDArNPaAdoo5nM_L9iJQgY&center='+ this.model.queryUrl.searchParams['lat'] +','+ this.model.queryUrl.searchParams['lng'] +'&zoom='+ zoom +'&size='+mapWidth+'x180&maptype=roadmap&sensor=false' + markers;
             $('#map').html('<img src="'+ mapUrl +'">');
 
             //Dynamic map
@@ -420,7 +420,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             var mapUrl = '';
             var zoom = 16;
 
-            mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center='+ this.model.get('coordinates').y +','+ this.model.get('coordinates').x +'&zoom='+ zoom +'&size='+ mapWidth +'x180&maptype=roadmap&sensor=false&markers=color:red|' + this.model.get('coordinates').y + ',' + this.model.get('coordinates').x;
+            mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyB3nP1qZvWfWiDArNPaAdoo5nM_L9iJQgY&center='+ this.model.get('coordinates').y +','+ this.model.get('coordinates').x +'&zoom='+ zoom +'&size='+ mapWidth +'x180&maptype=roadmap&sensor=false&markers=color:red|' + this.model.get('coordinates').y + ',' + this.model.get('coordinates').x;
             $('#event-preview-map').html('<img src="'+ mapUrl +'">');
         }
     });

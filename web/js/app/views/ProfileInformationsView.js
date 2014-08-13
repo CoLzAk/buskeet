@@ -160,7 +160,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             }
 
             //Show the map
-            mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center='+ (typeof coordinates !== 'undefined' ? coordinates.y : 47.00) +','+ (typeof coordinates !== 'undefined' ? coordinates.x : 2.00) +'&zoom='+ (typeof coordinates !== 'undefined' ? 14 : 5) +'&size='+ mapWidth +'x250&maptype=roadmap&markers=color:red|'+ (typeof coordinates !== 'undefined' ? coordinates.y : 47.00) +','+ (typeof coordinates !== 'undefined' ? coordinates.x : 2.00) +'&sensor=false&scale=1';
+            mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyB3nP1qZvWfWiDArNPaAdoo5nM_L9iJQgY&center='+ (typeof coordinates !== 'undefined' ? coordinates.y : 47.00) +','+ (typeof coordinates !== 'undefined' ? coordinates.x : 2.00) +'&zoom='+ (typeof coordinates !== 'undefined' ? 14 : 5) +'&size='+ mapWidth +'x250&maptype=roadmap&markers=color:red|'+ (typeof coordinates !== 'undefined' ? coordinates.y : 47.00) +','+ (typeof coordinates !== 'undefined' ? coordinates.x : 2.00) +'&sensor=false&scale=1';
 
             $('#map').html('<img src="'+ mapUrl +'">');
 
@@ -229,7 +229,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                         $('#clzk-profile-lon').val(place.geometry.location.lng()).trigger('change');
                         $('#clzk-profile-lat').val(place.geometry.location.lat()).trigger('change');
 
-                        mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center='+ place.geometry.location.lat() +','+ place.geometry.location.lng() +'&zoom=14&size='+mapWidth+'x250&maptype=roadmap&markers=color:red|'+ place.geometry.location.lat() +','+ place.geometry.location.lng() +'&sensor=false';
+                        mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyB3nP1qZvWfWiDArNPaAdoo5nM_L9iJQgY&center='+ place.geometry.location.lat() +','+ place.geometry.location.lng() +'&zoom=14&size='+mapWidth+'x250&maptype=roadmap&markers=color:red|'+ place.geometry.location.lat() +','+ place.geometry.location.lng() +'&sensor=false';
 
                         $('#map').html('<img src="'+ mapUrl +'">');
 
