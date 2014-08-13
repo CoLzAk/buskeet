@@ -301,7 +301,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             var that = this;
             $('#share-event-'+this.model.get('id')).on('click', function(e) {
                 e.preventDefault();
-                console.log('share it my friend');
+                // console.log('share it my friend');
             });
         },
         initialize: function() {
@@ -368,7 +368,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
                     that.render();
                 },
                 error: function (xhr) {
-                    console.log(xhr);
+                    // console.log(xhr);
                 }
             });
         },

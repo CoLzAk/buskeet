@@ -131,7 +131,7 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
         UserModule.userId = options.userId;
         UserModule.visitorId = options.visitorId;
         UserModule.visitor = new Profile(options.visitor.profile, { userId: options.visitor.id });
-        console.log(UserModule.visitor);
+        // console.log(UserModule.visitor);
         UserModule.visitorUsername = options.visitor.username;
         //Initialize layout
         UserModule.profileLayout = new ProfileLayout();

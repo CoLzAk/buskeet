@@ -40,11 +40,11 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 type: (typeof this.isFollowing() === 'undefined' ? 'POST' : 'DELETE'),
                 dataType: 'json',
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                     that.render();
                 },
                 error: function(data) {
-                    console.log(data);
+                    // console.log(data);
                 }
             });
         },

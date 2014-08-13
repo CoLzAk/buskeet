@@ -4,7 +4,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         template: '#clzk-profile-message-template',
 
         initialize: function() {
-            console.log('init profile-message-template');
+            // console.log('init profile-message-template');
         }
     });
 });
