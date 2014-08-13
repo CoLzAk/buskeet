@@ -12,3 +12,7 @@ _configurator:
 
 _main:
     resource: routing.yml
+
+colzak_test:
+    pattern:  /test
+    defaults: { _controller: ColzakStaticBundle:Home:test }
