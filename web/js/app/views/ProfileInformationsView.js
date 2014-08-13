@@ -69,7 +69,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 success: function(model, response) {
                     // that.render();
                     $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-ok-sign');
-                    $('.message-text').html('Les modifications ont étés enregistrées !')
+                    $('.message-text').html('Les modifications ont été enregistrées !')
                     $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-success');
                     $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
                     NProgress.done();
@@ -77,7 +77,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 error: function(response) {
                     // that.render();
                     $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-remove-sign');
-                    $('.message-text').html('Une erreur est survenue. Veuillez réesayer ultérieurement ou contacter le support')
+                    $('.message-text').html('Une erreur est survenue. Veuillez réessayer ultérieurement ou contacter le support')
                     $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-danger');
                     $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
                     NProgress.done();
@@ -123,7 +123,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             return ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
         },
         getMonths: function() {
-            return {'1':'jan','2':'feb','3':'mar','4':'apr','5':'may','6':'jun','7':'jul','8':'aug','9':'sep','10':'oct','11':'nov','12':'dec'};
+            return {'1':'jan','2':'fév','3':'mar','4':'avr','5':'mai','6':'jun','7':'jul','8':'août','9':'sep','10':'oct','11':'nov','12':'déc'};
         },
         getYears: function() {
             var years = [],
@@ -236,14 +236,14 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                         that.model.save({}, {
                             success: function(model, response) {
                                 $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-ok-sign');
-                                $('.message-text').html('Les modifications ont étés enregistrées !')
+                                $('.message-text').html('Les modifications ont été enregistrées !')
                                 $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-success');
                                 $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
                                 NProgress.done();
                             },
                             error: function(response) {
                                 $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-remove-sign');
-                                $('.message-text').html('Une erreur est survenue. Veuillez réesayer ultérieurement ou contacter le support')
+                                $('.message-text').html('Une erreur est survenue. Veuillez réessayer ultérieurement ou contacter le support')
                                 $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-danger');
                                 $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
                                 NProgress.done();

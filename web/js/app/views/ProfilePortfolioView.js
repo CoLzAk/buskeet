@@ -27,7 +27,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 success: function(model, response) {
                     that.render();
                     $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-ok-sign');
-                    $('.message-text').html('Les modifications ont étés enregistrées !')
+                    $('.message-text').html('Les modifications ont été enregistrées !')
                     $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-success');
                     $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
                     NProgress.done();
@@ -35,7 +35,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 error: function(response) {
                     that.render();
                     $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-remove-sign');
-                    $('.message-text').html('Une erreur est survenue. Veuillez réesayer ultérieurement ou contacter le support')
+                    $('.message-text').html('Une erreur est survenue. Veuillez réessayer ultérieurement ou contacter le support')
                     $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-danger');
                     $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
                     NProgress.done();
@@ -126,7 +126,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         },
         loadInstrumentList: function(data) {
             $.each(data, function(i, el) {
-                $('#clzk-portfolio-portfolio-instruments').append('<option value="'+ el.id +'">'+ el.name +'</option>');
+                $('#clzk-portfolio-portfolio-instruments').append('<option value="'+ el.id +'">'+ translate(el.name) +'</option>');
             });
 
             $("#clzk-portfolio-portfolio-instruments").select2();

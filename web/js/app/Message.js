@@ -28,6 +28,7 @@ App.module('MessageModule', function(MessageModule, App, Backbone, Marionette, $
     });
 
     MessageModule.showThread = function(threadId) {
+        NProgress.start();
     	var threads = new Threads({}, { userId: MessageModule.userId });
     	threads.fetch({
     		success: function(collection) {
@@ -36,7 +37,8 @@ App.module('MessageModule', function(MessageModule, App, Backbone, Marionette, $
 				MessageModule.messages = new Messages(thread.get('messages'), { threadId: threadId });
     			MessageModule.messageMenuLayout.messageMenuRegion.show(new ThreadsView({ collection: MessageModule.userThreads }));
     			MessageModule.messageLayout.messagesRegion.show(new MessagesView({ collection: MessageModule.messages }));
-    		}
+    		    NProgress.done();
+            }
     	});
     };
 

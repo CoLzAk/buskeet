@@ -124,7 +124,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                     UserModule.targetUserProfile.set('events', data);
                     // that.render();
                     $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-ok-sign');
-                    $('.message-text').html('Les modifications ont étés enregistrées !')
+                    $('.message-text').html('Les modifications ont été enregistrées !')
                     $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-success');
                     $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
                     NProgress.done();
@@ -132,7 +132,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 error: function(response) {
                     // that.render();
                     $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-remove-sign');
-                    $('.message-text').html('Une erreur est survenue. Veuillez réesayer ultérieurement ou contacter le support')
+                    $('.message-text').html('Une erreur est survenue. Veuillez réessayer ultérieurement ou contacter le support')
                     $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-danger');
                     $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
                     NProgress.done();
@@ -183,7 +183,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                             UserModule.targetUserProfile.set('events', that.collection.toJSON());
                             that.render();
                             $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-ok-sign');
-                            $('.message-text').html('Les modifications ont étés enregistrées !')
+                            $('.message-text').html('Les modifications ont été enregistrées !')
                             $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-success');
                             $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
                             NProgress.done();
@@ -191,7 +191,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                         error: function(response) {
                             that.render();
                             $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-remove-sign');
-                            $('.message-text').html('Une erreur est survenue. Veuillez réesayer ultérieurement ou contacter le support')
+                            $('.message-text').html('Une erreur est survenue. Veuillez réessayer ultérieurement ou contacter le support')
                             $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-danger');
                             $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
                             NProgress.done();
@@ -262,7 +262,17 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         },
         onDomRefresh: function() {
             $('.datepicker').datepicker({
-                dateFormat: 'dd/mm/yy'
+                dateFormat: 'dd/mm/yy',
+                closeText: 'Fermer',
+                prevText: 'Précédent',
+                nextText: 'Suivant',
+                currentText: 'Aujourd\'hui',
+                monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+                monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+                dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+                dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+                dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+                weekHeader: 'Sem.'
             });
             $('.timepicker').timepicker({
                 'timeFormat': 'H:i'

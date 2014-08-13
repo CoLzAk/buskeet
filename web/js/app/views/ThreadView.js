@@ -3,6 +3,13 @@ App.module("MessageModule", function(MessageModule, App, Backbone, Marionette, $
     ThreadView = Backbone.Marionette.ItemView.extend({
         template: '#clzk-thread-template',
         tagName: 'div',
+        events: {
+            'click .thread-container': 'showThread'
+        },
+        showThread: function(e) {
+            e.preventDefault();
+            Backbone.history.navigate('/' + this.model.get('id'), { trigger: true });
+        },
         serializeData: function() {
         	return {
         		thread: this.model.toJSON(),
