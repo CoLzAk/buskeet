@@ -10,6 +10,8 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\Annotations\Route;
+use FOS\RestBundle\Controller\Annotations\Post;
+use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\UserBundle\Model\UserInterface;
 
 class UsersController extends BaseController
@@ -132,4 +134,45 @@ class UsersController extends BaseController
         return $this->handleView($this->view($data, 200));
 
     } // "put_user"      [PUT] /users/{id}
+
+
+    /**
+     * GET Route annotation.
+     * @Post("follow/users/{profileId}")
+     */
+    public function followUserAction($profileId) {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $follower = $user->getProfile();
+        $followerId = $user->getProfile()->getId();
+        $following = $dm->getRepository('ColzakUserBundle:Profile')->find($profileId);
+        $follower->addFollowing($following);
+        $following->addFollower($follower);
+
+        $dm->persist($follower);
+        $dm->persist($following);
+        $dm->flush();
+
+        return $this->handleView($this->view(null, 200));
+    }
+
+    /**
+     * GET Route annotation.
+     * @Delete("/unfollow/users/{profileId}")
+     */
+    public function unfollowUserAction($profileId) {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $follower = $user->getProfile();
+        $followerId = $user->getProfile()->getId();
+        $following = $dm->getRepository('ColzakUserBundle:Profile')->find($profileId);
+
+        $follower->removeFollowing($following);
+        $following->removeFollower($follower);
+        $dm->persist($following);
+        $dm->persist($follower);
+        $dm->flush();
+
+        return $this->handleView($this->view(null, 200));
+    }
 }

@@ -4,7 +4,8 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         template: '#clzk-profile-menu-template',
         events: {
             'click .edit-button': 'showEditView',
-            'click .contact-button': 'showContactView'
+            'click .contact-button': 'showContactView',
+            'click .follow-button': 'toggleFollowUser'
         },
         showEditView: function(e) {
             var form = $(e.currentTarget).data('form');
@@ -26,9 +27,34 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             }
             Backbone.history.navigate(UserModule.targetUserUsername + '/contact', { trigger: true });
         },
+        toggleFollowUser: function(e) {
+            e.preventDefault();
+            var that = this;
+            if (UserModule.visitorId === null || UserModule.visitorId == '') {
+                window.location.replace(Routing.generate('fos_user_security_login'));
+                return;
+            }
+
+            $.ajax({
+                url: (typeof this.isFollowing() === 'undefined' ? Routing.generate('users_follow_user', { profileId: UserModule.targetUserProfile.get('id') }) : Routing.generate('users_unfollow_user', { profileId: UserModule.targetUserProfile.get('id') })),
+                type: (typeof this.isFollowing() === 'undefined' ? 'POST' : 'DELETE'),
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data);
+                    that.render();
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            });
+        },
+        isFollowing: function() {
+            return _.findWhere(UserModule.visitor.get('following'), { username: UserModule.targetUserUsername });
+        },
         serializeData: function() {
             return {
                 owner: (UserModule.userId === UserModule.visitorId ? true : false),
+                isFollowing: (typeof this.isFollowing() === 'undefined' ? false : true)
                 // full_name: this.model.get('firstname').toUpperCase() + ' ' + this.model.get('lastname').toUpperCase()
             }
         }
