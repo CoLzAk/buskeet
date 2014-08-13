@@ -37,8 +37,8 @@ class PortfolioInstrument
     {
         return array(
             self::LEVEL_BEGINNER => 'Débutant',
-            self::LEVEL_AMATEUR => 'Amateur',
-            self::LEVEL_PROFESSIONAL => 'Professionnel'
+            self::LEVEL_AMATEUR => 'Intermédiaire',
+            self::LEVEL_PROFESSIONAL => 'Expert'
         );
     }
 

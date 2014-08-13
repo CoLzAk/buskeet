@@ -24,8 +24,8 @@
 
     translate.frWords = {
     	BEGINNER: 'Débutant',
-    	AMATEUR: 'Amateur',
-    	PROFESSIONAL: 'Professionnel',
+    	AMATEUR: 'Intermédiaire',
+    	PROFESSIONAL: 'Expert',
         guitar: 'Guitare',
         bass: 'Basse',
         drums: 'Batterie',

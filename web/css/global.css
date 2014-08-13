@@ -23,6 +23,10 @@ html, body {
     color: #555 !important;
 }
 
+.text-justify {
+    text-align: justify;
+}
+
 /* ... */
 .m0 {
     margin: 0;

@@ -10,6 +10,8 @@
         {% block stylesheets %}
             {% stylesheets
                 "bootstrap/css/bootstrap.min.css"
+                "css/jquery-ui.min.css"
+                "css/jquery.ui.datepicker.min.css"
                 "css/jquery.mmenu.css"
                 "css/nprogress.css"
                 "css/global.css"
@@ -22,7 +24,7 @@
             {% endstylesheets %}
             {% block extra_stylesheets %}{% endblock %}
         {% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
 
         {#} Analytics {#}
         <script>
@@ -120,7 +122,7 @@
                             </div>
                             <div class="pull-right clzk-search-navbar">
                                 <div class="input-group">
-                                    <input type="text" class="form-control clzk-form-control clzk-search-form" id="clzk-search-input" placeholder="Ou êtes-vous ?">
+                                    <input type="text" class="form-control clzk-form-control clzk-search-form" id="clzk-search-input" placeholder="Où êtes-vous ?">
                                     <span class="input-group-addon clzk-input-group-addon clzk-geoloader hidden"><img src="/img/ajax-loader.gif" class="img-responsive" width="20"></span>
                                     <span class="input-group-addon clzk-input-group-addon clzk-search-form-geolocation-btn"><span class="glyphicon glyphicon-map-marker"></span></span>
                                     <span class="input-group-addon clzk-input-group-addon clzk-search-form-submit-btn"><span class="glyphicon glyphicon-search"></span></span>

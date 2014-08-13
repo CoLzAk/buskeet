@@ -197,6 +197,7 @@ class Photo
     {
         if (isset($this->temp)) {
             unlink($this->temp);
+            unlink(__DIR__.'/../../../../web/'.$this->getThumbPath());
         }
     }
 
