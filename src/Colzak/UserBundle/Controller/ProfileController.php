@@ -10,6 +10,7 @@ use Colzak\PortfolioBundle\Document\PortfolioInstrument;
 use Colzak\PortfolioBundle\Form\Type\PortfolioInstrumentFormType;
 use Colzak\EventBundle\Document\Event;
 use Colzak\UserBundle\Form\Type\EmailFormType;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ProfileController extends Controller
 {
@@ -20,6 +21,10 @@ class ProfileController extends Controller
         }
         $dm = $this->get('doctrine_mongodb')->getManager();
         $user = $dm->getRepository('ColzakUserBundle:User')->findOneByUsername($username);
+
+        if (null === $user) {
+            throw new NotFoundHttpException('Profile not found');
+        }
 
         $profilePicture = $user->getProfile()->getPhotos()[0];
 
