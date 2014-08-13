@@ -70,6 +70,9 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             }
 
             if (itemType == 'music-style') {
+                if ($('#clzk-portfolio-music-style').val() == '') {
+                    return;
+                }
                 items = this.model.get('portfolio').music_styles;
                 items.push({
                     name: $('#clzk-portfolio-music-style').val()
@@ -78,6 +81,9 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             }
 
             if (itemType == 'influence') {
+                if ($('#clzk-portfolio-influence').val() == '') {
+                    return;
+                }
                 items = this.model.get('portfolio').influences;
                 items.push({
                     name: $('#clzk-portfolio-influence').val()
@@ -95,15 +101,15 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 that = this;
             
             if (item == 'portfolio-instrument') {
-                delete this.model.get('portfolio').portfolio_instruments[itemIndex];
+                this.model.get('portfolio').portfolio_instruments.splice(itemIndex, 1);
             }
 
             if (item == 'music-style') {
-                delete this.model.get('portfolio').music_styles[itemIndex];
+                this.model.get('portfolio').music_styles.splice(itemIndex, 1);
             }
 
             if (item == 'influence') {
-                delete this.model.get('portfolio').influence[itemIndex];
+                this.model.get('portfolio').influences.splice(itemIndex, 1);
             }
 
             this.save();

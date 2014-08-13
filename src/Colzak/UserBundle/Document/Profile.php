@@ -156,11 +156,25 @@ class Profile
      */
     protected $enabled = TRUE;
 
+    /**
+     * @MongoDB\ReferenceMany(targetDocument="Colzak\UserBundle\Document\Profile")
+     * @SERIAL\Type("ArrayCollection<Colzak\UserBundle\Document\Profile>")
+     */
+    protected $followers = array();
+
+    /**
+     * @MongoDB\ReferenceMany(targetDocument="Colzak\UserBundle\Document\Profile")
+     * @SERIAL\Type("ArrayCollection<Colzak\UserBundle\Document\Profile>")
+     */
+    protected $following = array();
+
     public function __construct()
     {
         $this->portfolio = new Portfolio();
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->events = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->followers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->following = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -730,5 +744,65 @@ class Profile
     public function getEnabled()
     {
         return $this->enabled;
+    }
+
+    /**
+     * Add follower
+     *
+     * @param Colzak\UserBundle\Document\Profile $follower
+     */
+    public function addFollower(\Colzak\UserBundle\Document\Profile $follower)
+    {
+        $this->followers[] = $follower;
+    }
+
+    /**
+     * Remove follower
+     *
+     * @param Colzak\UserBundle\Document\Profile $follower
+     */
+    public function removeFollower(\Colzak\UserBundle\Document\Profile $follower)
+    {
+        $this->followers->removeElement($follower);
+    }
+
+    /**
+     * Get followers
+     *
+     * @return Doctrine\Common\Collections\Collection $followers
+     */
+    public function getFollowers()
+    {
+        return $this->followers;
+    }
+
+    /**
+     * Add following
+     *
+     * @param Colzak\UserBundle\Document\Profile $following
+     */
+    public function addFollowing(\Colzak\UserBundle\Document\Profile $following)
+    {
+        $this->following[] = $following;
+    }
+
+    /**
+     * Remove following
+     *
+     * @param Colzak\UserBundle\Document\Profile $following
+     */
+    public function removeFollowing(\Colzak\UserBundle\Document\Profile $following)
+    {
+        $this->following->removeElement($following);
+    }
+
+    /**
+     * Get following
+     *
+     * @return Doctrine\Common\Collections\Collection $following
+     */
+    public function getFollowing()
+    {
+        return $this->following;
     }
 }
