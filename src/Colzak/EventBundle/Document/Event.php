@@ -99,8 +99,8 @@ class Event
     protected $country;
 
     /**
-     * @MongoDB\EmbedOne(targetDocument="Colzak\UserBundle\Document\Coordinate")
-     * @SERIAL\Type("Colzak\UserBundle\Document\Coordinate")
+     * @MongoDB\EmbedOne(targetDocument="Colzak\EventBundle\Document\Coordinate")
+     * @SERIAL\Type("Colzak\EventBundle\Document\Coordinate")
      */
     protected $coordinates;
 
@@ -397,10 +397,10 @@ class Event
     /**
      * Set coordinates
      *
-     * @param Colzak\UserBundle\Document\Coordinate $coordinates
+     * @param Colzak\EventBundle\Document\Coordinate $coordinates
      * @return self
      */
-    public function setCoordinates(\Colzak\UserBundle\Document\Coordinate $coordinates)
+    public function setCoordinates(\Colzak\EventBundle\Document\Coordinate $coordinates)
     {
         $this->coordinates = $coordinates;
         return $this;
@@ -409,7 +409,7 @@ class Event
     /**
      * Get coordinates
      *
-     * @return Colzak\UserBundle\Document\Coordinate $coordinates
+     * @return Colzak\EventBundle\Document\Coordinate $coordinates
      */
     public function getCoordinates()
     {

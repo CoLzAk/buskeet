@@ -1,5 +1,5 @@
 <?php
-// src/Colzak/EventBundle/Document/Coordinate.php
+// src/Colzak/EventBundle/Document/EventCoordinate.php
 
 namespace Colzak\EventBundle\Document;
 
