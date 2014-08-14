@@ -20,6 +20,10 @@ Global:
 	Transformer notifications en service (recherche transform notif dans le code)
 	Liste instruments
 	Proteger les urls du csrf (ajax)
+	Les lieux publics ou on peut jam (genre connemara) (ColzakEventBundle:PublicPlace)
+	Pareil pour les evenement publics (ColzakEventBundle:PublicEvent)
+	Formulaire pour demander aux gens de le remplir avec admin pour valider (lien vous connaissez des endroits ? dans la recherche)
+	Enregistrer IP des users
 
 Profil:
 	bouton share

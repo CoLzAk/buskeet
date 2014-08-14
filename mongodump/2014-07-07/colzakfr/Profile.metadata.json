@@ -1,1 +1,0 @@
-{ "indexes" : [ { "v" : 1, "key" : { "_id" : 1 }, "ns" : "colzakfr.Profile", "name" : "_id_" }, { "v" : 1, "key" : { "coordinates" : "2d" }, "ns" : "colzakfr.Profile", "name" : "coordinates_2d" } ] }
