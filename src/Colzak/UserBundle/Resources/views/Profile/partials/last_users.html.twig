@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6">
-                    <h4 class="text-right mt0 mb0">{{ user.firstname }}</h4>
+                    <p class="text-right mt0 mb0 username">{{ user.firstname }}</p>
                     <p class="text-right mb1"><small>{{ user.birthdate|date('Y-m-d')|age }} ans, {{ user.locality }}</small></p>
                     {% for item in user.portfolio.portfolioInstruments %}
                         {% if loop.index <= 2 %}

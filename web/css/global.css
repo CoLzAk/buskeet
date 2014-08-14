@@ -415,6 +415,9 @@ html, body {
     width: 100%;
     overflow: hidden;
 }
+.clzk-home-last-member-container .username {
+    font-size: 16px;
+}
 .clzk-home-user-instruments {
     width: 40%;
     float: left;
