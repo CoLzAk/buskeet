@@ -10,7 +10,7 @@ use JMS\Serializer\Annotation as SERIAL;
  * @MongoDB\EmbeddedDocument
  * @SERIAL\ExclusionPolicy("none")
  */
-class Coordinate
+class EventCoordinate
 {
     /**
      * @MongoDB\Float

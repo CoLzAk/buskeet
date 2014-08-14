@@ -102,7 +102,7 @@
         var mapUrl = '';
         var zoom = 16;
 
-        mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center={{ event.coordinates.y }},{{ event.coordinates.x }}&zoom='+ zoom +'&size='+ mapWidth +'x180&maptype=roadmap&sensor=false&markers=color:red|{{ event.coordinates.y }},{{ event.coordinates.x }}';
+        mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center={{ event.eventCoordinates.y }},{{ event.eventCoordinates.x }}&zoom='+ zoom +'&size='+ mapWidth +'x180&maptype=roadmap&sensor=false&markers=color:red|{{ event.eventCoordinates.y }},{{ event.eventCoordinates.x }}';
         $('#event-preview-map').html('<img src="'+ mapUrl +'">');
     });
 </script>

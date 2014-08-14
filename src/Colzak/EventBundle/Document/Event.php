@@ -10,7 +10,7 @@ use JMS\Serializer\Annotation as SERIAL;
  * @MongoDB\Document(repositoryClass="Colzak\EventBundle\Repository\EventRepository")
  * @SERIAL\ExclusionPolicy("none")
  * @MongoDB\HasLifecycleCallbacks
- * @MongoDB\Index(keys={"coordinates"="2d"})
+ * @MongoDB\Index(keys={"eventCoordinates"="2d"})
  */
 class Event
 {
@@ -99,10 +99,10 @@ class Event
     protected $country;
 
     /**
-     * @MongoDB\EmbedOne(targetDocument="Colzak\EventBundle\Document\Coordinate")
-     * @SERIAL\Type("Colzak\EventBundle\Document\Coordinate")
+     * @MongoDB\EmbedOne(targetDocument="Colzak\EventBundle\Document\EventCoordinate")
+     * @SERIAL\Type("Colzak\EventBundle\Document\EventCoordinate")
      */
-    protected $coordinates;
+    protected $eventCoordinates;
 
     /**
      * @MongoDB\ReferenceMany(targetDocument="Colzak\UserBundle\Document\Profile")
@@ -395,28 +395,6 @@ class Event
     }
 
     /**
-     * Set coordinates
-     *
-     * @param Colzak\EventBundle\Document\Coordinate $coordinates
-     * @return self
-     */
-    public function setCoordinates(\Colzak\EventBundle\Document\Coordinate $coordinates)
-    {
-        $this->coordinates = $coordinates;
-        return $this;
-    }
-
-    /**
-     * Get coordinates
-     *
-     * @return Colzak\EventBundle\Document\Coordinate $coordinates
-     */
-    public function getCoordinates()
-    {
-        return $this->coordinates;
-    }
-
-    /**
      * Set time
      *
      * @param date $time
@@ -488,5 +466,27 @@ class Event
     public function getParticipants()
     {
         return $this->participants;
+    }
+
+    /**
+     * Set eventCoordinates
+     *
+     * @param Colzak\EventBundle\Document\EventCoordinate $eventCoordinates
+     * @return self
+     */
+    public function setEventCoordinates(\Colzak\EventBundle\Document\EventCoordinate $eventCoordinates)
+    {
+        $this->eventCoordinates = $eventCoordinates;
+        return $this;
+    }
+
+    /**
+     * Get eventCoordinates
+     *
+     * @return Colzak\EventBundle\Document\EventCoordinate $eventCoordinates
+     */
+    public function getEventCoordinates()
+    {
+        return $this->eventCoordinates;
     }
 }

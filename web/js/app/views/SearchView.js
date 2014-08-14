@@ -126,7 +126,6 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             });
         },
         initMap: function() {
-            var profiles = this.model.get('items');
             var markers = '';
             var mapWidth = $('#map').width();
             var mapUrl = '';
@@ -138,9 +137,20 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
                 if (this.model.get('params').radius <= 1) zoom = 14;
             }
 
-            for (var i in profiles) {
-                if (typeof profiles[i].coordinates.y !== 'undefined' || profiles[i].coordinates.y !== null && typeof profiles[i].coordinates.x !== 'undefined' || profiles[i].coordinates.x !== null) {
-                    markers += '&markers=color:red|' + profiles[i].coordinates.y + ',' + profiles[i].coordinates.x;
+            if (this.model.get('params').direction == 'profiles') {
+                var profiles = this.model.get('items');
+                for (var i in profiles) {
+                    if (typeof profiles[i].coordinates.y !== 'undefined' || profiles[i].coordinates.y !== null && typeof profiles[i].coordinates.x !== 'undefined' || profiles[i].coordinates.x !== null) {
+                        markers += '&markers=color:red|' + profiles[i].coordinates.y + ',' + profiles[i].coordinates.x;
+                    }
+                }
+            }
+            if (this.model.get('params').direction == 'events') {
+                var userEvents = this.model.get('items');
+                for (var i in userEvents) {
+                    if (typeof userEvents[i].event_coordinates.y !== 'undefined' || userEvents[i].event_coordinates.y !== null && typeof userEvents[i].event_coordinates.x !== 'undefined' || userEvents[i].event_coordinates.x !== null) {
+                        markers += '&markers=color:red|' + userEvents[i].event_coordinates.y + ',' + userEvents[i].event_coordinates.x;
+                    }
                 }
             }
             mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyB3nP1qZvWfWiDArNPaAdoo5nM_L9iJQgY&center='+ this.model.queryUrl.searchParams['lat'] +','+ this.model.queryUrl.searchParams['lng'] +'&zoom='+ zoom +'&size='+mapWidth+'x180&maptype=roadmap&sensor=false' + markers;
@@ -420,7 +430,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             var mapUrl = '';
             var zoom = 16;
 
-            mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyB3nP1qZvWfWiDArNPaAdoo5nM_L9iJQgY&center='+ this.model.get('coordinates').y +','+ this.model.get('coordinates').x +'&zoom='+ zoom +'&size='+ mapWidth +'x180&maptype=roadmap&sensor=false&markers=color:red|' + this.model.get('coordinates').y + ',' + this.model.get('coordinates').x;
+            mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyB3nP1qZvWfWiDArNPaAdoo5nM_L9iJQgY&center='+ this.model.get('event_coordinates').y +','+ this.model.get('event_coordinates').x +'&zoom='+ zoom +'&size='+ mapWidth +'x180&maptype=roadmap&sensor=false&markers=color:red|' + this.model.get('event_coordinates').y + ',' + this.model.get('event_coordinates').x;
             $('#event-preview-map').html('<img src="'+ mapUrl +'">');
         }
     });

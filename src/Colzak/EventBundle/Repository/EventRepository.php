@@ -14,7 +14,7 @@ class EventRepository extends DocumentRepository
 {
     public function eventFilteredSearch($searchParams) {
         $q = $this->createQueryBuilder()->eagerCursor(true);
-        $q->field('coordinates')->geoNear((float)$searchParams['lat'], (float)$searchParams['lng'])->spherical(true)->distanceMultiplier(6378.137)->maxDistance((isset($searchParams['radius']) ? $searchParams['radius'] : 20)/6371);
+        $q->field('eventCoordinates')->geoNear((float)$searchParams['lat'], (float)$searchParams['lng'])->spherical(true)->distanceMultiplier(6378.137)->maxDistance((isset($searchParams['radius']) ? $searchParams['radius'] : 20)/6371);
 
         $q->limit(20);
 

@@ -254,7 +254,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             profileEvent.set('administrative_area_level_2', eventAdministrativeAreaLevel2);
             profileEvent.set('administrative_area_level_1', eventAdministrativeAreaLevel1);
             profileEvent.set('country', eventCountry);
-            profileEvent.set('coordinates', { x: eventLon, y: eventLat });
+            profileEvent.set('event_coordinates', { x: eventLon, y: eventLat });
             
             this.collection.add(profileEvent);
 
@@ -267,8 +267,8 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 prevText: 'Précédent',
                 nextText: 'Suivant',
                 currentText: 'Aujourd\'hui',
-                monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-                monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+                monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+                monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Aout', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
                 dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
                 dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
                 dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
