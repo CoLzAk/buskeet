@@ -23,6 +23,13 @@ App.MessageRouter = Backbone.Marionette.AppRouter.extend({
         ':threadId': 'showThread'
     }
 });
+
+App.FeedsRouter = Backbone.Marionette.AppRouter.extend({
+    appRoutes: {
+        '' : 'show'
+    }
+});
+
 // Custom region transition
 var MainRegion = Backbone.Marionette.Region.extend({
     el: '#clzk-main-region',
@@ -150,6 +157,12 @@ App.on('start', function(options){
     if (options.module == "message") {
         App.messageRouter = new App.MessageRouter({
             controller: App.MessageModule
+        });
+    }
+
+    if (options.module == "feeds") {
+        App.feedsRouter = new App.FeedsRouter({
+            controller: App.FeedsModule
         });
     }
 

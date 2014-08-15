@@ -168,6 +168,12 @@ class Profile
      */
     protected $following = array();
 
+    /**
+     * @MongoDB\ReferenceMany(targetDocument="Colzak\UserBundle\Document\Movement", mappedBy="profile")
+     * @SERIAL\Exclude
+     */
+    protected $movements = array();
+
     public function __construct()
     {
         $this->portfolio = new Portfolio();
@@ -175,6 +181,7 @@ class Profile
         $this->events = new \Doctrine\Common\Collections\ArrayCollection();
         $this->followers = new \Doctrine\Common\Collections\ArrayCollection();
         $this->following = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->movements = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -804,5 +811,35 @@ class Profile
     public function getFollowing()
     {
         return $this->following;
+    }
+
+    /**
+     * Add movement
+     *
+     * @param Colzak\UserBundle\Document\Movement $movement
+     */
+    public function addMovement(\Colzak\UserBundle\Document\Movement $movement)
+    {
+        $this->movements[] = $movement;
+    }
+
+    /**
+     * Remove movement
+     *
+     * @param Colzak\UserBundle\Document\Movement $movement
+     */
+    public function removeMovement(\Colzak\UserBundle\Document\Movement $movement)
+    {
+        $this->movements->removeElement($movement);
+    }
+
+    /**
+     * Get movements
+     *
+     * @return Doctrine\Common\Collections\Collection $movements
+     */
+    public function getMovements()
+    {
+        return $this->movements;
     }
 }

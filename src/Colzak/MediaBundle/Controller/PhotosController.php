@@ -15,6 +15,8 @@ use Colzak\MediaBundle\Document\Photo;
 use Colzak\MediaBundle\Form\Type\PhotoFormType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Colzak\UserBundle\Document\Movement;
+use Colzak\UserBundle\Document\MovementDetail;
 
 class PhotosController extends BaseController {
 
@@ -54,6 +56,16 @@ class PhotosController extends BaseController {
         if ($request->files->get('photos') !== NULL) $photo->setFile($request->files->get('photos'));
 
         if ($photoForm->isValid()) {
+
+            //add movement
+            $movement = new Movement();
+            $movement->setProfile($user->getProfile());
+            $movementDetail = new MovementDetail();
+            $movementDetail->setAction(MovementDetail::ACTION_ADDED_PHOTO);
+            $movementDetail->setPhoto($photo);
+            $movement->setMovementDetail($movementDetail);
+            $dm->persist($movement);
+
             $dm->persist($photo);
             $dm->flush();
 
@@ -107,6 +119,16 @@ class PhotosController extends BaseController {
 
         $updatedPhoto->setProfile($user->getProfile());
         $targetPhoto = $dm->merge($updatedPhoto);
+        
+        //add movement
+        $movement = new Movement();
+        $movement->setProfile($user->getProfile());
+        $movementDetail = new MovementDetail();
+        $movementDetail->setAction(MovementDetail::ACTION_CHANGED_PROFILE_PHOTO);
+        $movementDetail->setPhoto($photo);
+        $movement->setMovementDetail($movementDetail);
+        $dm->persist($movement);
+
         $dm->flush();
         $data = $updatedPhoto;
 

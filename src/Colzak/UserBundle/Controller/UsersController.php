@@ -149,6 +149,8 @@ class UsersController extends BaseController
         $follower->addFollowing($following);
         $following->addFollower($follower);
 
+        $follower->setDistance(0);
+        $following->setDistance(0);
         $dm->persist($follower);
         $dm->persist($following);
         $dm->flush();
@@ -169,10 +171,28 @@ class UsersController extends BaseController
 
         $follower->removeFollowing($following);
         $following->removeFollower($follower);
+
+        $follower->setDistance(0);
+        $following->setDistance(0);
         $dm->persist($following);
         $dm->persist($follower);
         $dm->flush();
 
         return $this->handleView($this->view(null, 200));
+    }
+
+    /**
+     * GET Route annotation.
+     * @Get("/feeds")
+     */
+    public function getFeedsAction() {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $following = $user->getProfile()->getFollowing();
+
+        $data = $dm->getRepository('ColzakUserBundle:Movement')->getByFollowing($following);
+
+        return $this->handleView($this->view($data, 200));
     }
 }

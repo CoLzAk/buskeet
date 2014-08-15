@@ -95,4 +95,8 @@ class ProfileController extends Controller
 
         return new RedirectResponse($this->container->get('router')->generate('fos_user_security_logout'));
     }
+
+    public function homeAction() {
+        return $this->render('ColzakUserBundle:Profile:feeds.html.twig'); 
+    }
 }

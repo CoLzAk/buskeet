@@ -62,7 +62,7 @@
                 <li class="list-group-item edit-button" data-form="portfolio"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-music"></span>&nbsp;&nbsp;Mon portfolio</a></li>
                 <li class="list-group-item edit-button" data-form="events"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;Jam session</a></li>
             <% } else { %>
-                {#<% if (isFollowing) { %>
+                <% if (isFollowing) { %>
                     <li class="follow-button btn btn-danger btn-block btn-lg mb1">
                         <a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Ne plus suivre</a>
                     </li>
@@ -70,7 +70,7 @@
                     <li class="follow-button btn btn-primary btn-block btn-lg mb1">
                         <a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Suivre ce musicien
                     </li>
-                <% } %>#}
+                <% } %>
                 <li class="list-group-item contact-button"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-envelope"></span>&nbsp;&nbsp;Contacter</a></li>
             <% } %>
         </ul>

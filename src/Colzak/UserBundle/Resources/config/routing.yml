@@ -1,3 +1,9 @@
+colzak_user_feed:
+    pattern: /home
+    defaults: { _controller: ColzakUserBundle:Profile:home }
+    options:
+        expose: true
+
 colzak_user_homepage:
     pattern: /profile/{username}
     defaults: { _controller: ColzakUserBundle:Profile:index, username: 'me' }
