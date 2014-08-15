@@ -4,7 +4,7 @@ App.module("FeedsModule", function(FeedsModule, App, Backbone, Marionette, $, _)
         template: '#clzk-feed-template',
         tagName: 'div',
         serializeData: function() {
-            var context, followingProfilePhoto, movement = this.model.toJSON();
+            var context, movement = this.model.toJSON();
             if (typeof movement.movement_detail.photo !== 'undefined') {
                 context = 'PHOTO';
             }
@@ -19,12 +19,14 @@ App.module("FeedsModule", function(FeedsModule, App, Backbone, Marionette, $, _)
             }
             // console.log(completeAddress);
             if (typeof movement.movement_detail.profile !== 'undefined') {
+                var followingProfilePhoto = _.findWhere(movement.movement_detail.profile.photos, { is_profile_picture: true });
                 context = 'PROFILE';
-                // for (var i in )
+                
             }
             var posterProfilePhoto = _.findWhere(movement.profile.photos, { is_profile_picture: true });
             return {
                 poster_profile_photo: posterProfilePhoto,
+                following_profile_photo: followingProfilePhoto,
                 completeAddress: completeAddress,
                 context: context,
                 feed: this.model.toJSON()

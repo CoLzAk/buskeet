@@ -35,25 +35,55 @@
 
     {#} Templates {#}
     <script type="text/template" id="clzk-feed-template">
-        <div class="row mb2">
-            <div class="col-md-2">
-                <img class="img-responsive" src="<%= poster_profile_photo.thumb_path %>">
-            </div>
-            <div class="col-md-10">
-                <p><%= feed.profile.firstname %>&nbsp;<%= feed.movement_detail.action %>&nbsp;<%= moment(feed.created_at).fromNow() %></p>
-                <p>
-                    <% if (context == 'PHOTO') { %>
-                        <img src="<%= feed.movement_detail.photo.thumb_path %>">
-                    <% } %>
-                    <% if (context == 'EVENT') { %>
-                        <p><%= feed.movement_detail.event.title %></p>
-                        <p><%= feed.movement_detail.event.description %></p>
-                        <p><%= completeAddress %></p>
-                    <% } %>
-                    <% if (context == 'PROFILE') { %>
-
-                    <% } %>
-                </p>
+        <div class="feed-container bg-dark p1 mb2">
+            <div class="row">
+                <div class="col-md-3">
+                    <a href="<%= Routing.generate('colzak_user_homepage', { 'username': feed.profile.username }) %>">
+                        <% if (typeof poster_profile_photo !== 'undefined') { %>
+                            <img class="img-responsive" src="<%= poster_profile_photo.thumb_path %>">
+                        <% } else { %>
+                            <% if (feed.profile.gender == 'MALE') { %>
+                                <img class="img-responsive" src="/img/male.png">
+                            <% } else { %>
+                                <img class="img-responsive" src="/img/female.png">
+                            <% } %>
+                        <% } %>
+                    </a>
+                </div>
+                <div class="col-md-9">
+                    <p class="text-left"><a href="<%= Routing.generate('colzak_user_homepage', { 'username': feed.profile.username }) %>"><%= feed.profile.firstname %></a>&nbsp;<%= translate(feed.movement_detail.action) %></p>
+                    <p>
+                        <% if (context == 'PHOTO') { %>
+                            <img src="<%= feed.movement_detail.photo.thumb_path %>">
+                        <% } %>
+                        <% if (context == 'EVENT') { %>
+                            <h3><a href="<%= Routing.generate('colzak_event', { 'eventId': feed.movement_detail.event.id }) %>"><%= feed.movement_detail.event.title %></a></h3>
+                            <p class="ml2"><%= feed.movement_detail.event.content %></p>
+                            <p><span class="glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;<%= completeAddress %></p>
+                        <% } %>
+                        <% if (context == 'PROFILE') { %>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <a href="<%= Routing.generate('colzak_user_homepage', { 'username': feed.movement_detail.profile.username }) %>">
+                                        <% if (typeof following_profile_photo !== 'undefined') { %>
+                                            <img src="<%= following_profile_photo.thumb_path %>" class="img-responsive">
+                                        <% } else { %>
+                                            <% if (feed.movement_detail.profile.gender == 'MALE') { %>
+                                                <img class="img-responsive" src="/img/male.png">
+                                            <% } else { %>
+                                                <img class="img-responsive" src="/img/female.png">
+                                            <% } %>
+                                        <% } %>
+                                    </a>
+                                </div>
+                                <div class="col-md-10">
+                                    <p><a href="<%= Routing.generate('colzak_user_homepage', { 'username': feed.movement_detail.profile.username }) %>"><%= feed.movement_detail.profile.firstname %></a></p>
+                                </div>
+                            </div>
+                        <% } %>
+                    </p>
+                    <p class="text-right mb0"><i><small><%= moment(feed.created_at).fromNow() %></small></i></p>
+                </div>
             </div>
         </div>
     </script>

@@ -13,6 +13,8 @@ use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\UserBundle\Model\UserInterface;
+use Colzak\UserBundle\Document\Movement;
+use Colzak\UserBundle\Document\MovementDetail;
 
 class UsersController extends BaseController
 {
@@ -153,6 +155,15 @@ class UsersController extends BaseController
         $following->setDistance(0);
         $dm->persist($follower);
         $dm->persist($following);
+
+        //add movement
+        $movement = new Movement();
+        $movement->setProfile($follower);
+        $movementDetail = new MovementDetail();
+        $movementDetail->setAction(MovementDetail::ACTION_FOLLOWED_USER);
+        $movementDetail->setProfile($following);
+        $movement->setMovementDetail($movementDetail);
+        $dm->persist($movement);
         $dm->flush();
 
         return $this->handleView($this->view(null, 200));

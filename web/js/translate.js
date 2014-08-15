@@ -46,7 +46,13 @@
         saxophone: 'Saxophone',
         violin: 'Violon',
         theremin: 'Thérémine',
-        drummachine: 'Boite à rythme'
+        drummachine: 'Boite à rythme',
+        ADDED_PHOTO: 'à ajouté une photo',
+        CHANGED_PROFILE_PHOTO: 'à changé sa photo de profil',
+        ADDED_EVENT: 'à ajouté un jam session',
+        PARTICIPATE_EVENT: 'participe à un jam session',
+        FOLLOWED_USER: 'suit désormais'
+
     };
 
 })( jQuery );

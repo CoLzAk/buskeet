@@ -13,6 +13,8 @@ use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Colzak\UserBundle\Document\Movement;
+use Colzak\UserBundle\Document\MovementDetail;
 
 class EventsController extends BaseController {
 
@@ -130,6 +132,7 @@ class EventsController extends BaseController {
 
         //Hack: wtf ? dunno...
         $user->getProfile()->setDistance(0);
+        $event->setDistance(0);
 
         if (count($participants) > 0) {
             foreach ($participants as $participant) {
@@ -138,10 +141,28 @@ class EventsController extends BaseController {
                     break;
                 } else {
                     $event->addParticipant($user->getProfile());
+
+                    //add movement
+                    $movement = new Movement();
+                    $movement->setProfile($user->getProfile());
+                    $movementDetail = new MovementDetail();
+                    $movementDetail->setAction(MovementDetail::ACTION_PARTICIPATE_EVENT);
+                    $movementDetail->setEvent($event);
+                    $movement->setMovementDetail($movementDetail);
+                    $dm->persist($movement);
                 }
             }
         } else {
             $event->addParticipant($user->getProfile());
+
+            //add movement
+            $movement = new Movement();
+            $movement->setProfile($user->getProfile());
+            $movementDetail = new MovementDetail();
+            $movementDetail->setAction(MovementDetail::ACTION_PARTICIPATE_EVENT);
+            $movementDetail->setEvent($event);
+            $movement->setMovementDetail($movementDetail);
+            $dm->persist($movement);
         }
 
         $dm->persist($event);
@@ -166,7 +187,19 @@ class EventsController extends BaseController {
         }
 
         $event->setProfile($user->getProfile());
+
+        $event->setDistance(0);
         $dm->persist($event);
+
+        //add movement
+        $movement = new Movement();
+        $movement->setProfile($user->getProfile());
+        $movementDetail = new MovementDetail();
+        $movementDetail->setAction(MovementDetail::ACTION_ADDED_EVENT);
+        $movementDetail->setEvent($event);
+        $movement->setMovementDetail($movementDetail);
+        $dm->persist($movement);
+
         $dm->flush();
 
         $data = $event;
