@@ -1,0 +1,97 @@
+{% extends 'ColzakUserBundle::layout.html.twig' %}
+
+{% block title %}Buskeet | Actualités{% endblock %}
+
+{% block menu_region %}
+    {#} MENU FIRST RENDER {#}
+    <div id="clzk-menu-region"></div>
+
+    {#} MENU TEMPLATES {#}
+    <script type="text/template" id="clzk-feeds-menu-layout">
+        <div id="clzk-feeds-menu-actions-region"></div>
+    </script>
+
+    <script type="text/template" id="clzk-feeds-menu-template">
+        <ul class="list-group">
+            <li class="list-group-item"><a href="#" class="clzk-context-links">action</a></li>
+        </ul>
+    </script>
+{% endblock %}
+
+{% block content_region %}
+    {#} PROFILE FIRST RENDER {#}
+    <div id="clzk-main-region" class="clzk-feeds-region"></div>
+
+    {#} PROFILE TEMPLATES {#}
+    {#} Profile Layout {#}
+    <script type="text/template" id="clzk-feeds-layout">
+        <div class="col-md-8">
+            <h2 class="text-cyan">Que se passe t'il autour de vous ?</h2>
+            <div id="clzk-feeds-stream-region" class="clzk-region"></div>
+            <div id="clzk-feeds-pagination-region"></div>
+        </div>
+        <div class="clearfix"></div>
+    </script>
+
+    {#} Templates {#}
+    <script type="text/template" id="clzk-feed-template">
+        <div class="row mb2">
+            <div class="col-md-2">
+                <img class="img-responsive" src="<%= poster_profile_photo.thumb_path %>">
+            </div>
+            <div class="col-md-10">
+                <p><%= feed.profile.firstname %>&nbsp;<%= feed.movement_detail.action %>&nbsp;<%= moment(feed.created_at).fromNow() %></p>
+                <p>
+                    <% if (context == 'PHOTO') { %>
+                        <img src="<%= feed.movement_detail.photo.thumb_path %>">
+                    <% } %>
+                    <% if (context == 'EVENT') { %>
+                        <p><%= feed.movement_detail.event.title %></p>
+                        <p><%= feed.movement_detail.event.description %></p>
+                        <p><%= completeAddress %></p>
+                    <% } %>
+                    <% if (context == 'PROFILE') { %>
+
+                    <% } %>
+                </p>
+            </div>
+        </div>
+    </script>
+    <script type="text/template" id="clzk-feeds-template">
+        <div id="clzk-feed-container"></div>
+    </script>
+{% endblock %}
+
+{% block extra_javascripts %}
+    {% javascripts
+        "js/vendor/underscore-1.4.4.min.js"
+        "js/vendor/backbone.min.js"
+        "js/vendor/backbone-deepmodel-min.js"
+        "js/vendor/backbone.marionette-1.0.1.min.js"
+        "js/vendor/backbone.stickit.min.js"
+        "js/vendor/backbone-memento.min.js"
+        "js/vendor/moment-2.0.0.min.js"
+        "js/vendor/moment.lang.fr.min.js"
+        "js/translate.js"
+        "js/app/App.js"
+        "js/app/Feeds.js"
+        "js/app/models/Feeds.js"
+        "js/app/views/FeedsView.js"
+        filter="uglifyjs2"
+    %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>
+
+    {% endjavascripts %}
+    <script type="text/javascript">
+    $(document).ready(function() {
+        NProgress.start();
+        moment.lang('fr');
+        var options = {
+                module: "feeds",
+                //user: {#{ app.user|serialize|raw }#},
+                path: "{{ path(app.request.attributes.get('_route')) }}"
+        };
+        App.start(options);
+    })
+    </script>
+{% endblock %}
