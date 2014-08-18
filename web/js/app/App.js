@@ -26,7 +26,8 @@ App.MessageRouter = Backbone.Marionette.AppRouter.extend({
 
 App.FeedsRouter = Backbone.Marionette.AppRouter.extend({
     appRoutes: {
-        '' : 'show'
+        '' : 'show',
+        'photo/:photoId': 'showPhoto'
     }
 });
 

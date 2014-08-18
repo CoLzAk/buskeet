@@ -8,25 +8,27 @@ $(document).ready(function() {
 
     // Mmenu
     //Init Mmenus for mobile
-   //  $("#right-menu").mmenu({
-   //      // options object
-   //      position: "left",
-   //      isMenu: true
-   //  }, {
-   //     // configuration object
-   //     selectedClass: "active-menu"
-   //  })
-   // .on(
-   //    "opened.mm",
-   //    function()
-   //    {
-   //    }
-   // ).on(
-   //    "closed.mm",
-   //    function()
-   //    {
-   //    }
-   // );
+    if ($('.xs-screen-menu-link').is(':visible')) {
+        $("#right-menu").mmenu({
+            // options object
+            position: "right",
+            isMenu: true
+        }, {
+           // configuration object
+           selectedClass: "active-menu"
+        })
+       .on(
+          "opened.mm",
+          function()
+          {
+          }
+       ).on(
+          "closed.mm",
+          function()
+          {
+          }
+       );
+   }
 
     // Bind login and register buttons for modal
     $('#login-button').on('click', function(e) {

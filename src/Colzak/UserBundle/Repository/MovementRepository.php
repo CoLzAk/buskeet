@@ -14,10 +14,13 @@ class MovementRepository extends DocumentRepository
 {
 	public function getByFollowing($following) {
 		$q = $this->createQueryBuilder();
+		$arrayProfileId = array();
 		foreach ($following as $profile) {
-			$q->field('profile')->references($profile);
+			$arrayProfileId[] = new \MongoId($profile->getId());
 		}
+		$q->field('profile.$id')->in($arrayProfileId);
 		$q->sort('createdAt', 'desc');
+		$q->limit(15);
 		return $q->getQuery()->execute()->toArray(false);
 	}
 }

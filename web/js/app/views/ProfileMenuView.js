@@ -29,6 +29,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         },
         toggleFollowUser: function(e) {
             e.preventDefault();
+            NProgress.start();
             var that = this;
             if (UserModule.visitorId === null || UserModule.visitorId == '') {
                 window.location.replace(Routing.generate('fos_user_security_login'));
@@ -36,14 +37,16 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             }
 
             $.ajax({
-                url: (typeof this.isFollowing() === 'undefined' ? Routing.generate('users_follow_user', { profileId: UserModule.targetUserProfile.get('id') }) : Routing.generate('users_unfollow_user', { profileId: UserModule.targetUserProfile.get('id') })),
-                type: (typeof this.isFollowing() === 'undefined' ? 'POST' : 'DELETE'),
+                url: (typeof that.isFollowing() === 'undefined' ? Routing.generate('users_follow_user', { profileId: UserModule.targetUserProfile.get('id') }) : Routing.generate('users_unfollow_user', { profileId: UserModule.targetUserProfile.get('id') })),
+                type: (typeof that.isFollowing() === 'undefined' ? 'POST' : 'DELETE'),
                 dataType: 'json',
                 success: function(data) {
-                    // console.log(data);
+                    (that.isFollowing() ? UserModule.visitor.get('following').splice(UserModule.visitor.get('following').indexOf(that.isFollowing()), 1) : UserModule.visitor.get('following').push(data));
                     that.render();
+                    NProgress.done();
                 },
                 error: function(data) {
+                    NProgress.done();
                     // console.log(data);
                 }
             });

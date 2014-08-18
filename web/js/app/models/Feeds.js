@@ -12,4 +12,10 @@ App.module("FeedsModule", function(FeedsModule, FamileasyApp, Backbone, Marionet
             return Routing.generate('users_get_feeds');
         }
     });
+
+    FeedStream = Backbone.Model.extend({
+        urlRoot: function(){
+            return Routing.generate('users_get_feeds');
+        }
+    });
 });

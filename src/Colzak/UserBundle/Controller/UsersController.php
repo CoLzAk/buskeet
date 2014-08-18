@@ -166,7 +166,7 @@ class UsersController extends BaseController
         $dm->persist($movement);
         $dm->flush();
 
-        return $this->handleView($this->view(null, 200));
+        return $this->handleView($this->view($following, 200));
     }
 
     /**
@@ -189,7 +189,7 @@ class UsersController extends BaseController
         $dm->persist($follower);
         $dm->flush();
 
-        return $this->handleView($this->view(null, 200));
+        return $this->handleView($this->view($following, 200));
     }
 
     /**
@@ -199,11 +199,20 @@ class UsersController extends BaseController
     public function getFeedsAction() {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $user = $this->get('security.context')->getToken()->getUser();
-
         $following = $user->getProfile()->getFollowing();
+        $data = array();
 
-        $data = $dm->getRepository('ColzakUserBundle:Movement')->getByFollowing($following);
+        if (count($following) > 0) {
+            $data = $dm->getRepository('ColzakUserBundle:Movement')->getByFollowing($following);
+        }
 
-        return $this->handleView($this->view($data, 200));
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $data,
+            $this->get('request')->query->get('page', 1)/*page number*/,
+            15 //number of elements per page
+        );
+
+        return $this->handleView($this->view($pagination, 200));
     }
 }

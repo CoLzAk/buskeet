@@ -26,11 +26,16 @@
     {#} Profile Layout {#}
     <script type="text/template" id="clzk-feeds-layout">
         <div class="col-md-8">
-            <h2 class="text-cyan">Que se passe t'il autour de vous ?</h2>
+            <h2 class="text-cyan">Autour de moi</h2>
             <div id="clzk-feeds-stream-region" class="clzk-region"></div>
             <div id="clzk-feeds-pagination-region"></div>
         </div>
         <div class="clearfix"></div>
+    </script>
+
+    {#} Modal Layout {#}
+    <script type="text/template" id="clzk-modal-layout">
+        <div id="clzk-modal-content-region"></div>
     </script>
 
     {#} Templates {#}
@@ -54,7 +59,9 @@
                     <p class="text-left"><a href="<%= Routing.generate('colzak_user_homepage', { 'username': feed.profile.username }) %>"><%= feed.profile.firstname %></a>&nbsp;<%= translate(feed.movement_detail.action) %></p>
                     <p>
                         <% if (context == 'PHOTO') { %>
-                            <img src="<%= feed.movement_detail.photo.thumb_path %>">
+                            <a data-toggle="modal" class="image-modal" href="#">
+                                <img src="<%= feed.movement_detail.photo.thumb_path %>">
+                            </a>
                         <% } %>
                         <% if (context == 'EVENT') { %>
                             <h3><a href="<%= Routing.generate('colzak_event', { 'eventId': feed.movement_detail.event.id }) %>"><%= feed.movement_detail.event.title %></a></h3>
@@ -82,14 +89,45 @@
                             </div>
                         <% } %>
                     </p>
-                    <p class="text-right mb0"><i><small><%= moment(feed.created_at).fromNow() %></small></i></p>
+                    <p class="text-right mb0"><i><small>
+                        <% if (moment().diff(moment(feed.created_at), 'days') < 1) { %>
+                            <%= moment(feed.created_at).fromNow() %>
+                        <% } else { %>
+                            le <%= moment(feed.created_at).format('DD MMM YYYY') %> à <%= moment(feed.created_at).format('H:mm') %>
+                        <% } %>
+                    </small></i></p>
                 </div>
             </div>
         </div>
     </script>
     <script type="text/template" id="clzk-feeds-template">
         <div id="clzk-feed-container"></div>
+        <div class="loader-indicator hidden text-center col-md-12">
+            <img src="/img/ajax-loader.gif">
+        </div>
     </script>
+
+    <script type="text/template" id="clzk-feeds-photo-carousel-template">
+        <div id="clzk-feeds-photo-carousel" class="carousel slide">
+            <button type="button" class="close close-carousel-btn" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="<%= photo.path %>" class="img-responsive"/>
+                </div>
+            </div>
+        </div>
+    </script>
+{% endblock %}
+
+{% block extra_modal %}
+    <div class="modal fade" id="clzk-modal" role="dialog">
+        <div class="modal-dialog container">
+            <div class="modal-content" id="clzk-modal-region">
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block extra_javascripts %}
@@ -102,6 +140,7 @@
         "js/vendor/backbone-memento.min.js"
         "js/vendor/moment-2.0.0.min.js"
         "js/vendor/moment.lang.fr.min.js"
+        "js/jquery/jquery.bum-smack.min.js"
         "js/translate.js"
         "js/app/App.js"
         "js/app/Feeds.js"
@@ -118,7 +157,7 @@
         moment.lang('fr');
         var options = {
                 module: "feeds",
-                //user: {#{ app.user|serialize|raw }#},
+                user: {{ app.user|serialize|raw }},
                 path: "{{ path(app.request.attributes.get('_route')) }}"
         };
         App.start(options);

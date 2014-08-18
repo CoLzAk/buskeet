@@ -15,30 +15,42 @@ App.module('FeedsModule', function(FeedsModule, App, Backbone, Marionette, $, _)
         }
     });
 
+    ModalLayout = Backbone.Marionette.Layout.extend({
+        template: "#clzk-modal-layout",
+        regions: {
+            modalContentRegion: "#clzk-modal-content-region"
+        },
+        onDomRefresh: function() {
+            $('#clzk-modal').on('hidden.bs.modal', function(e) {
+                // $('#clzk-modal').modal('hide');
+                Backbone.history.navigate('', { trigger: false });
+            });
+        }
+    });
+
     FeedsModule.show = function() {
         NProgress.start();
-        console.log('bonjour');
         
-        var feeds = new Feeds();
-        feeds.fetch({
+        FeedsModule.end = false;
+        FeedsModule.feedStream = new FeedStream();
+        FeedsModule.feedStream.fetch({
         	success: function(results) {
-                // FeedsModule.feedsMenuLayout.feedsMenuRegion.show(new ThreadsView({ collection: MessageModule.userThreads }));
-                FeedsModule.feedsLayout.feedsRegion.show(new FeedsView({ collection: results }));
+                FeedsModule.feeds = new Feeds(results.get('items'));
+                // FeedsModule.feedsMenuLayout.feedsMenuRegion.show();
+                FeedsModule.feedsLayout.feedsRegion.show(new FeedsView({ collection: FeedsModule.feeds }));
                 NProgress.done();
         	}
         });
-    // 	var threads = new Threads({}, { userId: MessageModule.userId });
-    // 	threads.fetch({
-    // 		success: function(collection) {
-    // 			MessageModule.userThreads = collection;
-    // 			var thread = collection.get(threadId);
-				// MessageModule.messages = new Messages(thread.get('messages'), { threadId: threadId });
-    // 			MessageModule.messageMenuLayout.messageMenuRegion.show(new ThreadsView({ collection: MessageModule.userThreads }));
-    // 			MessageModule.messageLayout.messagesRegion.show(new MessagesView({ collection: MessageModule.messages }));
-    // 		    NProgress.done();
-    //         }
-    // 	});
     };
+
+    FeedsModule.showPhoto = function(feedId) {
+        var feed = FeedsModule.feeds.get(feedId);
+        FeedsModule.modalLayout = new ModalLayout();
+        App.modalRegion.show(FeedsModule.modalLayout);
+        FeedsModule.modalLayout.modalContentRegion.show(new FeedsPhotoCarouselView({ model: feed }));
+
+        $('#clzk-modal').modal('show');
+    }
 
     FeedsModule.addInitializer(function(options){
         FeedsModule.user = options.user;
