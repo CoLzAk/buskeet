@@ -488,8 +488,10 @@ html, body {
 .mm-menu > .mm-panel {
     margin-top: 50px;
 }
-.navbar-home {
-    padding-top: 50px !important;
+@media(max-width: 360px) {
+    .navbar-home {
+        padding-top: 50px !important;
+    }
 }
 .login-dropdown {
     background-color: #222 !important;

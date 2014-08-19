@@ -31,6 +31,20 @@
         </div>
         <div class="clearfix"></div>
     </div>
+    <div class="clzk-result-actions-container hidden" id="clzk-result-actions-container-<%= profile.id %>">
+        <div class="row">
+            <div class="col-md-6">
+                <% if (!isFollowing) { %>
+                    <a href="#" class="follow-button"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Suivre ce musicien</a>
+                <% } else { %>
+                    <a href="#" class="follow-button text-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Ne plus suivre</a>
+                <% } %>
+            </div>
+            <div class="col-md-6">
+                <a href="<%= Routing.generate('colzak_user_homepage', {'username': profile.username}) %>" class="clzk-context-links">Voir le profil complet</a>
+            </div>
+        </div>
+    </div>
 </script>
 
 <script type="text/template" id="clzk-search-result-empty-template">
@@ -76,7 +90,7 @@
     <div class="clearfix"></div>
 
     <% if (profile.portfolio.music_styles.length > 0) { %>
-        <h5 class="text-cyan mt2 mb1">Mes styles</h5>
+        <h5 class="text-cyan mt2 mb1">Mes styles musicaux</h5>
         <ul class="list-inline">
             <% for (var i in profile.portfolio.music_styles) { %>
                 <li><%= profile.portfolio.music_styles[i].name %></li>

@@ -219,7 +219,8 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         template: '#clzk-search-result-template',
         tagName: 'div',
         events: {
-            'click .clzk-search-profile-container': 'showProfilePreview'
+            'click .clzk-search-profile-container': 'showProfilePreview',
+            'click .follow-button': 'toggleFollowUser'
         },
         showProfilePreview: function(e) {
             e.preventDefault();
@@ -229,6 +230,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             $('.pagination-container').addClass('hidden');
             $(e.currentTarget).removeClass('hidden').addClass('rendering');
             $('#share-profile-'+this.model.get('id')).removeClass('hidden');
+            $('#clzk-result-actions-container-'+this.model.get('id')).removeClass('hidden');
             Backbone.history.navigate(SearchModule.queryUrl.localization+'/'+SearchModule.queryUrl.direction+'/preview/'+this.model.get('id'), { trigger: true });
         },
         serializeData: function() {
@@ -237,8 +239,41 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             return {
                 profile_picture_path: (typeof profile_picture !== 'undefined' ? profile_picture.thumb_path : undefined),
                 profile: this.model.toJSON(),
-                nbInstrumentsToDisplay: (SearchModule.isMobile ? 2 : 3)
+                nbInstrumentsToDisplay: (SearchModule.isMobile ? 2 : 3),
+                isFollowing: (typeof this.isFollowing() === 'undefined' ? false : true)
             };
+        },
+        toggleFollowUser: function(e) {
+            e.preventDefault();
+            NProgress.start();
+            var that = this;
+            if (SearchModule.authUser === null || SearchModule.authUser == '') {
+                window.location.replace(Routing.generate('fos_user_security_login'));
+                return;
+            }
+            $.ajax({
+                url: (typeof that.isFollowing() === 'undefined' ? Routing.generate('users_follow_user', { profileId: that.model.get('id') }) : Routing.generate('users_unfollow_user', { profileId: that.model.get('id') })),
+                type: (typeof that.isFollowing() === 'undefined' ? 'POST' : 'DELETE'),
+                dataType: 'json',
+                success: function(data) {
+                    if (that.isFollowing()) { 
+                        SearchModule.authUser.profile.following.splice(SearchModule.authUser.profile.following.indexOf(that.isFollowing()), 1);
+                        $('.follow-button').removeClass('text-danger').html('<span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Suivre ce musicien');
+                    } else { 
+                        SearchModule.authUser.profile.following.push(data);
+                        $('.follow-button').addClass('text-danger').html('<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Ne plus suivre');
+                    }
+                    //that.render();
+                    NProgress.done();
+                },
+                error: function(data) {
+                    NProgress.done();
+                    // console.log(data);
+                }
+            });
+        },
+        isFollowing: function() {
+            return _.findWhere(SearchModule.authUser.profile.following, { username: this.model.get('username') });
         },
         onDomRefresh: function() {
             // var that = this;
