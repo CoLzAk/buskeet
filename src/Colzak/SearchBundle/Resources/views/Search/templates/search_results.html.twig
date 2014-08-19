@@ -12,7 +12,11 @@
             <% } %>
         </div>
         <div class="pull-left">
-            <h3 class="mt0 mb0"><%= profile.firstname %>&nbsp;<%= profile.lastname %></h3>
+            <% if (isMobile) { %>
+                <p class="mt0 mb0"><strong><%= profile.firstname %>&nbsp;<%= profile.lastname %></strong></p>
+            <% } else { %>
+                <h3 class="mt0 mb0"><%= profile.firstname %>&nbsp;<%= profile.lastname %></h3>
+            <% } %>
             <p><%= moment(profile.birthdate).fromNow(true) %>, <%= profile.locality %></p>
             <% for (var i in profile.portfolio.portfolio_instruments) { %>
                 <% if (i < nbInstrumentsToDisplay) { %>
@@ -33,13 +37,15 @@
     </div>
     <div class="clzk-result-actions-container hidden mt1 mb1" id="clzk-result-actions-container-<%= profile.id %>">
         <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <% if (!isFollowing) { %>
-                    <a href="#" class="follow-button"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Suivre ce musicien</a>
-                <% } else { %>
-                    <a href="#" class="follow-button text-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Ne plus suivre</a>
-                <% } %>
-            </div>
+            <% if (!isHimself) { %>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <% if (!isFollowing) { %>
+                        <a href="#" class="follow-button"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Suivre ce musicien</a>
+                    <% } else { %>
+                        <a href="#" class="follow-button text-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Ne plus suivre</a>
+                    <% } %>
+                </div>
+            <% } %>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <a href="<%= Routing.generate('colzak_user_homepage', {'username': profile.username}) %>" class="clzk-context-links">Voir le profil complet</a>
             </div>

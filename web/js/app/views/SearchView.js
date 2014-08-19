@@ -240,7 +240,9 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
                 profile_picture_path: (typeof profile_picture !== 'undefined' ? profile_picture.thumb_path : undefined),
                 profile: this.model.toJSON(),
                 nbInstrumentsToDisplay: (SearchModule.isMobile ? 2 : 3),
-                isFollowing: (typeof this.isFollowing() === 'undefined' ? false : true)
+                isFollowing: (typeof this.isFollowing() === 'undefined' ? false : true),
+                isMobile: SearchModule.isMobile,
+                isHimself: (SearchModule.authUser.profile.id === this.model.get('id'))
             };
         },
         toggleFollowUser: function(e) {
