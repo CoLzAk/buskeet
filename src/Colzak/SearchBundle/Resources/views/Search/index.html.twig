@@ -21,20 +21,32 @@
     {% endstylesheets %}
 {% endblock %}
 
-{% block body %}
+{% block menu_region %}
+    {#} MENU FIRST RENDER {#}
+    <div id="clzk-menu-region"></div>
+
+    {#} MENU TEMPLATES {#}
+    <script type="text/template" id="clzk-search-menu-layout">
+        <div id="clzk-search-menu-actions-region"></div>
+    </script>
+
+    {% include 'ColzakSearchBundle:Search:templates/search_menu.html.twig' %}
+{% endblock %}
+
+{% block content_region %}
     <div id="clzk-main-region" class="full-height"></div>
 
     {#} Search Layout {#}
     <script type="text/template" id="clzk-search-layout">
         <div class="row">
-            <div class="col-md-3 clzk-search-menu-region-container">
+            <!-- <div class="col-md-3 clzk-search-menu-region-container">
                 <div id="clzk-search-menu-region"></div>
-            </div>
-            <div class="col-md-6 clzk-search-results-region-container">
+            </div> -->
+            <div class="col-md-6 col-xs-12 clzk-search-results-region-container">
                 <div id="clzk-search-results-region"></div>
                 <div id="clzk-search-pagination-region"></div>
             </div>
-            <div class="col-md-6 clzk-preview-container">
+            <div class="col-md-6 col-xs-12 clzk-preview-container">
                 <div id="clzk-search-preview-region"></div>
             </div>
         </div>
@@ -45,7 +57,7 @@
         <div id="clzk-modal-content-region"></div>
     </script>
 
-    {% include 'ColzakSearchBundle:Search:templates/search_menu.html.twig' %}
+    {#% include 'ColzakSearchBundle:Search:templates/search_menu.html.twig' %#}
     {% include 'ColzakSearchBundle:Search:templates/search_results.html.twig' %}
     {% include 'ColzakSearchBundle:Search:templates/search_events.html.twig' %}
     {% include 'ColzakSearchBundle:Search:templates/search_pagination.html.twig' %}

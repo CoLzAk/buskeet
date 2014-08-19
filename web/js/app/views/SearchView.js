@@ -127,7 +127,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         },
         initMap: function() {
             var markers = '';
-            var mapWidth = $('#map').width();
+            var mapWidth = ($('#map').width() > 0 ? $('#map').width() : 200);
             var mapUrl = '';
             var zoom = 11;
 
@@ -236,7 +236,8 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
 
             return {
                 profile_picture_path: (typeof profile_picture !== 'undefined' ? profile_picture.thumb_path : undefined),
-                profile: this.model.toJSON()
+                profile: this.model.toJSON(),
+                nbInstrumentsToDisplay: (SearchModule.isMobile ? 2 : 3)
             };
         },
         onDomRefresh: function() {

@@ -18,10 +18,12 @@
     </div>
     <div class="clearfix"></div>
     <p class="text-right"><a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié ?</a></p>
+    <hr>
+    <p class="text-center"><button type="submit" class="btn btn-primary btn-lg" id="login-button">Connexion</button></p>
+    <p class="text-center"><a href="{{ path('fos_user_registration_register') }}">Vous n'avez pas encore de compte ?</a></p>
 </form>
-<hr>
-<p class="text-center"><button type="button" class="btn btn-primary btn-lg" id="login-button">Connexion</button></p>
-<p class="text-center"><a href="{{ path('fos_user_registration_register') }}">Vous n'avez pas encore de compte ?</a></p>
+
+
 {#<p class="text-center">
     <span>Connexion avec facebook</span>
     <div class="fb-login-button-container">

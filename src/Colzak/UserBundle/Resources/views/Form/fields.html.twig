@@ -20,9 +20,9 @@
     {% else %}
         <div {{ block('widget_container_attributes') }} class="row">
             {{ date_pattern|replace({
-                '{{ year }}': ['<div class="col-md-4"><div class="clzk-moz-select">', form_widget(form.year, {'attr' : {'class': 'form-control'}}), '</div></div>']|join,
-                '{{ month }}': ['<div class="col-md-4"><div class="clzk-moz-select">', form_widget(form.month, {'attr' : {'class': 'form-control'}}), '</div></div>']|join,
-                '{{ day }}': ['<div class="col-md-4"><div class="clzk-moz-select">', form_widget(form.day, {'attr' : {'class': 'form-control'}}), '</div></div>']|join,
+                '{{ year }}': ['<div class="col-md-4 col-sm-4 col-xs-4"><div class="clzk-moz-select">', form_widget(form.year, {'attr' : {'class': 'form-control'}}), '</div></div>']|join,
+                '{{ month }}': ['<div class="col-md-4 col-sm-4 col-xs-4"><div class="clzk-moz-select">', form_widget(form.month, {'attr' : {'class': 'form-control'}}), '</div></div>']|join,
+                '{{ day }}': ['<div class="col-md-4 col-sm-4 col-xs-4"><div class="clzk-moz-select">', form_widget(form.day, {'attr' : {'class': 'form-control'}}), '</div></div>']|join,
             })|raw }}
         </div>
     {% endif %}

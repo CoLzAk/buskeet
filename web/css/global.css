@@ -79,6 +79,9 @@ html, body {
 .pb1 {
     padding-bottom: 10px;
 }
+.pt6 {
+    padding-top: 60px !important;
+}
 /* ... */
 
 .clzk-hr {
@@ -138,11 +141,32 @@ html, body {
 .xs-screen-menu-link {
     float: left !important;
     font-size: 25px;
-    left: -10px;
+    left: -15px;
+    margin: 0;
+    position: relative;
+    top: 16px;
+}
+.xs-screen-menu-link-right {
+    float: left !important;
+    font-size: 25px;
+    left: 0;
     margin: 0;
     margin-left: 20px;
     position: relative;
-    top: 6px;
+    top: 10px;
+}
+.xs-screen-menu-link-right .caret {
+    float: right;
+    position: relative;
+    top: -20px;
+}
+.xs-screen-menu-link-home {
+    float: left !important;
+    font-size: 25px;
+    left: 0;
+    margin: 0;
+    position: relative;
+    top: 5px;
 }
 .label-danger {
     background: #f56954;
@@ -339,12 +363,19 @@ html, body {
     font-size: 30px;
     color: #DDD;
     background: none !important;
+    padding: 0;
 }
 .clzk-breadcrumb > li + li:before {
     content: " > ";
 }
 .clzk-breadcrumb a {
     color: #FFF !important;
+}
+@media (max-width: 360px) {
+    .clzk-breadcrumb {
+        height: 30px;
+        font-size: 20px;
+    }
 }
 .participate-button {
     font-size: 20px;
@@ -358,6 +389,12 @@ html, body {
 .clzk-login-register-container {
     margin: auto;
     width: 500px;
+}
+@media (max-width: 360px) {
+    .clzk-login-register-container {
+        margin: auto;
+        width: 100%;
+    }
 }
 .fb-login-button-container {
     width: 125px;
@@ -447,6 +484,12 @@ html, body {
 }
 .mm-page {
     height: 100% !important;
+}
+.mm-menu > .mm-panel {
+    margin-top: 50px;
+}
+.navbar-home {
+    padding-top: 50px !important;
 }
 .login-dropdown {
     background-color: #222 !important;

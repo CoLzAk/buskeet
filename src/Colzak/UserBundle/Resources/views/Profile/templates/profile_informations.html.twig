@@ -9,8 +9,11 @@
         <% } %>
     </p>
     <!-- <hr class="clzk-hr"> -->
-    <h4 class="mt3 text-cyan">A propos de moi</h4>
-    <p class="text-left" id="clzk-profile-description"></p>
+    <div class="hidden-xs">
+        <h4 class="mt3 text-cyan">A propos de moi</h4>
+        <p class="text-left" id="clzk-profile-description"></p>
+        <hr>
+    </div>
 </script>
 
 <script type="text/template" id="clzk-profile-informations-form-template">
@@ -27,7 +30,7 @@
                 <div class="col-md-8 bg-dark">
                     <div class="row birthdate-container">
                         <input type="hidden" class="form-control clzk-form-control datepicker" id="clzk-profile-birthdate">
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-sm-4 col-xs-4">
                             <div class="clzk-moz-select">
                                 <select id="birthdate-day-selector" class="birthdate-selector">
                                     <% for (var day in dayRange) { %>
@@ -36,7 +39,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-sm-4 col-xs-4">
                             <div class="clzk-moz-select">
                                 <select id="birthdate-month-selector" class="birthdate-selector">
                                     <% for (var month in monthRange) { %>
@@ -45,7 +48,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-sm-4 col-xs-4">
                             <div class="clzk-moz-select">
                                 <select id="birthdate-year-selector" class="birthdate-selector">
                                     <% for (var year in yearRange) { %>
@@ -64,9 +67,9 @@
         <div class="col-md-7">
             {#} Description {#}
             <div class="form-horizontal mt2">
-                <h4 class="text-cyan">Ma description</h4>
+                <h4 class="text-cyan">A propos de moi</h4>
                 <div class="col-md-12 bg-dark">
-                    <div class="input-group col-md-12 mt1 mb1">
+                    <div class="input-group col-md-12 col-sm-12 col-xs-12 mt1 mb1">
                         <textarea class="form-control clzk-form-control" rows="8" id="clzk-profile-description" placeholder="Ma description..."></textarea>
                     </div>
                 </div>

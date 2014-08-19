@@ -15,23 +15,23 @@
             </div>
             <div class="nav navbar-nav navbar-right col-md-9 col-sm-9 col-xs-9 pull-right">
                 <div class="pull-right">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+                    <!-- Menu button for x-screen -->
+                    <a href="#right-menu" class="xs-screen-menu-link-home xs-screen-menu-link-menu visible-xs pull-right">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <span class="caret"></span>
+                    </a>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="navbar-collapse">
                         <!-- <div class="col-md-6"> -->
-                            <ul class="nav navbar-nav navbar-right">
+                            <ul class="nav navbar-nav navbar-right navbar-home" id="right-menu">
                                 {% if is_granted('ROLE_USER') %}
                                     <!-- Notif (feature) -->
                                     {#<li><a href="#">
                                         <span class="glyphicon glyphicon-info-sign"></span>
                                         <span class="label label-danger">4</span>
                                     </a></li>#}
+
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                             <div class="pull-left clzk-navbar-profile-picture-container">
@@ -61,18 +61,21 @@
                                             <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off"></span> Déconnexion</a></li>
                                         </ul>
                                     </li>
-                                    <li class="dropdown">
+                                    <li class="dropdown hidden-xs">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-envelope"></span> <b class="caret"></b></a>
                                         <ul class="dropdown-menu">
                                             {{ render(controller('ColzakMessageBundle:Message:lastThread')) }}
                                         </ul>
                                     </li>
                                 {% else %}
-                                    <li class="dropdown">
+                                    <li class="dropdown hidden-xs">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Connexion</a>
                                         <div class="dropdown-menu login-dropdown">
                                             {{ render(controller('ColzakUserBundle:Security:embeddedLogin')) }}
                                         </div>
+                                    </li>
+                                    <li class="visible-xs pt2">
+                                        <a href="{{ path('fos_user_security_login') }}">Connexion</a>
                                     </li>
                                     <li><a href="{{ path('fos_user_registration_register') }}">Inscription</a>
                                     </li>

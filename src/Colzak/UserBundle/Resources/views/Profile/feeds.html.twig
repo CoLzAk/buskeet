@@ -25,7 +25,7 @@
     {#} PROFILE TEMPLATES {#}
     {#} Profile Layout {#}
     <script type="text/template" id="clzk-feeds-layout">
-        <div class="col-md-8">
+        <div class="col-md-8 col-sm-8 col-xs-12">
             <h2 class="text-cyan">Autour de moi</h2>
             <div id="clzk-feeds-stream-region" class="clzk-region"></div>
             <div id="clzk-feeds-pagination-region"></div>
@@ -42,7 +42,7 @@
     <script type="text/template" id="clzk-feed-template">
         <div class="feed-container bg-dark p1 mb2">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-3 col-xs-3">
                     <a href="<%= Routing.generate('colzak_user_homepage', { 'username': feed.profile.username }) %>">
                         <% if (typeof poster_profile_photo !== 'undefined') { %>
                             <img class="img-responsive" src="<%= poster_profile_photo.thumb_path %>">
@@ -55,12 +55,12 @@
                         <% } %>
                     </a>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-9 col-sm-9 col-xs-9">
                     <p class="text-left"><a href="<%= Routing.generate('colzak_user_homepage', { 'username': feed.profile.username }) %>"><%= feed.profile.firstname %></a>&nbsp;<%= translate(feed.movement_detail.action) %></p>
                     <p>
                         <% if (context == 'PHOTO') { %>
                             <a data-toggle="modal" class="image-modal" href="#">
-                                <img src="<%= feed.movement_detail.photo.thumb_path %>">
+                                <img src="<%= feed.movement_detail.photo.thumb_path %>" class="img-responsive">
                             </a>
                         <% } %>
                         <% if (context == 'EVENT') { %>
@@ -70,7 +70,7 @@
                         <% } %>
                         <% if (context == 'PROFILE') { %>
                             <div class="row">
-                                <div class="col-md-2">
+                                <div class="col-md-2 col-sm-4 col-xs-4">
                                     <a href="<%= Routing.generate('colzak_user_homepage', { 'username': feed.movement_detail.profile.username }) %>">
                                         <% if (typeof following_profile_photo !== 'undefined') { %>
                                             <img src="<%= following_profile_photo.thumb_path %>" class="img-responsive">
@@ -83,7 +83,7 @@
                                         <% } %>
                                     </a>
                                 </div>
-                                <div class="col-md-10">
+                                <div class="col-md-10 col-sm-8 col-xs-8">
                                     <p><a href="<%= Routing.generate('colzak_user_homepage', { 'username': feed.movement_detail.profile.username }) %>"><%= feed.movement_detail.profile.firstname %></a></p>
                                 </div>
                             </div>
@@ -100,11 +100,17 @@
             </div>
         </div>
     </script>
+
     <script type="text/template" id="clzk-feeds-template">
         <div id="clzk-feed-container"></div>
         <div class="loader-indicator hidden text-center col-md-12">
             <img src="/img/ajax-loader.gif">
         </div>
+    </script>
+
+    <script type="text/template" id="clzk-empty-feed-template">
+        <p class="text-left mb2">Votre fil d'actualité est vide.</p>
+        <p class="text-left">Vous pouvez suivre d'autres musiciens avec lesquels vous avez des affinités afin d'être informé de leurs activités.</p>
     </script>
 
     <script type="text/template" id="clzk-feeds-photo-carousel-template">

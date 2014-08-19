@@ -54,8 +54,8 @@
 .clzk-search-photo-container {
 	float: left;
 	margin-right: 20px;
-	width: 220px;
-	height: 163px;
+	width: 120px;
+	height: 120px;
 	overflow: hidden;
 }
 .clzk-search-photo-container img {
@@ -78,6 +78,12 @@
 	top: 10px;
 	font-size: 15px;
 	font-weight: bold;
+}
+@media (max-width: 360px) {
+	.distance-container {
+		left: 10px;
+		font-size: 12px;
+	}
 }
 .clzk-search-user-instruments {
     max-width: 55px;
@@ -122,4 +128,19 @@
 	bottom: -70px;
 	width: 100%;
 	text-align: center;
+}
+.clzk-left-region {
+	width: 25%;
+	overflow: auto;
+}
+.clzk-right-region {
+	width: 75%;
+}
+@media(max-width: 768px) {
+	.clzk-left-region {
+		width: 80%;
+	}
+	.clzk-right-region {
+		width: 100%;
+	}
 }

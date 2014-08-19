@@ -3,6 +3,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
     ProfilePhotosView = Backbone.Marionette.ItemView.extend({
         template: '#clzk-profile-photos-template',
         tagName: 'div',
+        // className: 'col-md-4',
         events: {
             'click #image-modal': 'initCarousel'
         },

@@ -8,7 +8,7 @@ $(document).ready(function() {
 
     // Mmenu
     //Init Mmenus for mobile
-    if ($('.xs-screen-menu-link').is(':visible')) {
+    if ($('.xs-screen-menu-link').is(':visible') || $('.xs-screen-menu-link-right').is(':visible') || $('.xs-screen-menu-link-home').is(':visible')) {
         $("#right-menu").mmenu({
             // options object
             position: "right",
@@ -28,24 +28,44 @@ $(document).ready(function() {
           {
           }
        );
+
+       $("#left-menu").mmenu({
+            // options object
+            position: "left",
+            isMenu: true
+        }, {
+           // configuration object
+           selectedClass: "active-menu"
+        })
+       .on(
+          "opened.mm",
+          function()
+          {
+          }
+       ).on(
+          "closed.mm",
+          function()
+          {
+          }
+       );
    }
 
     // Bind login and register buttons for modal
-    $('#login-button').on('click', function(e) {
-        $('#login-form').submit();
-    });
+    // $('#login-button').on('click', function(e) {
+    //     $('#login-form').submit();
+    // });
 
-    $('#register-button').on('click', function(e) {
-        $('#register-form').submit();
-    });
+    // $('#register-button').on('click', function(e) {
+    //     $('#register-form').submit();
+    // });
 
-    $('#login-modal-button').on('click', function(e) {
-        $('#login-form').submit();
-    });
+    // $('#login-modal-button').on('click', function(e) {
+    //     $('#login-form').submit();
+    // });
 
-    $('#register-modal-button').on('click', function(e) {
-        $('#register-form').submit();
-    });
+    // $('#register-modal-button').on('click', function(e) {
+    //     $('#register-form').submit();
+    // });
 
     // Hide flash messages if opened
     if ($('.clzk-php-flash-messages-container').is(':visible')) {

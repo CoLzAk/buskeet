@@ -13,6 +13,13 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         className: 'full-height'
     });
 
+    SearchMenuLayout = Backbone.Marionette.Layout.extend({
+        template: '#clzk-search-menu-layout',
+        regions: {
+            actionsRegion: '#clzk-search-menu-actions-region'
+        }
+    });
+
     ModalLayout = Backbone.Marionette.Layout.extend({
         template: "#clzk-modal-layout",
         regions: {
@@ -59,11 +66,14 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
     SearchModule.displayViews = function(resultsCollection, localization, direction, filters) {
         if ($('.clzk-preview-container').is(':visible')) {
             $('.clzk-preview-container').hide();
-            $('.clzk-search-menu-region-container').animate({
+            if (!SearchModule.isMobile) {
+                $('.clzk-right-region').css('width', '75%');
+            }
+            $('#left-menu').animate({
                 'margin-left': '0'
             }, 200);
         }
-        SearchModule.searchLayout.searchMenuRegion.show(new SearchMenuView({ model: resultsCollection }));
+        SearchModule.searchMenuLayout.actionsRegion.show(new SearchMenuView({ model: resultsCollection }));
         SearchModule.searchLayout.searchPaginationRegion.show(new SearchPaginationView({ model: resultsCollection }));
         if (direction == 'profiles') {
             SearchModule.profiles = new Profiles(resultsCollection.get('items'));
@@ -77,9 +87,12 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
     };
 
     SearchModule.displayPreview = function(localization, direction, itemId) {
-        $('.clzk-search-menu-region-container').animate({
+        $('#left-menu').animate({
             'margin-left': '-1000px'
         }, 500, function() {
+            if (!SearchModule.isMobile) {
+                $('.clzk-right-region').css('width', '100%');
+            }
             $('.event-container').addClass('disabled');
             $('.clzk-preview-container').fadeIn();
         });
@@ -94,7 +107,14 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
     SearchModule.addInitializer(function(options){
         SearchModule.authUser = options.authUser;
         SearchModule.queryUrl = options.queryUrl;
+        SearchModule.searchMenuLayout = new SearchMenuLayout();
         SearchModule.searchLayout = new SearchLayout();
+        App.menuRegion.show(SearchModule.searchMenuLayout);
         App.mainRegion.show(SearchModule.searchLayout);
+        SearchModule.isMobile = false;
+
+        if ($('.xs-screen-menu-link').is(':visible') || $('.xs-screen-menu-link-right').is(':visible') || $('.xs-screen-menu-link-home').is(':visible')) {
+            SearchModule.isMobile = true;
+        }
     });
 });

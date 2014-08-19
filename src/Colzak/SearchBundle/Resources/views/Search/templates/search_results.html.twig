@@ -12,10 +12,10 @@
             <% } %>
         </div>
         <div class="pull-left">
-            <h2 class="mt1"><%= profile.firstname %>&nbsp;<%= profile.lastname %></h2>
+            <h3 class="mt0 mb0"><%= profile.firstname %>&nbsp;<%= profile.lastname %></h3>
             <p><%= moment(profile.birthdate).fromNow(true) %>, <%= profile.locality %></p>
             <% for (var i in profile.portfolio.portfolio_instruments) { %>
-                <% if (i < 3) { %>
+                <% if (i < nbInstrumentsToDisplay) { %>
                     <div class="clzk-search-user-instruments">
                         <img src="/img/instruments/<%= profile.portfolio.portfolio_instruments[i].category %>.png" class="img-responsive">
                         <p class="text-center mb0"><%= translate(profile.portfolio.portfolio_instruments[i].name) %></p>

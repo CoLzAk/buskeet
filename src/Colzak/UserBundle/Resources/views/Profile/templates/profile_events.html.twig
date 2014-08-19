@@ -5,7 +5,7 @@
                 <h4 id="clzk-profile-event-title"></h4>
             </div>
         <% } %>
-        <div class="col-md-2">
+        <div class="col-md-2 col-sm-4 col-xs-6 col-xs-offset-3">
             <div class="calendar-container">
                 <div class="calendar-month-container">
                     <p class="text-center mb0"><span id="clzk-profile-event-date-month"></span></p>
@@ -21,7 +21,9 @@
                 <p class="text-center mb0"><span id="clzk-profile-event-time"></span></p>
             </div>
         </div>
-        <div class="col-md-10">
+        <div class="visible-xs clearfix"></div>
+        <div class="visible-xs mt1"></div>
+        <div class="col-md-10 col-sm-8 col-xs-12">
             <div class="event-description-container">
                 <p id="clzk-profile-event-content"></p>
             </div>
@@ -29,10 +31,10 @@
         <div class="clearfix"></div>
         <div class="event-place-container">
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-9 col-sm-9 col-xs-9">
                     <p class="mt1"><span class="glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;&nbsp;<%= completeAddress %></p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-3 col-xs-3">
                     <p class="mt1 text-right">
                         <a href="<%= Routing.generate('colzak_event', { 'eventId': userEvent.id }) %>">Voir</a>
                     </p>
@@ -111,7 +113,7 @@
         <div class="col-md-12">
             <div class="form-horizontal mt1">
                 <div class="col-md-12">
-                    <div class="input-group col-md-12">
+                    <div class="input-group col-md-12 col-sm-12 col-xs-12">
                         <input type="text" class="form-control clzk-form-control" id="new-event-title-input" placeholder="Nom">
                     </div>
                 </div>
@@ -120,14 +122,14 @@
         </div>
         <div class="col-md-12">
             <div class="form-horizontal">
-                <div class="col-md-6">
-                    <div class="input-group col-md-12">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="input-group col-md-12 col-sm-12 col-xs-12">
                         <input type="text" class="form-control clzk-form-control datepicker" id="new-event-date-input" placeholder="Date">
                         <span class="input-group-addon clzk-input-group-addon glyphicon glyphicon-calendar"></span>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="input-group col-md-12">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="input-group col-md-12 col-sm-12 col-xs-12">
                         <input type="text" class="form-control clzk-form-control timepicker" id="new-event-time-input" placeholder="Heure">
                         <span class="input-group-addon clzk-input-group-addon glyphicon glyphicon-dashboard"></span>
                     </div>
@@ -138,7 +140,7 @@
         <div class="col-md-12">
             <div class="form-horizontal">
                 <div class="col-md-12">
-                    <div class="input-group col-md-12 mb1">
+                    <div class="input-group col-md-12 mb1 col-sm-12 col-xs-12">
                         <input type="text" class="form-control clzk-form-control" id="clzk-new-event-place-input" placeholder="Lieu">
                          <span class="input-group-addon clzk-input-group-addon glyphicon glyphicon-map-marker"></span>
                         <input type="hidden" id="clzk-new-event-street-number">
@@ -155,25 +157,26 @@
                 </div>
             </div>
             <div class="clearfix"></div>
-            <div id="event-map-container" class="col-md-12">
+            <div id="event-map-container" class="col-md-12 col-sm-12 col-xs-12">
                 <div id="event-map"></div>
             </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="form-horizontal">
-                <div class="col-md-12">
-                    <div class="input-group col-md-12 mt1 mb1">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="input-group col-md-12 mt1 mb1 col-sm-12 col-xs-12">
                         <textarea class="form-control clzk-form-control" rows="6" id="new-event-content-input" placeholder="Détail"></textarea>
                     </div>
                 </div>
             </div>
         </div>
         <div class="clearfix"></div>
-        <div class="col-md-12">
+        <div class="col-md-12 col-sm-12 col-xs-12">
             <a class="add-event-button pull-right" href="#"><span class="glyphicon glyphicon-ok"></span> Ajouter</a>
             <a class="cancel-event-button pull-right" href="#"><span class="glyphicon glyphicon-remove"></span> Annuler</a>
             <div class="clearfix mb1"></div>
         </div>
+        <div class="clearfix"></div>
     </div>
 
     <div id="clzk-profile-events-form-container"></div>

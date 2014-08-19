@@ -47,6 +47,12 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="navbar-header col-md-3 col-sm-3 col-xs-4">
+                                
+                                {% if is_granted('ROLE_USER') %}
+                                    <!-- Menu button for x-screen -->
+                                    <a href="#left-menu" class="xs-screen-menu-link xs-screen-menu-link-menu visible-xs"><span class="glyphicon glyphicon-align-justify"></span></a>
+                                {% endif %}
+
                                 <a class="navbar-brand" href="{{ path('colzak_static_homepage') }}">
                                     <img src="/img/logo_buskeet.png" class="buskeet_logo hidden-xs">
                                     <img src="/img/logo_buskeet_xs.png" class="buskeet_logo visible-xs">
@@ -55,34 +61,51 @@
                             <div class="nav navbar-nav navbar-right col-md-9 col-sm-9 col-xs-9 pull-right">
                                 <div class="pull-right" id="right-menu">
                                     <div class="visible-xs">
-                                        <div class="pull-left clzk-navbar-profile-picture-container">
-                                            {% if app.user.profile.photos|length > 0 %}
-                                                {% for photo in app.user.profile.photos %}
-                                                    {% if photo.isProfilePicture %}
-                                                        <img src="{{ photo.thumbPath }}" class="img-responsive" width="50">
-                                                    {% endif %}
-                                                {% endfor %}
-                                            {% else %}
-                                                {% if app.user.profile.gender == 'MALE' %}
-                                                    <img src="/img/male.png" alt="..." class="img-responsive clzk-navbar-profile-picture" width="50">
+                                        {% if is_granted('ROLE_USER') %}
+                                            <div class="pull-left clzk-navbar-profile-picture-container">
+                                                {% if app.user.profile.photos|length > 0 %}
+                                                    {% for photo in app.user.profile.photos %}
+                                                        {% if photo.isProfilePicture %}
+                                                            <img src="{{ photo.thumbPath }}" class="img-responsive" width="50">
+                                                        {% endif %}
+                                                    {% endfor %}
                                                 {% else %}
-                                                    <img src="/img/female.png" alt="..." class="img-responsive clzk-navbar-profile-picture" width="50">
+                                                    {% if app.user.profile.gender == 'MALE' %}
+                                                        <img src="/img/male.png" alt="..." class="img-responsive clzk-navbar-profile-picture" width="50">
+                                                    {% else %}
+                                                        <img src="/img/female.png" alt="..." class="img-responsive clzk-navbar-profile-picture" width="50">
+                                                    {% endif %}
                                                 {% endif %}
-                                            {% endif %}
-                                        </div>
-                                        <div class="pull-left">
-                                            {{ app.user.profile.firstname }}
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <ul class="nav navbar-nav navbar-right">
-                                            <li><a href="{{ path('colzak_user_homepage', { username: app.user.username }) }}"><span class="glyphicon glyphicon-user"></span> Mon profil</a></li>
-                                            <li><a href="{{ path('colzak_user_account') }}"><span class="glyphicon glyphicon-cog"></span> Mon compte</a></li>
-                                            <li class="divider"></li>
-                                            <li><a href="{{ path('colzak_user_inbox') }}"><span class="glyphicon glyphicon-envelope"></span> Messagerie</a></li>
-                                            <li class="divider"></li>
-                                            <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off"></span> Déconnexion</a></li>
-                                        </ul>
+                                            </div>
+                                            <div class="pull-left">
+                                                {{ app.user.profile.firstname }}
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <ul class="nav navbar-nav navbar-right">
+                                                <li><a href="{{ path('colzak_user_homepage', { username: app.user.username }) }}"><span class="glyphicon glyphicon-user"></span> Mon profil</a></li>
+                                                <li><a href="{{ path('colzak_user_account') }}"><span class="glyphicon glyphicon-cog"></span> Mon compte</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="{{ path('colzak_user_inbox') }}"><span class="glyphicon glyphicon-envelope"></span> Messagerie</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off"></span> Déconnexion</a></li>
+                                            </ul>
+                                        {% else %}
+                                            <ul class="nav navbar-nav navbar-right">
+                                                <li class="dropdown hidden-xs">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Connexion</a>
+                                                    <div class="dropdown-menu login-dropdown">
+                                                        {{ render(controller('ColzakUserBundle:Security:embeddedLogin')) }}
+                                                    </div>
+                                                </li>
+                                                <li class="visible-xs">
+                                                    <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+                                                </li>
+                                                <li><a href="{{ path('fos_user_registration_register') }}">Inscription</a>
+                                                </li>
+                                            </ul>
+                                        {% endif %}
                                     </div>
+
                                     <div class="hidden-xs">
                                         <ul class="nav navbar-nav navbar-right">
                                             {% if is_granted('ROLE_USER') %}
@@ -164,7 +187,10 @@
                                         <input type="hidden" id="clzk-search-addressZipcode" name="clzk-search-addressZipcode">
                                         <input type="hidden" id="clzk-search-addressSublocality" name="clzk-search-addressSublocality">
                                         <!-- Menu button for x-screen -->
-                                        <a href="#right-menu" class="xs-screen-menu-link xs-screen-menu-link-menu visible-xs pull-right"><span class="glyphicon glyphicon-th-list"></span></a>
+                                        <a href="#right-menu" class="xs-screen-menu-link-right xs-screen-menu-link-menu visible-xs pull-right">
+                                            <span class="glyphicon glyphicon-user"></span>
+                                            <span class="caret"></span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -212,65 +238,25 @@
                 </div>
             </div>
             {% block body %}
-                    <div class="row full-height">
-                        <div class="col-md-2 clzk-left-region">
-                            {% block menu_region %}{% endblock %}
-                        </div>
-                        <div class="col-md-10 clzk-right-region">
-                            <div class="clzk-scrolling-content row">
-                                <div class="col-md-12">
-                                    {% block content_region %}{% endblock %}
-                                </div>
-                                <div class="clearfix"></div>
+                <div class="row full-height">
+                    <div class="col-md-2 clzk-left-region" id="left-menu">
+                        {% block menu_region %}{% endblock %}
+                    </div>
+                    <div class="col-md-10 clzk-right-region">
+                        <div class="clzk-scrolling-content row">
+                            <div class="col-md-12">
+                                {% block content_region %}{% endblock %}
                             </div>
+                            <div class="clearfix"></div>
                         </div>
                     </div>
+                </div>
             {% endblock %}
             <div class="clzk-help-container"></div>
-            <div id="fb-root"></div>
+            <!-- <div id="fb-root"></div> -->
         </div>
 
         <div class="clearfix"></div>
-
-        {#} modal {#}
-        {#<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-label" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="login-modal-label">Connexion</h4>
-                    </div>
-                
-                    <div class="modal-body">
-                        {{ render(controller('ColzakUserBundle:Security:embeddedLogin')) }}
-                    </div>
-      
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-                        <button type="button" class="btn btn-primary" id="login-modal-button">Valider</button>
-                    </div>
-                </div>
-            </div>
-        </div>#}
-        {#<div class="modal fade" id="register-modal" tabindex="-1" role="dialog" aria-labelledby="register-modal-label" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="register-modal-label">Inscription</h4>
-                    </div>
-                
-                    <div class="modal-body">
-                        {{ render(controller('ColzakUserBundle:Registration:embeddedRegister')) }}
-                    </div>
-      
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-                        <button type="button" class="btn btn-primary" id="register-modal-button">Valider</button>
-                    </div>
-                </div>
-            </div>
-        </div>#}
         {% block extra_modal %}{% endblock %}
 
         {% block javascripts %}
@@ -304,7 +290,7 @@
             {% endif %}
 
             <!-- Maps -->
-            <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&libraries=places&language=fr&region=fr"></script>
+            <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyB3nP1qZvWfWiDArNPaAdoo5nM_L9iJQgY&sensor=true&libraries=places&language=fr&region=fr"></script>
             <script type="text/javascript" src="/js/vendor/gmap3.min.js"></script>
 
             <!-- Facebook -->

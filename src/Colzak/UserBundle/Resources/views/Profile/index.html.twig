@@ -21,32 +21,7 @@
 
 {% block menu_region %}
     {#} MENU FIRST RENDER {#}
-    <div id="clzk-menu-region">
-        {#<div id="clzk-profile-menu-actions-region">
-            <div id="clzk-profile-menu-loading">
-                <div class="spinner">
-                    <div class="bounce1"></div>
-                    <div class="bounce2"></div>
-                    <div class="bounce3"></div>
-                </div>
-                <p class="text-center">chargement</p>
-            </div>
-            <div id="clzk-profile-menu-static" class="hidden">
-                <ul class="list-group">
-                    {% if userId == visitorId %}
-                        <li class="list-group-item"><a href="#" class="clzk-context-links edit-button" data-form="profile"><h5>MON PROFIL</h5></a></li>
-                        <li class="list-group-item"><a href="#" class="clzk-context-links edit-button" data-form="informations"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Mes informations</a></li>
-                        <li class="list-group-item"><a href="#" class="clzk-context-links edit-button" data-form="photos"><span class="glyphicon glyphicon-picture"></span>&nbsp;&nbsp;Mes photos</a></li>
-                        <li class="list-group-item"><a href="#" class="clzk-context-links edit-button" data-form="portfolio"><span class="glyphicon glyphicon-music"></span>&nbsp;&nbsp;Mon portfolio</a></li>
-                        <li class="list-group-item"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;Mon programme</a></li>
-                    {% else %}
-                        <li class="list-group-item"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Suivre</a></li>
-                        <li class="list-group-item"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-envelope"></span>&nbsp;&nbsp;Contacter</a></li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>#}
-    </div>
+    <div id="clzk-menu-region"></div>
 
     {#} MENU TEMPLATES {#}
     <script type="text/template" id="clzk-profile-menu-layout">
@@ -79,55 +54,24 @@
 
 {% block content_region %}
     {#} PROFILE FIRST RENDER {#}
-    <div id="clzk-main-region" class="clzk-profile-region">
-        {#<div class="row">
-            <div class="col-md-4">
-                <div id="clzk-profile-photos-region" class="clzk-region">
-                    <div id="clzk-profile-photos-static">
-                        <div class="clzk-profile-photos-container">
-                            {% if profilePicture is not null %}
-                                <a data-toggle="modal" id="image-modal" href="#" data-target="#clzk-modal">
-                                    <img src="{{ profilePicture.path }}" alt="..." class="img-responsive clzk-profile-picture">
-                                </a>
-                            {% else %}
-                                <img src="/img/user_256.png" alt="..." class="img-responsive clzk-profile-picture">
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-                <div id="clzk-profile-message-region"></div>
-            </div>
-            <div class="col-md-8">
-                <div id="clzk-profile-informations-region" class="clzk-region">
-                    <div id="clzk-profile-informations-static">
-                        <h1 class="text-left mt0">
-                            <span id="clzk-profile-firstname">{{ profile.firstname }}</span>&nbsp;<span id="clzk-profile-lastname">{{ profile.lastname }}</span>
-                        </h1>
-                        <p class="text-left">
-                            <span id="clzk-profile-birthdate">{{ profile.birthdate|date('d/m/Y') }}</span>, <span id="clzk-profile-locality">{{ profile.locality }}</span>
-                        </p>
-                        <hr class="clzk-hr">
-                        <p class="text-left" id="clzk-profile-description">{{ profile.description }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div id="clzk-portfolio-region" class="clzk-region"></div>
-        </div>#}
-    </div>
+    <div id="clzk-main-region" class="clzk-profile-region"></div>
 
     {#} PROFILE TEMPLATES {#}
     {#} Profile Layout {#}
     <script type="text/template" id="clzk-profile-layout">
         <div class="row">
-            <div class="col-md-4">
-                <div id="clzk-profile-photos-region" class="clzk-region"></div>
+            <div id="clzk-profile-photos-region" class="clzk-region col-md-4 col-sm-4 col-xs-4"></div>
+
+            <div id="clzk-profile-informations-region" class="clzk-region col-md-8 col-sm-4 col-xs-8"></div>
+            <div id="clzk-profile-description-xs-container" class="visible-xs col-xs-12"></div>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-sm-5 col-xs-12">
                 <div id="clzk-profile-portfolio-region" class="clzk-region"></div>
             </div>
-            <div class="col-md-8">
-                <div id="clzk-profile-informations-region" class="clzk-region"></div>
-                <hr>
+            <div class="col-md-8 col-sm-7 col-xs-12">
                 <div id="clzk-profile-events-region" class="clzk-region"></div>
             </div>
         </div>
@@ -159,7 +103,7 @@
     <div id="clzk-form-region" class="clzk-profile-edit-region hidden"></div>
     
     <script type="text/template" id="clzk-profile-edit-layout">
-        <div class="col-md-12">
+        <div class="col-md-12 col-sm-12 col-xs-12">
             <div id="clzk-profile-edit-region"></div>
         </div>
     </script>

@@ -3,8 +3,19 @@
     max-height: 350px;
     overflow: hidden;
 }
+@media(max-width: 360px) {
+    #clzk-profile-photos-region {
+        min-height: 0;
+        max-height: 100px;
+    }
+}
 #clzk-profile-informations-region {
     min-height: 220px;
+}
+@media(max-width: 360px) {
+    #clzk-profile-informations-region {
+        min-height: 0;
+    }
 }
 .clzk-profile-pictures-modify-bar {
     position: absolute;
@@ -53,7 +64,11 @@
 .clzk-portfolio-item-line .clzk-center {
     line-height: 45px;
 }
-
+@media(max-width: 360px) {
+    .clzk-portfolio-item-line .clzk-center {
+        line-height: 1;
+    }
+}
 .delete-portfolio-item-button, .delete-event-button {
     font-size: 24px;
     color: #FFF;

@@ -41,9 +41,14 @@ App.module("FeedsModule", function(FeedsModule, App, Backbone, Marionette, $, _)
         }
     });
 
+    EmptyFeedView = Backbone.Marionette.ItemView.extend({
+        template: '#clzk-empty-feed-template'
+    });
+
     FeedsView = Backbone.Marionette.CompositeView.extend({
         template: '#clzk-feeds-template',
         itemView: FeedView,
+        emptyView: EmptyFeedView,
         tagName: 'div',
         itemViewContainer: function() {
             return '#clzk-feed-container';

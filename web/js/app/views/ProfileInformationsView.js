@@ -2,6 +2,8 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
 
     ProfileInformationsView = Backbone.Marionette.ItemView.extend({
         template: '#clzk-profile-informations-template',
+        tagName: 'div',
+        // className: 'col-md-8',
         bindings: {
             '#clzk-profile-firstname': 'firstname',
             '#clzk-profile-lastname': 'lastname',
@@ -38,6 +40,9 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             return {
                 profile: this.model.toJSON()
             };
+        },
+        onDomRefresh: function() {
+            $('#clzk-profile-description-xs-container').html('<h4 class="mt2 text-cyan">A propos de moi</h4><p class="text-left">'+this.model.get('description')+'</p>');
         }
     });
 

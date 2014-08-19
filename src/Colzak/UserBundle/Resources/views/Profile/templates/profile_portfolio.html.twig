@@ -5,7 +5,7 @@
                 <div class="row">
                     <% if (typeof profile.portfolio !== 'undefined' && profile.portfolio.portfolio_instruments.length > 0) { %>
                         <% for (var i in profile.portfolio.portfolio_instruments) { %>
-                            <div class="col-md-4 mb1">
+                            <div class="col-md-4 col-sm-4 col-xs-4 mb1">
                                 <img src="/img/instruments/<%= profile.portfolio.portfolio_instruments[i].category %>.png" class="img-responsive">
                                 <p class="text-center"><%= translate(profile.portfolio.portfolio_instruments[i].name) %></p>
                                 <div class="progress">
@@ -81,12 +81,12 @@
                         <div class="col-md-12 mb1 mt1">
                             <p>Ajouter une compétence</p>
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-md-5 col-sm-5 col-xs-12">
                                     <select id="clzk-portfolio-portfolio-instruments" class="form-control">
                                         <option value="">Choisissez un instrument</option>
                                     </select>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-5 col-sm-5 col-xs-9">
                                     <div class="clzk-moz-select">
                                         <select id="clzk-portfolio-portfolio-instruments-level">
                                             <option value="BEGINNER">Débutant</option>
@@ -95,7 +95,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-2 col-sm-2 col-xs-3">
                                     <a href="#" class="add-portfolio-item-button btn btn-block" data-item="portfolio-instrument"><span class="glyphicon glyphicon-plus-sign"></span></a>
                                 </div>
                             </div>
@@ -103,17 +103,31 @@
                             <% if (typeof profile.portfolio !== 'undefined' && profile.portfolio.portfolio_instruments.length > 0) { %>
                                 <% for (var i in profile.portfolio.portfolio_instruments) { %>
                                     <div class="clzk-portfolio-item-line">
-                                        <div class="row mb1">
-                                            <div class="col-md-2">
+                                        <div class="row mb1 hidden-xs">
+                                            <div class="col-md-2 col-sm-3">
                                                 <img src="/img/instruments/<%= profile.portfolio.portfolio_instruments[i].category %>.png" class="img-responsive">
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-4 col-sm-3">
                                                 <p class="clzk-center text-center"><%= translate(profile.portfolio.portfolio_instruments[i].name) %></p>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-4 col-sm-4">
                                                 <p class="clzk-center text-center"><%= translate(profile.portfolio.portfolio_instruments[i].level) %></p>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-2 col-sm-2">
+                                                <p class="clzk-center">
+                                                    <a href="#" class="btn btn-block delete-portfolio-item-button" data-item="portfolio-instrument" data-index="<%= i %>"><span class="glyphicon glyphicon-trash"></span></a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row visible-xs">
+                                            <div class="col-xs-4">
+                                                <img src="/img/instruments/<%= profile.portfolio.portfolio_instruments[i].category %>.png" class="img-responsive">
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <p class="clzk-center text-left"><%= translate(profile.portfolio.portfolio_instruments[i].name) %></p>
+                                                <p class="clzk-center text-left"><%= translate(profile.portfolio.portfolio_instruments[i].level) %></p>
+                                            </div>
+                                            <div class="col-xs-4">
                                                 <p class="clzk-center">
                                                     <a href="#" class="btn btn-block delete-portfolio-item-button" data-item="portfolio-instrument" data-index="<%= i %>"><span class="glyphicon glyphicon-trash"></span></a>
                                                 </p>
@@ -138,10 +152,10 @@
                         <div class="col-md-12 mb1 mt1">
                             <p>Ajouter un style musical</p>
                             <div class="row">
-                                <div class="col-md-10">
+                                <div class="col-md-10 col-sm-10 col-xs-9">
                                     <input type="text" id="clzk-portfolio-music-style" class="form-control clzk-form-control" placeholder="Type de musique">
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-2 col-sm-2 col-xs-3">
                                     <a href="#" class="add-portfolio-item-button btn btn-block" data-item="music-style"><span class="glyphicon glyphicon-plus-sign"></span></a>
                                 </div>
                             </div>
@@ -150,10 +164,10 @@
                                 <% for (var i in profile.portfolio.music_styles) { %>
                                     <div class="clzk-portfolio-item-line">
                                         <div class="row mb1">
-                                            <div class="col-md-10">
+                                            <div class="col-md-10 col-sm-10 col-xs-8">
                                                 <p class="clzk-center"><%= profile.portfolio.music_styles[i].name %></p>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-2 col-sm-2 col-xs-4">
                                                 <p class="clzk-center">
                                                     <a href="#" class="btn btn-block delete-portfolio-item-button" data-item="music-style" data-index="<%= i %>"><span class="glyphicon glyphicon-trash"></span></a>
                                                 </p>
@@ -178,10 +192,10 @@
                         <div class="col-md-12 mb1 mt1">
                             <p>Ajouter une influence musicale</p>
                             <div class="row">
-                                <div class="col-md-10">
+                                <div class="col-md-10 col-sm-10 col-xs-9">
                                     <input type="text" id="clzk-portfolio-influence" class="form-control clzk-form-control" placeholder="Nom">
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-2 col-sm-2 col-xs-3">
                                     <a href="#" class="add-portfolio-item-button btn btn-block" data-item="influence"><span class="glyphicon glyphicon-plus-sign"></span></a>
                                 </div>
                             </div>
@@ -190,10 +204,10 @@
                                 <% for (var i in profile.portfolio.influences) { %>
                                     <div class="clzk-portfolio-item-line">
                                         <div class="row mb1">
-                                            <div class="col-md-10">
+                                            <div class="col-md-10 col-sm-10 col-xs-8">
                                                 <p class="clzk-center"><%= profile.portfolio.influences[i].name %></p>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-2 col-sm-2 col-xs-4">
                                                 <p class="clzk-center">
                                                     <a href="#" class="btn btn-block delete-portfolio-item-button" data-item="influence" data-index="<%= i %>"><span class="glyphicon glyphicon-trash"></span></a>
                                                 </p>
