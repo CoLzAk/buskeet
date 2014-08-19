@@ -168,6 +168,17 @@ html, body {
     position: relative;
     top: 5px;
 }
+@media(min-width: 767px) {
+    .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+        margin-left: -10px;
+    }
+    .xs-screen-menu-link-right {
+        top: 5px;
+    }
+    .xs-screen-menu-link-right .caret {
+        top: 15px;
+    }
+}
 .label-danger {
     background: #f56954;
 }
@@ -383,7 +394,7 @@ html, body {
 }
 .clzk-home-container {
     margin: auto;
-    width: 100%;
+    width: 900px;
     font-size: 17px;
 }
 .clzk-login-register-container {
@@ -404,6 +415,11 @@ html, body {
     font-size: 42px;
     color: #DDD;
 }
+.clzk-search-container {
+    position: absolute;
+    top: 35%;
+    left: 18%;
+}
 @media (max-width: 360px) {
     .clzk-home-container {
         font-size: 15px;
@@ -412,15 +428,24 @@ html, body {
         font-size: 25px;
     }
 }
-@media (min-width: 769px) {
+@media (max-width: 768px) {
     .clzk-home-container {
-        width: 800px;
+        width: 700px;
     }
-}
-.clzk-search-container {
-    position: absolute;
-    top: 35%;
-    left: 18%;
+    .clzk-search-container {
+        position: absolute;
+        top: 25%;
+        left: 30px;
+    }
+    .clzk-preview-container {
+        margin-top: 50px;
+    }
+    .navbar-nav > li {
+        float: none;
+    }
+    .mm-list {
+        width: 100%;
+    }
 }
 .clzk-home-description-container {
     margin: 40px auto;

@@ -50,7 +50,7 @@
                                 
                                 {% if is_granted('ROLE_USER') %}
                                     <!-- Menu button for x-screen -->
-                                    <a href="#left-menu" class="xs-screen-menu-link xs-screen-menu-link-menu visible-xs"><span class="glyphicon glyphicon-align-justify"></span></a>
+                                    <a href="#left-menu" class="xs-screen-menu-link xs-screen-menu-link-menu visible-xs visible-sm"><span class="glyphicon glyphicon-align-justify"></span></a>&nbsp;
                                 {% endif %}
 
                                 <a class="navbar-brand" href="{{ path('colzak_static_homepage') }}">
@@ -60,7 +60,7 @@
                             </div>
                             <div class="nav navbar-nav navbar-right col-md-9 col-sm-9 col-xs-9 pull-right">
                                 <div class="pull-right" id="right-menu">
-                                    <div class="visible-xs">
+                                    <div class="visible-xs visible-sm">
                                         {% if is_granted('ROLE_USER') %}
                                             <div class="pull-left clzk-navbar-profile-picture-container">
                                                 {% if app.user.profile.photos|length > 0 %}
@@ -81,8 +81,8 @@
                                                 {{ app.user.profile.firstname }}
                                             </div>
                                             <div class="clearfix"></div>
-                                            <ul class="nav navbar-nav navbar-right">
-                                                <li><a href="{{ path('colzak_user_homepage', { username: app.user.username }) }}"><span class="glyphicon glyphicon-user"></span> Mon profil</a></li>
+                                            <ul class="nav navbar-nav">
+                                                <li class="clearfix"><a href="{{ path('colzak_user_homepage', { username: app.user.username }) }}"><span class="glyphicon glyphicon-user"></span> Mon profil</a></li>
                                                 <li><a href="{{ path('colzak_user_account') }}"><span class="glyphicon glyphicon-cog"></span> Mon compte</a></li>
                                                 <li class="divider"></li>
                                                 <li><a href="{{ path('colzak_user_inbox') }}"><span class="glyphicon glyphicon-envelope"></span> Messagerie</a></li>
@@ -106,7 +106,7 @@
                                         {% endif %}
                                     </div>
 
-                                    <div class="hidden-xs">
+                                    <div class="hidden-xs hidden-sm">
                                         <ul class="nav navbar-nav navbar-right">
                                             {% if is_granted('ROLE_USER') %}
                                                 <!-- Notif (feature) -->
@@ -187,7 +187,7 @@
                                         <input type="hidden" id="clzk-search-addressZipcode" name="clzk-search-addressZipcode">
                                         <input type="hidden" id="clzk-search-addressSublocality" name="clzk-search-addressSublocality">
                                         <!-- Menu button for x-screen -->
-                                        <a href="#right-menu" class="xs-screen-menu-link-right xs-screen-menu-link-menu visible-xs pull-right">
+                                        <a href="#right-menu" class="xs-screen-menu-link-right xs-screen-menu-link-menu visible-xs pull-right visible-sm">
                                             <span class="glyphicon glyphicon-user"></span>
                                             <span class="caret"></span>
                                         </a>

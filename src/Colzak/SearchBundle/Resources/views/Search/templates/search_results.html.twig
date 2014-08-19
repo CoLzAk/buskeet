@@ -31,16 +31,16 @@
         </div>
         <div class="clearfix"></div>
     </div>
-    <div class="clzk-result-actions-container hidden" id="clzk-result-actions-container-<%= profile.id %>">
+    <div class="clzk-result-actions-container hidden mt1 mb1" id="clzk-result-actions-container-<%= profile.id %>">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 col-sm-6 col-xs-12">
                 <% if (!isFollowing) { %>
                     <a href="#" class="follow-button"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Suivre ce musicien</a>
                 <% } else { %>
                     <a href="#" class="follow-button text-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Ne plus suivre</a>
                 <% } %>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 col-sm-6 col-xs-12">
                 <a href="<%= Routing.generate('colzak_user_homepage', {'username': profile.username}) %>" class="clzk-context-links">Voir le profil complet</a>
             </div>
         </div>

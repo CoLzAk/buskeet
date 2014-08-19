@@ -289,7 +289,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
 
             // var mapWidth = 500;
 
-            mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center=47,2&zoom=5&size='+ mapWidth +'x150&maptype=roadmap&sensor=false&scale=1';
+            mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyB3nP1qZvWfWiDArNPaAdoo5nM_L9iJQgY&center=47,2&zoom=5&size='+ mapWidth +'x150&maptype=roadmap&sensor=false&scale=1';
 
             $('#event-map').html('<img src="'+ mapUrl +'">');
 
@@ -342,7 +342,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                         $('#clzk-new-event-lon').val(place.geometry.location.lng());
                         $('#clzk-new-event-lat').val(place.geometry.location.lat());
 
-                        mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center='+ place.geometry.location.lat() +','+ place.geometry.location.lng() +'&zoom=14&size='+mapWidth+'x150&maptype=roadmap&markers=color:red|'+ place.geometry.location.lat() +','+ place.geometry.location.lng() +'&sensor=false';
+                        mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyB3nP1qZvWfWiDArNPaAdoo5nM_L9iJQgY&center='+ place.geometry.location.lat() +','+ place.geometry.location.lng() +'&zoom=14&size='+mapWidth+'x150&maptype=roadmap&markers=color:red|'+ place.geometry.location.lat() +','+ place.geometry.location.lng() +'&sensor=false';
 
                         $('#event-map').html('<img src="'+ mapUrl +'">');
                     }

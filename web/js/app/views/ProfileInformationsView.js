@@ -14,7 +14,12 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 }
             },
             '#clzk-profile-locality': 'locality',
-            '#clzk-profile-description': 'description'
+            '#clzk-profile-description': {
+                observe: 'description',
+                onGet: function(value) {
+                    return value || '';
+                }
+            }
         },
         onRender: function() {
             this.stickit();

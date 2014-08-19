@@ -136,9 +136,17 @@
 .clzk-right-region {
 	width: 75%;
 }
-@media(max-width: 768px) {
+@media(max-width: 360px) {
 	.clzk-left-region {
 		width: 80%;
+	}
+	.clzk-right-region {
+		width: 100%;
+	}
+}
+@media(min-width:380px) and (max-width: 768px) {
+	.clzk-left-region {
+		width: 58%;
 	}
 	.clzk-right-region {
 		width: 100%;
