@@ -47,7 +47,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             };
         },
         onDomRefresh: function() {
-            $('#clzk-profile-description-xs-container').html('<h4 class="mt2 text-cyan">A propos de moi</h4><p class="text-left">'+this.model.get('description')+'</p>');
+            $('#clzk-profile-description-xs-container').html('<h4 class="mt2 text-cyan">A propos de moi</h4><p class="text-left">'+(typeof this.model.get('description') !== 'undefined' ? this.model.get('description') : '' +'</p>');
         }
     });
 
