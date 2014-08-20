@@ -152,3 +152,6 @@
 		width: 100%;
 	}
 }
+.search-info-panel {
+	border: none !important;
+}

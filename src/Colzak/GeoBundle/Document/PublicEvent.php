@@ -1,5 +1,5 @@
 <?php
-// src/Colzak/GeoBundle/Document/Address.php
+// src/Colzak/GeoBundle/Document/PublicEvent.php
 
 namespace Colzak\GeoBundle\Document;
 
@@ -7,11 +7,49 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as SERIAL;
 
 /**
- * @MongoDB\EmbeddedDocument
+ * @MongoDB\Document(repositoryClass="Colzak\GeoBundle\Repository\PublicEventRepository")
  * @SERIAL\ExclusionPolicy("none")
+ * @MongoDB\HasLifecycleCallbacks
+ * @MongoDB\Index(keys={"publicEventCoordinates"="2d"})
  */
-class Address
+class PublicEvent
 {
+    /**
+     * @MongoDB\Id(strategy="auto")
+     * @SERIAL\Type("string")
+     */
+    protected $id;
+
+    /**
+     * @MongoDB\String
+     * @SERIAL\Type("string")
+     */
+    protected $title;
+
+    /**
+     * @MongoDB\String
+     * @SERIAL\Type("string")
+     */
+    protected $content;
+
+    /**
+     * @MongoDB\Date
+     * @SERIAL\Type("DateTime<'Y-m-d'>")
+     */
+    protected $date;
+
+    /**
+     * @MongoDB\String
+     * @SERIAL\Type("string")
+     */
+    protected $time;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Colzak\UserBundle\Document\Profile")
+     * @SERIAL\Type("Colzak\UserBundle\Document\Profile")
+     */
+    protected $createdBy;
+
     /**
      * @MongoDB\String
      * @SERIAL\Type("string")
@@ -61,10 +99,133 @@ class Address
     protected $country;
 
     /**
-     * @MongoDB\EmbedOne(targetDocument="Colzak\GeoBundle\Document\Coordinate")
-     * @SERIAL\Type("Colzak\GeoBundle\Document\Coordinate")
+     * @MongoDB\EmbedOne(targetDocument="Colzak\GeoBundle\Document\PublicEventCoordinate")
+     * @SERIAL\Type("Colzak\GeoBundle\Document\PublicEventCoordinate")
      */
-    protected $coordinates;
+    protected $publicEventCoordinates;
+
+    public function __construct() {
+    }
+
+    /**
+     * Get id
+     *
+     * @return id $id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return self
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string $title
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     * @return self
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string $content
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set date
+     *
+     * @param date $date
+     * @return self
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return date $date
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set time
+     *
+     * @param string $time
+     * @return self
+     */
+    public function setTime($time)
+    {
+        $this->time = $time;
+        return $this;
+    }
+
+    /**
+     * Get time
+     *
+     * @return string $time
+     */
+    public function getTime()
+    {
+        return $this->time;
+    }
+
+    /**
+     * Set createdBy
+     *
+     * @param Colzak\UserBundle\Document\Profile $createdBy
+     * @return self
+     */
+    public function setCreatedBy(\Colzak\UserBundle\Document\Profile $createdBy)
+    {
+        $this->createdBy = $createdBy;
+        return $this;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return Colzak\UserBundle\Document\Profile $createdBy
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
 
     /**
      * Set streetNumber
@@ -243,24 +404,24 @@ class Address
     }
 
     /**
-     * Set coordinates
+     * Set publicEventCoordinates
      *
-     * @param Colzak\GeoBundle\Document\Coordinate $coordinates
+     * @param Colzak\GeoBundle\Document\PublicEventCoordinate $publicEventCoordinates
      * @return self
      */
-    public function setCoordinates(\Colzak\GeoBundle\Document\Coordinate $coordinates)
+    public function setPublicEventCoordinates(\Colzak\GeoBundle\Document\PublicEventCoordinate $publicEventCoordinates)
     {
-        $this->coordinates = $coordinates;
+        $this->publicEventCoordinates = $publicEventCoordinates;
         return $this;
     }
 
     /**
-     * Get coordinates
+     * Get publicEventCoordinates
      *
-     * @return Colzak\GeoBundle\Document\Coordinate $coordinates
+     * @return Colzak\GeoBundle\Document\PublicEventCoordinate $publicEventCoordinates
      */
-    public function getCoordinates()
+    public function getPublicEventCoordinates()
     {
-        return $this->coordinates;
+        return $this->publicEventCoordinates;
     }
 }

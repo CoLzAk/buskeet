@@ -7,7 +7,8 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             searchMenuRegion: '#clzk-search-menu-region',
             searchResultsRegion: '#clzk-search-results-region',
             searchPaginationRegion: '#clzk-search-pagination-region',
-            searchPreviewRegion: '#clzk-search-preview-region'
+            searchPreviewRegion: '#clzk-search-preview-region',
+            searchInfoRegion: '#clzk-search-info-region'
         },
         tagName: 'div',
         className: 'full-height'
@@ -78,10 +79,18 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         if (direction == 'profiles') {
             SearchModule.profiles = new Profiles(resultsCollection.get('items'));
             SearchModule.searchLayout.searchResultsRegion.show(new SearchResultsView({ collection: SearchModule.profiles }));
+            
+            // SearchModule.publicPlaces = SearchModule.profiles;
+            // // fetch public places
+            // SearchModule.searchLayout.searchInfoRegion.show(new SearchPublicPlacesView({ collection: SearchModule.publicPlaces }));
         }
         if (direction == 'events') {
             SearchModule.usersEvents = new SearchEvents(resultsCollection.get('items'));
             SearchModule.searchLayout.searchResultsRegion.show(new SearchEventsView({ collection: SearchModule.usersEvents }));
+            
+            // SearchModule.publicEvents = SearchModule.usersEvents;
+            // // fetch public places
+            // SearchModule.searchLayout.searchInfoRegion.show(new SearchPublicEventsView({ collection: SearchModule.publicEvents }));
         }
         NProgress.done();
     };

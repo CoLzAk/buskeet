@@ -4,18 +4,11 @@ Messagerie:
 	Supprimer message
 	Supprimer thread
 	Message lu
-
-Photo:
-	Supprimer les thumbs lors de la suppression
+	Envoyer mail que lors de la créa du thread
 
 Global:
 	Ajouter des flash messages (compte (chgt mdp etc.))
-	Responsiveness
 	Facebook Login
-	Favicon
-	Sitemap (command)
-	Robots.txt
-	Retirer app_dev.php
 	Optimiser images
 	Transformer notifications en service (recherche transform notif dans le code)
 	Liste instruments
@@ -31,7 +24,6 @@ Profil:
 	Les evenements auxquels je participe (feature)
 	
 Evenement
-	Bouton share (reseaux sociaux)
 	Auto hide (lorsque la date est dépassée) (feature)
 	ajouter nb participants max (si > nbParticipants on affiche plus) (feature)
 	ajouter private / public (pour affichage) (feature)
@@ -45,11 +37,7 @@ Recherche:
 	infinite scroll on mobile (feature)
 
 News Feed (feature)
-	Autour de moi (A tours : Festival terre du son ce weekend)
-	Ce que font les "amis" (Jean pierre va jouer au connemara ce soir, Augustine va jouer dans la rue demain apres midi)
 	les jam sessions en cours
-
-Ajouter/supprimer amis (feature)
 
 Creer groupe (feature)
 	nom
@@ -60,25 +48,14 @@ Bandeau de gauche:
 	Actus + evenement à venir (dans la ville de l'utilisateur ou partout (si pas loggué))
 	Pub
 
-Type d'instrument:
-	- Electronique
-
 Footer:
-	- a propos
-	- CGU
-	- Confidentialité
 	- Inviter des amis (mail)
-
-	Liens réseaux sociaux
-
-Page facebook : 
-	- parler du concept
-	- demander idées + bug
 
 Cron pour envoyer les mails
 	php app/console swiftmailer:spool:send --message-limit=10 --env=prod //limit msg
 	php app/console swiftmailer:spool:send --time-limit=10 --env=prod //limit temps
 	php app/console swiftmailer:spool:send --message-limit=10 --time-limit=10 --env=prod //les deux ? a tester
+
 
 Bugs:
 	pb affichage date de naissance a l'inscription ?

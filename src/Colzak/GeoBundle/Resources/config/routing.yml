@@ -1,3 +1,5 @@
-colzak_geo_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: ColzakGeoBundle:Default:index }
+colzak_add_public_place:
+    pattern:  /public/places/add
+    defaults: { _controller: ColzakGeoBundle:PublicPlace:add }
+    options:
+        expose: true
