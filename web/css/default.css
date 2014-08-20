@@ -1,6 +1,22 @@
 body {
     padding-top: 45px;
 }
+#cookie-banner {
+    position: fixed;
+    bottom: 10px;
+    z-index: 9999;
+    color: #FFF;
+    width: 300px;
+    right: 10px;
+    border-radius: 5px;
+    border: 1px #323232 solid;
+}
+.cookie-banner-content {
+    background-color: #333;
+    /*height: auto;*/
+    padding: 10px;
+    border-radius: 5px;
+}
 .buskeet_logo {
     position: relative;
     top: -26px;
