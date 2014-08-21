@@ -65,7 +65,7 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_SUPER_ADMIN }
         - { path: ^/messages/, role: IS_AUTHENTICATED_FULLY }
-        # - { path: ^/profile/, role: IS_AUTHENTICATED_FULLY }
-        # - { path: ^/s/, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/profile/, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/s/, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/account, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/home, role: IS_AUTHENTICATED_FULLY }
