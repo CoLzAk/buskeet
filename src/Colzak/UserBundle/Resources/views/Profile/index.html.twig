@@ -1,9 +1,9 @@
 {% extends 'ColzakUserBundle::layout.html.twig' %}
 
-{% block title %}Buskeet | {{ [profile.firstname, profile.lastname]|join(' ') }}{% endblock %}
+{% block title %}Buskeet | {{ profile.firstname }}{% endblock %}
 
 {% block meta %}
-    <meta name="description" content="{{ [profile.firstname, profile.lastname]|join(' ') }}, musicien de {{ profile.birthdate|date('Y-m-d')|age }} ans, à {{ profile.locality }}">
+    <meta name="description" content="{{ profile.firstname }}, musicien de {{ profile.birthdate|date('Y-m-d')|age }} ans, à {{ profile.locality }}">
 {% endblock %}
 
 {% block extra_stylesheets %}

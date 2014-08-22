@@ -13,9 +13,9 @@
         </div>
         <div class="pull-left">
             <% if (isMobile) { %>
-                <p class="mt0 mb0"><strong><%= profile.firstname %>&nbsp;<%= profile.lastname %></strong></p>
+                <p class="mt0 mb0"><strong><%= profile.firstname %>{#&nbsp;<%= profile.lastname %></strong>#}</p>
             <% } else { %>
-                <h3 class="mt0 mb0"><%= profile.firstname %>&nbsp;<%= profile.lastname %></h3>
+                <h3 class="mt0 mb0"><%= profile.firstname %>{#&nbsp;<%= profile.lastname %>#}</h3>
             <% } %>
             <p><%= moment(profile.birthdate).fromNow(true) %>, <%= profile.locality %></p>
             <% for (var i in profile.portfolio.portfolio_instruments) { %>

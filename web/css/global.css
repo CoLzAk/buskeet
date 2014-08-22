@@ -428,7 +428,7 @@ html, body {
         font-size: 25px;
     }
 }
-@media (max-width: 768px) {
+@media (min-width: 361px) and (max-width: 768px) {
     .clzk-home-container {
         width: 700px;
     }
