@@ -13,9 +13,11 @@ use Doctrine\ODM\MongoDB\DocumentRepository;
 class EventRepository extends DocumentRepository
 {
     public function eventFilteredSearch($searchParams) {
+    	$now = new \Datetime();
+    	$yesterday = $now->sub(new \DateInterval('P1D'));
         $q = $this->createQueryBuilder()->eagerCursor(true);
         $q->field('eventCoordinates')->geoNear((float)$searchParams['lat'], (float)$searchParams['lng'])->spherical(true)->distanceMultiplier(6378.137)->maxDistance((isset($searchParams['radius']) ? $searchParams['radius'] : 20)/6371);
-
+        $q->field('date')->gte($yesterday);
         $q->limit(20);
 
         return $q->getQuery()->execute()->toArray(false);;

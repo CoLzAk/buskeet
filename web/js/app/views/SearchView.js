@@ -242,7 +242,8 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
                 nbInstrumentsToDisplay: (SearchModule.isMobile ? 2 : 3),
                 isFollowing: (typeof this.isFollowing() === 'undefined' ? false : true),
                 isMobile: SearchModule.isMobile,
-                isHimself: (SearchModule.authUser.profile.id === this.model.get('id'))
+                isHimself: (SearchModule.authUser !== null ? SearchModule.authUser.profile.id === this.model.get('id') : false),
+                isAuthenticated: SearchModule.authUser
             };
         },
         toggleFollowUser: function(e) {
@@ -275,6 +276,9 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             });
         },
         isFollowing: function() {
+            if (SearchModule.authUser === null || SearchModule.authUser == '') {
+                return;
+            }
             return _.findWhere(SearchModule.authUser.profile.following, { username: this.model.get('username') });
         },
         onDomRefresh: function() {

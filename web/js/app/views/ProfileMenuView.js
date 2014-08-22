@@ -29,6 +29,10 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         },
         toggleFollowUser: function(e) {
             e.preventDefault();
+            if (UserModule.visitorId === null || UserModule.visitorId == '') {
+                window.location.replace(Routing.generate('fos_user_security_login'));
+                return;
+            }
             NProgress.start();
             var that = this;
             if (UserModule.visitorId === null || UserModule.visitorId == '') {
@@ -52,7 +56,11 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             });
         },
         isFollowing: function() {
-            return _.findWhere(UserModule.visitor.get('following'), { username: UserModule.targetUserUsername });
+            if (UserModule.visitorId === null || UserModule.visitorId == '') {
+                return;
+            } else {
+                return _.findWhere(UserModule.visitor.get('following'), { username: UserModule.targetUserUsername });
+            }
         },
         serializeData: function() {
             return {

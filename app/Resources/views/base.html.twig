@@ -28,19 +28,18 @@
         <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
 
         {#} Analytics {#}
+        {% spaceless %}
         <script>
             // Remplacez la valeur UA-XXXXXX-Y par l'identifiant analytics de votre site.
             gaProperty = 'UA-49599107-2'
 
             // Désactive le tracking si le cookie d’Opt-out existe déjà.
-
             var disableStr = 'ga-disable-' + gaProperty;
 
             if (document.cookie.indexOf('hasConsent=false') > -1) {
                 window[disableStr] = true;
             }
             //Cette fonction retourne la date d’expiration du cookie de consentement 
-
             function getCookieExpireDate() { 
                 var cookieTimeout = 34214400000;// Le nombre de millisecondes que font 13 mois 
                 var date = new Date();
@@ -48,7 +47,6 @@
                 var expires = "; expires="+date.toGMTString();
                 return expires;
             }
-
             // Cette fonction est appelée pour afficher la demande de consentement
             function askConsent(){
                 var bodytag = document.getElementsByTagName('body')[0];
@@ -57,15 +55,15 @@
                 div.setAttribute('width','70%');
                 // Le code HTML de la demande de consentement
                 // Vous pouvez modifier le contenu ainsi que le style
-                div.innerHTML =  '<div style="background-color:#ffffff">Ce site utilise Google Analytics.\
+
+                div.innerHTML =  '<div class="cookie-banner-content">Buskeet utilise des cookies.\
                 En continuant à naviguer, vous nous autorisez à déposer des cookies à des fins de \
-                mesure d\'audience.  Pour s\'opposer à ce dépôt vous pouvez cliquer  \
-                <a href="javascript:gaOptout()">ici</a>.</div>';          
+                mesure d\'audience. Pour s\'opposer à ce dépôt vous pouvez cliquer  \
+                <a href="javascript:gaOptout()">ici</a>.<div class="text-center"><a href="javascript:gaOptin()" class="btn btn-sm btn-primary">ok</a></div></div>';          
+
                 bodytag.insertBefore(div,bodytag.firstChild); // Ajoute la bannière juste au début de la page 
                 document.getElementsByTagName('body')[0].className+=' cookiebanner';              
             }
-                  
-                  
             // Retourne la chaine de caractère correspondant à nom=valeur
             function getCookie(NomDuCookie)  {
                 if (document.cookie.length > 0) {        
@@ -102,14 +100,16 @@
                 var div = document.getElementById('cookie-banner');
                 // Ci dessous le code de la bannière affichée une fois que l'utilisateur s'est opposé au dépôt
                 // Vous pouvez modifier le contenu et le style
-                if ( div!= null ) div.innerHTML = '<div style="background-color:#ffffff"> Vous vous êtes opposé \
-                au dépôt de cookies de mesures d\'audience dans votre navigateur </div>'
+                if ( div!= null ) div.innerHTML = '<div class="cookie-banner-content"> Vous vous êtes opposé \
+                au dépôt de cookies de mesures d\'audience dans votre navigateur </div>';
                 window[disableStr] = true;
                 deleteAnalyticsCookies();
             }
-
-
-
+            // La fonction d'opt-out   
+            function gaOptin() {
+                document.cookie = 'hasConsent=true;'+ getCookieExpireDate() +' ; path=/';
+                document.getElementById('cookie-banner').style.display = 'none';
+            }
             //Ce bout de code vérifie que le consentement n'a pas déjà été obtenu avant d'afficher
             // la baniére
             var consentCookie =  getCookie('hasConsent');
@@ -129,11 +129,10 @@
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
             })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
             ga('create', 'UA-49599107-2', 'auto');
             ga('send', 'pageview');
-
         </script>
+        {% endspaceless %}
     </head>
     <body>
         {% spaceless %}
