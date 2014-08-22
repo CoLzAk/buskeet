@@ -48,7 +48,7 @@ class SearchController extends BaseController
      * @Get("/search/{localization}/{direction}")
      */
     public function getSearchAction($localization, $direction, Request $request) {
-        $dm    = $this->get('doctrine_mongodb')->getManager();
+        $dm = $this->get('doctrine_mongodb')->getManager();
 
         $searchParams = $this->getSearchParams($request);
 

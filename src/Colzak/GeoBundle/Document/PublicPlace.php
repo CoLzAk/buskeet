@@ -34,7 +34,7 @@ class PublicPlace
 
     /**
      * @MongoDB\ReferenceOne(targetDocument="Colzak\UserBundle\Document\Profile")
-     * @SERIAL\Type("Colzak\UserBundle\Document\Profile")
+     * @SERIAL\Exclude
      */
     protected $createdBy;
 

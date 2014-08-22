@@ -79,10 +79,6 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         if (direction == 'profiles') {
             SearchModule.profiles = new Profiles(resultsCollection.get('items'));
             SearchModule.searchLayout.searchResultsRegion.show(new SearchResultsView({ collection: SearchModule.profiles }));
-            
-            // SearchModule.publicPlaces = SearchModule.profiles;
-            // // fetch public places
-            // SearchModule.searchLayout.searchInfoRegion.show(new SearchPublicPlacesView({ collection: SearchModule.publicPlaces }));
         }
         if (direction == 'events') {
             SearchModule.usersEvents = new SearchEvents(resultsCollection.get('items'));
@@ -92,6 +88,15 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             // // fetch public places
             // SearchModule.searchLayout.searchInfoRegion.show(new SearchPublicEventsView({ collection: SearchModule.publicEvents }));
         }
+        // fetch and display public places
+        var publicPlaces = new PublicPlaces({}, { lat: resultsCollection.get('params').lat, lng: resultsCollection.get('params').lng /*, radius: resultsCollection.get('params').radius*/ });
+
+        publicPlaces.fetch({
+            success: function(results) {
+                console.log(results);
+                SearchModule.searchLayout.searchInfoRegion.show(new PublicPlacesView({ collection: results }));
+            }
+        });
         NProgress.done();
     };
 

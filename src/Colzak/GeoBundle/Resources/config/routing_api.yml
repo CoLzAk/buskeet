@@ -1,0 +1,4 @@
+colzak_geo:
+    type:     rest
+    resource: Colzak\GeoBundle\Controller\GeoController
+    name_prefix:  geo_
