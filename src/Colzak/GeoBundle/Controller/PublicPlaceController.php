@@ -9,6 +9,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PublicPlaceController extends Controller
 {
+    public function listAction($locality) {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        // $publicPlaces = $dm->getRepository()
+    }
+
     public function addAction(Request $request)
     {
     	$user = $this->get('security.context')->getToken()->getUser();

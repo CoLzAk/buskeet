@@ -1,3 +1,9 @@
+colzak_public_places:
+    pattern:  /public/places/{locality}
+    defaults: { _controller: ColzakGeoBundle:PublicPlace:list }
+    options:
+        expose: true
+
 colzak_add_public_place:
     pattern:  /public/places/add
     defaults: { _controller: ColzakGeoBundle:PublicPlace:add }

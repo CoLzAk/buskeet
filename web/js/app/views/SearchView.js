@@ -227,6 +227,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             NProgress.start();
             $('.clzk-results-number-container').addClass('hidden');
             $('.clzk-search-profile-container').addClass('hidden');
+            $('.clzk-search-info-container').addClass('hidden');
             $('.pagination-container').addClass('hidden');
             $(e.currentTarget).removeClass('hidden').addClass('rendering');
             $('#share-profile-'+this.model.get('id')).removeClass('hidden');
@@ -320,6 +321,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             $('.share-action-button-container').addClass('hidden');
             $('.event-container').addClass('hidden');
             $('.pagination-container').addClass('hidden');
+            $('.clzk-search-info-container').addClass('hidden');
             $(e.currentTarget).removeClass('hidden').addClass('rendering');
             $('#share-event-'+this.model.get('id')).removeClass('hidden');
             $('#clzk-result-actions-container-'+this.model.get('id')).removeClass('hidden');

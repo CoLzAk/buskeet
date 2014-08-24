@@ -73,6 +73,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             $('#left-menu').animate({
                 'margin-left': '0'
             }, 200);
+            $('.clzk-search-info-container').removeClass('hidden');
         }
         SearchModule.searchMenuLayout.actionsRegion.show(new SearchMenuView({ model: resultsCollection }));
         SearchModule.searchLayout.searchPaginationRegion.show(new SearchPaginationView({ model: resultsCollection }));
