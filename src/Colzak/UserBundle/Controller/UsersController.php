@@ -162,6 +162,9 @@ class UsersController extends BaseController
         $movementDetail = new MovementDetail();
         $movementDetail->setAction(MovementDetail::ACTION_FOLLOWED_USER);
         $movementDetail->setProfile($following);
+        // $movementDetail->setEvent(null);
+        // $movementDetail->setPhoto(null);
+        $movementDetail->setProfile($following);
         $movement->setMovementDetail($movementDetail);
         $dm->persist($movement);
         $dm->flush();

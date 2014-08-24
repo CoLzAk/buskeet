@@ -23,4 +23,22 @@ class MovementRepository extends DocumentRepository
 		$q->limit(15);
 		return $q->getQuery()->execute()->toArray(false);
 	}
+
+	public function getByEvent($eventId) {
+		$q = $this->createQueryBuilder();
+		$q->field('movementDetail.event.$id')->equals(new \MongoId($eventId));
+		return $q->getQuery()->execute()->toArray(false);
+	}
+
+	public function getByPhoto($photoId) {
+		$q = $this->createQueryBuilder();
+		$q->field('movementDetail.photo.$id')->equals(new \MongoId($photoId));
+		return $q->getQuery()->execute()->toArray(false);
+	}
+
+	public function getByProfile($profileId) {
+		$q = $this->createQueryBuilder();
+		$q->field('movementDetail.profile.$id')->equals(new \MongoId($profileId));
+		return $q->getQuery()->execute()->toArray(false);
+	}
 }
