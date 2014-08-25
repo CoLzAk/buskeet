@@ -423,6 +423,7 @@ html, body {
 @media (max-width: 360px) {
     .clzk-home-container {
         font-size: 15px;
+        width: 100%;
     }
     .clzk-home-container h1{
         font-size: 25px;
