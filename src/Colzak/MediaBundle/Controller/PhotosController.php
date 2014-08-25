@@ -63,6 +63,8 @@ class PhotosController extends BaseController {
             $movementDetail = new MovementDetail();
             $movementDetail->setAction(MovementDetail::ACTION_ADDED_PHOTO);
             $movementDetail->setPhoto($photo);
+            // $movementDetail->setProfile(null);
+            // $movementDetail->setEvent(null);
             $movement->setMovementDetail($movementDetail);
             $dm->persist($movement);
 
@@ -87,11 +89,22 @@ class PhotosController extends BaseController {
         $photos = $user->getProfile()->getPhotos();
         $photo = $dm->getRepository('ColzakMediaBundle:Photo')->find($photoId);
 
+        $this->deleteRelatedPhotos($photoId);
         $dm->remove($photo);
         $dm->flush();
 
         return $this->handleView($this->view($photos, 200));
         // $user = $dm->getRepository('ColzakUserBundle:User')->find($userId);
+    }
+
+    private function deleteRelatedPhotos($photoId) {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+
+        $movements = $dm->getRepository('ColzakUserBundle:Movement')->getByPhoto($photoId);
+
+        foreach ($movements as $movement) {
+            $dm->remove($movement);
+        }
     }
 
     /**
@@ -126,6 +139,8 @@ class PhotosController extends BaseController {
         $movementDetail = new MovementDetail();
         $movementDetail->setAction(MovementDetail::ACTION_CHANGED_PROFILE_PHOTO);
         $movementDetail->setPhoto($photo);
+        // $movementDetail->setProfile(null);
+        // $movementDetail->setEvent(null);
         $movement->setMovementDetail($movementDetail);
         $dm->persist($movement);
 

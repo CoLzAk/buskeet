@@ -148,6 +148,8 @@ class EventsController extends BaseController {
                     $movementDetail = new MovementDetail();
                     $movementDetail->setAction(MovementDetail::ACTION_PARTICIPATE_EVENT);
                     $movementDetail->setEvent($event);
+                    // $movementDetail->setProfile(null);
+                    // $movementDetail->setPhoto(null);
                     $movement->setMovementDetail($movementDetail);
                     $dm->persist($movement);
                 }
@@ -161,6 +163,8 @@ class EventsController extends BaseController {
             $movementDetail = new MovementDetail();
             $movementDetail->setAction(MovementDetail::ACTION_PARTICIPATE_EVENT);
             $movementDetail->setEvent($event);
+            // $movementDetail->setProfile(null);
+            // $movementDetail->setPhoto(null);
             $movement->setMovementDetail($movementDetail);
             $dm->persist($movement);
         }
@@ -197,6 +201,8 @@ class EventsController extends BaseController {
         $movementDetail = new MovementDetail();
         $movementDetail->setAction(MovementDetail::ACTION_ADDED_EVENT);
         $movementDetail->setEvent($event);
+        // $movementDetail->setProfile(null);
+        // $movementDetail->setPhoto(null);
         $movement->setMovementDetail($movementDetail);
         $dm->persist($movement);
 
@@ -239,9 +245,20 @@ class EventsController extends BaseController {
         $user = $dm->getRepository('ColzakUserBundle:User')->find($userId);
         $event = $dm->getRepository('ColzakEventBundle:Event')->find($id);
 
+        $this->deleteRelatedMovements($id);
         $dm->remove($event);
         $dm->flush();
 
         return $this->handleView($this->view($user->getProfile()->getEvents(), 200));
+    }
+
+    private function deleteRelatedMovements($eventId) {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+
+        $movements = $dm->getRepository('ColzakUserBundle:Movement')->getByEvent($eventId);
+
+        foreach ($movements as $movement) {
+            $dm->remove($movement);
+        }
     }
 }
