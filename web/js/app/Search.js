@@ -95,7 +95,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         publicPlaces.fetch({
             success: function(results) {
                 console.log(results);
-                SearchModule.searchLayout.searchInfoRegion.show(new PublicPlacesView({ collection: results }));
+                //SearchModule.searchLayout.searchInfoRegion.show(new PublicPlacesView({ collection: results }));
             }
         });
         NProgress.done();
