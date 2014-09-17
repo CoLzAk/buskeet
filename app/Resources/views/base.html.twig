@@ -202,6 +202,19 @@
                 </div>
             {% endfor %}
 
+            {% for flashMessage in app.session.flashbag.get('success') %}
+                <div class="clzk-php-flash-messages-container alert alert-success">
+                    <div class="row">
+                        <div class="col-md-2 sign-container">
+                            <span class="glyphicon glyphicon-ok-sign"></span>
+                        </div>
+                        <div class="col-md-8">
+                            <p class="message-text">{{ flashMessage }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
             {% for flashMessage in app.session.flashbag.get('error') %}
                 <div class="clzk-php-flash-messages-container alert alert-danger">
                     <div class="row">

@@ -29,7 +29,16 @@ class PublicPlaceController extends Controller
     		if ($form->isValid()) {
     			$dm->persist($publicPlace);
     			$dm->flush();
-    		}
+                $this->container->get('session')->getFlashBag()->add(
+                    'success',
+                    'Lieu ajouté avec succès ! Merci de votre contribution'
+                );
+    		} else {
+                $this->container->get('session')->getFlashBag()->add(
+                    'error',
+                    'Une erreur s\'est produite, veuillez réessayer ultérieurement'
+                );
+            }
     	}
 
         return $this->render('ColzakGeoBundle:PublicPlace:add.html.twig', array('form' => $form->createView()));
