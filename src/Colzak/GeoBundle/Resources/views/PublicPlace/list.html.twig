@@ -1,12 +1,11 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}Buskeet | Ajouter un lieu{% endblock %}
-{% form_theme form 'ColzakUserBundle:Form:fields.html.twig' %}
+{% block title %}Buskeet | Lieux publics{% endblock %}
+
 {% block content_region %}
 	<div class="col-md-6 col-sm-9 col-xs-12">
 		<ul class="breadcrumb clzk-breadcrumb mb0">
-	        <li><a href="{{ path('colzak_public_places', { locality: app.user.profile.locality }) }}">Lieux publics </a></li>
-	        <li>Ajouter un lieu</li>
+	        <li>Lieux publics</li>
 	    </ul>
 		{{ form_start(form) }}
 		{{ form_widget(form.name, {'attr': {'class': 'clzk-form-control form-control'}}) }}

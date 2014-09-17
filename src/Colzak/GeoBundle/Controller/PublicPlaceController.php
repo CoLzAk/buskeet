@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 class PublicPlaceController extends Controller
 {
     public function listAction($locality) {
-        $dm = $this->get('doctrine_mongodb')->getManager();
+        // $dm = $this->get('doctrine_mongodb')->getManager();
         // $publicPlaces = $dm->getRepository()
     }
 

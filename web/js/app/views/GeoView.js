@@ -2,6 +2,16 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
 
     PublicPlaceView = Backbone.Marionette.ItemView.extend({
         template: '#clzk-public-place-template',
+        onDomRefresh: function() {
+            var that = this;
+            $('#search-info-panel-'+that.model.get('id')).on('mouseover', function(e) {
+                $('#search-info-panel-body-'+that.model.get('id')).html(that.model.get('description') + '<div class="clearfix mb2"></div>');
+            }).on('mouseout', function(e) {
+                if (that.model.get('description').length > 50) {
+                    $('#search-info-panel-body-'+that.model.get('id')).html(that.model.get('description').substring(0,50) + '...');
+                }
+            });
+        },
         serializeData: function() {
             var completeAddress = '';
             if (typeof this.model.get('street_number') !== 'undefined' && this.model.get('street_number') !== '') completeAddress += this.model.get('street_number') + ' ';
@@ -18,9 +28,21 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
 
     PublicPlacesView = Backbone.Marionette.CompositeView.extend({
         template: '#clzk-public-places-template',
+        events: {
+            'click #show-public-places': 'showPublicPlaces'
+        },
         itemView: PublicPlaceView,
         itemViewContainer: function() {
             return '#public-places-container'
+        },
+        showPublicPlaces: function(e) {
+            e.preventDefault();
+            Backbone.history.navigate('places/'+SearchModule.resultsCollection.queryUrl.localization, { trigger: true });
+        },
+        serializeData: function() {
+            return {
+                places: this.collection.toJSON()
+            };
         }
     });
 });

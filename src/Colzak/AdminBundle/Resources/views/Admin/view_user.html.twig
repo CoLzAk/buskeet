@@ -1,0 +1,122 @@
+{% extends 'ColzakAdminBundle::layout.html.twig' %}
+
+{% block body %}
+<ul class="nav nav-tabs admin-user-nav-tabs">
+    <li class="active"><a href="#account">Account Informations</a></li>
+    <li><a href="#profile">Profile Informations</a></li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane active" id="account">
+        <h3>Account informations</h3>
+        <div class="form-horizontal">
+            {# Account information #} 
+            <div class="form-group">
+                <label class="text-right col-md-3">Username</label>
+                <div class="col-md-9 input-group">
+                    <span>{{ user.username }}</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="text-right col-md-3">Email</label>
+                <div class="col-md-9 input-group">
+                    <span>{{ user.email }}</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="text-right col-md-3">Registered At</label>
+                <div class="col-md-9 input-group">
+                    <span>{{ user.profile.createdAt|date('Y-m-d') }}</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="text-right col-md-3">Last Login</label>
+                <div class="col-md-9 input-group">
+                    <span>{{ user.lastLogin|date('Y-m-d') }}</span>
+                </div>
+            </div>
+
+            {% if user.blacklisted %}
+                <div class="form-group">
+                    <label class="text-right col-md-3">Is Blacklisted</label>
+                    <div class="col-md-9 input-group">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </div>
+                </div>
+            {% endif %} 
+
+            {% if user.deleted %}
+                <div class="form-group">
+                    <label class="text-right col-md-3">Is Deleted</label>
+                    <div class="col-md-9 input-group">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="text-right col-md-3">Deleted At</label>
+                    <div class="col-md-9 input-group">
+                        <span>{{ user.deletedAt|date('Y-m-d') }}</span>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="tab-pane" id="profile">
+        <h3>Profile Informations<h3>
+        <div class="form-group">
+            <label class="text-right col-md-3">Firstname / Lastname</label>
+            <div class="col-md-9 input-group">
+                <span>{{ [user.profile.firstname, user.profile.lastname]|join(' ') }}</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="text-right col-md-3">Birthdate</label>
+            <div class="col-md-9 input-group">
+                <span>{{ user.profile.birthdate|date('Y-m-d') }}</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="text-right col-md-3">Gender</label>
+            <div class="col-md-9 input-group">
+                <span>{{ user.profile.gender }}</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="text-right col-md-3">Address</label>
+            <div class="col-md-9 input-group">
+                <span>{{ user.profile.locality }}</span>
+            </div>
+        </div>
+    </div>
+    {#<div class="row">
+        <div class="col-md-2">
+            {% if app.user.profile.photos|length > 0 %}
+                {% for photo in user.profile.photos %}
+                    {% if photo.isProfilePicture %}
+                        <img src="{{ photo.thumbPath }}" class="img-responsive">
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                {% if user.profile.gender == 'MALE' %}
+                    <img src="/img/male.png" alt="..." class="img-responsive clzk-navbar-profile-picture">
+                {% else %}
+                    <img src="/img/female.png" alt="..." class="img-responsive clzk-navbar-profile-picture">
+                {% endif %}
+            {% endif %}
+            <img class="img-responsive" src="{{ user.profile.">
+        </div>
+        <div class="col-md-10">
+            <p>{{ user.profile.username }}</p>
+            <p>{{ user.profile.createdAt|date('Y-m-d') }}</p>
+            <p>{{ [user.profile.firstname, user.profile.lastname]|join(' ') }}</p>
+            <p>{{ user.profile.birthdate|date('Y-m-d') }}</p>
+        </div>
+    </div>#}
+{% endblock %}

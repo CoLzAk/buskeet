@@ -1,15 +1,28 @@
 <script type="text/template" id="clzk-public-place-template">
-    <div class="panel panel-inverse mt2 search-info-panel">
+    <div class="panel panel-inverse mt2 search-info-panel" id="search-info-panel-<%= place.id %>">
         <div class="panel-heading"><h4><%= place.name %></h4></div>
-        <div class="panel-body">
-            <p><%= place.description %></p>
-            <p><small><span class="glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;<%= completeAddress %></small></p>
+        <div class="panel-body search-info-panel-body">
+            <p id="search-info-panel-body-<%= place.id %>" class="mb1">
+                <% if (place.description.length > 50) { %>
+                    <%= place.description.substring(0,50) + '...' %>
+                <% } else { %>
+                    <%= place.description %>
+                <% } %>
+            </p>
+            <p class="search-info-panel-footer mb1 mt2"><small><span class="glyphicon glyphicon-map-marker text-danger"></span>&nbsp;&nbsp;<%= completeAddress %></small></p>
         </div>
     </div>
 </script>
 
 <script type="text/template" id="clzk-public-places-template">
-    <h4 class="text-cyan text-center mb0 mt2">Une scène ouverte, ça vous branche ?</h4>
+    <% if (places.length === 0) { %>
+        <h4 class="text-cyan text-left mb0 mt2">Vous connaissez des établissements qui proposent des scènes ouvertes ?</h4>
+    <% } else { %>
+        <h4 class="text-cyan text-left mb0 mt2">Une scène ouverte, ça vous branche ?</h4>
+    <% } %>
     <div id="public-places-container"></div>
-    <p class="text-center"><small><a href="<%= Routing.generate('colzak_add_public_place') %>">[ Voir tous les lieux disponibles ]</a> ou <a href="<%= Routing.generate('colzak_add_public_place') %>">[ ajouter un lieu ]</a></small></p>
+    <p class="text-center"><small><a href="<%= Routing.generate('colzak_add_public_place') %>">[ ajouter un lieu ]</a></small></p>
+    
+    {#<p class="text-center"><small><a href="<%= Routing.generate('colzak_add_public_place') %>">[ Voir tous les lieux ]</a> ou <a href="<%= Routing.generate('colzak_add_public_place') %>">[ ajouter un lieu ]</a></small></p>#}
+    {#<p class="text-center"><small><a href="#" id="show-public-places">[ Voir tous les lieux ]</a> ou <a href="#" id="add-public-place">[ ajouter un lieu ]</a></small></p>#}
 </script>

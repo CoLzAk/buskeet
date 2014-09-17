@@ -94,8 +94,8 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
 
         publicPlaces.fetch({
             success: function(results) {
-                console.log(results);
-                //SearchModule.searchLayout.searchInfoRegion.show(new PublicPlacesView({ collection: results }));
+                // console.log(results);
+                SearchModule.searchLayout.searchInfoRegion.show(new PublicPlacesView({ collection: results }));
             }
         });
         NProgress.done();
@@ -117,6 +117,10 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         if (direction == 'profiles') {
             SearchModule.searchLayout.searchPreviewRegion.show(new SearchProfilePreviewView({ model: SearchModule.profiles.get(itemId) }));
         }
+    }
+
+    SearchModule.displayPublicPlaces = function(localization) {
+        console.log('jfkdlsj');
     }
 
     SearchModule.addInitializer(function(options){

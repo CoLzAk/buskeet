@@ -56,6 +56,7 @@ Cron pour envoyer les mails
 	php app/console swiftmailer:spool:send --time-limit=10 --env=prod //limit temps
 	php app/console swiftmailer:spool:send --message-limit=10 --time-limit=10 --env=prod //les deux ? a tester
 
+Revoir landing page
 
 Bugs:
 	pb affichage date de naissance a l'inscription ?

@@ -154,4 +154,11 @@
 }
 .search-info-panel {
 	border: none !important;
+	font-size: 13px;
+	min-height: 130px;
+	/*position: relative;*/
+}
+.search-info-panel-footer {
+	/*position: absolute;*/
+	/*bottom: 3px;*/
 }
