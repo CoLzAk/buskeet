@@ -4,7 +4,7 @@
 
 {% block meta %}
     {% if queryUrl.direction == 'events' %}
-        <meta name="description" content="Retrouvez tous les jam session autour de {{ queryUrl.localization|replace('--', ', ') }}">
+        <meta name="description" content="Retrouvez tous les jam sessions autour de {{ queryUrl.localization|replace('--', ', ') }}">
     {% else %}
         <meta name="description" content="Retrouvez tous les musiciens autour de {{ queryUrl.localization|replace('--', ', ') }}">
     {% endif %}
@@ -46,6 +46,9 @@
                 <div id="clzk-search-results-region"></div>
                 <div id="clzk-search-pagination-region"></div>
             </div>
+            <div class="col-md-5 col-xs-12 clzk-search-info-container">
+                <div id="clzk-search-info-region"></div>
+            </div>
             <div class="col-md-6 col-xs-12 clzk-preview-container">
                 <div id="clzk-search-preview-region"></div>
             </div>
@@ -57,10 +60,10 @@
         <div id="clzk-modal-content-region"></div>
     </script>
 
-    {#% include 'ColzakSearchBundle:Search:templates/search_menu.html.twig' %#}
     {% include 'ColzakSearchBundle:Search:templates/search_results.html.twig' %}
     {% include 'ColzakSearchBundle:Search:templates/search_events.html.twig' %}
     {% include 'ColzakSearchBundle:Search:templates/search_pagination.html.twig' %}
+    {% include 'ColzakSearchBundle:Search:templates/search_info.html.twig' %}
 {% endblock %}
 
 {% block extra_javascripts %}
@@ -80,7 +83,9 @@
         "js/app/Search.js"
         "js/app/models/Search.js"
         "js/app/models/Profile.js"
+        "js/app/models/Geo.js"
         "js/app/views/SearchView.js"
+        "js/app/views/GeoView.js"
         filter="uglifyjs2"
     %}
         <script src="{{ asset_url }}"></script>

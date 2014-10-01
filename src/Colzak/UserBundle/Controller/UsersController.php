@@ -24,7 +24,7 @@ class UsersController extends BaseController
      */
     public function getUsersAction()
     {
-        $em    = $this->get('doctrine')->getManager();
+        $em    = $this->get('doctrine_mongodb')->getManager();
         $data = $em->getRepository('ColzakUserBundle:User')->findAll();
 
         return $this->handleView($this->view($data, 200));

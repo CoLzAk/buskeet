@@ -26,6 +26,7 @@ class AdminController extends Controller
         $dm = $this->get('doctrine_mongodb')->getManager();
         $user = $dm->getRepository('ColzakUserBundle:User')->find($id);
 
+        return $this->render('ColzakAdminBundle:Admin:view_user.html.twig', array('user' => $user));
     }
 
     public function deleteUserAction($id) {

@@ -1,0 +1,108 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Buskeet | Ajouter un lieu{% endblock %}
+{% form_theme form 'ColzakUserBundle:Form:fields.html.twig' %}
+{% block content_region %}
+	<div class="col-md-6 col-sm-9 col-xs-12">
+		<ul class="breadcrumb clzk-breadcrumb mb0">
+	        <li><a href="#{#{ path('colzak_public_places', { locality: app.user.profile.locality }) }#}">Lieux publics </a></li>
+	        <li>Ajouter un lieu</li>
+	    </ul>
+		{{ form_start(form) }}
+		{{ form_widget(form.name, {'attr': {'class': 'clzk-form-control form-control'}}) }}
+		{{ form_widget(form.description, {'attr': {'class': 'form-control clzk-form-control mb2', 'rows': '8', 'placeholder': 'Description ( n\'oubliez pas de préciser les jours et les heures auxquels ont lieu les scènes ouvertes )'}}) }}
+		
+
+		<div class="input-group mb2">
+			<input type="text" class="clzk-form-control form-control" placeholder="Adresse précise" id="public-place-complete-address">
+			<span class="input-group-addon clzk-input-group-addon glyphicon glyphicon-map-marker"></span>
+		</div>
+
+		<div id="map-container" class="mt2 mb2">
+			<div id="map"></div>
+		</div>
+
+		{{ form_rest(form) }}
+		
+		<div class="text-right">
+			<button class="btn btn-primary btn-lg" type="submit">Valider</button>
+		</div>
+		{{ form_end(form) }}
+	</div>
+{% endblock %}
+
+{% block extra_javascripts %}
+	<script>
+		$(document).ready(function() {
+			//Show the map
+			var mapWidth = $('#map-container').width(),
+            	mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyB3nP1qZvWfWiDArNPaAdoo5nM_L9iJQgY&center=47.00,2.00&zoom=5&size='+ mapWidth +'x250&maptype=roadmap&markers=color:red|47.00,2.00&sensor=false&scale=1';
+
+            $('#map').html('<img src="'+ mapUrl +'">');
+
+			//Init googlePlaceAutocomplete on cn-search-form-localization input
+		    var input = document.getElementById('public-place-complete-address'),
+		        autocomplete = new google.maps.places.Autocomplete(input),
+		        addressNumber = $('#colzak_geo_public_place_streetNumber'),
+		        addressStreet = $('#colzak_geo_public_place_route'),
+		        addressCity = $('#colzak_geo_public_place_locality'),
+		        addressSublocality = $('#colzak_geo_public_place_subLocality'),
+		        addressZipcode = $('#colzak_geo_public_place_postalCode'),
+		        addressAdministrativeAreaLevel1 = $('#colzak_geo_public_place_administrativeAreaLevel1');
+		        addressAdministrativeAreaLevel2 = $('#colzak_geo_public_place_administrativeAreaLevel2');
+		        addressCountry = $('#colzak_geo_public_place_country');
+		        addressLat = $('#colzak_geo_public_place_publicPlaceCoordinates_y');
+		        addressLon = $('#colzak_geo_public_place_publicPlaceCoordinates_x');
+
+		    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+		        var place = autocomplete.getPlace();
+		            addressNumber.val('');
+		            addressStreet.val('');
+		            addressCity.val('');
+		            addressCountry.val('');
+		            addressZipcode.val('');
+		            addressSublocality.val('');
+		            addressAdministrativeAreaLevel1.val('');
+		            addressAdministrativeAreaLevel2.val('');
+		            addressLat.val('');
+		            addressLon.val('');
+
+		        var address = '';
+		        if (place.address_components) {
+		            address = [
+		              (place.address_components[0] && place.address_components[0].short_name || ''),
+		              (place.address_components[1] && place.address_components[1].short_name || ''),
+		              (place.address_components[2] && place.address_components[2].short_name || '')
+		            ].join(' ');
+
+		            for (var i=0, j=place.address_components.length; i<j; i++) {
+		                if (place.address_components[i].types.indexOf("street_number") > -1) {
+		                    addressNumber.val(place.address_components[i].long_name);
+		                }
+		                if (place.address_components[i].types.indexOf("route") > -1) {
+		                    addressStreet.val(place.address_components[i].long_name);
+		                }
+		                if (place.address_components[i].types.indexOf("locality") > -1) {
+		                    addressCity.val(place.address_components[i].long_name);
+		                }
+		                if (place.address_components[i].types.indexOf("sublocality") > -1) {
+		                    addressSublocality.val(place.address_components[i].long_name);
+		                }
+		                if (place.address_components[i].types.indexOf("country") > -1) {
+		                    addressCountry.val(place.address_components[i].long_name);
+		                }
+		                if (place.address_components[i].types.indexOf("postal_code") > -1) {
+		                    addressZipcode.val(place.address_components[i].long_name);
+		                }
+		                addressLon.val(place.geometry.location.lng());
+		                addressLat.val(place.geometry.location.lat())
+		            }
+
+		            mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyB3nP1qZvWfWiDArNPaAdoo5nM_L9iJQgY&center='+ place.geometry.location.lat() +','+ place.geometry.location.lng() +'&zoom=14&size='+mapWidth+'x250&maptype=roadmap&markers=color:red|'+ place.geometry.location.lat() +','+ place.geometry.location.lng() +'&sensor=false';
+
+                    $('#map').html('<img src="'+ mapUrl +'">');
+		        }
+		    });
+		});
+	</script>
+{% endblock %}

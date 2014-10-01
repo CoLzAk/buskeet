@@ -7,7 +7,8 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             searchMenuRegion: '#clzk-search-menu-region',
             searchResultsRegion: '#clzk-search-results-region',
             searchPaginationRegion: '#clzk-search-pagination-region',
-            searchPreviewRegion: '#clzk-search-preview-region'
+            searchPreviewRegion: '#clzk-search-preview-region',
+            searchInfoRegion: '#clzk-search-info-region'
         },
         tagName: 'div',
         className: 'full-height'
@@ -72,6 +73,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             $('#left-menu').animate({
                 'margin-left': '0'
             }, 200);
+            $('.clzk-search-info-container').removeClass('hidden');
         }
         SearchModule.searchMenuLayout.actionsRegion.show(new SearchMenuView({ model: resultsCollection }));
         SearchModule.searchLayout.searchPaginationRegion.show(new SearchPaginationView({ model: resultsCollection }));
@@ -82,7 +84,20 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         if (direction == 'events') {
             SearchModule.usersEvents = new SearchEvents(resultsCollection.get('items'));
             SearchModule.searchLayout.searchResultsRegion.show(new SearchEventsView({ collection: SearchModule.usersEvents }));
+            
+            // SearchModule.publicEvents = SearchModule.usersEvents;
+            // // fetch public places
+            // SearchModule.searchLayout.searchInfoRegion.show(new SearchPublicEventsView({ collection: SearchModule.publicEvents }));
         }
+        // fetch and display public places
+        var publicPlaces = new PublicPlaces({}, { lat: resultsCollection.get('params').lat, lng: resultsCollection.get('params').lng /*, radius: resultsCollection.get('params').radius*/ });
+
+        publicPlaces.fetch({
+            success: function(results) {
+                // console.log(results);
+                SearchModule.searchLayout.searchInfoRegion.show(new PublicPlacesView({ collection: results }));
+            }
+        });
         NProgress.done();
     };
 
@@ -102,6 +117,10 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         if (direction == 'profiles') {
             SearchModule.searchLayout.searchPreviewRegion.show(new SearchProfilePreviewView({ model: SearchModule.profiles.get(itemId) }));
         }
+    }
+
+    SearchModule.displayPublicPlaces = function(localization) {
+        console.log('jfkdlsj');
     }
 
     SearchModule.addInitializer(function(options){

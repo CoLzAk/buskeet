@@ -6,6 +6,10 @@ colzak_admin_users:
     path:     /users
     defaults: { _controller: ColzakAdminBundle:Admin:users }
 
+colzak_admin_user_view:
+    path:     /users/{id}
+    defaults: { _controller: ColzakAdminBundle:Admin:viewUser }
+
 colzak_admin_events:
     path:     /events
     defaults: { _controller: ColzakAdminBundle:Admin:events }

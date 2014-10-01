@@ -31,13 +31,13 @@
                             {% endfor %}
                         </td>
                         <td>
-                            {{ user.status }}
+                            {#{ user.status }#} --
                         </td>
                         <td>
                             <a href="{{ path('colzak_admin_user_view', { id: user.id }) }}" class="btn btn-default btn-sm">
                                 <span class="glyphicon glyphicon-eye-open"></span> Voir
                             </a>
-                            <a href="{{ path('colzak_admin_user_delete', { id: user.id }) }}" class="btn btn-danger btn-sm">
+                            <a href="#{#{ path('colzak_admin_user_delete', { id: user.id }) }#}" class="btn btn-danger btn-sm">
                                 <span class="glyphicon glyphicon-remove"></span> Supprimer
                             </a>
                         </td>

@@ -61,9 +61,16 @@ colzak_static:
     resource: "@ColzakStaticBundle/Resources/config/routing.yml"
     prefix:   /
 
-# colzak_geo:
-#     resource: "@ColzakGeoBundle/Resources/config/routing.yml"
-#     prefix:   /geo
+colzak_geo_api:
+    resource: "@ColzakGeoBundle/Resources/config/routing_api.yml"
+    prefix:   /api
+    type: rest
+    options:
+        expose: true
+
+colzak_geo:
+    resource: "@ColzakGeoBundle/Resources/config/routing.yml"
+    prefix:   /
 
 colzak_user:
     resource: "@ColzakUserBundle/Resources/config/routing.yml"

@@ -1,5 +1,5 @@
 <?php
-// src/Colzak/GeoBundle/Document/Address.php
+// src/Colzak/GeoBundle/Document/PublicPlace.php
 
 namespace Colzak\GeoBundle\Document;
 
@@ -7,11 +7,37 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as SERIAL;
 
 /**
- * @MongoDB\EmbeddedDocument
+ * @MongoDB\Document(repositoryClass="Colzak\GeoBundle\Repository\PublicPlaceRepository")
  * @SERIAL\ExclusionPolicy("none")
+ * @MongoDB\HasLifecycleCallbacks
+ * @MongoDB\Index(keys={"publicPlaceCoordinates"="2d"})
  */
-class Address
+class PublicPlace
 {
+    /**
+     * @MongoDB\Id(strategy="auto")
+     * @SERIAL\Type("string")
+     */
+    protected $id;
+
+    /**
+     * @MongoDB\String
+     * @SERIAL\Type("string")
+     */
+    protected $name;
+
+    /**
+     * @MongoDB\String
+     * @SERIAL\Type("string")
+     */
+    protected $description;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Colzak\UserBundle\Document\Profile")
+     * @SERIAL\Exclude
+     */
+    protected $createdBy;
+
     /**
      * @MongoDB\String
      * @SERIAL\Type("string")
@@ -61,10 +87,89 @@ class Address
     protected $country;
 
     /**
-     * @MongoDB\EmbedOne(targetDocument="Colzak\GeoBundle\Document\Coordinate")
-     * @SERIAL\Type("Colzak\GeoBundle\Document\Coordinate")
+     * @MongoDB\EmbedOne(targetDocument="Colzak\GeoBundle\Document\PublicPlaceCoordinate")
+     * @SERIAL\Type("Colzak\GeoBundle\Document\PublicPlaceCoordinate")
      */
-    protected $coordinates;
+    protected $publicPlaceCoordinates;
+
+    public function __construct() {
+    }
+
+    /**
+     * Get id
+     *
+     * @return id $id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return self
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string $name
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return self
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string $description
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set createdBy
+     *
+     * @param Colzak\UserBundle\Document\Profile $createdBy
+     * @return self
+     */
+    public function setCreatedBy(\Colzak\UserBundle\Document\Profile $createdBy)
+    {
+        $this->createdBy = $createdBy;
+        return $this;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return Colzak\UserBundle\Document\Profile $createdBy
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
 
     /**
      * Set streetNumber
@@ -243,24 +348,24 @@ class Address
     }
 
     /**
-     * Set coordinates
+     * Set publicPlaceCoordinates
      *
-     * @param Colzak\GeoBundle\Document\Coordinate $coordinates
+     * @param Colzak\GeoBundle\Document\PublicPlaceCoordinate $publicPlaceCoordinates
      * @return self
      */
-    public function setCoordinates(\Colzak\GeoBundle\Document\Coordinate $coordinates)
+    public function setPublicPlaceCoordinates(\Colzak\GeoBundle\Document\PublicPlaceCoordinate $publicPlaceCoordinates)
     {
-        $this->coordinates = $coordinates;
+        $this->publicPlaceCoordinates = $publicPlaceCoordinates;
         return $this;
     }
 
     /**
-     * Get coordinates
+     * Get publicPlaceCoordinates
      *
-     * @return Colzak\GeoBundle\Document\Coordinate $coordinates
+     * @return Colzak\GeoBundle\Document\PublicPlaceCoordinate $publicPlaceCoordinates
      */
-    public function getCoordinates()
+    public function getPublicPlaceCoordinates()
     {
-        return $this->coordinates;
+        return $this->publicPlaceCoordinates;
     }
 }

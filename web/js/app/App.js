@@ -13,7 +13,8 @@ App.SearchRouter = Backbone.Marionette.AppRouter.extend({
     appRoutes: {
         ':localization/:direction/preview/:id': 'displayPreview',
         ':localization/:direction' : 'search',
-        ':localization?:slug' : 'search'
+        ':localization?:slug' : 'search',
+        'places/:localization': 'displayPublicPlaces'
         // ':localization/:category?:slug' : "search"
     }
 });
