@@ -7,7 +7,21 @@ body {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    min-height: 650px;
+    /*min-height: 650px;*/
+}
+@media (max-width: 360px) {
+    .cover { min-height: 300px; }
+    .navbar-home {
+        position: absolute;
+        top: -55px;
+        right: 12px;
+    }
+}
+@media (min-width: 361px) and (max-width: 768px) {
+    .cover { min-height: 500px; }
+}
+@media (min-width: 769px) {
+    .cover { min-height: 650px; }
 }
 .clzk-index-header-container {
     height: 100px;
@@ -38,6 +52,11 @@ body {
     width: 900px;
     font-size: 15px;
     margin: 30px auto;
+}
+@media (max-width: 360px) {
+    .clzk-home-container {
+        width: 100%;
+    }
 }
 .scheme {
     width: 150px;
@@ -79,26 +98,6 @@ body {
 .buskeet_logo {
     position: relative;
     top: -26px;
-}
-.do-it-with-buskeet .glyphicon {
-    margin-right: 30px;
-    font-size: 20px;
-    vertical-align: middle;
-}
-.clzk-pre-body {
-    height: 90%;
-    border-bottom: 3px #ccc solid;
-    background: url(/img/cover1.png);
-    background-size:100%;
-    background-repeat: no-repeat;
-    margin: -50px -15px auto -15px;
-    background-position: 50%;
-}
-@media(max-width: 768px) {
-    .clzk-pre-body {
-        margin-top: -150px;
-        margin-bottom: -160px;
-    }
 }
 .glyphicon {
     top: 0;

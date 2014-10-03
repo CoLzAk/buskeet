@@ -10,18 +10,23 @@
                     <a class="navbar-brand clzk-index-brand" href="{{ path('colzak_static_homepage') }}">
                         <img src="/img/buskeet_logo_160.png" class="buskeet_logo" width="160">
                     </a>
-                    <div class="nav navbar-nav navbar-right">
-                        <!-- <ul class="nav navbar-nav navbar-right navbar-home" id="right-menu">
+                    <div class="nav navbar-nav navbar-right hidden-xs">
+                        {{ render(controller('ColzakUserBundle:Security:embeddedLogin')) }}
+                    </div>
+                    <div class="nav navbar-nav navbar-right pull-right visible-xs">
+                        <ul class="nav navbar-nav navbar-right navbar-home pull-right" id="right-menu">
                             <li>
                                 <a href="{{ path('fos_user_security_login') }}">Connexion</a>
                             </li>
-                        </ul> -->
-                        {{ render(controller('ColzakUserBundle:Security:embeddedLogin')) }}
+                            <li>
+                                <a href="{{ path('fos_user_registration_register') }}">Inscription</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
 
-            <div class="container">
+            <div class="container hidden-xs">
                 <div class="clzk-index-register">
                     <h2 class="text-center mt0 mb1 text-cyan">Rencontrez, partagez.</h2>
                     {{ render(controller('ColzakUserBundle:Registration:embeddedRegister')) }}
