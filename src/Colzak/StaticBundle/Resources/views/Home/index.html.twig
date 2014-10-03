@@ -1,160 +1,78 @@
 {% extends 'ColzakStaticBundle::layout.html.twig' %}
 
-{% block header %}
-    <nav class="navbar navbar-inverse navbar-fixed-top clzk-navbar" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header col-md-3 col-sm-3 col-xs-3">
-                <a class="navbar-brand" href="{{ path('colzak_static_homepage') }}">
-                    <img src="/img/logo_buskeet.png" class="buskeet_logo hidden-xs">
-                    <img src="/img/logo_buskeet_xs.png" class="buskeet_logo visible-xs">
-                </a>
-            </div>
-            <div class="nav navbar-nav navbar-right col-md-9 col-sm-9 col-xs-9 pull-right">
-                <div class="pull-right">
-                    <!-- Menu button for x-screen -->
-                    <a href="#right-menu" class="xs-screen-menu-link-home xs-screen-menu-link-menu visible-xs pull-right">
-                        <span class="glyphicon glyphicon-user"></span>
-                        <span class="caret"></span>
-                    </a>
-
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="navbar-collapse">
-                        <!-- <div class="col-md-6"> -->
-                            <ul class="nav navbar-nav navbar-right navbar-home" id="right-menu">
-                                {% if is_granted('ROLE_USER') %}
-                                    <!-- Notif (feature) -->
-                                    {#<li><a href="#">
-                                        <span class="glyphicon glyphicon-info-sign"></span>
-                                        <span class="label label-danger">4</span>
-                                    </a></li>#}
-
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                            <div class="pull-left clzk-navbar-profile-picture-container">
-                                                {% if app.user.profile.photos|length > 0 %}
-                                                    {% for photo in app.user.profile.photos %}
-                                                        {% if photo.isProfilePicture %}
-                                                            <img src="{{ photo.thumbPath }}" class="img-responsive" width="50">
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                {% else %}
-                                                    {% if app.user.profile.gender == 'MALE' %}
-                                                        <img src="/img/male.png" alt="..." class="img-responsive clzk-navbar-profile-picture" width="50">
-                                                    {% else %}
-                                                        <img src="/img/female.png" alt="..." class="img-responsive clzk-navbar-profile-picture" width="50">
-                                                    {% endif %}
-                                                {% endif %}
-                                            </div>
-                                            <div class="pull-left">
-                                                {{ app.user.profile.firstname }}
-                                            </div>
-                                            <b class="caret"></b>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="{{ path('colzak_user_homepage', { username: app.user.username }) }}"><span class="glyphicon glyphicon-user"></span> Mon profil</a></li>
-                                            <li><a href="{{ path('colzak_user_account') }}"><span class="glyphicon glyphicon-cog"></span> Mon compte</a></li>
-                                            <li class="divider"></li>
-                                            <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off"></span> Déconnexion</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown hidden-xs">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-envelope"></span> <b class="caret"></b></a>
-                                        <ul class="dropdown-menu">
-                                            {{ render(controller('ColzakMessageBundle:Message:lastThread')) }}
-                                        </ul>
-                                    </li>
-                                {% else %}
-                                    <li class="dropdown hidden-xs">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Connexion</a>
-                                        <div class="dropdown-menu login-dropdown">
-                                            {{ render(controller('ColzakUserBundle:Security:embeddedLogin')) }}
-                                        </div>
-                                    </li>
-                                    <li class="visible-xs pt2">
-                                        <a href="{{ path('fos_user_security_login') }}">Connexion</a>
-                                    </li>
-                                    <li><a href="{{ path('fos_user_registration_register') }}">Inscription</a>
-                                    </li>
-                                {% endif %}
-                                <!-- <li><a href="#">Ajouter un évènement</a></li> -->
-                            </ul>
-                        <!-- </div> -->
-                    </div><!-- /.navbar-collapse -->
-                </div>
-            </div>
-        </div><!-- /.container-fluid -->
-    </nav>
-{% endblock %}
-
+{% block header %}{% endblock %}
 {% block body %}
-    <div class="clzk-pre-body hidden-xs">
-        <div class="container">
-            <div class="clzk-home-container clzk-search-container">
-                <div class="clzk-search-home-container">
-                    <p class="pull-right">La musique commence ici.</p>
-                    <div class="clearfix"></div>
-                </div>
-
-                <div class="clzk-search-home-container">
-                    <div class="form-horizontal" role="form">
-                        <div class="col-md-12 col-sm-12 col-xs-12 input-group">
-                            <input type="text" class="form-control input-lg" id="clzk-search-input" placeholder="Où êtes-vous ?">
-                            <span class="input-group-addon clzk-home-geoloader hidden"><img src="/img/ajax-loader.gif" class="img-responsive" width="20"></span>
-                            <span class="input-group-addon clzk-search-form-geolocation-home-btn"><span class="glyphicon glyphicon-map-marker"></span></span>
-                            <span class="input-group-addon clzk-search-form-submit-home-btn btn-primary"><span class="glyphicon glyphicon-search"></span> Rechercher</span>
-                            <input type="hidden" id="clzk-search-addressNumber" name="clzk-search-addressNumber">
-                            <input type="hidden" id="clzk-search-addressStreet" name="clzk-search-addressStreet">
-                            <input type="hidden" id="clzk-search-addressCity" name="clzk-search-addressCity">
-                            <input type="hidden" id="clzk-search-addressCountry" name="clzk-search-addressCountry">
-                            <input type="hidden" id="clzk-search-addressZipcode" name="clzk-search-addressZipcode">
-                            <input type="hidden" id="clzk-search-addressSublocality" name="clzk-search-addressSublocality">
-                        </div>
+    <div class="row">
+        <div class="cover">
+            <div class="clzk-index-header-container"></div>
+            <div class="clzk-index-header">
+                <div class="container">
+                    <a class="navbar-brand clzk-index-brand" href="{{ path('colzak_static_homepage') }}">
+                        <img src="/img/buskeet_logo_160.png" class="buskeet_logo" width="160">
+                    </a>
+                    <div class="nav navbar-nav navbar-right">
+                        <!-- <ul class="nav navbar-nav navbar-right navbar-home" id="right-menu">
+                            <li>
+                                <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+                            </li>
+                        </ul> -->
+                        {{ render(controller('ColzakUserBundle:Security:embeddedLogin')) }}
                     </div>
                 </div>
-                <div class="clearfix"></div>
+            </div>
+
+            <div class="container">
+                <div class="clzk-index-register">
+                    <h2 class="text-center mt0 mb1 text-cyan">Rencontrez, partagez.</h2>
+                    {{ render(controller('ColzakUserBundle:Registration:embeddedRegister')) }}
+                </div>
             </div>
         </div>
     </div>
-    <div class="clearfix"></div>
 
-    <div class="row what-is-buskeet">
-        <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="row bg-peter-river">
+        <div class="container">
             <div class="clzk-home-container">
-                <h1 class="text-left">Buskeet, c'est quoi ?</h1>
-                <!--blockquote>
-                    <p>To busk (verb): Play music in the street or other public place for voluntary donations</p>
-                    <small><cite title="Source Title">Oxford Dictionaries</cite></small>
-                </blockquote-->
-                <div class="clearfix"></div>
-                <p class="mt2">
-                    La musique est votre passion. <br>
-                    Vous souhaiteriez faire partie d'un groupe, mais vos connaissances musicales sont restreintes ?<br>
-                    Buskeet est la solution ! <br>
-                    Trouver des personnes proches géographiquement, qui ont les mêmes goûts et les mêmes centres d'intérêts que vous n'a jamais été aussi simple.
-                </p>
-
-                <p class="mt2">Buskeet est une plateforme communautaire destinée aux musiciens amateurs qui souhaitent faire de nouvelles rencontres et découvrir de nouvelles émotions.</p>
-
-                <h2>Avec Buskeet </h2>
-                <ul class="list-unstyled do-it-with-buskeet mb2">
-                    <li class="mt1"><span class="glyphicon glyphicon-chevron-right"></span> Faites de nouvelles rencontres musicales</li>
-                    <li class="mt1"><span class="glyphicon glyphicon-chevron-right"></span> Créez et partagez des évènements autour de la musique de rue</li>
-                </ul>
-
-                <p class="mt2">Désormais, vous n'êtes plus seul.</p>
+                <div class="row mt3">
+                    <div class="col-md-4">
+                        <div class="scheme">
+                            <span class="glyphicon glyphicon-user"></span>&nbsp;<span class="glyphicon glyphicon-transfer"></span>&nbsp;<span class="glyphicon glyphicon-user"></span>
+                        </div>
+                        <h3 class="text-center">Connectez</h3>
+                        <p class="text-center">Elargissez votre cercle musical en rencontrant et en vous connectant à d'autres musiciens<!--  proches géographiquement, qui ont les mêmes goûts et centres d'intérêts que vous --></p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="scheme">
+                            <span class="glyphicon glyphicon-map-marker"></span>
+                        </div>
+                        <h3 class="text-center">Créez</h3>
+                        <p class="text-center">Ajoutez des évènements musicaux auxquels d'autres personnes pourront participer.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="scheme">
+                            <span class="glyphicon glyphicon-music"></span>
+                        </div>
+                        <h3 class="text-center">Jouez</h3>
+                        <p class="text-center">Joignez ou faites-vous rejoindre lorsque vous faites de la musique dans les rues.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="clzk-home-container">
-        <h1 class="text-cyan">Les derniers musiciens inscrits sur Buskeet</h1>
-        {{ render(controller('ColzakUserBundle:Profile:getLastRegisteredUsers')) }}
+    <div class="row">
+        <div class="container">
+            <div class="clzk-home-container">
+                <h2 class="text-left">Les derniers musiciens inscrits sur Buskeet</h2>
+                {{ render(controller('ColzakUserBundle:Profile:getLastRegisteredUsers')) }}
+            </div>
+        </div>
     </div>
 
-    <div class="clzk-home-container clzk-home-description-container">
+    <div class="clzk-home-container bg-midnight-blue p2">
         <h1 class="text-center mt1">Vivez au rythme de la musique</h1>
         <p class="text-center">
-            Avec une communauté grandissante de street performers, Buskeet est l'endroit idéal pour faire de nouvelles rencontres musicales. Partagez et faites vibrer votre public quel que soit le moment, quel que soit le lieu.
+            Avec une communauté grandissante de musiciens, Buskeet est l'endroit idéal pour faire de nouvelles rencontres musicales. Partagez votre passion quel que soit le moment, quel que soit le lieu.
         </p>
     </div>
 

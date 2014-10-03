@@ -70,6 +70,9 @@ html, body {
 .p1 {
     padding: 10px;
 }
+.p2 {
+    padding: 20px;
+}
 .pt0 {
     padding-top: 0 !important;
 }
@@ -392,11 +395,6 @@ html, body {
     font-size: 20px;
     padding-left: 0;
 }
-.clzk-home-container {
-    margin: auto;
-    width: 900px;
-    font-size: 17px;
-}
 .clzk-login-register-container {
     margin: auto;
     width: 500px;
@@ -447,11 +445,6 @@ html, body {
     .mm-list {
         width: 100%;
     }
-}
-.clzk-home-description-container {
-    margin: 40px auto;
-    padding: 15px;
-    background-color: #6aaca2
 }
 .clzk-home-social-actions-container {
     background-color: #222;

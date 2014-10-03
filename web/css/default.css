@@ -1,6 +1,65 @@
 body {
     padding-top: 45px;
 }
+.cover {
+    background: url(/img/buskeet_cover_4.jpg) no-repeat center center; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    min-height: 650px;
+}
+.clzk-index-header-container {
+    height: 100px;
+    width: 100%;
+    background: #000;
+    margin-top: -50px;
+    background: rgba(0, 0, 0, .8);
+}
+.clzk-index-header {
+    margin-top: -100px;
+}
+.clzk-index-brand {
+    margin-top: 20px;
+}
+.clzk-index-register {
+    height: 500px;
+    width: 500px;
+    color: #FFF;
+    background: #000;
+    border-radius: 5px;
+    margin-top: 50px;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, .8);
+    padding: 20px;
+}
+.clzk-home-container {
+    margin: auto;
+    width: 900px;
+    font-size: 15px;
+    margin: 30px auto;
+}
+.scheme {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    font-size: 30px;
+    background: rgba(52, 73, 94, .8);
+    text-align: center;
+    line-height: 150px;
+    margin: auto;
+}
+#login-form {
+    margin-top: 10px;
+}
+#login-form .form-control {
+    margin-right: 2px;
+    margin-bottom: 4px;
+}
+#login-form #login-button {
+    position: relative;
+    top: -2px;
+}
 #cookie-banner {
     position: fixed;
     bottom: 10px;
@@ -20,10 +79,6 @@ body {
 .buskeet_logo {
     position: relative;
     top: -26px;
-}
-.what-is-buskeet {
-    background-color: #34495e;
-    border-bottom: 3px solid #ccc;
 }
 .do-it-with-buskeet .glyphicon {
     margin-right: 30px;

@@ -8,6 +8,34 @@
 	{% if error %}
         <div class="alert alert-danger clzk-php-flash-messages-container"><p class="text-center">Nom d'utilisateur ou mot de passe incorrect</p></div>
     {% endif %}
-    {{ render(controller('ColzakUserBundle:Security:embeddedLogin')) }}
+    
+    {% if (app.request.attributes.get('_route') == 'fos_user_security_login') %}
+    	<h2 class="mt2 text-cyan">Connexion</h2>
+		<hr>
+		<form action="{{ path("fos_user_security_check") }}" method="post" role="form" id="login-form">
+		    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+		    <div class="form-group">
+		        <!-- <label for="username">Nom d'utilisateur ou adresse e-mail</label> -->
+		        <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control" placeholder="Nom d'utilisateur ou adresse e-mail" />
+		    </div>
+		    <div class="form-group">
+		        <!-- <label for="username">Mot de passe</label> -->
+		        <input type="password" id="password" name="_password" required="required" class="form-control" placeholder="Mot de passe" />
+		    </div>
+		    <div class="checkbox pull-right">
+		        <p class="mt0">
+		            <input type="checkbox" id="remember_me" name="_remember_me" value="on"><label for="remember_me"><span class="ui"></span>Se souvenir de moi</label>
+		        </p>
+		    </div>
+		    <div class="clearfix"></div>
+		    <p class="text-right"><a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié ?</a></p>
+		    <hr>
+		    <p class="text-center"><button type="submit" class="btn btn-primary btn-lg" id="login-button">Connexion</button></p>
+		    <p class="text-center"><a href="{{ path('fos_user_registration_register') }}">Vous n'avez pas encore de compte ?</a></p>
+		</form>
+    {% else %}
+    	{{ render(controller('ColzakUserBundle:Security:embeddedLogin')) }}
+    {% endif %}
 </div>
 {% endblock %}

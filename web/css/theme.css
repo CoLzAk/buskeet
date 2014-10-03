@@ -96,7 +96,15 @@ COLORS:
     border-radius: 5px;
     position: relative;
 }
-
+.bg-midnight-blue {
+    background: #2c3e50;
+}
+.bg-silver {
+    background: #bdc3c7;
+}
+.bg-gray {
+    background: #CCC;
+}
 .border-green-sea {
     border-color: #16a085 !important;
 }
@@ -311,7 +319,7 @@ select {
 [type="checkbox"]:not(:checked) + label,
 [type="checkbox"]:checked + label {
   position: relative;
-  padding-left: 75px;
+  padding-left: 45px;
   cursor: pointer;
 }
 [type="checkbox"]:not(:checked) + label:before,
