@@ -51,8 +51,8 @@ class SecurityController extends BaseController
      */
     protected function renderEmbeddedLogin(array $data)
     {
-        $template = sprintf('FOSUserBundle:Security:embedded_login.html.%s', $this->container->getParameter('fos_user.template.engine'));
+        // $template = sprintf('FOSUserBundle:Security:embedded_login.html.twig', $this->container->getParameter('fos_user.template.engine'));
 
-        return $this->container->get('templating')->renderResponse($template, $data);
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Security:embedded_login.html.twig', $data);
     }
 }

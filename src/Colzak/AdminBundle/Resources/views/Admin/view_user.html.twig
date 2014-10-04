@@ -27,16 +27,25 @@
             <div class="form-group">
                 <label class="text-right col-md-3">Registered At</label>
                 <div class="col-md-9 input-group">
-                    <span>{{ user.profile.createdAt|date('Y-m-d') }}</span>
+                    <span>{{ user.profile.createdAt|date('Y-m-d H:i:s') }}</span>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="text-right col-md-3">Last Login</label>
                 <div class="col-md-9 input-group">
-                    <span>{{ user.lastLogin|date('Y-m-d') }}</span>
+                    <span>{{ user.lastLogin|date('Y-m-d H:i:s') }}</span>
                 </div>
             </div>
+
+            {% if user.passwordRequestedAt %}
+                <div class="form-group">
+                    <label class="text-right col-md-3">Password request at</label>
+                    <div class="col-md-9 input-group">
+                        <span>{{ user.passwordRequestedAt|date('Y-m-d H:i:s') }}</span>
+                    </div>
+                </div>
+            {% endif %} 
 
             {% if user.blacklisted %}
                 <div class="form-group">

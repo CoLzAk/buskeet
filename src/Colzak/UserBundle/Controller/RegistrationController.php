@@ -135,7 +135,7 @@ class RegistrationController extends BaseController
             }
         }
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:register.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:register.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -202,7 +202,7 @@ class RegistrationController extends BaseController
             }
         }
 
-        return $this->container->get('templating')->renderResponse('ColzakUserBundle:Registration:embedded_register.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('ColzakUserBundle:Registration:embedded_register.html.twig', array(
             'form' => $form->createView(),
         ));
     }
