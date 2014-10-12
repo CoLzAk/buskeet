@@ -58,7 +58,15 @@
 
     <script type="text/template" id="clzk-feeds-menu-template">
         <div class="profile-photo-container">
-            <img src="<%= profile.profile_photo.thumb_path %>" class="img-responsive">
+            <% if (typeof profile.profile_photo !== 'undefined') { %>
+                <img src="<%= profile.profile_photo.thumb_path %>" class="img-responsive">
+            <% } else { %>
+                <% if (profile.gender == 'MALE') { %>
+                    <img src="/img/male.png" alt="..." class="img-responsive">
+                <% } else { %>
+                    <img src="/img/female.png" alt="..." class="img-responsive">
+                <% } %>
+            <% } %>
         </div>
         <div class="profile-informations-container">
             <h4><%= profile.firstname %></h4>
