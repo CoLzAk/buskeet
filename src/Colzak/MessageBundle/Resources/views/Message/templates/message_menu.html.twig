@@ -1,12 +1,8 @@
 <script type="text/template" id="clzk-thread-template">
     <div class="thread-container">
         <div class="clzk-thread-photo-container">
-            <% if (recipient.photos.length > 0) { %>
-                <% for (var i in recipient.photos) { %>
-                    <% if (recipient.photos[i].is_profile_picture) { %>
-                        <img src="<%= recipient.photos[i].thumb_path %>" alt="..." class="img-responsive">
-                    <% } %>
-                <% } %>
+            <% if (typeof recipient.profile_photo !== 'undefined') { %>
+                <img src="<%= recipient.profile_photo.thumb_path %>" alt="..." class="img-responsive">
             <% } else { %>
                 <% if (recipient.gender == 'MALE') { %>
                     <img src="/img/male.png" alt="..." class="img-responsive">

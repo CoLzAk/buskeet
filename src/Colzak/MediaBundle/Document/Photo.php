@@ -40,12 +40,6 @@ class Photo
     protected $thumbPath;
 
     /**
-     * @MongoDB\Boolean
-     * @SERIAL\Type("boolean")
-     */
-    protected $isProfilePicture;
-
-    /**
      * @MongoDB\String
      * @SERIAL\Type("string")
      */
@@ -63,6 +57,12 @@ class Photo
      * @SERIAL\Type("Colzak\UserBundle\Document\Profile")
      */
     protected $profile;
+
+    /**
+     * @MongoDB\Boolean
+     * @SERIAL\Type("boolean")
+     */
+    protected $coverPhoto;
 
     public function getAbsolutePath()
     {
@@ -278,28 +278,6 @@ class Photo
     }
 
     /**
-     * Set isProfilePicture
-     *
-     * @param boolean $isProfilePicture
-     * @return self
-     */
-    public function setIsProfilePicture($isProfilePicture)
-    {
-        $this->isProfilePicture = $isProfilePicture;
-        return $this;
-    }
-
-    /**
-     * Get isProfilePicture
-     *
-     * @return boolean $isProfilePicture
-     */
-    public function getIsProfilePicture()
-    {
-        return $this->isProfilePicture;
-    }
-
-    /**
      * Set fileType
      *
      * @param string $fileType
@@ -361,5 +339,27 @@ class Photo
     public function getFile()
     {
         return $this->file;
+    }
+
+    /**
+     * Set coverPhoto
+     *
+     * @param boolean $coverPhoto
+     * @return self
+     */
+    public function setCoverPhoto($coverPhoto)
+    {
+        $this->coverPhoto = $coverPhoto;
+        return $this;
+    }
+
+    /**
+     * Get coverPhoto
+     *
+     * @return boolean $coverPhoto
+     */
+    public function getCoverPhoto()
+    {
+        return $this->coverPhoto;
     }
 }

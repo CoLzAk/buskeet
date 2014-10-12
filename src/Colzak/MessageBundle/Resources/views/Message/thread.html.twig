@@ -11,23 +11,21 @@
     {% endstylesheets %}
 {% endblock %}
 
-{% block menu_region %}
-    {#} MENU TEMPLATES {#}
-    <div id="clzk-menu-region"></div>
-    <script type="text/template" id="clzk-message-menu-layout">
-        <div id="clzk-message-menu-region"></div>
-    </script>
-    {% include 'ColzakMessageBundle:Message:templates/message_menu.html.twig' %}
-{% endblock %}
-
-{% block content_region %}
+{% block body %}
     <div id="clzk-main-region" class="full-height"></div>
 
     {#} Search Layout {#}
     <script type="text/template" id="clzk-message-layout">
-        <div class="row">
-            <div class="col-md-8">
-                <div id="clzk-message-thread-region"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3" id="left-menu">
+                    <!-- <div id="left-menu"> -->
+                        <div id="clzk-message-menu-region"></div>
+                    <!-- </div> -->
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <div id="clzk-message-thread-region"></div>
+                </div>
             </div>
         </div>
     </script>
@@ -38,6 +36,8 @@
     </script>
 
     {% include 'ColzakMessageBundle:Message:templates/message_thread.html.twig' %}
+
+    {% include 'ColzakMessageBundle:Message:templates/message_menu.html.twig' %}
 {% endblock %}
 
 {% block extra_javascripts %}

@@ -1,17 +1,13 @@
-App.module('FeedsModule', function(FeedsModule, App, Backbone, Marionette, $, _){
+App.module('FeedsModule', function(FeedsModule, App, Backbone, Marionette, $, _, UserModule){
     this.startWithParent = false;
 
     FeedsLayout = Backbone.Marionette.Layout.extend({
         template: '#clzk-feeds-layout',
         regions: {
-            feedsRegion: '#clzk-feeds-stream-region'
-        }
-    });
-
-    FeedsMenuLayout = Backbone.Marionette.Layout.extend({
-        template: '#clzk-feeds-menu-layout',
-        regions: {
-            feedsMenuRegion: '#clzk-feeds-menu-region'
+            feedsRegion: '#clzk-feeds-stream-region',
+            feedsMenuRegion: '#clzk-feeds-menu-region',
+            feedsSuggestedProfilesRegion: '#clzk-feeds-suggested-profiles-region',
+            feedsSuggestedEventsRegion: '#clzk-feeds-suggested-events-region'
         }
     });
 
@@ -22,7 +18,6 @@ App.module('FeedsModule', function(FeedsModule, App, Backbone, Marionette, $, _)
         },
         onDomRefresh: function() {
             $('#clzk-modal').on('hidden.bs.modal', function(e) {
-                // $('#clzk-modal').modal('hide');
                 Backbone.history.navigate('', { trigger: false });
             });
         }
@@ -36,8 +31,27 @@ App.module('FeedsModule', function(FeedsModule, App, Backbone, Marionette, $, _)
         FeedsModule.feedStream.fetch({
         	success: function(results) {
                 FeedsModule.feeds = new Feeds(results.get('items'));
-                // FeedsModule.feedsMenuLayout.feedsMenuRegion.show();
+                FeedsModule.feedsLayout.feedsMenuRegion.show(new FeedsMenuView({ model: FeedsModule.user }));
                 FeedsModule.feedsLayout.feedsRegion.show(new FeedsView({ collection: FeedsModule.feeds }));
+
+                if (typeof FeedsModule.user.get('coordinates') !== 'undefined') {
+                    //fetch suggestions
+                    var suggestedProfiles = new FeedsProfiles();
+                    var suggestedEvents = new FeedsEvents();
+
+                    suggestedProfiles.fetch({
+                        success: function(profiles) {
+                            FeedsModule.feedsLayout.feedsSuggestedProfilesRegion.show(new FeedsProfilesView({ model: profiles }));
+                        }
+                    });
+
+                    suggestedEvents.fetch({
+                        success: function(events) {
+                            FeedsModule.feedsLayout.feedsSuggestedEventsRegion.show(new FeedsEventsView({ model: events }));
+                        }
+                    });
+                }
+
                 NProgress.done();
         	}
         });
@@ -53,12 +67,10 @@ App.module('FeedsModule', function(FeedsModule, App, Backbone, Marionette, $, _)
     }
 
     FeedsModule.addInitializer(function(options){
-        FeedsModule.user = options.user;
+        FeedsModule.user = new Profile(options.user.profile, { userId: options.user.id });
 
         //Initialize layout
         FeedsModule.feedsLayout = new FeedsLayout();
-        FeedsModule.feedsMenuLayout = new FeedsMenuLayout();
-        App.menuRegion.show(FeedsModule.feedsMenuLayout);
         App.mainRegion.show(FeedsModule.feedsLayout);
     });
 

@@ -16,6 +16,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                     $('.message-text').html('Votre message a bien été envoyé !')
                     $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-success');
                     $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
+                    $('#clzk-modal').modal('hide');
                     NProgress.done();
         		},
         		error: function(response, model) {

@@ -18,4 +18,16 @@ App.module("FeedsModule", function(FeedsModule, FamileasyApp, Backbone, Marionet
             return Routing.generate('users_get_feeds');
         }
     });
+
+    FeedsProfiles = Backbone.Model.extend({
+        urlRoot: function() {
+            return Routing.generate('users_get_feeds_profiles');
+        }
+    });
+
+    FeedsEvents = Backbone.Model.extend({
+        urlRoot: function() {
+            return Routing.generate('users_get_feeds_events');
+        }
+    });
 });

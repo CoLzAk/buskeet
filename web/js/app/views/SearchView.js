@@ -224,6 +224,8 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         },
         showProfilePreview: function(e) {
             e.preventDefault();
+            window.location.replace(Routing.generate('colzak_user_homepage', { 'username': this.model.get('username') }));
+            return;
             NProgress.start();
             $('.clzk-results-number-container').addClass('hidden');
             $('.clzk-search-profile-container').addClass('hidden');
@@ -235,7 +237,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             Backbone.history.navigate(SearchModule.queryUrl.localization+'/'+SearchModule.queryUrl.direction+'/preview/'+this.model.get('id'), { trigger: true });
         },
         serializeData: function() {
-            var profile_picture = _.findWhere(this.model.get('photos'), { is_profile_picture: true });
+            var profile_picture = this.model.get('profile_photo');
 
             return {
                 profile_picture_path: (typeof profile_picture !== 'undefined' ? profile_picture.thumb_path : undefined),

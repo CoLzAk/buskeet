@@ -155,6 +155,7 @@ $(document).ready(function() {
                     addressZipcode.val(place.address_components[i].long_name);
                 }
             }
+            submitSearchForm();
         }
     });
 

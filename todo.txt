@@ -61,6 +61,8 @@ Revoir landing page
 Bugs:
 	pb affichage date de naissance a l'inscription ?
 
+Un event devrait être présenté comme une page profil et ouverte aux non-loggés
+
 
 
 

@@ -1,6 +1,8 @@
 colzak_user_inbox:
     path:     /messages
     defaults: { _controller: ColzakMessageBundle:Message:inbox }
+    options:
+        expose: true
 
 colzak_user_thread:
     path:     /messages/{threadId}

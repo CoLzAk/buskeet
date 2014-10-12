@@ -24,6 +24,7 @@
                 <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
             {% endstylesheets %}
             {% block extra_stylesheets %}{% endblock %}
+            <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
 
@@ -120,7 +121,7 @@
         <header class="clzk-header">
             {% block header %}
                 <nav class="navbar navbar-inverse navbar-fixed-top clzk-navbar" role="navigation">
-                    <div class="container-fluid">
+                    <div class="container">
                         <div class="row">
                             <div class="navbar-header col-md-3 col-sm-3 col-xs-4">
                                 
@@ -139,12 +140,8 @@
                                     <div class="visible-xs visible-sm">
                                         {% if is_granted('ROLE_USER') %}
                                             <div class="pull-left clzk-navbar-profile-picture-container">
-                                                {% if app.user.profile.photos|length > 0 %}
-                                                    {% for photo in app.user.profile.photos %}
-                                                        {% if photo.isProfilePicture %}
-                                                            <img src="{{ photo.thumbPath }}" class="img-responsive" width="50">
-                                                        {% endif %}
-                                                    {% endfor %}
+                                                {% if app.user.profile.profilePhoto is not null %}
+                                                    <img src="{{ app.user.profile.profilePhoto.thumbPath }}" class="img-responsive" width="50">
                                                 {% else %}
                                                     {% if app.user.profile.gender == 'MALE' %}
                                                         <img src="/img/male.png" alt="..." class="img-responsive clzk-navbar-profile-picture" width="50">
@@ -158,6 +155,8 @@
                                             </div>
                                             <div class="clearfix"></div>
                                             <ul class="nav navbar-nav">
+                                                <li><a href="{{ path('colzak_user_feed') }}"><span class="glyphicon glyphicon-home"></span> Autour de moi</a></li>
+                                                <li class="divider"></li>
                                                 <li class="clearfix"><a href="{{ path('colzak_user_homepage', { username: app.user.username }) }}"><span class="glyphicon glyphicon-user"></span> Mon profil</a></li>
                                                 <li><a href="{{ path('colzak_user_account') }}"><span class="glyphicon glyphicon-cog"></span> Mon compte</a></li>
                                                 <li class="divider"></li>
@@ -193,12 +192,8 @@
                                                 <li class="dropdown">
                                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                                         <div class="pull-left clzk-navbar-profile-picture-container">
-                                                            {% if app.user.profile.photos|length > 0 %}
-                                                                {% for photo in app.user.profile.photos %}
-                                                                    {% if photo.isProfilePicture %}
-                                                                        <img src="{{ photo.thumbPath }}" class="img-responsive" width="50">
-                                                                    {% endif %}
-                                                                {% endfor %}
+                                                            {% if app.user.profile.profilePhoto is not null %}
+                                                                <img src="{{ app.user.profile.profilePhoto.thumbPath }}" class="img-responsive" width="50">
                                                             {% else %}
                                                                 {% if app.user.profile.gender == 'MALE' %}
                                                                     <img src="/img/male.png" alt="..." class="img-responsive clzk-navbar-profile-picture" width="50">
@@ -213,6 +208,8 @@
                                                         <b class="caret"></b>
                                                     </a>
                                                     <ul class="dropdown-menu">
+                                                        <li><a href="{{ path('colzak_user_feed') }}"><span class="glyphicon glyphicon-home"></span> Autour de moi</a></li>
+                                                        <li class="divider"></li>
                                                         <li><a href="{{ path('colzak_user_homepage', { username: app.user.username }) }}"><span class="glyphicon glyphicon-user"></span> Mon profil</a></li>
                                                         <li><a href="{{ path('colzak_user_account') }}"><span class="glyphicon glyphicon-cog"></span> Mon compte</a></li>
                                                         <li class="divider"></li>
@@ -276,7 +273,7 @@
             {% endblock %}
         </header>
 
-        <div class="container-fluid clzk-global-container">
+        <div class="clzk-global-container">
             {% for flashMessage in app.session.flashbag.get('notice') %}
                 <div class="clzk-php-flash-messages-container alert alert-warning">
                     <div class="row">
@@ -326,8 +323,9 @@
                     </div>
                 </div>
             </div>
+
             {% block body %}
-                <div class="row full-height">
+                <div class="full-height">
                     <div class="col-md-2 clzk-left-region" id="left-menu">
                         {% block menu_region %}{% endblock %}
                     </div>

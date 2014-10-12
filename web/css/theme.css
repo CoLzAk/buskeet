@@ -122,6 +122,9 @@ COLORS:
 .text-cyan {
     color: #6aaca2 !important;
 }
+.text-peter-river {
+    color: #3498db;
+}
 
 /* PANEL */
 .panel {

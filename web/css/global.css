@@ -4,6 +4,7 @@ html, body {
     color: #F7F7F7;
     background: url(/img/navy_blue.png) repeat #222;
     font-size: 15px;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .full-height {
@@ -54,6 +55,9 @@ html, body {
 }
 .mb2 {
     margin-bottom: 20px !important;
+}
+.mb6 {
+    margin-bottom: 60px !important;
 }
 .ml1 {
     margin-left: 10px !important;
@@ -173,7 +177,7 @@ html, body {
 }
 @media(min-width: 767px) {
     .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
-        margin-left: -10px;
+        margin-left: 0;
     }
     .xs-screen-menu-link-right {
         top: 5px;
@@ -198,11 +202,11 @@ html, body {
 
 .clzk-global-container {
     padding-top: 5px;
-    height: 100%;
+    /*height: 100%;*/
 }
 .clzk-left-region, .clzk-right-region {
-    height: 100%;
-    overflow: hidden;
+    /*height: 100%;*/
+    /*overflow: hidden;*/
 }
 .clzk-left-region {
     background: #222;
@@ -211,9 +215,9 @@ html, body {
     padding-top: 15px;
 }
 .clzk-scrolling-content {
-    height: 100%;
-    overflow: auto;
-    overflow-x: hidden;
+    /*height: 100%;*/
+    /*overflow: auto;*/
+    /*overflow-x: hidden;*/
     padding-top: 15px;
 }
 .clzk-region {

@@ -3,7 +3,6 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
     ProfilePhotosView = Backbone.Marionette.ItemView.extend({
         template: '#clzk-profile-photos-template',
         tagName: 'div',
-        // className: 'col-md-4',
         events: {
             'click #image-modal': 'initCarousel'
         },
@@ -12,14 +11,20 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             Backbone.history.navigate(UserModule.targetUserUsername + "/gallery", { trigger: true });
         },
         serializeData: function() {
-            var photos = this.collection.toJSON(), profilePicture = _.findWhere(photos, {is_profile_picture: true});
-            if (typeof profilePicture === 'undefined') {
-                profilePicture = (this.collection.length > 0 ? photos[0] : undefined);
-            }
+            // var photos = this.collection.toJSON(), profilePicture = _.findWhere(photos, {is_profile_picture: true});
+            // if (typeof profilePicture === 'undefined') {
+            //     profilePicture = (this.collection.length > 0 ? photos[0] : undefined);
+            // }
             return {
                 profile_gender: UserModule.targetUserProfile.get('gender'),
-                profile_picture: profilePicture
+                profile_picture: UserModule.targetUserProfile.get('profile_photo')
             };
+        },
+        onDomRefresh: function() {
+            // var coverPhoto = this.collection.findWhere({ default_cover_photo: true });
+            if (typeof UserModule.targetUserProfile.get('cover_photo') !== 'undefined') {
+                $('.clzk-profile-cover-container').css('background-image', 'url(' + UserModule.targetUserProfile.get('cover_photo').path + ')');
+            }
         },
         initialize: function() {
             this.listenTo(this.collection, 'change', this.refresh);
@@ -40,7 +45,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             Backbone.history.navigate(UserModule.targetUserUsername, { trigger: false });
         },
         serializeData: function() {
-            var photos = this.collection.toJSON(), activePhoto = _.findWhere(photos, {is_profile_picture: true});
+            var photos = this.collection.toJSON(), activePhoto = UserModule.targetUserProfile.get('profile_photo');
             if (typeof activePhoto === 'undefined') {
                 activePhoto = photos[0];
             }
@@ -55,10 +60,11 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
     ProfilePhotoFormView = Backbone.Marionette.ItemView.extend({
         template: '#clzk-profile-photo-form-template',
         tagName: 'div',
-        className: 'col-sm-4 col-md-3 col-xs-6',
+        className: 'col-sm-6 col-md-4 col-xs-12',
 
         events: {
             'click .profile-picture-button': 'setAsProfilePicture',
+            'click .profile-cover-picture-button': 'setAsProfileCoverPicture',
             'click .delete-picture-button': 'deletePicture'
         },
 
@@ -66,11 +72,31 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             NProgress.start();
             e.preventDefault();
             var that = this;
-            this.model.set('is_profile_picture', true);
-            this.model.save({}, {
+            // this.model.set('is_profile_picture', true);
+            // this.model.save({}, {
+            //     success: function(response, data) {
+            //         $('.profile-picture-button').removeClass('disabled');
+            //         UserModule.targetUserProfile.set('photos', data);
+            //         $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-ok-sign');
+            //         $('.message-text').html('Les modifications ont été enregistrées !')
+            //         $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-success');
+            //         $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
+            //         NProgress.done();
+            //     },
+            //     error: function(response) {
+            //         $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-remove-sign');
+            //         $('.message-text').html('Une erreur est survenue. Veuillez réessayer ultérieurement ou contacter le support')
+            //         $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-danger');
+            //         $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
+            //         NProgress.done();
+            //     }
+            // });
+
+            UserModule.targetUserProfile.set('profile_photo', this.model.toJSON());
+            UserModule.targetUserProfile.save({}, {
                 success: function(response, data) {
                     $('.profile-picture-button').removeClass('disabled');
-                    UserModule.targetUserProfile.set('photos', data);
+                    // UserModule.targetUserProfile.set('photos', data);
                     $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-ok-sign');
                     $('.message-text').html('Les modifications ont été enregistrées !')
                     $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-success');
@@ -86,7 +112,50 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 }
             });
         },
-
+        setAsProfileCoverPicture: function(e) {
+            NProgress.start();
+            e.preventDefault();
+            var that = this;
+            this.model.set('cover_photo', true);
+            // this.model.set('default_cover_photo', true);
+            // this.model.save({}, {
+            //     success: function(response, data) {
+            //         $('.profile-cover-picture-button').removeClass('disabled');
+            //         UserModule.targetUserProfile.set('photos', data);
+            //         $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-ok-sign');
+            //         $('.message-text').html('Les modifications ont été enregistrées !')
+            //         $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-success');
+            //         $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
+            //         NProgress.done();
+            //     },
+            //     error: function(response) {
+            //         $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-remove-sign');
+            //         $('.message-text').html('Une erreur est survenue. Veuillez réessayer ultérieurement ou contacter le support')
+            //         $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-danger');
+            //         $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
+            //         NProgress.done();
+            //     }
+            // });
+            UserModule.targetUserProfile.set('cover_photo', this.model.toJSON());
+            UserModule.targetUserProfile.save({}, {
+                success: function(response, data) {
+                    $('.profile-picture-button').removeClass('disabled');
+                    // UserModule.targetUserProfile.set('photos', data);
+                    $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-ok-sign');
+                    $('.message-text').html('Les modifications ont été enregistrées !')
+                    $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-success');
+                    $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
+                    NProgress.done();
+                },
+                error: function(response) {
+                    $('.message-sign').removeClass().addClass('message-sign glyphicon glyphicon-remove-sign');
+                    $('.message-text').html('Une erreur est survenue. Veuillez réessayer ultérieurement ou contacter le support')
+                    $('.clzk-flash-messages-container').removeClass().addClass('clzk-flash-messages-container alert alert-danger');
+                    $('.clzk-flash-messages-container').fadeIn( 400 ).delay( 3000 ).fadeOut( 400 );
+                    NProgress.done();
+                }
+            });
+        },
         deletePicture: function(e) {
             NProgress.start();
             e.preventDefault();
@@ -113,7 +182,9 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
         },
         serializeData: function() {
             return {
-                photo: this.model.toJSON()
+                photo: this.model.toJSON(),
+                profile_photo: UserModule.targetUserProfile.get('profile_photo'),
+                cover_photo: UserModule.targetUserProfile.get('cover_photo')
             };
         },
         initialize: function(options) {
@@ -173,7 +244,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 done: function(e, data) {
                     var photo = new Photo({
                         id: data.result.id,
-                        is_profile_picture: data.result.is_profile_picture,
+                        // is_profile_picture: data.result.is_profile_picture,
                         name: data.result.name,
                         path: data.result.path,
                         thumb_path: data.result.thumb_path

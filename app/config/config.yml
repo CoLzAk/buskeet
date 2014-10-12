@@ -53,7 +53,7 @@ swiftmailer:
     host:      %mailer_host%
     username:  %mailer_user%
     password:  %mailer_password%
-    port:      %mailer_port%
+    # port:      %mailer_port%
     spool:     
         type: file
         path: "%kernel.cache_dir%/swiftmailer/spool"

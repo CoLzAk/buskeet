@@ -2,14 +2,10 @@
     <div class="message-container">
         <div class="row">
             <% if (currentUser.id === message.sender.id) { %>
-                <div class="col-md-2">
+                <div class="col-md-2 col-xs-4">
                     <div class="message-photo-container">
-                        <% if (currentUser.photos.length > 0) { %>
-                            <% for (var i in currentUser.photos) { %>
-                                <% if (currentUser.photos[i].is_profile_picture) { %>
-                                    <img class="img-responsive" src="<%= currentUser.photos[i].thumb_path %>">
-                                <% } %>
-                            <% } %>
+                        <% if (typeof currentUser.profile_photo !== 'undefined') { %>
+                            <img class="img-responsive" src="<%= currentUser.profile_photo.thumb_path %>">
                         <% } else { %>
                             <% if (currentUser.gender == 'MALE') { %>
                                 <img src="/img/male.png" alt="..." class="img-responsive">
@@ -30,12 +26,8 @@
                 </div>
                 <div class="col-md-2">
                     <div class="message-photo-container">
-                        <% if (recipient.photos.length > 0) { %>
-                            <% for (var i in recipient.photos) { %>
-                                <% if (recipient.photos[i].is_profile_picture) { %>
-                                    <img class="img-responsive" src="<%= recipient.photos[i].thumb_path %>">
-                                <% } %>
-                            <% } %>
+                        <% if (typeof recipient.profile_photo !== 'undefined') { %>
+                            <img class="img-responsive" src="<%= recipient.profile_photo.thumb_path %>">
                         <% } else { %>
                             <% if (recipient.gender == 'MALE') { %>
                                 <img src="/img/male.png" alt="..." class="img-responsive">
@@ -43,7 +35,6 @@
                                 <img src="/img/female.png" alt="..." class="img-responsive">
                             <% } %>
                         <% } %>
-                        {#<p class="text-center">&lt; <%= recipient.firstname %> &gt; </p>#}
                     </div>
                 </div>
             <% } %>
@@ -56,10 +47,10 @@
 </script>
 
 <script type="text/template" id="clzk-messages-template">
-    <h3>Conversation avec <%= recipient.firstname %></h3>
+    <h3 class="text-cyan">Conversation avec <%= recipient.firstname %></h3>
     <div id="clzk-message-container"></div>
     <textarea id="message-content" class="form-control clzk-form-control" rows="5" placeholder="Ecrivez votre message"></textarea>
-    <div class="pull-right mt1">
+    <div class="pull-right mt1 mb1">
         <a href="#" class="btn btn-primary" id="send-message-button">Envoyer</a>
     </div>
 </script>

@@ -75,7 +75,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
     ProfileEventFormView = Backbone.Marionette.ItemView.extend({
         template: '#clzk-profile-event-form-template',
         tagName: 'div',
-        className: 'col-md-8 bg-dark mb1',
+        className: 'bg-dark mb1',
         events : {
             'click .delete-event-button': 'deleteEvent'
         },
@@ -280,7 +280,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             this.initMap();
         },
         initMap: function() {
-            var mapWidth = Math.round($('#event-map-container').width() * 3),
+            var mapWidth = 500,
                 mapUrl,
                 input = document.getElementById('clzk-new-event-place-input'),
                 autocomplete = new google.maps.places.Autocomplete(input),
@@ -289,7 +289,7 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
 
             // var mapWidth = 500;
 
-            mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyB3nP1qZvWfWiDArNPaAdoo5nM_L9iJQgY&center=47,2&zoom=5&size='+ mapWidth +'x150&maptype=roadmap&sensor=false&scale=1';
+            mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyB3nP1qZvWfWiDArNPaAdoo5nM_L9iJQgY&center=47,2&zoom=5&size='+ mapWidth +'x200&maptype=roadmap&sensor=false&scale=1';
 
             $('#event-map').html('<img src="'+ mapUrl +'">');
 

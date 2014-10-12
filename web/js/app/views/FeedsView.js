@@ -26,11 +26,12 @@ App.module("FeedsModule", function(FeedsModule, App, Backbone, Marionette, $, _)
             }
             // console.log(completeAddress);
             if (typeof movement.movement_detail.profile !== 'undefined') {
-                var followingProfilePhoto = _.findWhere(movement.movement_detail.profile.photos, { is_profile_picture: true });
+                var followingProfilePhoto = movement.movement_detail.profile.profile_photo;
                 context = 'PROFILE';
                 
             }
-            var posterProfilePhoto = _.findWhere(movement.profile.photos, { is_profile_picture: true });
+            // var posterProfilePhoto = _.findWhere(movement.profile.photos, { is_profile_picture: true });
+            var posterProfilePhoto = movement.profile.profile_photo;
             return {
                 poster_profile_photo: posterProfilePhoto,
                 following_profile_photo: followingProfilePhoto,
@@ -102,7 +103,26 @@ App.module("FeedsModule", function(FeedsModule, App, Backbone, Marionette, $, _)
         serializeData: function() {
             return {
                 photo: this.model.get('movement_detail').photo
-            }
+            };
+        }
+    });
+
+    FeedsProfilesView = Backbone.Marionette.ItemView.extend({
+        template: '#clzk-feeds-profiles-template',
+        serializeData: function() {
+            return {
+                user: FeedsModule.user.toJSON(),
+                profiles: this.model.get('items')
+            };
+        }
+    });
+
+    FeedsEventsView = Backbone.Marionette.ItemView.extend({
+        template: '#clzk-feeds-events-template',
+        serializeData: function() {
+            return {
+                events: this.model.get('items')
+            };
         }
     });
 });

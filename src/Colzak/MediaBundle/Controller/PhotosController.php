@@ -44,14 +44,18 @@ class PhotosController extends BaseController {
     {
         $dm = $this->container->get('doctrine_mongodb')->getManager();
         $user = $dm->getRepository('ColzakUserBundle:User')->find($userId);
+        $profile = $user->getProfile();
         $request = $this->container->get('request');
         $photo = new Photo();
         $photoForm = $this->container->get('form.factory')->create(new PhotoFormType(), $photo);
         $photoForm->bind($request);
 
-        $photo->setProfile($user->getProfile());
+        $photo->setProfile($profile);
 
-        (count($user->getProfile()->getPhotos()) === 0 ? $photo->setIsProfilePicture(true) : $photo->setIsProfilePicture(false));
+        if (NULL === $profile->getProfilePhoto()) {
+            $profile->setProfilePhoto($photo);
+        }
+        // (count($user->getProfile()->getPhotos()) === 0 ? $photo->setIsProfilePicture(true) : $photo->setIsProfilePicture(false));
 
         if ($request->files->get('photos') !== NULL) $photo->setFile($request->files->get('photos'));
 
@@ -69,6 +73,7 @@ class PhotosController extends BaseController {
             $dm->persist($movement);
 
             $dm->persist($photo);
+            $dm->persist($profile);
             $dm->flush();
 
             $data = $photo;

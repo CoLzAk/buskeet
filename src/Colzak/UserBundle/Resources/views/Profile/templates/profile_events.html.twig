@@ -49,12 +49,12 @@
 </script>
 
 <script type="text/template" id="clzk-profile-events-template">
-    <h4 class="text-cyan">Jam session</h4>
+    <h3 class="text-cyan mt2">Jam session</h3>
     <div id="clzk-profile-events-container"></div>
 </script>
 
 <script type="text/template" id="clzk-profile-event-form-template">
-    <a class="delete-event-button pull-right" href="#"><span class="glyphicon glyphicon-remove"></span></a>
+    <a class="delete-event-button pull-right" href="#"><span class="glyphicon glyphicon-trash"></span></a>
     <div class="clearfix mb1"></div>
     <div class="event-container">
         <div class="event-title-container">
@@ -109,74 +109,66 @@
         <a href="#" class="btn show-add-event-form-button"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Créer un jam session</a>
     </div>
 
-    <div class="col-md-8 bg-dark hidden mb1" id="show-add-event-form">
-        <div class="col-md-12">
-            <div class="form-horizontal mt1">
-                <div class="col-md-12">
-                    <div class="input-group col-md-12 col-sm-12 col-xs-12">
-                        <input type="text" class="form-control clzk-form-control" id="new-event-title-input" placeholder="Nom">
-                    </div>
+    <div class="bg-dark hidden mb1 p1" id="show-add-event-form">
+
+        <div class="form-horizontal mt1">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="input-group col-md-12 col-sm-12 col-xs-12">
+                    <input type="text" class="form-control clzk-form-control" id="new-event-title-input" placeholder="Nom">
                 </div>
-                <div class="clearfix mb1"></div>
             </div>
-        </div>
-        <div class="col-md-12">
-            <div class="form-horizontal">
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="input-group col-md-12 col-sm-12 col-xs-12">
-                        <input type="text" class="form-control clzk-form-control datepicker" id="new-event-date-input" placeholder="Date">
-                        <span class="input-group-addon clzk-input-group-addon glyphicon glyphicon-calendar"></span>
-                    </div>
+            <div class="clearfix mb1"></div>
+
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="input-group col-md-12 col-sm-12 col-xs-12">
+                    <input type="text" class="form-control clzk-form-control datepicker" id="new-event-date-input" placeholder="Date">
+                    <span class="input-group-addon clzk-input-group-addon glyphicon glyphicon-calendar"></span>
                 </div>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="input-group col-md-12 col-sm-12 col-xs-12">
-                        <input type="text" class="form-control clzk-form-control timepicker" id="new-event-time-input" placeholder="Heure">
-                        <span class="input-group-addon clzk-input-group-addon glyphicon glyphicon-dashboard"></span>
-                    </div>
-                </div>
-                <div class="clearfix mb1"></div>
             </div>
-        </div>
-        <div class="col-md-12">
-            <div class="form-horizontal">
-                <div class="col-md-12">
-                    <div class="input-group col-md-12 mb1 col-sm-12 col-xs-12">
-                        <input type="text" class="form-control clzk-form-control" id="clzk-new-event-place-input" placeholder="Lieu">
-                         <span class="input-group-addon clzk-input-group-addon glyphicon glyphicon-map-marker"></span>
-                        <input type="hidden" id="clzk-new-event-street-number">
-                        <input type="hidden" id="clzk-new-event-route">
-                        <input type="hidden" id="clzk-new-event-city">
-                        <input type="hidden" id="clzk-new-event-sublocality">
-                        <input type="hidden" id="clzk-new-event-postal-code">
-                        <input type="hidden" id="clzk-new-event-administrative-area-level-1">
-                        <input type="hidden" id="clzk-new-event-administrative-area-level-2">
-                        <input type="hidden" id="clzk-new-event-country">
-                        <input type="hidden" id="clzk-new-event-lat">
-                        <input type="hidden" id="clzk-new-event-lon">
-                    </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="input-group col-md-12 col-sm-12 col-xs-12">
+                    <input type="text" class="form-control clzk-form-control timepicker" id="new-event-time-input" placeholder="Heure">
+                    <span class="input-group-addon clzk-input-group-addon glyphicon glyphicon-dashboard"></span>
+                </div>
+            </div>
+            <div class="clearfix mb1"></div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="input-group col-md-12 mb1 col-sm-12 col-xs-12">
+                    <input type="text" class="form-control clzk-form-control" id="clzk-new-event-place-input" placeholder="Lieu">
+                     <span class="input-group-addon clzk-input-group-addon glyphicon glyphicon-map-marker"></span>
+                    <input type="hidden" id="clzk-new-event-street-number">
+                    <input type="hidden" id="clzk-new-event-route">
+                    <input type="hidden" id="clzk-new-event-city">
+                    <input type="hidden" id="clzk-new-event-sublocality">
+                    <input type="hidden" id="clzk-new-event-postal-code">
+                    <input type="hidden" id="clzk-new-event-administrative-area-level-1">
+                    <input type="hidden" id="clzk-new-event-administrative-area-level-2">
+                    <input type="hidden" id="clzk-new-event-country">
+                    <input type="hidden" id="clzk-new-event-lat">
+                    <input type="hidden" id="clzk-new-event-lon">
                 </div>
             </div>
             <div class="clearfix"></div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="input-group col-md-12 mt1 mb1 col-sm-12 col-xs-12">
+                    <textarea class="form-control clzk-form-control" rows="6" id="new-event-content-input" placeholder="Détail"></textarea>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
             <div id="event-map-container" class="col-md-12 col-sm-12 col-xs-12">
                 <div id="event-map"></div>
             </div>
-        </div>
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="form-horizontal">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="input-group col-md-12 mt1 mb1 col-sm-12 col-xs-12">
-                        <textarea class="form-control clzk-form-control" rows="6" id="new-event-content-input" placeholder="Détail"></textarea>
-                    </div>
-                </div>
+            <div class="clearfix mb1"></div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <a class="add-event-button pull-right" href="#"><span class="glyphicon glyphicon-ok"></span> Ajouter</a>
+                <a class="cancel-event-button pull-right" href="#"><span class="glyphicon glyphicon-remove"></span> Annuler</a>
             </div>
-        </div>
-        <div class="clearfix"></div>
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <a class="add-event-button pull-right" href="#"><span class="glyphicon glyphicon-ok"></span> Ajouter</a>
-            <a class="cancel-event-button pull-right" href="#"><span class="glyphicon glyphicon-remove"></span> Annuler</a>
             <div class="clearfix mb1"></div>
         </div>
-        <div class="clearfix"></div>
     </div>
 
     <div id="clzk-profile-events-form-container"></div>

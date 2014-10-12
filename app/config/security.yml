@@ -69,3 +69,6 @@ security:
         - { path: ^/s/, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/account, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/home, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/users.json, role: ROLE_SUPER_ADMIN }
+        - { path: ^/api/users/*, role: ROLE_USER }
+        - { path: ^/api/*, role: ROLE_USER }

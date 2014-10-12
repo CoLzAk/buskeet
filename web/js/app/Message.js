@@ -4,14 +4,8 @@ App.module('MessageModule', function(MessageModule, App, Backbone, Marionette, $
     MessageLayout = Backbone.Marionette.Layout.extend({
         template: '#clzk-message-layout',
         regions: {
+            messageMenuRegion: '#clzk-message-menu-region',
             messagesRegion: '#clzk-message-thread-region'
-        }
-    });
-
-    MessageMenuLayout = Backbone.Marionette.Layout.extend({
-        template: '#clzk-message-menu-layout',
-        regions: {
-            messageMenuRegion: '#clzk-message-menu-region'
         }
     });
 
@@ -35,7 +29,7 @@ App.module('MessageModule', function(MessageModule, App, Backbone, Marionette, $
     			MessageModule.userThreads = collection;
     			var thread = collection.get(threadId);
 				MessageModule.messages = new Messages(thread.get('messages'), { threadId: threadId });
-    			MessageModule.messageMenuLayout.messageMenuRegion.show(new ThreadsView({ collection: MessageModule.userThreads }));
+    			MessageModule.messageLayout.messageMenuRegion.show(new ThreadsView({ collection: MessageModule.userThreads }));
     			MessageModule.messageLayout.messagesRegion.show(new MessagesView({ collection: MessageModule.messages }));
     		    NProgress.done();
             }
@@ -49,8 +43,8 @@ App.module('MessageModule', function(MessageModule, App, Backbone, Marionette, $
 
         //Initialize layout
         MessageModule.messageLayout = new MessageLayout();
-        MessageModule.messageMenuLayout = new MessageMenuLayout();
-        App.menuRegion.show(MessageModule.messageMenuLayout);
+        // MessageModule.messageMenuLayout = new MessageMenuLayout();
+        // App.menuRegion.show(MessageModule.messageMenuLayout);
         App.mainRegion.show(MessageModule.messageLayout);
     });
 

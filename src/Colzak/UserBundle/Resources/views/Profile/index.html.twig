@@ -19,13 +19,105 @@
     {% endstylesheets %}
 {% endblock %}
 
-{% block menu_region %}
-    {#} MENU FIRST RENDER {#}
-    <div id="clzk-menu-region"></div>
+{% block body %}
+    {#} Profile {#}
+    {#} PROFILE FIRST RENDER {#}
+    <div id="clzk-main-region" class="clzk-profile-region"></div>
 
-    {#} MENU TEMPLATES {#}
-    <script type="text/template" id="clzk-profile-menu-layout">
-        <div id="clzk-profile-menu-actions-region"></div>
+    {#} PROFILE TEMPLATES {#}
+    {#} Profile Layout {#}
+    <script type="text/template" id="clzk-profile-layout">
+        {#} Cover photo {#}
+        <div class="clzk-profile-cover-container">
+            <div class="container">
+                <div class="clzk-profile-cover-actions-container btn-group hidden">
+                    {% if app.user.profile.id == profile.id %}
+                        <button type="button" id="change-cover-photo-button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-picture"></span>&nbsp;Changer ma photo de couverture</button>
+                        <button type="button" id="edit-button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span>&nbsp;Modifier mon profil</button>
+                    {% else %}
+                        <button type="button" id="follow-button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>&nbsp;Suivre {{ profile.firstname }}</button>
+                        <button type="button" id="message-button" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Message</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-xs-12">
+                    <div class="clzk-profile-photo-map-container bg-dark">
+                        <div class="clzk-profile-map-container">
+                            <div id="clzk-profile-map-region"></div>
+                        </div>
+                        <div class="clzk-profile-photos-container">
+                            <div id="clzk-profile-photos-region"></div>
+                        </div>
+                        <div class="clzk-profile-informations-container">
+                            <div id="clzk-profile-informations-region"></div>
+                        </div>
+
+                        <div id="clzk-profile-portfolio-region" class="hidden-xs"></div>
+                    </div>
+                    <button type="button" id="edit-button-xs" class="btn btn-default btn-sm btn-block mt1 visible-xs"><span class="glyphicon glyphicon-edit"></span>&nbsp;Modifier mon profil</button>
+                </div>
+
+                <div class="col-md-6 col-xs-12">
+                    <div id="clzk-profile-description-region"></div>
+                    <div id="clzk-profile-events-region"></div>
+                </div>
+
+                <div class="col-md-3 col-xs-12">
+                    <div id="clzk-profile-followers-region" class="mt2"></div>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    {#} Modal Layout {#}
+    <script type="text/template" id="clzk-modal-layout">
+        <div id="clzk-modal-content-region"></div>
+    </script>
+
+    {#} Templates {#}
+
+    {#} Profile map {#}
+    {% include 'ColzakUserBundle:Profile:templates/profile_map.html.twig' %}
+
+    {#} Profile photo {#}
+    {% include 'ColzakUserBundle:Profile:templates/profile_photos.html.twig' %}
+
+    {#} Profile informations {#}
+    {% include 'ColzakUserBundle:Profile:templates/profile_informations.html.twig' %}
+
+    {#} Profile description {#}
+    {% include 'ColzakUserBundle:Profile:templates/profile_description.html.twig' %}
+
+    {#} Profile portfolio {#}
+    {% include 'ColzakUserBundle:Profile:templates/profile_portfolio.html.twig' %}
+
+    {#} Profile events {#}
+    {% include 'ColzakUserBundle:Profile:templates/profile_events.html.twig' %}
+
+    {#} Contact {#}
+    {% include 'ColzakUserBundle:Profile:templates/contact.html.twig' %}
+
+    {#} Profile followers {#}
+    {% include 'ColzakUserBundle:Profile:templates/profile_followers.html.twig' %}
+
+
+    {#} EDIT {#}
+    <div id="clzk-form-region" class="clzk-profile-edit-region hidden"></div>
+    
+    <script type="text/template" id="clzk-profile-edit-layout">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div id="clzk-profile-edit-actions-region"></div>
+                </div>
+                <div class="col-md-6">
+                    <div id="clzk-profile-edit-region"></div>
+                </div>
+            </div>
+        </div>
     </script>
 
     <script type="text/template" id="clzk-profile-menu-template">
@@ -34,6 +126,7 @@
                 <li class="list-group-item"><a href="#" class="clzk-context-links edit-button" data-form="profile"><h5>MON PROFIL</h5></a></li>
                 <li class="list-group-item edit-button" data-form="informations"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Mes informations</a></li>
                 <li class="list-group-item edit-button" data-form="photos"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-picture"></span>&nbsp;&nbsp;Mes photos</a></li>
+                <!-- <li class="list-group-item edit-button" data-form="movies"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-facetime-video"></span>&nbsp;&nbsp;Mes vidéos</a></li> -->
                 <li class="list-group-item edit-button" data-form="portfolio"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-music"></span>&nbsp;&nbsp;Mon portfolio</a></li>
                 <li class="list-group-item edit-button" data-form="events"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;Jam session</a></li>
             <% } else { %>
@@ -50,64 +143,6 @@
             <% } %>
         </ul>
     </script>
-{% endblock %}
-
-{% block content_region %}
-    {#} PROFILE FIRST RENDER {#}
-    <div id="clzk-main-region" class="clzk-profile-region"></div>
-
-    {#} PROFILE TEMPLATES {#}
-    {#} Profile Layout {#}
-    <script type="text/template" id="clzk-profile-layout">
-        <div class="row">
-            <div id="clzk-profile-photos-region" class="clzk-region col-md-4 col-sm-4 col-xs-4"></div>
-
-            <div id="clzk-profile-informations-region" class="clzk-region col-md-8 col-sm-4 col-xs-8"></div>
-            <div id="clzk-profile-description-xs-container" class="visible-xs col-xs-12"></div>
-            <div class="clearfix"></div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-4 col-sm-5 col-xs-12">
-                <div id="clzk-profile-portfolio-region" class="clzk-region"></div>
-            </div>
-            <div class="col-md-8 col-sm-7 col-xs-12">
-                <div id="clzk-profile-events-region" class="clzk-region"></div>
-            </div>
-        </div>
-    </script>
-
-    {#} Modal Layout {#}
-    <script type="text/template" id="clzk-modal-layout">
-        <div id="clzk-modal-content-region"></div>
-    </script>
-
-    {#} Templates {#}
-    {#} Profile photo {#}
-    {% include 'ColzakUserBundle:Profile:templates/profile_photos.html.twig' %}
-
-    {#} Profile informations {#}
-    {% include 'ColzakUserBundle:Profile:templates/profile_informations.html.twig' %}
-
-    {#} Profile portfolio {#}
-    {% include 'ColzakUserBundle:Profile:templates/profile_portfolio.html.twig' %}
-
-    {#} Profile events {#}
-    {% include 'ColzakUserBundle:Profile:templates/profile_events.html.twig' %}
-
-    {#} Contact {#}
-    {% include 'ColzakUserBundle:Profile:templates/contact.html.twig' %}
-
-
-    {#} EDIT {#}
-    <div id="clzk-form-region" class="clzk-profile-edit-region hidden"></div>
-    
-    <script type="text/template" id="clzk-profile-edit-layout">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div id="clzk-profile-edit-region"></div>
-        </div>
-    </script>
-
 {% endblock %}
 
 {% block extra_modal %}
@@ -158,9 +193,12 @@
         "js/translate.js"
         "js/app/App.js"
         "js/app/Profile.js"
+        "js/app/views/ProfileMapView.js"
         "js/app/views/ProfilePhotosView.js"
-        "js/app/views/ProfileMessageView.js"
         "js/app/views/ProfileInformationsView.js"
+        "js/app/views/ProfileDescriptionView.js"
+        "js/app/views/ProfileFollowersView.js"
+        "js/app/views/ProfileMessageView.js"
         "js/app/views/ProfilePortfolioView.js"
         "js/app/views/ProfileMenuView.js"
         "js/app/views/ProfileEventsView.js"

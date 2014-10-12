@@ -4,10 +4,8 @@
             <div class="clzk-home-last-member">
                 <div class="col-md-6 col-sm-6 col-xs-6">
                     <div class="clzk-home-last-member-photo-container">
-                        {% if user.photos|length > 0 %}
-                            {% for photo in user.photos if photo.isProfilePicture %}
-                                <img src="{{ photo.thumbPath }}" alt="..." class="img-responsive">
-                            {% endfor %}
+                        {% if user.profilePhoto is not null %}
+                            <img src="{{ user.profilePhoto.thumbPath }}" alt="..." class="img-responsive">
                         {% else %}
                             {% if user.gender == 'MALE' %}
                                 <img src="/img/male.png" alt="..." class="img-responsive">

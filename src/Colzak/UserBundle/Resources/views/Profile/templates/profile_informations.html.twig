@@ -1,110 +1,81 @@
 <script type="text/template" id="clzk-profile-informations-template">
-    <h1 class="text-left mt0">
-        <span id="clzk-profile-firstname"></span>{#&nbsp;<span id="clzk-profile-lastname"></span>#}
-    </h1>
-    <p class="text-left">
-        <span id="clzk-profile-birthdate"></span>
-        <% if (typeof profile.locality !== 'undefined') { %>
-            - <span id="clzk-profile-locality"></span>
-        <% } %>
-    </p>
-    <!-- <hr class="clzk-hr"> -->
-    <div class="hidden-xs">
-        <h4 class="mt3 text-cyan">A propos de moi</h4>
-        <p class="text-left" id="clzk-profile-description"></p>
-        <hr>
-    </div>
+    <h1 class="text-center mt6 mb0"><span id="clzk-profile-firstname"></span></h1>
+    <p class="text-center"><span id="clzk-profile-birthdate"></span></p>
 </script>
 
 <script type="text/template" id="clzk-profile-informations-form-template">
-    <ul class="breadcrumb clzk-breadcrumb mb0">
-        <li><a href="#" class="cancel-button">Mon profil </a></li>
-        <li>Mes informations</li>
-    </ul>
+    <h1>Modifier mes informations</h1>
 
-    <div class="row">
-        <div class="col-md-7">
-            {#} Birthdate {#}
-            <div class="form-horizontal mt2">
-                <h4 class="text-cyan">Date de naissance</h4>
-                <div class="col-md-8 bg-dark">
-                    <div class="row birthdate-container">
-                        <input type="hidden" class="form-control clzk-form-control datepicker" id="clzk-profile-birthdate">
-                        <div class="col-md-4 col-sm-4 col-xs-4">
-                            <div class="clzk-moz-select">
-                                <select id="birthdate-day-selector" class="birthdate-selector">
-                                    <% for (var day in dayRange) { %>
-                                        <option value="<%= dayRange[day] %>"><%= dayRange[day] %></option>
-                                    <% } %>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-4">
-                            <div class="clzk-moz-select">
-                                <select id="birthdate-month-selector" class="birthdate-selector">
-                                    <% for (var month in monthRange) { %>
-                                        <option value="<%= month %>"><%= monthRange[month] %></option>
-                                    <% } %>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-4">
-                            <div class="clzk-moz-select">
-                                <select id="birthdate-year-selector" class="birthdate-selector">
-                                    <% for (var year in yearRange) { %>
-                                        <option value="<%= yearRange[year] %>"><%= yearRange[year] %></option>
-                                    <% } %>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- <span class="input-group-addon glyphicon glyphicon-calendar"></span> -->
+    {#} Birthdate {#}
+    <div class="form-horizontal mt2">
+        <h4 class="text-cyan">Date de naissance</h4>
+        <div class="bg-dark">
+            <div class="row birthdate-container">
+                <input type="hidden" class="form-control clzk-form-control datepicker" id="clzk-profile-birthdate">
+                <div class="col-md-4 col-sm-4 col-xs-4">
+                    <div class="clzk-moz-select">
+                        <select id="birthdate-day-selector" class="birthdate-selector">
+                            <% for (var day in dayRange) { %>
+                                <option value="<%= dayRange[day] %>"><%= dayRange[day] %></option>
+                            <% } %>
+                        </select>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-
-        <div class="col-md-7">
-            {#} Description {#}
-            <div class="form-horizontal mt2">
-                <h4 class="text-cyan">A propos de moi</h4>
-                <div class="col-md-12 bg-dark">
-                    <div class="input-group col-md-12 col-sm-12 col-xs-12 mt1 mb1">
-                        <textarea class="form-control clzk-form-control" rows="8" id="clzk-profile-description" placeholder="Ma description..."></textarea>
+                <div class="col-md-4 col-sm-4 col-xs-4">
+                    <div class="clzk-moz-select">
+                        <select id="birthdate-month-selector" class="birthdate-selector">
+                            <% for (var month in monthRange) { %>
+                                <option value="<%= month %>"><%= monthRange[month] %></option>
+                            <% } %>
+                        </select>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-
-        <div class="col-md-7">
-            {#} Address {#}
-            <div class="form-horizontal mt2" role="form">
-                <h4 class="text-cyan">Mon adresse</h4>
-                <div class="col-md-12 bg-dark">
-                    <div class="col-md-12 input-group mb1 mt1">
-                        <input type="text" class="form-control clzk-form-control" id="clzk-profile-address-input" placeholder="Ville ou code postal">
-                        <span class="input-group-addon clzk-input-group-addon glyphicon glyphicon-map-marker"></span>
+                <div class="col-md-4 col-sm-4 col-xs-4">
+                    <div class="clzk-moz-select">
+                        <select id="birthdate-year-selector" class="birthdate-selector">
+                            <% for (var year in yearRange) { %>
+                                <option value="<%= yearRange[year] %>"><%= yearRange[year] %></option>
+                            <% } %>
+                        </select>
                     </div>
                 </div>
-                <input type="hidden" id="clzk-profile-street-number">
-                <input type="hidden" id="clzk-profile-route">
-                <input type="hidden" id="clzk-profile-city">
-                <input type="hidden" id="clzk-profile-sublocality">
-                <input type="hidden" id="clzk-profile-postal-code">
-                <input type="hidden" id="clzk-profile-administrative-area-level-1">
-                <input type="hidden" id="clzk-profile-administrative-area-level-2">
-                <input type="hidden" id="clzk-profile-country">
-                <input type="hidden" id="clzk-profile-lat">
-                <input type="hidden" id="clzk-profile-lon">
-            </div>
-            <div class="clearfix"></div>
-            <div class="row">
-                <div id="map-container" class="col-md-12 mt2">
-                    <div id="map"></div>
-                </div>
+                <!-- <span class="input-group-addon glyphicon glyphicon-calendar"></span> -->
             </div>
         </div>
-        <div class="clearfix"></div>
+    </div>
+
+    {#} Description {#}
+    <div class="form-horizontal mt2">
+        <h4 class="text-cyan">A propos de moi</h4>
+        <div class="bg-dark">
+            <div class="input-group col-md-12 col-sm-12 col-xs-12 mt1 mb1">
+                <textarea class="form-control clzk-form-control" rows="8" id="clzk-profile-description" placeholder="Qui suis-je et ce que j'attends du site..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    {#} Address {#}
+    <div class="form-horizontal mt2" role="form">
+        <h4 class="text-cyan">Mon adresse</h4>
+        <div class="bg-dark">
+            <div class="col-md-12 input-group mb1 mt1">
+                <input type="text" class="form-control clzk-form-control" id="clzk-profile-address-input" placeholder="Ville ou code postal">
+                <span class="input-group-addon clzk-input-group-addon glyphicon glyphicon-map-marker"></span>
+            </div>
+        </div>
+        <input type="hidden" id="clzk-profile-street-number">
+        <input type="hidden" id="clzk-profile-route">
+        <input type="hidden" id="clzk-profile-city">
+        <input type="hidden" id="clzk-profile-sublocality">
+        <input type="hidden" id="clzk-profile-postal-code">
+        <input type="hidden" id="clzk-profile-administrative-area-level-1">
+        <input type="hidden" id="clzk-profile-administrative-area-level-2">
+        <input type="hidden" id="clzk-profile-country">
+        <input type="hidden" id="clzk-profile-lat">
+        <input type="hidden" id="clzk-profile-lon">
+    </div>
+                
+    <div id="map-container" class="mt2 mb1">
+        <div id="map"></div>
     </div>
 </script>

@@ -26,13 +26,16 @@ class ProfileController extends Controller
             throw new NotFoundHttpException('Profile not found');
         }
 
-        $profilePicture = $user->getProfile()->getPhotos()[0];
-
-        foreach ($user->getProfile()->getPhotos() as $photo) {
-            if ($photo->getIsProfilePicture()) {
-                $profilePicture = $photo;
-            }
+        $profilePicture = $user->getProfile()->getProfilePhoto();
+        if ($profilePicture === null) {
+            $profilePicture = $user->getProfile()->getPhotos()[0];
         }
+
+        // foreach ($user->getProfile()->getPhotos() as $photo) {
+        //     if ($photo->getIsProfilePicture()) {
+        //         $profilePicture = $photo;
+        //     }
+        // }
 
         return $this->render('ColzakUserBundle:Profile:index.html.twig', array(
             'profile' => $user->getProfile(),

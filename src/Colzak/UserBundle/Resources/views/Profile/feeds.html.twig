@@ -1,12 +1,12 @@
 {% extends 'ColzakUserBundle::layout.html.twig' %}
 
-{% block title %}Buskeet | Actualités{% endblock %}
+{% block title %}Buskeet | Autour de moi{% endblock %}
 
-{% block menu_region %}
-    {#} MENU FIRST RENDER {#}
+{#% block menu_region %}
+     MENU FIRST RENDER 
     <div id="clzk-menu-region"></div>
 
-    {#} MENU TEMPLATES {#}
+     MENU TEMPLATES 
     <script type="text/template" id="clzk-feeds-menu-layout">
         <div id="clzk-feeds-menu-actions-region"></div>
     </script>
@@ -16,21 +16,107 @@
             <li class="list-group-item"><a href="#" class="clzk-context-links">action</a></li>
         </ul>
     </script>
+{% endblock %#}
+
+{% block extra_stylesheets %}
+    {% stylesheets
+        "css/feeds.css"
+        filter="uglifycss"
+        filter="cssrewrite"
+    %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
 {% endblock %}
 
-{% block content_region %}
-    {#} PROFILE FIRST RENDER {#}
+{% block body %}
     <div id="clzk-main-region" class="clzk-feeds-region"></div>
 
     {#} PROFILE TEMPLATES {#}
     {#} Profile Layout {#}
     <script type="text/template" id="clzk-feeds-layout">
-        <div class="col-md-8 col-sm-8 col-xs-12">
-            <h2 class="text-cyan">Autour de moi</h2>
-            <div id="clzk-feeds-stream-region" class="clzk-region"></div>
-            <div id="clzk-feeds-pagination-region"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 hidden-xs">
+                    {#} Menu {#}
+                    <div id="clzk-feeds-menu-region" class="mt2"></div>
+                </div>
+
+                <div class="col-md-6">
+                    <h2 class="text-cyan">Autour de moi</h2>
+                    <div id="clzk-feeds-stream-region" class="clzk-region"></div>
+                    <div id="clzk-feeds-pagination-region"></div>
+                </div>
+
+                <div class="col-md-3 hidden-xs">
+                    <h2>&nbsp;</h2>
+                    <div id="clzk-feeds-suggested-profiles-region" class="mt1"></div>
+                    <div id="clzk-feeds-suggested-events-region" class="mt2"></div>
+                </div>
+            </div>
         </div>
-        <div class="clearfix"></div>
+    </script>
+
+    <script type="text/template" id="clzk-feeds-menu-template">
+        <div class="profile-photo-container">
+            <img src="<%= profile.profile_photo.thumb_path %>" class="img-responsive">
+        </div>
+        <div class="profile-informations-container">
+            <h4><%= profile.firstname %></h4>
+            <p><%= moment(profile.birthdate).fromNow(true) %><% if (typeof profile.locality !== 'undefined') { %>, <%= profile.locality %><% } %></p>
+        </div>
+        <div class="clearfix mb1"></div>
+        <ul class="list-group">
+            <li class="list-group-item"><a href="<%= Routing.generate('colzak_user_feed') %>" class="clzk-context-links">Autour de moi</a></li>
+            <li class="list-group-item"><a href="<%= Routing.generate('colzak_user_homepage', { 'username': profile.username }) %>" class="clzk-context-links">Mon profil</a></li>
+            <li class="list-group-item"><a href="<%= Routing.generate('colzak_user_inbox') %>" class="clzk-context-links">Mes messages</a></li>
+            <!-- <li class="list-group-item"><a href="#" class="clzk-context-links">Mes jam sessions</a></li> -->
+            <!-- <li class="list-group-item"><a href="#" class="clzk-context-links">Les musiciens que je suis</a></li> -->
+            <!-- <li class="list-group-item"><a href="#" class="clzk-context-links">Les musiciens qui me suivent</a></li> -->
+            
+        </ul>
+    </script>
+
+    {#} Suggestions templates {#}
+    <script type="text/template" id="clzk-feeds-profiles-template">
+        <div class="panel panel-inverse clzk-profile-feeds-panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Ils habitent tout près</h3>
+            </div>
+            <div class="panel-body">
+                <% for (var i in profiles) { %>
+                    <div class="clzk-profile-feeds-container">
+                        <a  href="<%= Routing.generate('colzak_user_homepage', { 'username': profiles[i].username }) %>">
+                            <% if (typeof profiles[i].profile_photo !== 'undefined') { %>
+                                <img src="<%= profiles[i].profile_photo.thumb_path %>" class="img-responsive">
+                            <% } else { %>
+                                <% if (profiles[i].gender == 'MALE') { %>
+                                    <img src="/img/male.png" alt="..." class="img-responsive">
+                                <% } else { %>
+                                    <img src="/img/female.png" alt="..." class="img-responsive">
+                                <% } %>
+                            <% } %>
+                        </a>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </script>
+    <script type="text/template" id="clzk-feeds-events-template">
+        <div class="panel panel-inverse clzk-profile-feeds-panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Ça se passe près de chez vous</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-unstyled mt1">
+                    <% if (events.length === 0) { %>
+                        <li><i>Rien autour de chez vous</i></li>
+                    <% } %>
+                    <% for (var i in events) { %>
+                        <li><a href="<%= Routing.generate('colzak_event', { 'eventId': events[i].id }) %>"><span class="glyphicon glyphicon-calendar"></span>&nbsp;<%= moment(events[i].data).format('DD/MM/YYYY') %> - <%= events[i].title %></a></li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
     </script>
 
     {#} Modal Layout {#}
@@ -151,7 +237,9 @@
         "js/app/App.js"
         "js/app/Feeds.js"
         "js/app/models/Feeds.js"
+        "js/app/models/Profile.js"
         "js/app/views/FeedsView.js"
+        "js/app/views/FeedsMenuView.js"
         filter="uglifyjs2"
     %}
         <script src="{{ asset_url }}" type="text/javascript"></script>

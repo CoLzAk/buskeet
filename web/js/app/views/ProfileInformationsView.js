@@ -13,33 +13,10 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                     return moment(value).fromNow(true);
                 }
             },
-            '#clzk-profile-locality': 'locality',
-            '#clzk-profile-description': {
-                observe: 'description',
-                onGet: function(value) {
-                    return value || '';
-                }
-            }
+            '#clzk-profile-locality': 'locality'
         },
         onRender: function() {
             this.stickit();
-        },
-        initialize: function() {
-            // => ça c'est cool
-            // var latlng = new google.maps.LatLng(this.model.get('profile').address_coordinates.x, this.model.get('profile').address_coordinates.y),
-            //     mapOptions = {
-            //         zoom: 15,
-            //         center: latlng,
-            //         mapTypeId: google.maps.MapTypeId.ROADMAP
-            //     },
-            //     map = new google.maps.Map(document.getElementById('cn-map-canvas'), mapOptions),
-            //     marker = new google.maps.Marker({
-            //         position: latlng,
-            //         map: map,
-            //         title: 'Moi'
-            //     });
-
-            // return map;
         },
         serializeData: function() {
             return {
@@ -47,7 +24,10 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
             };
         },
         onDomRefresh: function() {
-            $('#clzk-profile-description-xs-container').html('<h4 class="mt2 text-cyan">A propos de moi</h4><p class="text-left">'+(typeof this.model.get('description') !== 'undefined' ? this.model.get('description') : '' )+'</p>');
+            if (typeof UserModule.isFollowing() !== 'undefined') {
+                $('#follow-button').removeClass('btn-primary').addClass('btn-default').html('<span class="glyphicon glyphicon-remove"></span>&nbsp;Ne plus suivre');
+            }
+            $('.clzk-profile-cover-actions-container').removeClass('hidden');
         }
     });
 

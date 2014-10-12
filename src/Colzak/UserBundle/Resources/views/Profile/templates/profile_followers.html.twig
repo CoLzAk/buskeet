@@ -1,0 +1,26 @@
+<script type="text/template" id="clzk-profile-followers-template">
+    <div class="panel panel-inverse clzk-profile-followers-panel">
+        <div class="panel-heading">
+            <h3 class="panel-title"><% if (owner) { %>Ils vous suivent<% } else { %>Suivi par <% } %></h3>
+        </div>
+        <div class="panel-body">
+            <% for (var i in followers) { %>
+                <% if (i < 4) { %>
+                    <div class="clzk-profile-follower-container">
+                        <a  href="<%= Routing.generate('colzak_user_homepage', { 'username': followers[i].username }) %>">
+                            <% if (typeof followers[i].profile_photo !== 'undefined') { %>
+                                <img src="<%= followers[i].profile_photo.thumb_path %>" class="img-responsive">
+                            <% } else { %>
+                                <% if (followers[i].gender == 'MALE') { %>
+                                    <img src="/img/male.png" alt="..." class="img-responsive">
+                                <% } else { %>
+                                    <img src="/img/female.png" alt="..." class="img-responsive">
+                                <% } %>
+                            <% } %>
+                        </a>
+                    </div>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+</script>

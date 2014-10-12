@@ -31,12 +31,8 @@
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                             <div class="pull-left clzk-navbar-profile-picture-container">
-                                                {% if app.user.profile.photos|length > 0 %}
-                                                    {% for photo in app.user.profile.photos %}
-                                                        {% if photo.isProfilePicture %}
-                                                            <img src="{{ photo.thumbPath }}" class="img-responsive" width="50">
-                                                        {% endif %}
-                                                    {% endfor %}
+                                                {% if app.user.profile.profilePhoto is defined %}
+                                                    <img src="{{ app.user.profile.profilePhoto.thumbPath }}" class="img-responsive" width="50">
                                                 {% else %}
                                                     {% if app.user.profile.gender == 'MALE' %}
                                                         <img src="/img/male.png" alt="..." class="img-responsive clzk-navbar-profile-picture" width="50">

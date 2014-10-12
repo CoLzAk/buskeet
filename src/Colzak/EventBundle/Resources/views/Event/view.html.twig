@@ -50,12 +50,8 @@
         <div class="row">
             <div class="col-md-2">
                 <a href="{{ path('colzak_user_homepage', { username: event.profile.username }) }}">
-                    {% if event.profile.photos|length > 0 %}
-                        {% for photo in event.profile.photos %}
-                            {% if photo.isProfilePicture %}
-                                <img src="{{ photo.thumbPath }}" alt="..." class="img-responsive">
-                            {% endif %}
-                        {% endfor %}
+                    {% if event.profile.profilePhoto is not null %}
+                        <img src="{{ event.profile.profilePhoto.thumbPath }}" alt="..." class="img-responsive">
                     {% else %}
                         {% if event.profile.gender == 'MALE' %}
                             <img src="/img/male.png" alt="..." class="img-responsive">
@@ -74,12 +70,8 @@
             {% for participant in event.participants %}
                 <div class="col-md-2">
                     <a href="{{ path('colzak_user_homepage', { username: participant.username }) }}">
-                        {% if participant.photos|length > 0 %}
-                            {% for photo in participant.photos %}
-                                {% if photo.isProfilePicture %}
-                                    <img src="{{ photo.thumbPath }}" alt="..." class="img-responsive">
-                                {% endif %}
-                           {% endfor %}
+                        {% if participant.profilePhoto is not null %}
+                            <img src="{{ participant.profilePhoto.thumbPath }}" alt="..." class="img-responsive">
                         {% else %}
                             {% if event.profile.gender == 'MALE' %}
                                 <img src="/img/male.png" alt="..." class="img-responsive">

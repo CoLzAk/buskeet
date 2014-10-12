@@ -162,8 +162,6 @@ class UsersController extends BaseController
         $movementDetail = new MovementDetail();
         $movementDetail->setAction(MovementDetail::ACTION_FOLLOWED_USER);
         $movementDetail->setProfile($following);
-        // $movementDetail->setEvent(null);
-        // $movementDetail->setPhoto(null);
         $movementDetail->setProfile($following);
         $movement->setMovementDetail($movementDetail);
         $dm->persist($movement);
@@ -214,6 +212,52 @@ class UsersController extends BaseController
             $data,
             $this->get('request')->query->get('page', 1)/*page number*/,
             15 //number of elements per page
+        );
+
+        return $this->handleView($this->view($pagination, 200));
+    }
+
+    /**
+     * GET Route annotation.
+     * @Get("/feeds/profiles")
+     */
+    public function getFeedsProfilesAction() {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $filter['lat'] = $user->getProfile()->getCoordinates()->getY();
+        $filter['lng'] = $user->getProfile()->getCoordinates()->getX();
+
+        $profiles = $dm->getRepository('ColzakUserBundle:Profile')->profileFilteredSearch($filter);
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $profiles,
+            $this->get('request')->query->get('page', 1)/*page number*/,
+            4 //number of elements per page
+        );
+
+        return $this->handleView($this->view($pagination, 200));
+    }
+
+    /**
+     * GET Route annotation.
+     * @Get("/feeds/events")
+     */
+    public function getFeedsEventsAction() {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $filter['lat'] = $user->getProfile()->getCoordinates()->getY();
+        $filter['lng'] = $user->getProfile()->getCoordinates()->getX();
+
+        $events = $dm->getRepository('ColzakEventBundle:Event')->eventFilteredSearch($filter);
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $events,
+            $this->get('request')->query->get('page', 1)/*page number*/,
+            4 //number of elements per page
         );
 
         return $this->handleView($this->view($pagination, 200));

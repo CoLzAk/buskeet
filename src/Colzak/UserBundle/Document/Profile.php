@@ -174,6 +174,18 @@ class Profile
      */
     protected $movements = array();
 
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Colzak\MediaBundle\Document\Photo")
+     * @SERIAL\Type("Colzak\MediaBundle\Document\Photo")
+     */
+    protected $profilePhoto;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Colzak\MediaBundle\Document\Photo")
+     * @SERIAL\Type("Colzak\MediaBundle\Document\Photo")
+     */
+    protected $coverPhoto;
+
     public function __construct()
     {
         $this->portfolio = new Portfolio();
@@ -841,5 +853,49 @@ class Profile
     public function getMovements()
     {
         return $this->movements;
+    }
+
+    /**
+     * Set profilePhoto
+     *
+     * @param Colzak\MediaBundle\Document\Photo $profilePhoto
+     * @return self
+     */
+    public function setProfilePhoto(\Colzak\MediaBundle\Document\Photo $profilePhoto)
+    {
+        $this->profilePhoto = $profilePhoto;
+        return $this;
+    }
+
+    /**
+     * Get profilePhoto
+     *
+     * @return Colzak\MediaBundle\Document\Photo $profilePhoto
+     */
+    public function getProfilePhoto()
+    {
+        return $this->profilePhoto;
+    }
+
+    /**
+     * Set coverPhoto
+     *
+     * @param Colzak\MediaBundle\Document\Photo $coverPhoto
+     * @return self
+     */
+    public function setCoverPhoto(\Colzak\MediaBundle\Document\Photo $coverPhoto)
+    {
+        $this->coverPhoto = $coverPhoto;
+        return $this;
+    }
+
+    /**
+     * Get coverPhoto
+     *
+     * @return Colzak\MediaBundle\Document\Photo $coverPhoto
+     */
+    public function getCoverPhoto()
+    {
+        return $this->coverPhoto;
     }
 }

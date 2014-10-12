@@ -1,17 +1,15 @@
 <script type="text/template" id="clzk-profile-photos-template">
-    <div class="clzk-profile-photos-container text-center">
-        <% if (typeof profile_picture !== 'undefined' && typeof profile_picture.id !== 'undefined') { %>
-            <a data-toggle="modal" id="image-modal" href="#">
-                <img src="<%= profile_picture.path %>" class="img-responsive clzk-profile-picture">
-            </a>
+    <% if (typeof profile_picture !== 'undefined') { %>
+        <a data-toggle="modal" id="image-modal" href="#">
+            <img src="<%= profile_picture.thumb_path %>" class="clzk-profile-picture">
+        </a>
+    <% } else { %>
+        <% if (profile_gender == 'MALE') { %>
+            <img src="/img/male.png" alt="..." class="clzk-profile-picture">
         <% } else { %>
-            <% if (profile_gender == 'MALE') { %>
-                <img src="/img/male.png" alt="..." class="clzk-profile-picture">
-            <% } else { %>
-                <img src="/img/female.png" alt="..." class="clzk-profile-picture">
-            <% } %>
+            <img src="/img/female.png" alt="..." class="clzk-profile-picture">
         <% } %>
-    </div>
+    <% } %>
 </script>
 
 <script type="text/template" id="clzk-profile-photos-carousel-template">
@@ -39,26 +37,20 @@
 
 {#} Profile pictures form {#}
 <script type="text/template" id="clzk-profile-photo-form-template">
-    <div class="thumbnail">
-        <img src="<%= photo.thumb_path %>" alt="..." class="clzk-profile-picture-form-img">
-        <div class="caption">
-            <div class="row">
-                <div class="col-md-8">
-                    <a href="#" class="profile-picture-button btn btn-block btn-default<% if (photo.is_profile_picture) { %> disabled <% } %>">Photo de profil</a>
-                </div>
-                <div class="col-md-4">
-                    <a href="#" class="btn btn-block btn-danger delete-picture-button"><span class="glyphicon glyphicon-trash"></span></a>
-                </div>
+    <div class="thumbnail-container">
+        <div class="thumbnail">
+            <img src="<%= photo.thumb_path %>" alt="..." class="clzk-profile-picture-form-img">
+            <div class="caption">
+                <button type="button" class="profile-picture-button btn btn-default btn-block <% if (typeof profile_photo !== 'undefined' && photo.id === profile_photo.id) { %> disabled <% } %>"><small>Photo de profil</small></button>
+                <button type="button" class="profile-cover-picture-button btn btn-default btn-block <% if (typeof cover_photo !== 'undefined' && photo.id === cover_photo.id) { %> disabled <% } %>"><small>Photo de couverture</small></button>
+                <button type="button" class="btn btn-danger delete-picture-button btn-block "><span class="glyphicon glyphicon-trash"></span></button>
             </div>
         </div>
     </div>
 </script>
 
 <script type="text/template" id="clzk-profile-photos-form-template">
-    <ul class="breadcrumb clzk-breadcrumb mb0">
-        <li><a href="#" class="cancel-button">Mon profil</a></li>
-        <li>Mes photos</li>
-    </ul>
+    <h1>Modifier mes photos</h1>
     
     <div class="mt3 mb2">
         <a class="add-photos-button" href="#"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Ajouter des photos</a>
@@ -74,7 +66,10 @@
         <div id="profile-photos-form-container"></div>
         <div class="col-md-3 hidden" id="loading-photo-container">
             <div class="text-center">
-                <img src="/img/ajax-loader.gif">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                    </div>
+                </div>
                 <div class="caption">Téléchargement en cours...</div>
             </div>
         </div>

@@ -88,7 +88,7 @@
 .clzk-search-user-instruments {
     max-width: 55px;
     float: left;
-    margin-right: 25px;
+    margin-right: 10px;
 }
 .search-switch-container {
 	width: 100%;
@@ -131,7 +131,7 @@
 }
 .clzk-left-region {
 	width: 25%;
-	overflow: auto;
+	/*overflow: auto;*/
 }
 .clzk-right-region {
 	width: 75%;
