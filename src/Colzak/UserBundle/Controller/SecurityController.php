@@ -8,7 +8,7 @@ use FOS\UserBundle\Controller\SecurityController as BaseController;
 
 class SecurityController extends BaseController
 {
-    public function embeddedLoginAction(Request $request)
+    public function embeddedLoginAction($currentUrl, Request $request)
     {
         /** @var $session \Symfony\Component\HttpFoundation\Session\Session */
         $session = $request->getSession();
@@ -38,6 +38,7 @@ class SecurityController extends BaseController
             'last_username' => $lastUsername,
             'error'         => $error,
             'csrf_token' => $csrfToken,
+            'currentUrl' => $currentUrl,
         ));
     }
 

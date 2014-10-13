@@ -169,7 +169,7 @@
                                                 <li class="dropdown hidden-xs">
                                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Connexion</a>
                                                     <div class="dropdown-menu login-dropdown">
-                                                        {{ render(controller('ColzakUserBundle:Security:embeddedLogin')) }}
+                                                        {{ render(controller('ColzakUserBundle:Security:embeddedLogin', { currentUrl: path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params'))} )) }}
                                                     </div>
                                                 </li>
                                                 <li class="visible-xs">
@@ -235,7 +235,7 @@
                                                     <li class="dropdown">
                                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Connexion</a>
                                                         <div class="dropdown-menu login-dropdown">
-                                                            {{ render(controller('ColzakUserBundle:Security:embeddedLogin')) }}
+                                                            {{ render(controller('ColzakUserBundle:Security:embeddedLogin', { currentUrl: path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params'))} )) }}
                                                         </div>
                                                     </li>
                                                 {% endif %}
