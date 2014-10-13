@@ -224,7 +224,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         },
         showProfilePreview: function(e) {
             e.preventDefault();
-            window.location.replace(Routing.generate('colzak_user_homepage', { 'username': this.model.get('username') }));
+            window.location.href = Routing.generate('colzak_user_homepage', { 'username': this.model.get('username') });
             return;
             NProgress.start();
             $('.clzk-results-number-container').addClass('hidden');
@@ -406,6 +406,10 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
             window.history.back();
         },
         toggleParticipate: function(e) {
+            if (typeof SearchModule.authUser === 'undefined' || SearchModule.authUser.id === null || SearchModule.authUser.id == '') {
+                window.location.replace(Routing.generate('colzak_static_homepage'));
+                return;
+            }
             var that = this;
             NProgress.start();
             e.preventDefault();

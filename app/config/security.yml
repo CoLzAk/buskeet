@@ -65,10 +65,11 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_SUPER_ADMIN }
         - { path: ^/messages/, role: IS_AUTHENTICATED_FULLY }
-        - { path: ^/profile/, role: IS_AUTHENTICATED_FULLY }
-        - { path: ^/s/, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/profile/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/s/, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/account, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/home, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/users.json, role: ROLE_SUPER_ADMIN }
-        - { path: ^/api/users/*, role: ROLE_USER }
+        - { path: ^/api/users/*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/search/*, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/*, role: ROLE_USER }
