@@ -31,7 +31,7 @@
         <div class="clzk-profile-cover-container">
             <div class="container">
                 <div class="clzk-profile-cover-actions-container btn-group hidden">
-                    {% if app.user.profile.id == profile.id %}
+                    {% if is_granted('ROLE_USER') and app.user.profile.id == profile.id %}
                         <button type="button" id="change-cover-photo-button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-picture"></span>&nbsp;Changer ma photo de couverture</button>
                         <button type="button" id="edit-button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span>&nbsp;Modifier mon profil</button>
                     {% else %}
@@ -66,6 +66,21 @@
                 </div>
 
                 <div class="col-md-3 col-xs-12">
+                    <h4 class="mt2"><span class="glyphicon glyphicon-share"></span>&nbsp;Partager sur</h4>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <a href="http://www.facebook.com/sharer.php?u=http://www.buskeet.com{{ path('colzak_user_homepage', { username: profile.username }) }}&t=Retrouvez {{ profile.firstname }} sur Buskeet" rel="nofollow" target="_blank">
+                                <img class="social-logo" src="/img/social/fb_white_29.png" width="20">
+                                &nbsp;&nbsp;<span>facebook</span>
+                            </a>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <a href="https://twitter.com/intent/tweet?url=http://www.buskeet.com{{ path('colzak_user_homepage', { username: profile.username }) }}&text=Retrouvez {{ profile.firstname }} sur Buskeet&hashtags=buskeet,jamsession" rel="nofollow" target="_blank">
+                                <img class="social-logo" src="/img/social/twitter_white.png" width="25">
+                                &nbsp;&nbsp;<span>twitter</span>
+                            </a>
+                        </div>
+                    </div>
                     <div id="clzk-profile-followers-region" class="mt2"></div>
                 </div>
             </div>

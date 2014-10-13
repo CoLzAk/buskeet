@@ -28,7 +28,7 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
                 var that = this;
                 // e.preventDefault();
                 if (UserModule.visitorId === null || UserModule.visitorId == '') {
-                    window.location.replace(Routing.generate('fos_user_security_login'));
+                    window.location.replace(Routing.generate('colzak_static_homepage'));
                     return;
                 }
                 NProgress.start();
@@ -48,7 +48,7 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
             });
             $('#message-button').on('click', function() {
                 if (UserModule.visitorId === null || UserModule.visitorId == '') {
-                    window.location.replace(Routing.generate('fos_user_security_login'));
+                    window.location.replace(Routing.generate('colzak_static_homepage'));
                     return;
                 }
                 Backbone.history.navigate(UserModule.targetUserUsername + '/contact', { trigger: true });

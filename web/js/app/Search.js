@@ -120,7 +120,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
     }
 
     SearchModule.displayPublicPlaces = function(localization) {
-        console.log('jfkdlsj');
+        // console.log('jfkdlsj');
     }
 
     SearchModule.addInitializer(function(options){

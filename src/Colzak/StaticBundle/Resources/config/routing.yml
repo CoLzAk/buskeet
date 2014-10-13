@@ -1,6 +1,8 @@
 colzak_static_homepage:
     pattern:  /
     defaults: { _controller: ColzakStaticBundle:Home:index }
+    options:
+        expose: true
 
 colzak_static_about:
     pattern:  /about
