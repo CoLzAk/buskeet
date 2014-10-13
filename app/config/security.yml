@@ -40,6 +40,7 @@ security:
                 use_referer: true
                 login_path: /login
                 check_path: /login_check
+                # default_target_path: colzak_user_homepage
 
             logout:       true
             anonymous:    true
@@ -72,4 +73,5 @@ security:
         - { path: ^/api/users.json, role: ROLE_SUPER_ADMIN }
         - { path: ^/api/users/*, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/search/*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/geo/*, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/*, role: ROLE_USER }

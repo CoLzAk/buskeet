@@ -11,7 +11,7 @@
                         <img src="/img/buskeet_logo_160.png" class="buskeet_logo" width="160">
                     </a>
                     <div class="nav navbar-nav navbar-right hidden-xs">
-                        {{ render(controller('ColzakUserBundle:Security:embeddedLogin')) }}
+                        {{ render(controller('ColzakUserBundle:Security:embeddedLogin', { currentUrl: path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params'))} )) }}
                     </div>
                     <div class="nav navbar-nav navbar-right pull-right visible-xs">
                         <ul class="nav navbar-nav navbar-right navbar-home pull-right" id="right-menu">
