@@ -34,6 +34,11 @@ App.module("UserModule", function(UserModule, App, Backbone, Marionette, $, _){
                 itemIndex: index,
                 collectionView: this
             };
+        },
+        serializeData: function() {
+            return {
+                videos: this.collection.toJSON()
+            };
         }
     });
 

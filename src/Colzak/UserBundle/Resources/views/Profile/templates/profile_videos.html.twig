@@ -5,8 +5,10 @@
 </script>
 
 <script type="text/template" id="clzk-profile-videos-template">
-    <h3 class="mt3 text-cyan">Mes vidéos</h3>
-    <div id="profile-videos-container"></div>
+    <% if (videos.length > 0) { %>
+        <h3 class="mt3 text-cyan">Mes vidéos</h3>
+        <div id="profile-videos-container"></div>
+    <% } %>
 </script>
 
 <script type="text/template" id="clzk-profile-video-form-template">
