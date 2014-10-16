@@ -17,6 +17,7 @@ class MovementDetail
 	const ACTION_ADDED_EVENT			= 'ADDED_EVENT';
 	const ACTION_PARTICIPATE_EVENT		= 'PARTICIPATE_EVENT';
 	const ACTION_FOLLOWED_USER			= 'FOLLOWED_USER';
+    const ACTION_ADDED_VIDEO            = 'ADDED_VIDEO';
 
     /**
      * @MongoDB\String
@@ -29,6 +30,12 @@ class MovementDetail
      * @SERIAL\Type("Colzak\MediaBundle\Document\Photo")
      */
     protected $photo;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Colzak\MediaBundle\Document\Video")
+     * @SERIAL\Type("Colzak\MediaBundle\Document\Video")
+     */
+    protected $video;
 
     /**
      * @MongoDB\ReferenceOne(targetDocument="Colzak\EventBundle\Document\Event")
@@ -129,5 +136,27 @@ class MovementDetail
     public function getProfile()
     {
         return $this->profile;
+    }
+
+    /**
+     * Set video
+     *
+     * @param Colzak\MediaBundle\Document\Video $video
+     * @return self
+     */
+    public function setVideo(\Colzak\MediaBundle\Document\Video $video)
+    {
+        $this->video = $video;
+        return $this;
+    }
+
+    /**
+     * Get video
+     *
+     * @return Colzak\MediaBundle\Document\Video $video
+     */
+    public function getVideo()
+    {
+        return $this->video;
     }
 }

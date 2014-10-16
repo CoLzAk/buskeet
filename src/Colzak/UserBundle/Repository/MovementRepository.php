@@ -36,6 +36,12 @@ class MovementRepository extends DocumentRepository
 		return $q->getQuery()->execute()->toArray(false);
 	}
 
+	public function getByVideo($videoId) {
+		$q = $this->createQueryBuilder();
+		$q->field('movementDetail.video.$id')->equals(new \MongoId($videoId));
+		return $q->getQuery()->execute()->toArray(false);
+	}
+
 	public function getByProfile($profileId) {
 		$q = $this->createQueryBuilder();
 		$q->field('movementDetail.profile.$id')->equals(new \MongoId($profileId));

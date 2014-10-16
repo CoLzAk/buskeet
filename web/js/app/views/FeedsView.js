@@ -15,6 +15,9 @@ App.module("FeedsModule", function(FeedsModule, App, Backbone, Marionette, $, _)
             if (typeof movement.movement_detail.photo !== 'undefined') {
                 context = 'PHOTO';
             }
+            if (typeof movement.movement_detail.video !== 'undefined') {
+                context = 'VIDEO';
+            }
             if (typeof movement.movement_detail.event !== 'undefined') {
                 context = 'EVENT';
                 var completeAddress = '';
@@ -38,6 +41,17 @@ App.module("FeedsModule", function(FeedsModule, App, Backbone, Marionette, $, _)
                 completeAddress: completeAddress,
                 context: context,
                 feed: this.model.toJSON()
+            }
+        },
+        onDomRefresh: function() {
+            var context, movement = this.model.toJSON();
+            if (typeof movement.movement_detail.video !== 'undefined') {
+                var playerWidth = ($('.video-container').width() > 600 ? 600 : $('.video-container').width()),
+                playerHeight = Math.ceil(playerWidth / 1.78);
+
+
+                $('#embedded-object-' + movement.movement_detail.video.id).html(movement.movement_detail.video.embedded_code);
+                $('#embedded-object-' + movement.movement_detail.video.id + ' iframe').width(playerWidth).height(playerHeight);
             }
         }
     });

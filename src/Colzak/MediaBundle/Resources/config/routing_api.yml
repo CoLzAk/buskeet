@@ -2,3 +2,8 @@ colzak_users_photos:
     type:     rest
     resource: Colzak\MediaBundle\Controller\PhotosController
     name_prefix:  photos_
+
+colzak_users_videos:
+    type:     rest
+    resource: Colzak\MediaBundle\Controller\VideosController
+    name_prefix:  videos_

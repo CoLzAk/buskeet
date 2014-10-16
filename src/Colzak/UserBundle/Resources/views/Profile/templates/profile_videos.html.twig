@@ -1,0 +1,43 @@
+<script type="text/template" id="clzk-profile-video-template">
+    <div class="video-container mt1">
+        <div id="embedded-object-<%= itemIndex %>" class="embedded-object"></div>
+    </div>
+</script>
+
+<script type="text/template" id="clzk-profile-videos-template">
+    <h3 class="mt3 text-cyan">Mes vidéos</h3>
+    <div id="profile-videos-container"></div>
+</script>
+
+<script type="text/template" id="clzk-profile-video-form-template">
+    <div class="bg-dark p1 mb1 mt1">
+        <div class="text-right"><a class="delete-video" href="#"><span class="glyphicon glyphicon-trash"></span></a></div>
+        <div class="video-container mt1">
+            <div id="embedded-object-<%= itemIndex %>" class="embedded-object"></div>
+            <!-- <div class="video-title">
+                <span id="video-title"></span>
+            </div> -->
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="clzk-profile-videos-form-template">
+    <h1>Modifier mes videos</h1>
+
+    <div class="form-horizontal mt2" role="form">
+        <h4 class="text-cyan">Ajouter une vidéo</h4>
+        
+        <div class="bg-dark p1">
+            <div class="row">
+                <div class="col-md-10 col-sm-10 col-xs-9">
+                    <input type="text" id="clzk-profile-video-url" class="form-control clzk-form-control" placeholder="Url de la vidéo">
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-3">
+                    <a class="add-video-button btn btn-block"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="profile-videos-form-container"></div>
+</script>
+

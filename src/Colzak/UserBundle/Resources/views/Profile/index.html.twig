@@ -62,26 +62,26 @@
 
                 <div class="col-md-6 col-xs-12">
                     <div id="clzk-profile-description-region"></div>
-                    <div id="clzk-profile-events-region"></div>
+                    <div id="clzk-profile-videos-region"></div>
                 </div>
 
                 <div class="col-md-3 col-xs-12">
-                    <h4 class="mt2"><span class="glyphicon glyphicon-share"></span>&nbsp;Partager sur</h4>
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                    <p class="mt2">Partager sur&nbsp;&nbsp;
+                    <!-- <div class="row"> -->
+                        <!-- <div class="col-md-6 col-sm-6 col-xs-12"> -->
                             <a href="http://www.facebook.com/sharer.php?u=http://www.buskeet.com{{ path('colzak_user_homepage', { username: profile.username }) }}&t=Retrouvez {{ profile.firstname }} sur Buskeet" rel="nofollow" target="_blank">
                                 <img class="social-logo" src="/img/social/fb_white_29.png" width="20">
-                                &nbsp;&nbsp;<span>facebook</span>
-                            </a>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            </a>&nbsp;&nbsp;
+                        <!-- </div> -->
+                        <!-- <div class="col-md-6 col-sm-6 col-xs-12"> -->
                             <a href="https://twitter.com/intent/tweet?url=http://www.buskeet.com{{ path('colzak_user_homepage', { username: profile.username }) }}&text=Retrouvez {{ profile.firstname }} sur Buskeet&hashtags=buskeet,jamsession" rel="nofollow" target="_blank">
                                 <img class="social-logo" src="/img/social/twitter_white.png" width="25">
-                                &nbsp;&nbsp;<span>twitter</span>
-                            </a>
-                        </div>
-                    </div>
+                            </a>&nbsp;&nbsp;
+                        <!-- </div> -->
+                    <!-- </div> -->
+                    </p>
                     <div id="clzk-profile-followers-region" class="mt2"></div>
+                    <div id="clzk-profile-events-region" class="mt2"></div>
                 </div>
             </div>
         </div>
@@ -99,6 +99,9 @@
 
     {#} Profile photo {#}
     {% include 'ColzakUserBundle:Profile:templates/profile_photos.html.twig' %}
+
+    {#} Profile video {#}
+    {% include 'ColzakUserBundle:Profile:templates/profile_videos.html.twig' %}
 
     {#} Profile informations {#}
     {% include 'ColzakUserBundle:Profile:templates/profile_informations.html.twig' %}
@@ -141,7 +144,7 @@
                 <li class="list-group-item"><a href="#" class="clzk-context-links edit-button" data-form="profile"><h5>MON PROFIL</h5></a></li>
                 <li class="list-group-item edit-button" data-form="informations"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Mes informations</a></li>
                 <li class="list-group-item edit-button" data-form="photos"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-picture"></span>&nbsp;&nbsp;Mes photos</a></li>
-                <!-- <li class="list-group-item edit-button" data-form="movies"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-facetime-video"></span>&nbsp;&nbsp;Mes vidéos</a></li> -->
+                <li class="list-group-item edit-button" data-form="videos"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-facetime-video"></span>&nbsp;&nbsp;Mes vidéos</a></li>
                 <li class="list-group-item edit-button" data-form="portfolio"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-music"></span>&nbsp;&nbsp;Mon portfolio</a></li>
                 <li class="list-group-item edit-button" data-form="events"><a href="#" class="clzk-context-links"><span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;Jam session</a></li>
             <% } else { %>
@@ -222,7 +225,9 @@
         "js/app/models/Photo.js"
         "js/app/models/ProfileEvent.js"
         "js/app/models/Message.js"
+        "js/app/models/Video.js"
         "js/app/views/ContactView.js"
+        "js/app/views/ProfileVideosView.js"
         filter="uglifyjs2"
     %}
         <script src="{{ asset_url }}" type="text/javascript"></script>

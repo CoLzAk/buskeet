@@ -1,5 +1,5 @@
 <script type="text/template" id="clzk-profile-event-template">
-    <div class="event-container mb2">
+    {#<div class="event-container mb2">
         <% if (typeof userEvent.title !== 'undefined') { %>
             <div class="event-title-container">
                 <h4 id="clzk-profile-event-title"></h4>
@@ -41,7 +41,8 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>#}
+    <div class="event-container mb2"><a href="<%= Routing.generate('colzak_event', { 'eventId': userEvent.id }) %>"><span class="glyphicon glyphicon-calendar"></span>&nbsp;<%= moment(userEvent.data).format('DD/MM/YYYY') %> - <%= userEvent.title %></a></div>
 </script>
 
 <script type="text/template" id="clzk-profile-event-empty-template">

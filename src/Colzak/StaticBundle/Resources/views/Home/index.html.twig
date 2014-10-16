@@ -2,107 +2,109 @@
 
 {% block header %}{% endblock %}
 {% block body %}
-    <div class="row">
-        <div class="cover">
-            <div class="clzk-index-header-container"></div>
-            <div class="clzk-index-header">
-                <div class="container">
-                    <a class="navbar-brand clzk-index-brand" href="{{ path('colzak_static_homepage') }}">
-                        <img src="/img/buskeet_logo_160.png" class="buskeet_logo" width="160">
-                    </a>
-                    <div class="nav navbar-nav navbar-right hidden-xs">
-                        {{ render(controller('ColzakUserBundle:Security:embeddedLogin', { currentUrl: path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params'))} )) }}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="cover">
+                <div class="clzk-index-header-container"></div>
+                <div class="clzk-index-header">
+                    <div class="container">
+                        <a class="navbar-brand clzk-index-brand" href="{{ path('colzak_static_homepage') }}">
+                            <img src="/img/buskeet_logo_160.png" class="buskeet_logo" width="160">
+                        </a>
+                        <div class="nav navbar-nav navbar-right hidden-xs">
+                            {{ render(controller('ColzakUserBundle:Security:embeddedLogin', { currentUrl: path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params'))} )) }}
+                        </div>
+                        <div class="nav navbar-nav navbar-right pull-right visible-xs">
+                            <ul class="nav navbar-nav navbar-right navbar-home pull-right" id="right-menu">
+                                <li>
+                                    <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('fos_user_registration_register') }}">Inscription</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="nav navbar-nav navbar-right pull-right visible-xs">
-                        <ul class="nav navbar-nav navbar-right navbar-home pull-right" id="right-menu">
-                            <li>
-                                <a href="{{ path('fos_user_security_login') }}">Connexion</a>
-                            </li>
-                            <li>
-                                <a href="{{ path('fos_user_registration_register') }}">Inscription</a>
-                            </li>
-                        </ul>
+                </div>
+
+                <div class="container hidden-xs">
+                    <div class="clzk-home-container">
+                        <div class="clzk-index-register">
+                            <h2 class="text-center mt0 mb1 text-cyan">Rencontrez, partagez.</h2>
+                            {{ render(controller('ColzakUserBundle:Registration:embeddedRegister')) }}
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="container hidden-xs">
+        <div class="row bg-peter-river">
+            <div class="container">
                 <div class="clzk-home-container">
-                    <div class="clzk-index-register">
-                        <h2 class="text-center mt0 mb1 text-cyan">Rencontrez, partagez.</h2>
-                        {{ render(controller('ColzakUserBundle:Registration:embeddedRegister')) }}
+                    <div class="row mt3">
+                        <div class="col-md-4">
+                            <div class="scheme">
+                                <span class="glyphicon glyphicon-user"></span>&nbsp;<span class="glyphicon glyphicon-transfer"></span>&nbsp;<span class="glyphicon glyphicon-user"></span>
+                            </div>
+                            <h3 class="text-center">Rencontrez</h3>
+                            <p class="text-center">Elargissez votre cercle musical en rencontrant et suivant d'autres musiciens<!--  proches géographiquement, qui ont les mêmes goûts et centres d'intérêts que vous --></p>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="scheme">
+                                <span class="glyphicon glyphicon-map-marker"></span>
+                            </div>
+                            <h3 class="text-center">Créez</h3>
+                            <p class="text-center">Ajoutez des évènements musicaux auxquels d'autres personnes pourront participer.</p>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="scheme">
+                                <span class="glyphicon glyphicon-music"></span>
+                            </div>
+                            <h3 class="text-center">Jouez</h3>
+                            <p class="text-center">Joignez ou faites-vous rejoindre lorsque vous faites de la musique dans les rues.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row bg-peter-river">
-        <div class="container">
-            <div class="clzk-home-container">
-                <div class="row mt3">
-                    <div class="col-md-4">
-                        <div class="scheme">
-                            <span class="glyphicon glyphicon-user"></span>&nbsp;<span class="glyphicon glyphicon-transfer"></span>&nbsp;<span class="glyphicon glyphicon-user"></span>
-                        </div>
-                        <h3 class="text-center">Rencontrez</h3>
-                        <p class="text-center">Elargissez votre cercle musical en rencontrant et suivant d'autres musiciens<!--  proches géographiquement, qui ont les mêmes goûts et centres d'intérêts que vous --></p>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="scheme">
-                            <span class="glyphicon glyphicon-map-marker"></span>
-                        </div>
-                        <h3 class="text-center">Créez</h3>
-                        <p class="text-center">Ajoutez des évènements musicaux auxquels d'autres personnes pourront participer.</p>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="scheme">
-                            <span class="glyphicon glyphicon-music"></span>
-                        </div>
-                        <h3 class="text-center">Jouez</h3>
-                        <p class="text-center">Joignez ou faites-vous rejoindre lorsque vous faites de la musique dans les rues.</p>
-                    </div>
+        <div class="row">
+            <div class="container">
+                <div class="clzk-home-container">
+                    <h2 class="text-left">Les derniers musiciens inscrits sur Buskeet</h2>
+                    {{ render(controller('ColzakUserBundle:Profile:getLastRegisteredUsers')) }}
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="container">
-            <div class="clzk-home-container">
-                <h2 class="text-left">Les derniers musiciens inscrits sur Buskeet</h2>
-                {{ render(controller('ColzakUserBundle:Profile:getLastRegisteredUsers')) }}
-            </div>
+        <div class="clzk-home-container bg-midnight-blue p2">
+            <h1 class="text-center mt1">Vivez au rythme de la musique</h1>
+            <p class="text-center">
+                Avec une communauté grandissante de musiciens, Buskeet est l'endroit idéal pour faire de nouvelles rencontres musicales. Partagez votre passion quel que soit le moment, quel que soit le lieu.
+            </p>
         </div>
-    </div>
 
-    <div class="clzk-home-container bg-midnight-blue p2">
-        <h1 class="text-center mt1">Vivez au rythme de la musique</h1>
-        <p class="text-center">
-            Avec une communauté grandissante de musiciens, Buskeet est l'endroit idéal pour faire de nouvelles rencontres musicales. Partagez votre passion quel que soit le moment, quel que soit le lieu.
-        </p>
-    </div>
-
-    <div class="clzk-home-container clzk-home-social-actions-container">
-        <h3 class="text-center mt1">Retrouvez également la communauté sur</h3>
-        <div class="text-center">
-            <ul class="list-inline">
-                <li><a href="https://www.facebook.com/buskeet" target="_blank" rel="nofollow"><img class="social-logo" src="/img/social/fb_white_29.png" width="30"></a></li>
-                <li><a href="https://twitter.com/buskeetApp" target="_blank" rel="nofollow"><img class="social-logo" src="/img/social/twitter_white.png" width="34"></a></li>
-            </ul>
-        </div>
-    </div>
-
-    <footer class="clzk-footer row">
-        <nav class="navbar navbar-inverse mb0" role="navigation">
-            <div class="col-md-12 text-center">
-                <ul class="list-inline pt1">
-                    <li><a href="{{ path('colzak_static_about') }}">A propos</a></li>
-                    <li><a href="{{ path('colzak_static_cgu') }}">CGU</a></li>
-                    <li><a href="{{ path('colzak_static_privacy') }}">Confidentialité</a></li>
-                    <!-- <li><a href="#"></a></li> -->
+        <div class="clzk-home-container clzk-home-social-actions-container">
+            <h3 class="text-center mt1">Retrouvez également la communauté sur</h3>
+            <div class="text-center">
+                <ul class="list-inline">
+                    <li><a href="https://www.facebook.com/buskeet" target="_blank" rel="nofollow"><img class="social-logo" src="/img/social/fb_white_29.png" width="30"></a></li>
+                    <li><a href="https://twitter.com/buskeetApp" target="_blank" rel="nofollow"><img class="social-logo" src="/img/social/twitter_white.png" width="34"></a></li>
                 </ul>
             </div>
-        </nav>
-    </footer>
+        </div>
+
+        <footer class="clzk-footer row">
+            <nav class="navbar navbar-inverse mb0" role="navigation">
+                <div class="col-md-12 text-center">
+                    <ul class="list-inline pt1">
+                        <li><a href="{{ path('colzak_static_about') }}">A propos</a></li>
+                        <li><a href="{{ path('colzak_static_cgu') }}">CGU</a></li>
+                        <li><a href="{{ path('colzak_static_privacy') }}">Confidentialité</a></li>
+                        <!-- <li><a href="#"></a></li> -->
+                    </ul>
+                </div>
+            </nav>
+        </footer>
+    </div>
 {% endblock %}

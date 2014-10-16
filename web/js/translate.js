@@ -48,6 +48,7 @@
         theremin: 'Thérémine',
         drummachine: 'Boite à rythme',
         ADDED_PHOTO: 'à ajouté une photo',
+        ADDED_VIDEO: 'à ajouté une vidéo',
         CHANGED_PROFILE_PHOTO: 'à changé sa photo de profil',
         ADDED_EVENT: 'à ajouté un jam session',
         PARTICIPATE_EVENT: 'participe à un jam session',

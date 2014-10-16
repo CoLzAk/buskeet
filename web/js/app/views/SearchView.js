@@ -224,7 +224,7 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         },
         showProfilePreview: function(e) {
             e.preventDefault();
-            window.location.href = Routing.generate('colzak_user_homepage', { 'username': this.model.get('username') });
+            window.location.replace(Routing.generate('colzak_user_homepage', { 'username': this.model.get('username') }));
             return;
             NProgress.start();
             $('.clzk-results-number-container').addClass('hidden');

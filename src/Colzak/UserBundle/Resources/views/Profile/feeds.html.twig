@@ -157,6 +157,11 @@
                                 <img src="<%= feed.movement_detail.photo.thumb_path %>" class="img-responsive">
                             </a>
                         <% } %>
+                        <% if (context == 'VIDEO') { %>
+                            <div class="video-container mt1">
+                                <div id="embedded-object-<%= feed.movement_detail.video.id %>" class="embedded-object"></div>
+                            </div>
+                        <% } %>
                         <% if (context == 'EVENT') { %>
                             <h3><a href="<%= Routing.generate('colzak_event', { 'eventId': feed.movement_detail.event.id }) %>"><%= feed.movement_detail.event.title %></a></h3>
                             <p class="ml2"><%= feed.movement_detail.event.content %></p>

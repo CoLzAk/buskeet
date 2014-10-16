@@ -6,6 +6,7 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
         regions: {
             profileMapRegion: '#clzk-profile-map-region',
             profilePhotosRegion: '#clzk-profile-photos-region',
+            profileVideosRegion: '#clzk-profile-videos-region',
             profileInformationsRegion: '#clzk-profile-informations-region',
             profileDescriptionRegion: '#clzk-profile-description-region',
 
@@ -98,6 +99,7 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
     UserModule.displayViews = function(data) {
         UserModule.targetUserProfile = data;
         UserModule.targetUserPhotos = new Photos(data.get('photos'), { userId: UserModule.userId });
+        UserModule.targetUserVideos = new Videos(data.get('videos'), { userId: UserModule.userId });
         UserModule.targetUserProfilePortfolio = new Portfolio(data.get('portfolio'), { userId: UserModule.userId });
         UserModule.targetUserEvents = new ProfileEvents(data.get('events'), { userId: UserModule.userId });
         UserModule.targetUserProfile.store();
@@ -105,6 +107,7 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
 
         UserModule.profileLayout.profileMapRegion.show(new ProfileMapView({ model: UserModule.targetUserProfile }));
         UserModule.profileLayout.profilePhotosRegion.show(new ProfilePhotosView({ collection: UserModule.targetUserPhotos }));
+        UserModule.profileLayout.profileVideosRegion.show(new ProfileVideosView({ collection: UserModule.targetUserVideos }));
         UserModule.profileLayout.profileInformationsRegion.show(new ProfileInformationsView({ model: UserModule.targetUserProfile }));
         UserModule.profileLayout.profileDescriptionRegion.show(new ProfileDescriptionView({ model: UserModule.targetUserProfile }));
 
@@ -127,6 +130,9 @@ App.module('UserModule', function(UserModule, App, Backbone, Marionette, $, _){
         }
         if (formName == 'photos') {
             UserModule.profileEditLayout.profileEditRegion.show(new ProfilePhotosFormView({ collection: UserModule.targetUserPhotos }));
+        }
+        if (formName == 'videos') {
+            UserModule.profileEditLayout.profileEditRegion.show(new ProfileVideosFormView({ collection: UserModule.targetUserVideos }));
         }
         if (formName == 'portfolio') {
             UserModule.profileEditLayout.profileEditRegion.show(new ProfilePortfolioFormView({ model: UserModule.targetUserProfile }));

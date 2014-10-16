@@ -127,6 +127,12 @@ class Profile
     protected $photos = array();
 
     /**
+     * @MongoDB\ReferenceMany(targetDocument="Colzak\MediaBundle\Document\Video", mappedBy="profile")
+     * @SERIAL\Type("ArrayCollection<Colzak\MediaBundle\Document\Video>")
+     */
+    protected $videos = array();
+
+    /**
      * @MongoDB\ReferenceMany(targetDocument="Colzak\EventBundle\Document\Event", mappedBy="profile")
      * @SERIAL\Type("ArrayCollection<Colzak\EventBundle\Document\Event>")
      */
@@ -190,6 +196,7 @@ class Profile
     {
         $this->portfolio = new Portfolio();
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->videos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->events = new \Doctrine\Common\Collections\ArrayCollection();
         $this->followers = new \Doctrine\Common\Collections\ArrayCollection();
         $this->following = new \Doctrine\Common\Collections\ArrayCollection();
@@ -897,5 +904,35 @@ class Profile
     public function getCoverPhoto()
     {
         return $this->coverPhoto;
+    }
+
+    /**
+     * Add video
+     *
+     * @param Colzak\MediaBundle\Document\Video $video
+     */
+    public function addVideo(\Colzak\MediaBundle\Document\Video $video)
+    {
+        $this->videos[] = $video;
+    }
+
+    /**
+     * Remove video
+     *
+     * @param Colzak\MediaBundle\Document\Video $video
+     */
+    public function removeVideo(\Colzak\MediaBundle\Document\Video $video)
+    {
+        $this->videos->removeElement($video);
+    }
+
+    /**
+     * Get videos
+     *
+     * @return Doctrine\Common\Collections\Collection $videos
+     */
+    public function getVideos()
+    {
+        return $this->videos;
     }
 }
