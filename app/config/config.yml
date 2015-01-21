@@ -29,7 +29,7 @@ twig:
 assetic:
     debug:          %kernel.debug%
     use_controller: false
-    bundles:        [ ColzakUserBundle, ColzakSearchBundle, ColzakMessageBundle ]
+    bundles:        [ ColzakUserBundle, ColzakSearchBundle, ColzakMessageBundle, ColzakEventBundle ]
     filters:
         cssrewrite: ~
         uglifycss:

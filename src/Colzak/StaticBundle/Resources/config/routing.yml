@@ -15,3 +15,7 @@ colzak_static_cgu:
 colzak_static_privacy:
     pattern:  /privacy
     defaults: { _controller: ColzakStaticBundle:Home:privacy }
+
+colzak_static_contact:
+    pattern:  /contact
+    defaults: { _controller: ColzakStaticBundle:Home:contact }

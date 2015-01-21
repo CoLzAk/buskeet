@@ -5,14 +5,14 @@ colzak_user_feed:
         expose: true
 
 colzak_user_homepage:
-    pattern: /profile/{username}
-    defaults: { _controller: ColzakUserBundle:Profile:index, username: 'me' }
+    pattern: /profile/{username}/{slug1}/{slug2}
+    defaults: { _controller: ColzakUserBundle:Profile:index, username: 'me', slug1: '', slug2: '' }
     options:
         expose: true
 
 colzak_user_homepage:
-    pattern: /profile/{username}/{slug1}/{slug2}
-    defaults: { _controller: ColzakUserBundle:Profile:index, username: 'me', slug1: '', slug2: '' }
+    pattern: /profile/{username}
+    defaults: { _controller: ColzakUserBundle:Profile:index, username: 'me' }
     options:
         expose: true
 

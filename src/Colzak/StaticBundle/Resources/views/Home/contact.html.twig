@@ -1,0 +1,35 @@
+{% extends 'ColzakStaticBundle::layout.html.twig' %}
+
+{% block title %}Buskeet | Contact{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="clzk-home-container">
+        <h1 class="text-left text-cyan">Contact</h1>
+
+        <p class="text-justify">
+            Vous avez des questions, des remarques ? N'hésitez pas à nous contacter via le formulaire ci-après :
+        </p>
+
+        <form action="{{ path('colzak_static_contact') }}" method="POST" role="form" id="contact-form">
+        	<div class="form-group">
+		    	<input type="text" placeholder="Votre nom et prénom" class="form-control" name="_contact_name">
+		    </div>
+		    <div class="form-group">
+		    	<input type="text" placeholder="Votre adresse e-mail" class="form-control" name="_contact_email">
+		    </div>
+		    <div class="form-group">
+		    	<select class="form-control" name="_contact_subject" placeholder="Sujet">
+		    		<option value="">-- Sujet --</option>
+		    		<option value="bug">Bug</option>
+		    		<option value="info">Information</option>
+		    		<option value="encouragement">Encouragement (parce que ça fait plaisir)</option>
+		    	</select>
+		    </div>
+		    <div class="form-group">
+		    	<textarea class="form-control" name="_contact_message" placeholder="Votre message" rows="8"></textarea>
+		    </div>
+	        <p class="text-center"><button type="submit" id="_submit" name="_submit" class="btn btn-primary btn-lg">Envoyer le message</button></p>
+	    </form>
+    </div>
+</div>
+{% endblock %}

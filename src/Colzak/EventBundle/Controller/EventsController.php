@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Colzak\UserBundle\Document\Movement;
 use Colzak\UserBundle\Document\MovementDetail;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class EventsController extends BaseController {
 
@@ -24,6 +25,13 @@ class EventsController extends BaseController {
         $user = $this->get('security.context')->getToken()->getUser();
         $event = $dm->getRepository('ColzakEventBundle:Event')->find($eventId);
         $isParticipating = FALSE;
+        $completeAddress = $event->getLocality();
+
+        (null === $event->getStreetNumber() ?: $completeAddress = $event->getStreetNumber().' ');
+        (null === $event->getRoute() ?: $completeAddress .= $event->getRoute().', ');
+        (null === $event->getSublocality() ?: $completeAddress .= $event->getSublocality().' ');
+        (null === $event->getLocality() ?: $completeAddress .= $event->getLocality().', ');
+        (null === $event->getCountry() ?: $completeAddress .= $event->getCountry().' ');
 
         foreach ($event->getParticipants() as $participant) {
             if ($participant->getId() === $user->getProfile()->getId()) {
@@ -33,7 +41,8 @@ class EventsController extends BaseController {
 
         return $this->render('ColzakEventBundle:Event:view.html.twig', array(
             'event' => $event,
-            'isParticipating' => $isParticipating
+            'isParticipating' => $isParticipating,
+            'completeAddress' => $completeAddress
         ));
     }
 
@@ -43,6 +52,13 @@ class EventsController extends BaseController {
         $participants = $event->getParticipants();
         $user = $this->get('security.context')->getToken()->getUser();
         $isParticipating = FALSE;
+        $completeAddress = $event->getLocality();
+
+        (null === $event->getStreetNumber() ?: $completeAddress = $event->getStreetNumber().' ');
+        (null === $event->getRoute() ?: $completeAddress .= $event->getRoute().', ');
+        (null === $event->getSublocality() ?: $completeAddress .= $event->getSublocality().' ');
+        (null === $event->getLocality() ?: $completeAddress .= $event->getLocality().', ');
+        (null === $event->getCountry() ?: $completeAddress .= $event->getCountry().' ');
 
         //Hack: wtf ? dunno...
         $user->getProfile()->setDistance(0);
@@ -65,10 +81,13 @@ class EventsController extends BaseController {
         $dm->persist($event);
         $dm->flush();
 
-        return $this->render('ColzakEventBundle:Event:view.html.twig', array(
-            'event' => $event,
-            'isParticipating' => $isParticipating
-        ));
+         return new RedirectResponse($this->container->get('router')->generate('colzak_event', array('eventId' => $event->getId())));
+
+        // return $this->render('ColzakEventBundle:Event:view.html.twig', array(
+        //     'event' => $event,
+        //     'isParticipating' => $isParticipating,
+        //     'completeAddress' => $completeAddress
+        // ));
     }
 
 	/**

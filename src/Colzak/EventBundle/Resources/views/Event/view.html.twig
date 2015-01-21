@@ -1,7 +1,119 @@
 {% extends 'ColzakUserBundle::layout.html.twig' %}
 
 {% block title %}Buskeet | {{ event.title }}{% endblock %}
-{% block menu_region %}
+
+{% block extra_stylesheets %}
+    {% stylesheets
+        "css/profile.css"
+        filter="uglifycss"
+        filter="cssrewrite"
+    %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+    <div class="clzk-profile-cover-container">
+        <div class="container">
+            <h1 class="text-center mt4 mb0">{{ event.title }}</h1>
+            <p class="mt0 text-center"><small><span class="glyphicon glyphicon-map-marker"></span> {{ completeAddress }}</small></p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-xs-12">
+                <div class="clzk-profile-photo-map-container bg-dark">
+                    <div class="clzk-profile-map-container">
+                        <div id="event-preview-map"></div>
+                    </div>
+                    <div class="clzk-profile-photos-container">
+                        <div id="clzk-profile-photos-region">
+                            <a href="{{ path('colzak_user_homepage', { username: event.profile.username }) }}">
+                                {% if event.profile.profilePhoto is not null %}
+                                    <img src="{{ event.profile.profilePhoto.thumbPath }}" alt="..." class="img-responsive">
+                                {% else %}
+                                    {% if event.profile.gender == 'MALE' %}
+                                        <img src="/img/male.png" alt="..." class="img-responsive">
+                                    {% else %}
+                                        <img src="/img/female.png" alt="..." class="img-responsive">
+                                    {% endif %}
+                                {% endif %}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="clzk-profile-informations-container">
+                        <p class="text-center mt6">Le {{ event.date|date('d M Y') }}</p>
+                        <p class="text-center">à {{ event.time }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xs-12">
+                <h3 class="text-cyan mt2 mb1">
+                    Proposé par 
+                    {% if is_granted('ROLE_USER') and app.user.profile.id == event.profile.id  %}
+                        vous
+                    {% else %}
+                        <a href="{{ path('colzak_user_homepage', { username: event.profile.username }) }}">{{ event.profile.firstname }}</a>
+                    {% endif %}
+                </h3>
+                <div id="clzk-profile-description-region">
+                    <h3 class="text-cyan mt2 mb1">Détail</h3>
+                    <p>{{ event.content }}</p>
+                </div>
+                <div id="clzk-profile-videos-region">
+                    <h3 class="text-cyan mt2 mb1">Participants</h3>
+                        <div class="event-participants-container">
+                            {% if event.participants|length > 0 %}
+                                <div class="row">
+                                    {% for participant in event.participants %}
+                                        <div class="col-md-2">
+                                            <a href="{{ path('colzak_user_homepage', { username: participant.username }) }}">
+                                                {% if participant.profilePhoto is not null %}
+                                                    <img src="{{ participant.profilePhoto.thumbPath }}" alt="..." class="img-responsive">
+                                                {% else %}
+                                                    {% if event.profile.gender == 'MALE' %}
+                                                        <img src="/img/male.png" alt="..." class="img-responsive">
+                                                    {% else %}
+                                                        <img src="/img/female.png" alt="..." class="img-responsive">
+                                                    {% endif %}
+                                            {% endif %}
+                                            </a>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <p><i>Aucun participant pour le moment. Soyez le premier !</i></p>
+                            {% endif %}
+                        </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-xs-12">
+                <div class="btn-group mt2">
+                    {% if is_granted('ROLE_USER') and app.user.profile.id != event.profile.id %}
+                        {% if isParticipating %}
+                            <a href="{{ path('colzak_event_participate', { eventId: event.id }) }}" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Je ne souhaite plus participer</a>
+                        {% else %}
+                            <a href="{{ path('colzak_event_participate', { eventId: event.id }) }}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span> Je souhaite participer</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <p class="mt2">Partager sur&nbsp;&nbsp;
+                    <a href="http://www.facebook.com/sharer.php?u=http://www.buskeet.com{{ path('colzak_event', { eventId: event.id }) }}&t={{ event.title }}" rel="nofollow" target="_blank">
+                        <img class="social-logo" src="/img/social/fb_white_29.png" width="20">
+                    </a>&nbsp;&nbsp;
+                    <a href="https://twitter.com/intent/tweet?url=http://www.buskeet.com{{ path('colzak_event', { eventId: event.id }) }}&text={{ event.title }}&hashtags=buskeet,jamsession" rel="nofollow" target="_blank">
+                        <img class="social-logo" src="/img/social/twitter_white.png" width="25">
+                    </a>&nbsp;&nbsp;
+                </p>
+                <div id="clzk-profile-followers-region" class="mt2"></div>
+                <div id="clzk-profile-events-region" class="mt2"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{#% block menu_region %}
  <div class="calendar-container">
     <div class="calendar-month-container">
         <p class="text-center pt1 pb1">{{ event.date|date('M') }}</p>
@@ -85,16 +197,16 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock %#}
 
 {% block extra_javascripts %}
 <script type="text/javascript">
     $(document).ready(function() {
-        var mapWidth = $('.preview-map-container').width();
+        var mapWidth = $('.clzk-profile-map-container').width();
         var mapUrl = '';
         var zoom = 16;
 
-        mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center={{ event.eventCoordinates.y }},{{ event.eventCoordinates.x }}&zoom='+ zoom +'&size='+ mapWidth +'x180&maptype=roadmap&sensor=false&markers=color:red|{{ event.eventCoordinates.y }},{{ event.eventCoordinates.x }}';
+        mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?center={{ event.eventCoordinates.y }},{{ event.eventCoordinates.x }}&zoom='+ zoom +'&size='+ mapWidth +'x150&maptype=roadmap&sensor=false&markers=color:red|{{ event.eventCoordinates.y }},{{ event.eventCoordinates.x }}';
         $('#event-preview-map').html('<img src="'+ mapUrl +'">');
     });
 </script>

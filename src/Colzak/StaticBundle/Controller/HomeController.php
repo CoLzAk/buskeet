@@ -4,6 +4,8 @@ namespace Colzak\StaticBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Colzak\NotificationBundle\Document\Notification;
 
 class HomeController extends Controller
 {
@@ -25,6 +27,29 @@ class HomeController extends Controller
 
     public function privacyAction() {
     	return $this->render('ColzakStaticBundle:Home:privacy.html.twig');
+    }
+
+    public function contactAction(Request $request) {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+
+        if ($request->isMethod('POST')) {
+            $notification = new Notification();
+            $notification->setStatus(Notification::STATUS_PENDING);
+            $notification->setFrom($this->getRequest()->get('_contact_email'));
+            $notification->setFromName($this->getRequest()->get('_contact_name'));
+            $notification->setTo('contact@buskeet.com');
+            $notification->setSubject($this->getRequest()->get('_contact_subject'));
+            $notification->setContent($this->getRequest()->get('_contact_message'));
+            $dm->persist($notification);
+            $dm->flush();
+
+             $request->getSession()->getFlashBag()->add(
+                'success',
+                'Message envoyé ! Merci !'
+            );
+        }
+
+        return $this->render('ColzakStaticBundle:Home:contact.html.twig');
     }
 
     public function testAction() {

@@ -318,6 +318,8 @@ App.module("SearchModule", function(SearchModule, App, Backbone, Marionette, $, 
         },
         showEventPreview: function(e) {
             e.preventDefault();
+            window.location.replace(Routing.generate('colzak_event', { 'eventId': this.model.get('id') }));
+            return;
             NProgress.start();
             $('.clzk-results-number-container').addClass('hidden');
             $('.share-action-button-container').addClass('hidden');

@@ -120,7 +120,7 @@
                         <li><i>Rien autour de chez vous</i></li>
                     <% } %>
                     <% for (var i in events) { %>
-                        <li><a href="<%= Routing.generate('colzak_event', { 'eventId': events[i].id }) %>"><span class="glyphicon glyphicon-calendar"></span>&nbsp;<%= moment(events[i].data).format('DD/MM/YYYY') %> - <%= events[i].title %></a></li>
+                        <li><a href="<%= Routing.generate('colzak_event', { 'eventId': events[i].id }) %>"><span class="glyphicon glyphicon-calendar"></span>&nbsp;<%= moment(events[i].date).format('DD/MM/YYYY') %> - <%= events[i].title %></a></li>
                     <% } %>
                 </ul>
             </div>
