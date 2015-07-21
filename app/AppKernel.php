@@ -30,10 +30,10 @@ class AppKernel extends Kernel
             new Colzak\MediaBundle\ColzakMediaBundle(),
             new Colzak\EventBundle\ColzakEventBundle(),
             new Colzak\MessageBundle\ColzakMessageBundle(),
-            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new Colzak\NotificationBundle\ColzakNotificationBundle(),
             new Colzak\CommandBundle\ColzakCommandBundle(),
             new Colzak\AdminBundle\ColzakAdminBundle(),
+            new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

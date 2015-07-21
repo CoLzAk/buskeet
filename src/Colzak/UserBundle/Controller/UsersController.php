@@ -7,6 +7,7 @@ namespace Colzak\UserBundle\Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\RestBundle\Controller\FOSRestController as BaseController;
 use FOS\RestBundle\View\View;
+use FOS\RestBundle\Controller\Annotations as FOSRest;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\Annotations\Route;
@@ -15,42 +16,57 @@ use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\UserBundle\Model\UserInterface;
 use Colzak\UserBundle\Document\Movement;
 use Colzak\UserBundle\Document\MovementDetail;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
+/**
+ * Class UsersController
+ * @package Colzak\UserBundle\Controller
+ *
+ * @FOSRest\Prefix("/api")
+ * @FOSRest\NamePrefix("users_")
+ */
 class UsersController extends BaseController
 {
     /**
-     * GET Route annotation.
-     * @Get("/users")
+     * @ApiDoc(
+     *     section="Users",
+     *     description="Get users"
+     * )
+     * @FOSRest\View()
+     * @FOSRest\Get("/users")
      */
-    public function getUsersAction()
+    public function cgetUsersAction()
     {
         $em    = $this->get('doctrine_mongodb')->getManager();
-        $data = $em->getRepository('ColzakUserBundle:User')->findAll();
+        $users = $em->getRepository('ColzakUserBundle:User')->findAll();
 
-        return $this->handleView($this->view($data, 200));
-    } // "get_users"    [GET] /users
-
+        return $users;
+    }
 
     /**
-     * GET Route annotation.
-     * @Get("/users/{identifier}")
+     * @ApiDoc(
+     *     section="Users",
+     *     description="Get user"
+     * )
+     * @FOSRest\View()
+     * @FOSRest\Get("/users/{id}")
      */
-    public function getUserAction($identifier)
+    public function getUserAction($id)
     {
         // the target user
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $user = $dm->getRepository('ColzakUserBundle:User')->find($identifier);
+        $user = $dm->getRepository('ColzakUserBundle:User')->find($id);
 
-        $view = View::create();
-        $view->setData($user, 200);
-        $view->setFormat('json');
-        return $view;
-
-    } // "get_user"      [GET] /users/{identifier}
+        return $user;
+    }
 
     /**
-     * GET Route annotation.
-     * @Put("/users/{id}")
+     * @ApiDoc(
+     *     section="Users",
+     *     description="Edit user"
+     * )
+     * @FOSRest\View()
+     * @FOSRest\Put("/users/{id}")
      */
     public function putUserAction($id)
     {
@@ -61,9 +77,8 @@ class UsersController extends BaseController
         }
 
         $dm = $this->get('doctrine_mongodb')->getManager();
-        // $user = $dm->getRepository('ColzakUserBundle:User')->find($id);
 
-        $request = $this->getRequest(); 
+        $request = $this->getRequest();
 
         if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
             $request = $this->getRequest();
@@ -72,9 +87,9 @@ class UsersController extends BaseController
         }
         $user = $dm->merge($updatedUser);
         $dm->flush();
-        $data = $updatedUser;
+        $user = $updatedUser;
 
-        return $this->handleView($this->view($data, 200));
+        return $user;
 
     } // "put_user"      [PUT] /users/{id}
 
@@ -122,7 +137,7 @@ class UsersController extends BaseController
         $dm = $this->get('doctrine_mongodb')->getManager();
         // $user = $dm->getRepository('ColzakUserBundle:User')->find($id);
 
-        $request = $this->getRequest(); 
+        $request = $this->getRequest();
 
         if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
             $request = $this->getRequest();

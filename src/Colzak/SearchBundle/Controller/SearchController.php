@@ -7,6 +7,7 @@ namespace Colzak\SearchBundle\Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\RestBundle\Controller\FOSRestController as BaseController;
 use FOS\RestBundle\View\View;
+use FOS\RestBundle\Controller\Annotations as FOSRest;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\Annotations\Post;
@@ -15,9 +16,24 @@ use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
+/**
+ * Class SearchController
+ * @package Colzak\SearchBundle\Controller
+ *
+ * @FOSRest\Prefix("/api")
+ * @FOSRest\NamePrefix("search_")
+ */
 class SearchController extends BaseController
 {
+    /**
+     * @ApiDoc(
+     *     section="Search",
+     *     description="Get search url"
+     * )
+     * @FOSRest\View()
+     */
     public function indexAction($localization, $direction, Request $request) {
         // die($direction);
         $searchParams = $this->getSearchParams($request);

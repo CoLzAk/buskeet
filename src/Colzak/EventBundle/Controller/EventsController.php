@@ -125,7 +125,7 @@ class EventsController extends BaseController {
         $dm = $this->container->get('doctrine_mongodb')->getManager();
         $event = $dm->getRepository('ColzakEventBundle:Event')->find($id);
 
-        $request = $this->getRequest(); 
+        $request = $this->getRequest();
         if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
             $serializer = $this->get('jms_serializer');
             var_dump($request->getContent());
@@ -203,7 +203,7 @@ class EventsController extends BaseController {
         $dm = $this->container->get('doctrine_mongodb')->getManager();
         $user = $dm->getRepository('ColzakUserBundle:User')->find($userId);
 
-        $request = $this->getRequest(); 
+        $request = $this->getRequest();
         if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
             $serializer = $this->get('jms_serializer');
             $event = $serializer->deserialize($request->getContent(), 'Colzak\EventBundle\Document\Event', 'json');
@@ -240,7 +240,7 @@ class EventsController extends BaseController {
         $dm = $this->container->get('doctrine_mongodb')->getManager();
         $user = $dm->getRepository('ColzakUserBundle:User')->find($userId);
 
-        $request = $this->getRequest(); 
+        $request = $this->getRequest();
         if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
             $serializer = $this->get('jms_serializer');
             $updatedEvent = $serializer->deserialize($request->getContent(), 'Colzak\EventBundle\Document\Event', 'json');

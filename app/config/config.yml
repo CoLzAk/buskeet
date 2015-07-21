@@ -54,7 +54,7 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     # port:      %mailer_port%
-    spool:     
+    spool:
         type: file
         path: "%kernel.cache_dir%/swiftmailer/spool"
 
@@ -76,8 +76,8 @@ fos_user:
         form:
             type: colzak_user_registration
             validation_groups:  [Registration]
-        # confirmation: 
-        #     from_email: 
+        # confirmation:
+        #     from_email:
         #         address: no.reply@buskeet.com
         #         sender_name: Buskeet Inscription
         #     enabled: true
@@ -90,35 +90,30 @@ fos_user:
             template: ColzakUserBundle:ChangePassword:email_resetting_password.html.twig
 
 fos_rest:
+    param_fetcher_listener: true
+    body_listener: true
+    format_listener: true
+    exception:
+        enabled: true
+        exception_controller: "FOS\RestBundle\Controller\ExceptionController::showAction"
     routing_loader:
         default_format: json
+        include_format: false
     view:
-        default_engine: twig
-        force_redirects:
-            html: true
+        # default_engine: twig
+        # force_redirects:
+        #     html: true
         formats:
             json: true
-            xml: true
+            xml: false
         templating_formats:
             html: true
-        view_response_listener: 'force'
-        failed_validation: HTTP_BAD_REQUEST
-    exception:
-        codes: ~
-        messages: ~
-    body_listener:
-        decoders:
-            json: fos_rest.decoder.json
-            xml: fos_rest.decoder.xml
-    format_listener:
-        default_priorities: [json, html, '*/*']
-        fallback_format: html
-        prefer_extension: true
-    service:
-        router: router
-        templating: templating
-        serializer: jms_serializer
-        view_handler: fos_rest.view_handler.default
+        view_response_listener: force
+    # service:
+    #     router: router
+    #     templating: templating
+    #     view_handler: fos_rest.view_handler.default
+    #     serializer: jms_serializer
 
 sensio_framework_extra:
     view:
@@ -135,25 +130,14 @@ knp_paginator:
         pagination: KnpPaginatorBundle:Pagination:sliding.html.twig     # sliding pagination controls template
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
 
-hwi_oauth:
-    #this is my custom user provider, created from FOSUBUserProvider - will manage the 
-    #automatic user registration on your site, with data from the provider (facebook. google, etc.)
-    #and also, the connecting part (get the token and the user_id)
-    connect:
-        account_connector: my_user_provider
-    # name of the firewall in which this bundle is active, this setting MUST be set
-    firewall_name: main
-    fosub:
-        username_iterations: 30
-        properties:
-            # these properties will be used/redefined later in the custom FOSUBUserProvider service.
-            facebook: facebook_id
-    resource_owners:
-        facebook:
-            type:                facebook
-            client_id:           "%facebook_app_id%"
-            client_secret:       "%facebook_app_secret%"
-            scope:               "email"
-            options:
-                display: popup #dialog is optimized for popup window
-    # here you will add one (or more) configurations for resource owners
+nelmio_api_doc:
+    sandbox:
+        body_format:
+            formats: [ form, json ]
+            default_format: json
+        request_format:
+            formats:
+                json: application/json
+                xml: application/xml
+            method: format_param
+            default_format: json

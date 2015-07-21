@@ -1,3 +1,7 @@
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc
+
 colzak_admin:
     resource: "@ColzakAdminBundle/Resources/config/routing.yml"
     prefix:   /admin
@@ -40,11 +44,8 @@ colzak_search:
     prefix:   /
 
 colzak_search_api:
-    resource: "@ColzakSearchBundle/Resources/config/routing_api.yml"
-    prefix:   /api
+    resource: "Colzak\SearchBundle\Controller\SearchController"
     type: rest
-    options:
-        expose: true
 
 # colzak_portfolio:
 #     resource: "@ColzakPortfolioBundle/Resources/config/routing.yml"
@@ -77,11 +78,8 @@ colzak_user:
     prefix:   /
 
 colzak_user_api:
-    resource: "@ColzakUserBundle/Resources/config/routing_api.yml"
-    prefix:   /api
-    type:     rest
-    options:
-        expose: true
+    resource: "Colzak\UserBundle\Controller\UsersController"
+    type: rest
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
@@ -122,4 +120,3 @@ fos_js_routing:
 
 facebook_login:
     pattern: /login/check-facebook
-

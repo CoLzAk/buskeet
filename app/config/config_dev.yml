@@ -28,9 +28,9 @@ assetic:
     use_controller: true
     filters:
         uglifycss:
-            bin: /usr/bin/uglifycss
+            bin: /usr/lib/node_modules/uglifycss
         uglifyjs2:
-            bin: /usr/bin/uglifyjs
+            bin: /usr/lib/node_modules/uglify-js
 
 parameters:
     router.request_context.base_url: "/app_dev.php"
