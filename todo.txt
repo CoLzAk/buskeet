@@ -1,4 +1,8 @@
 TODO:
+A remplir
+	https://ba220.files.wordpress.com/2011/11/lean-canvas2.jpg
+
+
 
 Messagerie:
 	Supprimer message
@@ -22,12 +26,12 @@ Profil:
 	bouton share
 	ajout évènement public (concert etc.) (feature)
 	Les evenements auxquels je participe (feature)
-	
+
 Evenement
 	Auto hide (lorsque la date est dépassée) (feature)
 	ajouter nb participants max (si > nbParticipants on affiche plus) (feature)
 	ajouter private / public (pour affichage) (feature)
-	bouton participer (uniquement si ami si private et tout le monde si public et < nbMaxParticipants (feature)) 
+	bouton participer (uniquement si ami si private et tout le monde si public et < nbMaxParticipants (feature))
 	Commentaires (feature)
 	Feedback (photos + vidéos) de l'évènement (feature)
 
@@ -62,11 +66,3 @@ Bugs:
 	pb affichage date de naissance a l'inscription ?
 
 Un event devrait être présenté comme une page profil et ouverte aux non-loggés
-
-
-
-
-
-
-
-

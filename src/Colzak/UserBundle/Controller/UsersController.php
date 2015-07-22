@@ -17,12 +17,14 @@ use FOS\UserBundle\Model\UserInterface;
 use Colzak\UserBundle\Document\Movement;
 use Colzak\UserBundle\Document\MovementDetail;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Colzak\UserBundle\Form\Type\RegistrationFormType;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class UsersController
  * @package Colzak\UserBundle\Controller
  *
- * @FOSRest\Prefix("/api")
+ * @FOSRest\Prefix("/")
  * @FOSRest\NamePrefix("users_")
  */
 class UsersController extends BaseController
@@ -30,7 +32,7 @@ class UsersController extends BaseController
     /**
      * @ApiDoc(
      *     section="Users",
-     *     description="Get users"
+     *     description="Get users list"
      * )
      * @FOSRest\View()
      * @FOSRest\Get("/users")
@@ -91,8 +93,22 @@ class UsersController extends BaseController
 
         return $user;
 
-    } // "put_user"      [PUT] /users/{id}
+    }
 
+    /**
+     * @ApiDoc(
+     *     section="Users",
+     *     description="Post user"
+     * )
+     * @FOSRest\View()
+     * @FOSRest\Post("/users")
+     */
+    public function postUserAction(Request $request) {
+        die('bonjour');
+        var_dump($request);
+        die();
+        return [];
+    }
 
     // PROFILE
 

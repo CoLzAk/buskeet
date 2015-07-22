@@ -1,6 +1,10 @@
+colzak_core:
+    resource: "@ColzakCoreBundle/Resources/config/routing.yml"
+    prefix:   /
+
 NelmioApiDocBundle:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
-    prefix:   /api/doc
+    prefix:   /doc
 
 colzak_admin:
     resource: "@ColzakAdminBundle/Resources/config/routing.yml"

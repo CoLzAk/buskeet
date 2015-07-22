@@ -34,6 +34,8 @@ class AppKernel extends Kernel
             new Colzak\CommandBundle\ColzakCommandBundle(),
             new Colzak\AdminBundle\ColzakAdminBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
+            new Nelmio\CorsBundle\NelmioCorsBundle(),
+            new Colzak\CoreBundle\ColzakCoreBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
