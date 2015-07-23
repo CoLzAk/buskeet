@@ -36,6 +36,7 @@ class AppKernel extends Kernel
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
             new Colzak\CoreBundle\ColzakCoreBundle(),
+            new Symfony\Bundle\DebugBundle\DebugBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

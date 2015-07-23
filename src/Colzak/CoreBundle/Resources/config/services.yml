@@ -2,6 +2,9 @@ parameters:
 #    colzak_core.example.class: Colzak\CoreBundle\Example
 
 services:
-#    colzak_core.example:
-#        class: %colzak_core.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+
+    colzak_core.manager:
+        abstract: true
+        class: Colzak\CoreBundle\Manager\Manager
+        calls:
+            - [setDocumentManager, ["@doctrine_mongodb.odm.document_manager"]]

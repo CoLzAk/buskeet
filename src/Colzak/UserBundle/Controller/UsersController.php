@@ -8,17 +8,16 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\RestBundle\Controller\FOSRestController as BaseController;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\Controller\Annotations as FOSRest;
-use FOS\RestBundle\Controller\Annotations\Get;
-use FOS\RestBundle\Controller\Annotations\Put;
-use FOS\RestBundle\Controller\Annotations\Route;
-use FOS\RestBundle\Controller\Annotations\Post;
-use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\UserBundle\Model\UserInterface;
 use Colzak\UserBundle\Document\Movement;
 use Colzak\UserBundle\Document\MovementDetail;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Colzak\UserBundle\Form\Type\RegistrationFormType;
+use Colzak\UserBundle\Form\Type\UserType;
 use Symfony\Component\HttpFoundation\Request;
+use Colzak\UserBundle\Document\User;
+use Colzak\UserBundle\Document\Profile;
+use FOS\UserBundle\Event\FormEvent;
+use Colzak\UserBundle\ColzakUserEvents;
 
 /**
  * Class UsersController
@@ -39,7 +38,7 @@ class UsersController extends BaseController
      */
     public function cgetUsersAction()
     {
-        $em    = $this->get('doctrine_mongodb')->getManager();
+        $em = $this->get('doctrine_mongodb')->getManager();
         $users = $em->getRepository('ColzakUserBundle:User')->findAll();
 
         return $users;
@@ -104,17 +103,27 @@ class UsersController extends BaseController
      * @FOSRest\Post("/users")
      */
     public function postUserAction(Request $request) {
-        die('bonjour');
-        var_dump($request);
-        die();
-        return [];
+        $user = $this->get('fos_user.user_manager')->createUser();
+        $form = $this->createForm(new UserType(), $user);
+        $form->handleRequest($request);
+        //$form->submit($request);
+        if ($form->isValid()) {
+            $dispatcher = $this->container->get('event_dispatcher');
+            $event = new FormEvent($form, $request);
+            $dispatcher->dispatch(ColzakUserEvents::REGISTRATION_SUCCESS, $event);
+            $this->get('fos_user.user_manager')->updateUser($user);
+        } else {
+            return $form->getErrors();
+        }
+
+        return $user;
     }
 
     // PROFILE
 
     /**
      * GET Route annotation.
-     * @Get("/users/profiles")
+     * @FOSRest\Get("/users/profiles")
      */
     public function getProfilesAction()
     {
@@ -126,7 +135,7 @@ class UsersController extends BaseController
 
     /**
      * GET Route annotation.
-     * @Get("/users/{userId}/profile")
+     * @FOSRest\Get("/users/{userId}/profile")
      */
     public function getUserProfileAction($userId) {
         $dm = $this->get('doctrine_mongodb')->getManager();
@@ -140,7 +149,7 @@ class UsersController extends BaseController
 
     /**
      * GET Route annotation.
-     * @Put("/users/{userId}/profile/{id}")
+     * @FOSRest\Put("/users/{userId}/profile/{id}")
      */
     public function putUserProfileAction($id)
     {
@@ -171,7 +180,7 @@ class UsersController extends BaseController
 
     /**
      * GET Route annotation.
-     * @Post("follow/users/{profileId}")
+     * @FOSRest\Post("follow/users/{profileId}")
      */
     public function followUserAction($profileId) {
         $dm = $this->get('doctrine_mongodb')->getManager();
@@ -203,7 +212,7 @@ class UsersController extends BaseController
 
     /**
      * GET Route annotation.
-     * @Delete("/unfollow/users/{profileId}")
+     * @FOSRest\Delete("/unfollow/users/{profileId}")
      */
     public function unfollowUserAction($profileId) {
         $dm = $this->get('doctrine_mongodb')->getManager();
@@ -226,7 +235,7 @@ class UsersController extends BaseController
 
     /**
      * GET Route annotation.
-     * @Get("/feeds")
+     * @FOSRest\Get("/feeds")
      */
     public function getFeedsAction() {
         $dm = $this->get('doctrine_mongodb')->getManager();
@@ -250,7 +259,7 @@ class UsersController extends BaseController
 
     /**
      * GET Route annotation.
-     * @Get("/feeds/profiles")
+     * @FOSRest\Get("/feeds/profiles")
      */
     public function getFeedsProfilesAction() {
         $dm = $this->get('doctrine_mongodb')->getManager();
@@ -273,7 +282,7 @@ class UsersController extends BaseController
 
     /**
      * GET Route annotation.
-     * @Get("/feeds/events")
+     * @FOSRest\Get("/feeds/events")
      */
     public function getFeedsEventsAction() {
         $dm = $this->get('doctrine_mongodb')->getManager();

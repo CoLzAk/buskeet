@@ -1,7 +1,15 @@
 # parameters:
 #    colzak_notification.push.class: Colzak\NotificationBundle\Notifcation
 
-# services:
-#    colzak_notification.push:
-#        class: %colzak_notification.push.class%
-#        arguments: []
+services:
+
+    colzak_notification.notification_manager:
+        class: Colzak\NotificationBundle\Manager\NotificationManager
+        parent: colzak_core.manager
+        calls:
+            - [setRepository, ["@=service('doctrine_mongodb.odm.document_manager').getRepository('ColzakNotificationBundle:Notification')"]]
+        # argument: ["@doctrine_mongodb.odm.document_manager"]
+
+    colzak_notification.notification_service:
+        class: Colzak\NotificationBundle\Service\NotificationService
+        arguments: ["@colzak_notification.notification_manager"]

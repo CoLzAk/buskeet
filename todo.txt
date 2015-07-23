@@ -2,7 +2,40 @@ TODO:
 A remplir
 	https://ba220.files.wordpress.com/2011/11/lean-canvas2.jpg
 
+Lean Canvas
+	PROBLEM:
+		1: How to meet musicians (non pro) like you and connect with them
+		2: What kind of music event is there around you
+		3: Where can you perform and gain visibility
 
+	CUSTOMER SEGMENTS
+		Targets:
+			musicians
+  			bars
+
+	UNIQUE VALUE PROPOSITION
+		Find all music (musicians + events) related activities around you
+
+	SOLUTION
+		1: Geolocated search of all music related activities
+		2: Social networking
+		3: Create events
+
+	CHANNELS
+		?
+
+	REVENUE STREAMS
+		Advertisement
+		Trafic
+		Partnership
+
+	COST STRUCTURE
+		Free for customers
+
+	KEY METRICS
+		?
+	UNFAIR ADVANTAGE
+		?
 
 Messagerie:
 	Supprimer message
