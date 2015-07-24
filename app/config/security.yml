@@ -22,13 +22,14 @@ security:
 
         main:
             pattern: ^/
+            security: false
 
-            form_login:
-                provider: fos_userbundle
-                csrf_provider: form.csrf_provider
-                use_referer: true
-                login_path: /login
-                check_path: /login_check
+            # form_login:
+            #     provider: fos_userbundle
+            #     csrf_provider: form.csrf_provider
+            #     use_referer: true
+            #     login_path: /login
+            #     check_path: /login_check
                 # default_target_path: colzak_user_homepage
 
             logout:       true
@@ -41,13 +42,25 @@ security:
 
         login:
             pattern:  ^/login$
-            security: false
+            # security: false
+            stateless: true
+            anonymous: true
+            form_login:
+                check_path:               api_login_standard
+                success_handler:          lexik_jwt_authentication.handler.authentication_success
+                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
 
             remember_me:
                 key: "%secret%"
                 lifetime: 31536000 # 365 days in seconds
                 path: /
                 domain: ~ # Defaults to the current domain from $_SERVER
+
+        api:
+            pattern: ^/
+            stateless: true
+            lexik_jwt: ~
 
     access_control:
         # - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }

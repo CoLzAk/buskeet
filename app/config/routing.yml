@@ -109,18 +109,8 @@ fos_user_change_password:
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
-#HWIOAuthBundle routes
-# hwi_oauth_security:
-#     resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
-#     prefix: /login
-
-# hwi_oauth_connect:
-#     resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
-#     prefix: /login
-
-# hwi_oauth_redirect:
-#     resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
-#     prefix:   /login
-
 facebook_login:
     pattern: /login/check-facebook
+
+api_login_standard:
+    path: /login_check

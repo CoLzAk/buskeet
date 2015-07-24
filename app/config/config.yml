@@ -100,20 +100,12 @@ fos_rest:
         default_format: json
         include_format: false
     view:
-        # default_engine: twig
-        # force_redirects:
-        #     html: true
         formats:
             json: true
             xml: false
         templating_formats:
             html: true
         view_response_listener: force
-    # service:
-    #     router: router
-    #     templating: templating
-    #     view_handler: fos_rest.view_handler.default
-    #     serializer: jms_serializer
 
 sensio_framework_extra:
     view:
@@ -158,31 +150,9 @@ nelmio_cors:
             allow_headers: ['origin', 'content-type']
             allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS']
             max_age: 3600
-        # '^/':
-        #     origin_regex: true
-        #     allow_origin: ['^http://localhost:[0-9]+']
-        #     allow_headers: ['*']
-        #     allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS']
-        #     max_age: 3600
-        #     hosts: ['^api\.']
 
-# nelmio_cors:
-#    defaults:
-#        allow_credentials: false
-#        allow_origin: []
-#        allow_headers: []
-#        allow_methods: []
-#        expose_headers: []
-#        max_age: 0
-#        hosts: []
-#    paths:
-#        '^/api/':
-#            allow_origin: ['*']
-#            allow_headers: ['X-Custom-Auth','content-type','authorization']
-#            allow_methods: ['POST', 'PUT', 'GET', 'DELETE','OPTIONS']
-#            max_age: 3600
-#        '^/':
-#            allow_origin: ['*']
-#            allow_headers: ['X-Custom-Auth','content-type','authorization']
-#            allow_methods: ['POST', 'PUT', 'GET', 'DELETE','OPTIONS']
-#            max_age: 3600
+lexik_jwt_authentication:
+    private_key_path: %jwt_private_key_path%
+    public_key_path:  %jwt_public_key_path%
+    pass_phrase:      %jwt_key_pass_phrase%
+    token_ttl:        %jwt_token_ttl%

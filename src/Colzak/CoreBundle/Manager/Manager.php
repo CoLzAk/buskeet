@@ -26,7 +26,6 @@ abstract class Manager
      */
     public function setDocumentManager(DocumentManager $documentManager)
     {
-        dump('mon manager est enfin la !!!');
         $this->documentManager = $documentManager;
     }
 
